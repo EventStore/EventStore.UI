@@ -1,10 +1,10 @@
 {
   "name": "EventStore UI",
   "version": "0.1",
-  "main": "singlenode-web/index.html",
+  "main": "src/index.html",
   "ignore": [
-    "singlenode-web/**/.*",
-    "singlenode-web",
+    "src/**/.*",
+    "src",
     "test",
     "tests"
   ],

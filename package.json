@@ -1,6 +1,6 @@
 {
   "name": "EventStore-UI",
-  "description": "EventStore UI... TODO",
+  "description": "The new user interface for Event Store",
   "homepage": "http://geteventstore.com",
   "version": "0.1.0",
   "contributors": [
@@ -10,7 +10,7 @@
       "web": "https://github.com/gutek"
     }
   ],
-  "mainteners": [
+  "maintainers": [
     {
       "name": "EventStore",
       "web": "https://github.com/EventStore?tab=members"
@@ -18,15 +18,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/eventstore/eventstore.git"
+    "url": "https://github.com/EventStore/EventStore.UI.git"
   },
   "bugs": {
-    "url": "https://github.com/eventstore/eventstore/issues"
+    "url": "https://github.com/EventStore/EventStore.UI/issues"
   },
   "licence": [
     {
       "type": "?",
-      "url": "https://github.com/EventStore/EventStore/blob/master/LICENSE"
+      "url": "https://github.com/EventStore/EventStore.UI/blob/master/LICENSE"
     }
   ],
   "engines": {

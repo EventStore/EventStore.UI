@@ -15,12 +15,12 @@ var bower = require('gulp-bower');
 
 var paths = {
     app: {
-        templatesSource: './singlenode-web/views/*.tpl.html',
-        templatesDestination: './singlenode-web/js/templates',
-        source: './singlenode-web/js/**/*.js'
+        templatesSource: './src/views/*.tpl.html',
+        templatesDestination: './src/js/templates',
+        source: './src/js/**/*.js'
     },
     all: [
-        './singlenode-web/js/**/*.js',
+        './src/js/**/*.js',
         './test/**/*.js'
     ],
     tests: './test/**/*.js'
@@ -110,7 +110,7 @@ gulp.task('watch-lint', function () {
  * Opens browser with application loaded
  **/
 gulp.task('connect', connect.server({
-    root: ['singlenode-web'],
+    root: ['src'],
     port: 8888,
     livereload: true,
     open: {
