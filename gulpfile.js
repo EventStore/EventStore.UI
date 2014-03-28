@@ -1,13 +1,13 @@
 'use strict';
 
 var gulp = require('gulp');
-var gutil = require('gulp-util');
+//var gutil = require('gulp-util');
 var connect = require('gulp-connect');
-var rjs = require('gulp-requirejs');
+//var rjs = require('gulp-requirejs');
 var concat = require('gulp-concat');
 var htmlmin = require('gulp-htmlmin');
 var ngHtml2Js = require('gulp-ng-html2js');
-var wrap = require("gulp-wrap");
+var wrap = require('gulp-wrap');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var cache = require('gulp-cached');
@@ -24,7 +24,7 @@ var paths = {
         './test/**/*.js'
     ],
     tests: './test/**/*.js'
-}
+};
 
 gulp.task('bower', function() {
     bower();
@@ -38,14 +38,14 @@ gulp.task('html', function () {
 	gulp.src(paths.app.templatesSource)
         .pipe(cache('html'))
         .pipe(htmlmin({
-        	collapseBooleanAttributes: true,
-    		collapseWhitespace: true,
-    		removeAttributeQuotes: true,
-    		removeComments: true,
-    		removeEmptyAttributes: true,
-    		removeRedundantAttributes: true,
-    		removeScriptTypeAttributes: true,
-    		removeStyleLinkTypeAttributes: true
+            collapseBooleanAttributes: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true,
+            removeComments: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true
         }))
         .pipe(ngHtml2Js({
             moduleName: 'es-ui.templates',

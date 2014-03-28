@@ -8,19 +8,19 @@ for (var file in window.__karma__.files) {
 }
 require.config({
 	paths: {
-		angular: '/base/singlenode-web/bower_components/angular/angular',
-		ngCookies: '/base/singlenode-web/bower_components/angular-cookies/angular-cookies',
-		angularRoute: '/base/singlenode-web/bower_components/angular-route/angular-route',
-		angularMocks: '/base/singlenode-web/bower_components/angular-mocks/angular-mocks',
-		domReady: '/base/singlenode-web/bower_components/requirejs-domready/domReady',
-		uiRouter: '/base/singlenode-web/bower_components/angular-ui-router/release/angular-ui-router',
-		uiUtils: '/base/singlenode-web/bower_components/angular-ui-utils/ui-utils',
-		jQuery: '/base/singlenode-web/bower_components/jQuery/dist/jquery',
-		sprintf: '/base/singlenode-web/bower_components/sprintf/src/sprintf',
-		app: '/base/singlenode-web/js/app'
+		angular: '/base/src/bower_components/angular/angular',
+		ngCookies: '/base/src/bower_components/angular-cookies/angular-cookies',
+		angularRoute: '/base/src/bower_components/angular-route/angular-route',
+		angularMocks: '/base/src/bower_components/angular-mocks/angular-mocks',
+		domReady: '/base/src/bower_components/requirejs-domready/domReady',
+		uiRouter: '/base/src/bower_components/angular-ui-router/release/angular-ui-router',
+		uiUtils: '/base/src/bower_components/angular-ui-utils/ui-utils',
+		jQuery: '/base/src/bower_components/jQuery/dist/jquery',
+		sprintf: '/base/src/bower_components/sprintf/src/sprintf',
+		app: '/base/src/js/app'
 
 	},
-	baseUrl: '/base/singlenode-web/js',
+	baseUrl: '/base/src/js',
 	shim: {
 		angular : {
 			exports : 'angular'
