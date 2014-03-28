@@ -1,7 +1,6 @@
 define([
 	'./Uri',
     './Base64',
-    './EsRest',
     './Poller',
     './UrlBuilder',
     './SprintfService',

@@ -1,3 +1,4 @@
+/*jshint sub: true*/
 define(['./_module'], function (app) {
 
 	'use strict';

@@ -1,3 +1,4 @@
+/*jshint bitwise: false*/
 define(['./_module'], function (app) {
 
     'use strict';

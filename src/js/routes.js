@@ -1,4 +1,5 @@
 /* global define */
+/*jshint sub: true */
 
 define(['./app'], function (app) {
 	'use strict';
@@ -27,7 +28,7 @@ define(['./app'], function (app) {
                 // Helper to check if all states are finished
                 var checkStates = function (states, results, deferred, failed) {
                     var allFinished = true;
-                    angular.forEach(states, function (state, key) {
+                    angular.forEach(states, function (state) {
                         if (!state) {
                             allFinished = false;
                             return;
@@ -40,7 +41,7 @@ define(['./app'], function (app) {
                             deferred.resolve(results);
                         }
                     }
-                }
+                };
 
                 // Loop through the promises
                 // a second loop to be sure that checkStates is called when all states are set to false first
