@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('UsersItemDisableCtrl', [
-		'$scope', '$state', '$stateParams', 'UserService',
-		function ($scope, $state, $stateParams, userService) {
+		'$scope', '$state', '$stateParams', 'UserService', 'MessageService',
+		function ($scope, $state, $stateParams, userService, msg) {
 			
 			$scope.disable = true;
 			$scope.confirm = function ($event) {
@@ -13,11 +13,11 @@ define(['./_module'], function (app) {
 
 				userService.disable($scope.user.loginName)
 				.success(function () {
-					alert('user disabled');
+					msg.info('user disabled');
 					$scope.$state.go('^.details');
 				})
 				.error(function () {
-					alert('user not disabled');
+					msg.error('user not disabled');
 				});
 			};
 
@@ -26,12 +26,12 @@ define(['./_module'], function (app) {
 				$scope.user = data.data;
 				$scope.disable = false;
 				if($scope.user.disabled) {
-					alert('user already disabled');
+					msg.warn('user already disabled');
 					$state.go('^.details');
 				}
 			})
 			.error(function () {
-				alert('user does not exists or you do not have perms');
+				msg.error('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

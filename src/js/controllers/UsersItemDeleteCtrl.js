@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('UsersItemDeleteCtrl', [
-		'$scope', '$state', '$stateParams', 'UserService',
-		function ($scope, $state, $stateParams, userService) {
+		'$scope', '$state', '$stateParams', 'UserService', 'MessageService',
+		function ($scope, $state, $stateParams, userService, msg) {
 			
 			$scope.disable = true;
 			$scope.confirm = function ($event) {
@@ -12,10 +12,10 @@ define(['./_module'], function (app) {
 				$event.stopPropagation();
 
 				userService.remove($scope.user.loginName).then(function () {
-					alert('user deleted');
+					msg.info('user deleted');
 					$state.go('users.list');
 				}, function () {
-					alert('user not deleted');
+					msg.error('user not deleted');
 				});
 			};
 
@@ -25,7 +25,7 @@ define(['./_module'], function (app) {
 				$scope.disable = false;
 			})
 			.error(function () {
-				alert('user does not exists or you do not have perms');
+				msg.error('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

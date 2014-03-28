@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('StreamsItemEventsCtrl', [
-		'$scope', '$stateParams', '$q', 'StreamsService', 'uri',
-		function ($scope, $stateParams, $q, streamsService, uriProvider) {
+		'$scope', '$stateParams', '$q', 'StreamsService', 'uri', 'MessageService',
+		function ($scope, $stateParams, $q, streamsService, uriProvider, msg) {
 
 			function map (data) {
 				var i = 0, 
@@ -54,7 +54,7 @@ define(['./_module'], function (app) {
 			streamsService.streamEvents($stateParams)
 				.success(map)
 				.error(function () {
-					alert('stream does not exists');
+					msg.error('stream does not exists');
 				});
 
 			$scope.toggleJson = function ($event, evt) {

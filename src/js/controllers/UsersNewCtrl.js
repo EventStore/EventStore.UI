@@ -3,23 +3,23 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('UsersNewCtrl', [
-		'$scope', '$state', 'UserService',
-		function ($scope, $state, userService) {
+		'$scope', '$state', 'UserService', 'MessageService',
+		function ($scope, $state, userService, msg) {
 
 			$scope.newUser = {};
 			$scope.confirm = function () {
 				if ($scope.newUsr.$invalid) {
-					alert('Please fix all validation errors');
+					msg.warn('Please fix all validation errors');
 					return;
 				}
 
 				userService.create($scope.newUser)
 				.success(function () {
-					alert('user created');
+					msg.info('user created');
 					$state.go('^.list');
 				})
 				.error(function () {
-					alert('user not created');
+					msg.error('user not created');
 				});
 			};
 		}

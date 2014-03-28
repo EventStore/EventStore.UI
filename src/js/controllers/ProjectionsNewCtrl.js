@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('ProjectionsNewCtrl', [
-		'$scope', '$state', 'ProjectionsService',
-		function ($scope, $state, projectionsService) {
+		'$scope', '$state', 'ProjectionsService', 'MessageService',
+		function ($scope, $state, projectionsService, msg) {
 
 			function yesOrNo(val) {
 				return val ? 'yes' : 'no';
@@ -25,7 +25,7 @@ define(['./_module'], function (app) {
 			$scope.save = function () {
 
 				if($scope.newProj.$invalid) {
-					alert('please fix all validation errors');
+					msg.warn('please fix all validation errors');
 					return;
 				}
 
@@ -44,7 +44,7 @@ define(['./_module'], function (app) {
 						});
 					})
 					.error(function () {
-						alert('Coudn\'t create new projection');
+						msg.error('Coudn\'t create new projection');
 					});
 			};
 

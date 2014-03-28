@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('ProjectionsStandardCtrl', [
-		'$scope', '$state', 'ProjectionsService',
-		function ($scope, $state, projectionsService) {
+		'$scope', '$state', 'ProjectionsService', 'MessageService',
+		function ($scope, $state, projectionsService, msg) {
 
 			$scope.types = [{
 				value: 'native:EventStore.Projections.Core.Standard.IndexStreams',
@@ -27,7 +27,7 @@ define(['./_module'], function (app) {
 			$scope.save = function () {
 
 				if($scope.newProj.$invalid) {
-					alert('please fix all validation errors');
+					msg.info('please fix all validation errors');
 					return;
 				}
 
@@ -39,7 +39,7 @@ define(['./_module'], function (app) {
 						});
 					})
 					.error(function () {
-						alert('Coudn\'t create new standard projection');
+						msg.error('Coudn\'t create new standard projection');
 					});
 			};
 		}

@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('DashboardListCtrl', [
-		'$scope', 'DashboardService', 'DashboardMapper', 'poller', 
-		function ($scope, dashboardService, dashboardMapper, pollerProvider) {
+		'$scope', 'DashboardService', 'DashboardMapper', 'poller', 'MessageService', 
+		function ($scope, dashboardService, dashboardMapper, pollerProvider, msg) {
 
 			var statsPoll = pollerProvider.create({
 				intevral: 1000,
@@ -19,7 +19,7 @@ define(['./_module'], function (app) {
 				$scope.queues = dashboardMapper.map(data, $scope.queues);
 			});
 			statsPoll.promise.catch(function () {
-				alert('An error occured.');
+				msg.error('An error occured.');
 				$scope.queues = null;
 				statsPoll.stop(); // if error we do not want to continue...
 			});

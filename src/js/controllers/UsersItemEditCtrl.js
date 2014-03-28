@@ -4,12 +4,12 @@ define(['./_module'], function (app) {
     'use strict';
 
 	return app.controller('UsersItemEditCtrl', [
-		'$scope', '$state', '$stateParams', 'UserService',
-		function ($scope, $state, $stateParams, userService) {
+		'$scope', '$state', '$stateParams', 'UserService', 'MessageService',
+		function ($scope, $state, $stateParams, userService, msg) {
 			
 			$scope.confirm = function () {
 				if ($scope.editUsr.$invalid) {
-					alert('Please fix all validation errors');
+					msg.warn('Please fix all validation errors');
 					return;
 				}
 
@@ -17,11 +17,11 @@ define(['./_module'], function (app) {
 					$scope.fullName, 
 					$scope.isAdmin)
 				.success(function () {
-					alert('user updated');
+					msg.info('user updated');
 					$state.go('^.details');
 				})
 				.error(function () {
-					alert('user not updated');
+					msg.error('user not updated');
 				});
 			};
 
@@ -32,7 +32,7 @@ define(['./_module'], function (app) {
 				$scope.fullName = $scope.user.fullName;
 			})
 			.error(function () {
-				alert('user does not exists or you do not have perms');
+				msg.error('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

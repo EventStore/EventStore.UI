@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('StreamsItemAclCtrl', [
-		'$scope', '$state', '$stateParams', 'StreamsService',
-		function ($scope, $state, $stateParams, streamsService) {
+		'$scope', '$state', '$stateParams', 'StreamsService', 'MessageService',
+		function ($scope, $state, $stateParams, streamsService, msg) {
 			
 			var metadata, err = function () {
 				alert('could not update alc');
@@ -28,7 +28,7 @@ define(['./_module'], function (app) {
 				}
 			})
 			.error(function () {
-				alert('could not load metadata for stream: ' + $scope.streamId);
+				msg.error('could not load metadata for stream: ' + $scope.streamId);
 
 				$state.go('^.events');
 			});
@@ -45,7 +45,7 @@ define(['./_module'], function (app) {
 				//console.dir(post);
 				streamsService.updateAcl($scope.streamId, post)
 					.then(function () {
-						alert('acl updated');
+						msg.info('acl updated');
 						$state.go('^.events');
 					}, err);
 			};

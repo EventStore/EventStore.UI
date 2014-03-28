@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('AdminCtrl', [
-		'$scope', 'AdminService',
-		function ($scope, adminService) {
+		'$scope', 'AdminService', 'MessageService',
+		function ($scope, adminService, msg) {
 
 			var stop = function ($event) {
 					$event.preventDefault();
@@ -15,9 +15,9 @@ define(['./_module'], function (app) {
 				stop($event);
 
 				adminService.halt().then(function () {
-					alert('server halted');
+					msg.info('server halted');
 				}, function () {
-					alert('halt failed');
+					msg.error('halt failed');
 				});
 			};
 
@@ -25,9 +25,9 @@ define(['./_module'], function (app) {
 				stop($event);
 
 				adminService.shutdown().then(function () {
-					alert('server shutdown');
+					msg.info('server shutdown');
 				}, function () {
-					alert('halt failed');
+					msg.error('halt failed');
 				});
 			};
 
@@ -35,9 +35,9 @@ define(['./_module'], function (app) {
 				stop($event);
 
 				adminService.scavenge().then(function () {
-					alert('ok');
+					msg.info('ok');
 				}, function () {
-					alert('scavenge failed');
+					msg.error('scavenge failed');
 				});
 			};
 		}
