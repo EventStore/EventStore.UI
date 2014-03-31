@@ -4,7 +4,19 @@
 define(['./app'], function (app) {
 	'use strict';
 
-	return app.config([
+    return app.config(['$httpProvider', function ($httpProvider) {
+    
+        // configuring httpProvider:
+
+        //      all request will be json type
+        $httpProvider.defaults.headers.common['Accept'] = 'application/json';
+        //      all get request will use long polling
+        //      get as object, as potst, put and common are only created in angularjs
+        $httpProvider.defaults.headers.get = {
+            'ES-LongPoll': 5000
+        };
+
+    }]).config([
     '$stateProvider', '$urlRouterProvider', '$httpProvider', '$provide',
     function ($stateProvider, $urlRouterProvider, $httpProvider, $provide) {
 
@@ -67,10 +79,6 @@ define(['./app'], function (app) {
         return $q;
     }]);
 
-        // enabling CORS        
-        // configuring httpProvider:
-        //      all request will be json type
-        $httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
         $urlRouterProvider
             .otherwise('/');

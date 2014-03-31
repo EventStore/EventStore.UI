@@ -617,6 +617,39 @@
 	},
 	"file_history":
 	[
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/AuthService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/routes.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDetailsCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemEditCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsNewCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/_index.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsStandardCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/Base64.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/release/angular-ui-router.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/app.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.standard.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/test/e2e/scenario.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/src/state.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDeleteCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDebugCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/package.json",
+		"/D/_Projects/EventStore/EventStore.UI/bower.json",
+		"/D/_Projects/EventStore/EventStore.UI/README.md",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/AdminCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/DashboardListCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemAclCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventsCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDeleteCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDisableCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemEditCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemEnableCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemResetCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersNewCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/MessageService.js",
+		"/D/_Projects/EventStore/EventStore.UI/test/main.js",
 		"/D/_Projects/EventStore/EventStore.UI/config/karma.conf.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/main-test.js",
 		"/D/_Projects/EventStore/EventStore.UI/gulpfile.js",
@@ -711,40 +744,7 @@
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemDetailsCtrl.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemEnableCtrl.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemResetCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersListCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemEditCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/AdminCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/es-toggable-row.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/directives/EsQueueRowHeader.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/directives/EsQueueRow.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/dashboard.row.header.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/scss/main.scss",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/scss/_module-sitemain.scss",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/directives/EsToggableRow.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/StreamsListCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemDeleteCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemDisableCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/projections.list.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/DashboardSnapshotCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/test/unit/services/sprintfServiceSpec.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/AuthService.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/_module.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/SprintfService.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/test/main-test.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/main.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/QueryCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/ProjectionsItemDetailsCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/test/unit/services/authServiceSpec.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/Base64.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/bootstrap.js",
-		"/D/Tools/Sublime/Data/Packages/JSHint Gutter/.jshintrc",
-		"/D/Tools/Sublime/Data/Packages/JSHint Gutter/JSHint.sublime-settings",
-		"/D/_Projects/EPA/OEA/Web/Apps/Wfd/Wfd.Web/Web.config",
-		"/C/Windows/System32/drivers/etc/hosts",
-		"/C/Users/Jakub/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook/DALZ93SA/ErrorLog.log",
-		"/D/flush.bat",
-		"/F/New Text Document.txt",
-		"/F/hosts"
+		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersListCtrl.js"
 	],
 	"find":
 	{
@@ -755,6 +755,8 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"D:\\_Projects\\EventStore\\EventStore.UI",
+			"D:\\_Projects\\EventStore\\EventStore.UI\\src\\js",
 			"D:\\_Projects\\EventStore\\EventStore\\src\\EventStore\\EventStore.SingleNode.Web\\singlenode-web\\js\\services",
 			"D:\\_Projects\\EventStore\\EventStore\\src\\EventStore\\EventStore.SingleNode.Web",
 			""
@@ -765,6 +767,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"EsRest",
+			"alert",
+			"alert('",
 			"singlenode-web",
 			"K:\\\\Development\\\\FxCopRuleSets\\\\Compass.Rules.ruleset",
 			"K:\\\\Development\\\\FxCopRuleSets\\\\CustomDictionary.xml",
@@ -889,10 +894,7 @@
 			"New Property cannot be created. Property of",
 			"Castle.Windsor",
 			"System.Web.Mvc",
-			"Castle.*.dll",
-			"Castle.Windsor.dll",
-			"<Reference Include=\"Neuca.Utils.Caching, Version=12100.5.38.267, Culture=neutral, processorArchitecture=MSIL\">",
-			"<Import Project=\"$(SolutionDir)\\.nuget\\nuget.targets\" />"
+			"Castle.*.dll"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1024,6 +1026,42 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"auth",
+				"src\\js\\services\\AuthService.js"
+			],
+			[
+				"stand",
+				"src\\js\\controllers\\ProjectionsStandardCtrl.js"
+			],
+			[
+				"standar",
+				"src\\views\\projections.standard.tpl.html"
+			],
+			[
+				"projn",
+				"src\\js\\controllers\\ProjectionsNewCtrl.js"
+			],
+			[
+				"projitemse",
+				"src\\js\\controllers\\ProjectionsItemEditCtrl.js"
+			],
+			[
+				"projectionsitemsd",
+				"src\\js\\controllers\\ProjectionsItemDetailsCtrl.js"
+			],
+			[
+				"base",
+				"src\\js\\services\\Base64.js"
+			],
+			[
+				"rout",
+				"src\\js\\routes.js"
+			],
+			[
+				"messagse",
+				"src\\js\\services\\MessageService.js"
+			],
 			[
 				"usersse",
 				"singlenode-web\\js\\services\\UserService.js"
