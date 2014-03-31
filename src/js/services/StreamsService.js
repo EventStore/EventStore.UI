@@ -50,7 +50,7 @@ define(['./_module'], function (app) {
 						return deferred.promise;
 					},
 					validateFullUrl: function (check) {
-						var url = urlBuilder.build(urls.streams.base, check);
+						var url = urlBuilder.simpleBuild(urls.streams.base, check);
 
 						return $http.get(url);
 					},

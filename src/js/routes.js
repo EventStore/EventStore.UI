@@ -13,7 +13,7 @@ define(['./app'], function (app) {
         //      all get request will use long polling
         //      get as object, as potst, put and common are only created in angularjs
         $httpProvider.defaults.headers.get = {
-            'ES-LongPoll': 5000
+            'ES-LongPoll': 5 // in sec
         };
 
     }]).config([
