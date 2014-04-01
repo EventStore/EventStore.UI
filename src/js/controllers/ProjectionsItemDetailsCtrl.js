@@ -16,11 +16,11 @@ define(['./_module'], function (app) {
 				mode: 'javascript',
 				useWrapMode: false,
 				showGutter: true,
-				theme: 'monokai',
-				onLoad: function (_editor) {
-					_editor.setReadOnly(true);
-					console.log(_editor);
-				}
+				theme: 'monokai'
+				// onLoad: function (_editor) {
+				// 	_editor.setReadOnly(true);
+				// 	console.log(_editor);
+				// }
 			};
 
 			function setButtons () {

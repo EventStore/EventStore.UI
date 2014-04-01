@@ -38,7 +38,7 @@ gulp.task('html', function () {
 	gulp.src(paths.app.templatesSource)
         .pipe(cache('html'))
         .pipe(htmlmin({
-            collapseBooleanAttributes: true,
+            //collapseBooleanAttributes: true,
             collapseWhitespace: true,
             removeAttributeQuotes: true,
             removeComments: true,
