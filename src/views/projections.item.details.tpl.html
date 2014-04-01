@@ -48,11 +48,10 @@
 <div class="container">
 	<div class="container-left">
 		<h3 class="block-title">Source</h3>
-		<form>
-			<textarea class="code-full" ng-model="query">
-				
-			</textarea>
-		</form>
+		
+		<div ui-ace="aceConfig" ng-model="query">			
+		</div>
+		
 	</div>
 	<div class="container-right">
 		<h3 class="block-title">Stats</h3>

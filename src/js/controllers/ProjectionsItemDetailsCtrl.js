@@ -12,6 +12,17 @@ define(['./_module'], function (app) {
 
 			$scope.location = $stateParams.location;
 
+			$scope.aceConfig = {
+				mode: 'javascript',
+				useWrapMode: false,
+				showGutter: true,
+				theme: 'monokai',
+				onLoad: function (_editor) {
+					_editor.setReadOnly(true);
+					console.log(_editor);
+				}
+			};
+
 			function setButtons () {
 				var s = $scope.stats.status;
 

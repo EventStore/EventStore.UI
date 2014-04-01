@@ -11,6 +11,13 @@ define(['./_module'], function (app) {
 				return val ? 'yes' : 'no';
 			}
 
+			$scope.aceConfig = {
+				mode: 'javascript',
+				useWrapMode: false,
+				showGutter: true,
+				theme: 'monokai'
+			};
+
 			$scope.modes = [{
 				value: 'onetime',
 				name: 'One-Time'

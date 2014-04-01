@@ -23,6 +23,13 @@ define(['./_module'], function (app) {
 				value: 'native:EventStore.Projections.Core.Standard.StubHandler',
 				name: 'Reading Speed Test Handler'
 			}];
+
+			$scope.aceConfig = {
+				mode: 'javascript',
+				useWrapMode: false,
+				showGutter: true,
+				theme: 'monokai'
+			};
 			
 			$scope.type = 'native:EventStore.Projections.Core.Standard.IndexStreams';
 			$scope.save = function () {

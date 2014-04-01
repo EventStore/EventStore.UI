@@ -9,6 +9,13 @@ define(['./_module'], function (app) {
 
 			$scope.location = $stateParams.location;
 
+			$scope.aceConfig = {
+				mode: 'javascript',
+				useWrapMode: false,
+				showGutter: true,
+				theme: 'monokai'
+			};
+
 			function setButtons () {
 				var s = $scope.stats.status;
 

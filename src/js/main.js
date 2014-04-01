@@ -8,7 +8,9 @@ require.config({
 		'uiRouter': '../bower_components/angular-ui-router/release/angular-ui-router',
 		'uiUtils': '../bower_components/angular-ui-utils/ui-utils',
 		'jQuery': '../bower_components/jQuery/dist/jquery',
-		'sprintf': '../bower_components/sprintf/src/sprintf'
+		'sprintf': '../bower_components/sprintf/src/sprintf',
+		'uiAce': '../bower_components/angular-ui-ace/ui-ace',
+		'ace': '../bower_components/ace-builds/src-min-noconflict/ace'
 	},
 	shim: {
 		'angular': {
@@ -20,6 +22,9 @@ require.config({
 		},
 		'uiRouter': {
 			deps: ['angular']
+		},
+		'uiAce': {
+			deps: ['angular', 'ace']
 		},
 		'uiUtils': {
 			deps: ['angular']
