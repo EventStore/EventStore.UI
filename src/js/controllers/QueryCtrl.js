@@ -6,6 +6,12 @@ define(['./_module'], function (app) {
 		'$scope', 
 		function ($scope) {
 
+			$scope.aceConfig = {
+				mode: 'javascript',
+				useWrapMode: false,
+				showGutter: true,
+				theme: 'monokai'
+			};
 		}
 	]);
 });

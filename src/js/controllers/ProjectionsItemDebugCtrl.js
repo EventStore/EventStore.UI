@@ -7,6 +7,14 @@ define(['./_module'], function (app) {
 		function ($scope, $stateParams) {
 
 			$scope.location = $stateParams.location;
+
+
+			$scope.aceConfig = {
+				mode: 'javascript',
+				useWrapMode: false,
+				showGutter: true,
+				theme: 'monokai'
+			};
 		}
 	]);
 });

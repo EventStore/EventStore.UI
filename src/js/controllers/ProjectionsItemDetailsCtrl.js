@@ -24,6 +24,7 @@ define(['./_module'], function (app) {
 			};
 
 			function setButtons () {
+				// todo: refactor, don't like indexOf and not sure if i do test proper things
 				var s = $scope.stats.status;
 
 				$scope.isRunning = !(s.indexOf('Loaded') === 0 ||
@@ -32,10 +33,6 @@ define(['./_module'], function (app) {
                         s.indexOf('Faulted') === 0);
 
 				$scope.isStopped = !!~s.indexOf('Stopped');
-
-				// $scope.isStopped = !(s.indexOf('Running') === 0 || 
-				// 	s.indexOf('Faulted') === 0 || 
-				// 	(s.indexOf('Stopped') === 0 && s.indexOf('Enabled') > 0));
 			}
 
 			monitor.start($scope.location)
