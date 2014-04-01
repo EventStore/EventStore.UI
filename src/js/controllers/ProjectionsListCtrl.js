@@ -64,7 +64,7 @@ define(['./_module'], function (app) {
 				
 			});
 			$scope.$on('$destroy', function () {
-				all.stop();
+				pollerProvider.clear();
 			});
 		}
 	]);
