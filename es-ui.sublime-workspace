@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"de",
+				"deferredGlobal"
+			],
+			[
+				"pol",
+				"polling"
+			],
+			[
+				"sho",
+				"showJson"
+			],
+			[
+				"res",
+				"resolve"
+			],
+			[
+				"resu",
+				"result"
+			],
+			[
+				"re",
+				"resultLinks"
+			],
+			[
+				"pre",
+				"previousIndex"
+			],
+			[
+				"prev",
+				"previousIndex"
+			],
+			[
+				"htt",
+				"httpProvider"
+			],
+			[
 				"pro",
 				"projectionsService"
 			],
@@ -22,10 +58,6 @@
 			[
 				"proje",
 				"projectionsService"
-			],
-			[
-				"re",
-				"result"
 			],
 			[
 				"poll",
@@ -90,10 +122,6 @@
 			[
 				"stre",
 				"streamsService"
-			],
-			[
-				"res",
-				"result"
 			],
 			[
 				"val",
@@ -328,10 +356,6 @@
 				"selectedTab"
 			],
 			[
-				"de",
-				"deferred"
-			],
-			[
 				"map",
 				"mapQueryService"
 			],
@@ -367,13 +391,81 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/js/controllers/StreamsItemEventCtrl.js",
+			"settings":
+			{
+				"buffer_size": 979,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/controllers/StreamsItemEventsCtrl.js",
+			"settings":
+			{
+				"buffer_size": 3039,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/controllers/DashboardListCtrl.js",
+			"settings":
+			{
+				"buffer_size": 820,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/services/AtomEventsReader.js",
+			"settings":
+			{
+				"buffer_size": 2708,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/views/streams.item.events.tpl.html",
+			"settings":
+			{
+				"buffer_size": 1410,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/views/dashboard.list.tpl.html",
+			"settings":
+			{
+				"buffer_size": 1223,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/services/_index.js",
+			"settings":
+			{
+				"buffer_size": 385,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/services/Poller.js",
+			"settings":
+			{
+				"buffer_size": 1468,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 242.0,
+		"height": 58.0,
 		"selected_items":
 		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
 			[
 				"togg",
 				"View: Toggle Side Bar"
@@ -617,19 +709,45 @@
 	},
 	"file_history":
 	[
+		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.snapshot.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.row.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/DashboardMapper.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/DashboardSnapshotCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/DashboardService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/StreamsService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsStandardCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.events.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.list.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/jQuery/src/data.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsNewCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.event.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/SprintfService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/MessageService.js",
+		"/D/_Projects/EventStore/EventStore.UI/test/unit/services/authServiceSpec.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/AdminService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/UserService.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/AuthService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/jQuery/src/serialize.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/fonts/sourcecodepro-extralight-webfont.svg",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/consts.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/routes.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventsCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/UrlBuilder.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/src/urlRouter.js",
+		"/D/_Projects/EventStore/EventStore.UI/es-ui.sublime-project",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/test/e2e/scenario.js",
+		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/data.json",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDetailsCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemEditCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsNewCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/_index.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsStandardCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/Base64.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/release/angular-ui-router.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/app.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.standard.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/test/e2e/scenario.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/src/state.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDeleteCtrl.js",
@@ -641,20 +759,17 @@
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/AdminCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/DashboardListCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemAclCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventsCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDeleteCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDisableCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemEditCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemEnableCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemResetCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersNewCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/services/MessageService.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/main.js",
 		"/D/_Projects/EventStore/EventStore.UI/config/karma.conf.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/main-test.js",
 		"/D/_Projects/EventStore/EventStore.UI/gulpfile.js",
 		"/D/_Projects/EventStore/EventStore.UI/.gitignore",
-		"/D/_Projects/EventStore/EventStore.UI/es-ui.sublime-project",
 		"/D/_Projects/EPA/CRM Extensions/Services/LemaSpatialServices/Proximity/Main/Compass.Lema.Proximity.IRepository/Compass.Lema.Proximity.IRepository.csproj",
 		"/D/Users/Jakub/Downloads/es/gulpfile.js",
 		"/D/dupa/Readme.txt",
@@ -721,30 +836,7 @@
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/UserService.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/StreamsService.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.acl.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersNewCtrl.js",
-		"/D/Tools/Downloads/EventStore-master/EventStore-master/src/EventStore/EventStore.Web/es-common-web/js/atom/RichEntryElement.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.events.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.event.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/stream.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/test.xml",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/bower_components/angular-ui-router/src/urlRouter.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_old_singlenode-web/singlenode-web/streams.htm",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/dist/bower_components/jQuery/src/ajax/xhr.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/dist/bower_components/jQuery/src/var/indexOf.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/dist/bower_components/jQuery/src/ajax/var/nonce.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/AdminService.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/run.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/readme.md",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_old_singlenode-web/singlenode-web/charts.htm",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.list.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/bower_components/angular-ui-router/src/state.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/bower_components/angular-ui-router/src/stateFilters.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemDetailsCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemEnableCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersItemResetCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/UsersListCtrl.js"
+		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.tpl.html"
 	],
 	"find":
 	{
@@ -767,6 +859,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"entires",
+			"EventType",
 			"EsRest",
 			"alert",
 			"alert('",
@@ -892,9 +986,7 @@
 			"Common",
 			"DWPR0000078",
 			"New Property cannot be created. Property of",
-			"Castle.Windsor",
-			"System.Web.Mvc",
-			"Castle.*.dll"
+			"Castle.Windsor"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -975,8 +1067,242 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/js/controllers/StreamsItemEventCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 979,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/js/controllers/StreamsItemEventsCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3039,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2745,
+								2748
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1653.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/js/controllers/DashboardListCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								807,
+								742
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/js/services/AtomEventsReader.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2708,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2270,
+								2270
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1520.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/views/streams.item.events.tpl.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								221,
+								221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/views/dashboard.list.tpl.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1125,
+								1125
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 456.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/js/services/_index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 385,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								385,
+								385
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/js/services/Poller.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1468,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 684.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1027,6 +1353,46 @@
 		"selected_items":
 		[
 			[
+				"das",
+				"src\\js\\controllers\\DashboardListCtrl.js"
+			],
+			[
+				"streams.items",
+				"src\\views\\streams.item.events.tpl.html"
+			],
+			[
+				"da",
+				"src\\views\\dashboard.list.tpl.html"
+			],
+			[
+				"poll",
+				"src\\js\\services\\Poller.js"
+			],
+			[
+				"streams.item.events",
+				"src\\views\\streams.item.events.tpl.html"
+			],
+			[
+				"service",
+				"src\\js\\services\\StreamsService.js"
+			],
+			[
+				"streams.item.eve",
+				"src\\views\\streams.item.events.tpl.html"
+			],
+			[
+				"con",
+				"src\\js\\consts.js"
+			],
+			[
+				"streamse",
+				"src\\js\\services\\StreamsService.js"
+			],
+			[
+				"cons",
+				"src\\js\\consts.js"
+			],
+			[
 				"auth",
 				"src\\js\\services\\AuthService.js"
 			],
@@ -1067,10 +1433,6 @@
 				"singlenode-web\\js\\services\\UserService.js"
 			],
 			[
-				"con",
-				"singlenode-web\\js\\consts.js"
-			],
-			[
 				"projec",
 				"singlenode-web\\js\\services\\ProjectionsService.js"
 			],
@@ -1097,10 +1459,6 @@
 			[
 				"projections",
 				"singlenode-web\\js\\services\\ProjectionsService.js"
-			],
-			[
-				"poll",
-				"singlenode-web\\js\\services\\Poller.js"
 			],
 			[
 				"dashboardli",
@@ -1147,10 +1505,6 @@
 				"singlenode-web\\js\\services\\ProjectionsService.js"
 			],
 			[
-				"cons",
-				"singlenode-web\\js\\consts.js"
-			],
-			[
 				"esres",
 				"singlenode-web\\js\\services\\EsRest.js"
 			],
@@ -1177,10 +1531,6 @@
 			[
 				"streamsitem",
 				"singlenode-web\\js\\controllers\\StreamsItemEventCtrl.js"
-			],
-			[
-				"streams.item.eve",
-				"singlenode-web\\views\\streams.item.events.tpl.html"
 			],
 			[
 				"route",

@@ -13,5 +13,6 @@ define([
     './ProjectionsService',
     './ProjectionsMapper',
     './MessageService',
-    './ProjectionsMonitor'
+    './ProjectionsMonitor',
+    './AtomEventsReader'
 ], function () {});
