@@ -25,7 +25,7 @@ define(['./_module'], function (app) {
 			});
 			
 			$scope.$on('$destroy', function () {
-				statsPoll.stop();
+				pollerProvider.clear();
 			});
 		}
 	]);
