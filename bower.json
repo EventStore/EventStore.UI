@@ -18,6 +18,7 @@
     "underscore": "latest",
     "sizzle": "latest",
     "angular-scenario": "latest",
-    "angular-ui-router": "latest"
+    "angular-ui-router": "latest",
+    "angular-ui-ace": "~0.1.0"
   }
 }

@@ -2,6 +2,7 @@ define([
 	'angular',
 	'uiRouter',
 	'uiUtils',
+	'uiAce',
 	'./controllers/_index',
 	'./directives/_index',
 	'./filters/_index',
@@ -19,6 +20,7 @@ define([
 		//'es-ui.filters',
 		'es-ui.templates',
 		'ui.router',
-		'ui.utils'
+		'ui.utils',
+		'ui.ace'
 	]);
 });
