@@ -55,10 +55,10 @@ define(['./_module'], function (app) {
 				
 				updated.success(function () {
 					var enabled = queryService.enable(location);
-					enabled.success(function () {
-						monitorState();
-					})
-					.error(function () {
+					// start monitoring ms before query will be enabled
+					monitorState();
+
+					enabled.error(function () {
 						msg.error('Could not start query');
 						monitor.stop();
 					});
