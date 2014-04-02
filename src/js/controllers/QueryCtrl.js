@@ -6,8 +6,8 @@ define(['./_module'], function (app) {
     // todo: remove State Params if we will not add query for existing queries
 
     return app.controller('QueryCtrl', [
-		'$scope', '$state', '$stateParams', 'QueryService', 'MessageService',
-		function ($scope, $state, $stateParams, queryService, msg) {
+		'$scope', '$state', '$stateParams', 'QueryService', 'ProjectionsMonitor', 'MessageService',
+		function ($scope, $state, $stateParams, queryService, monitor, msg) {
 
 			var location;
 
@@ -33,19 +33,37 @@ define(['./_module'], function (app) {
 			function run () {
 				var updated = queryService.update(location, $scope.query);
 				
-				// 3 steps:
-				// 1: update
-				// 2: execute
-				// 3: get state
 				updated.success(function () {
 
+					monitor.stop();
+					monitor.start(location, {
+						ignoreQuery: true,
+						ignoreResult: true
+					}).then(null, null, function (data) {
+						var s;
+						if(data.state) {
+							$scope.state = data.state;
+						}
+
+						if(data.statistics && data.statistics.projections.length) {
+							s = data.statistics.projections[0].status;
+							$scope.status = s;
+
+							if(s.indexOf('Loaded') === 0 ||
+		                        s.indexOf('Stopped') === 0 ||
+		                        s.indexOf('Completed') === 0 ||
+		                        s.indexOf('Faulted') === 0) {
+								// if completed, no point for checking state.
+								monitor.stop();
+							}
+						}
+					});
+
 					var enabled = queryService.enable(location);
-					enabled.success(function () {
-						var state = queryService.state(location);
-						state.success(function (data) {
-							$scope.state = data;
-						});
-					});		
+					enabled.error(function () {
+						msg.error('Could not start query');
+						monitor.stop();
+					});
 				})
 				.error(function () {
 					msg.error('Query not updated');
@@ -68,8 +86,16 @@ define(['./_module'], function (app) {
 			};
 
 			$scope.debug = function () {
-				$state.go('projections.item.debug', { location: encodeURIComponent(location) }, { inherit: false });
+				$state.go('projections.item.debug', { 
+					location: encodeURIComponent(location) 
+				}, { 
+					inherit: false 
+				});
 			};
+
+			$scope.$on('$destroy', function () {
+				monitor.stop();
+			});
 		}
 	]);
 });
