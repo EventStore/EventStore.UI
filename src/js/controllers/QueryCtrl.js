@@ -30,37 +30,35 @@ define(['./_module'], function (app) {
 				});
 			}
 
+
+			function monitorState () {
+
+				monitor.stop();
+				monitor.start(location, {
+					ignoreQuery: true,
+					ignoreResult: true
+				}).then(null, null, function (data) {
+					var s;
+
+					$scope.state = data.state;
+					if(data.statistics && data.statistics.projections.length) {
+						s = data.statistics.projections[0].status;
+						$scope.status = s;
+
+						// todo: shell we stop monitoring when status is completed/faulted?
+					}
+				});
+			}
+
 			function run () {
 				var updated = queryService.update(location, $scope.query);
 				
 				updated.success(function () {
-
-					monitor.stop();
-					monitor.start(location, {
-						ignoreQuery: true,
-						ignoreResult: true
-					}).then(null, null, function (data) {
-						var s;
-						if(data.state) {
-							$scope.state = data.state;
-						}
-
-						if(data.statistics && data.statistics.projections.length) {
-							s = data.statistics.projections[0].status;
-							$scope.status = s;
-
-							if(s.indexOf('Loaded') === 0 ||
-		                        s.indexOf('Stopped') === 0 ||
-		                        s.indexOf('Completed') === 0 ||
-		                        s.indexOf('Faulted') === 0) {
-								// if completed, no point for checking state.
-								monitor.stop();
-							}
-						}
-					});
-
 					var enabled = queryService.enable(location);
-					enabled.error(function () {
+					enabled.success(function () {
+						monitorState();
+					})
+					.error(function () {
 						msg.error('Could not start query');
 						monitor.stop();
 					});
