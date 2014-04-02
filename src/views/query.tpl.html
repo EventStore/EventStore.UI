@@ -6,7 +6,7 @@
 					<button ng-click="run()">Run</button>
 				</li>
 				<li class="page-nav__item">
-					<em>I DO NOT SEE A POINT OF BREAK HERE...</em>
+					<button ng-click="stop()" ng-disabled="disableStop()">Break</button>
 				</li>
 				<li class="page-nav__item">
 					<button ng-click="debug()" ng-disabled="!isCreated">Debug</button>

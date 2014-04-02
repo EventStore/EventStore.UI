@@ -1,4 +1,4 @@
-/*jshint sub: true*/
+/*jshint sub: true,bitwise: false*/
 define(['./_module'], function (app) {
 
     'use strict';
@@ -45,6 +45,7 @@ define(['./_module'], function (app) {
 						s = data.statistics.projections[0].status;
 						$scope.status = s;
 
+						$scope.isStopped = !!~s.indexOf('Stopped') || !!~s.indexOf('Faulted');
 						// todo: shell we stop monitoring when status is completed/faulted?
 					}
 				});
@@ -75,12 +76,34 @@ define(['./_module'], function (app) {
 				theme: 'monokai'
 			};
 
+			$scope.disableStop = function () {
+
+				if(!$scope.isCreated) {
+					return true;
+				}
+
+				if($scope.isStopped) {
+					return true;
+				}
+
+				return false;
+			};
+
 			$scope.run = function () {
 				if($scope.isCreated) {
 					run();
 				} else {
 					create();
 				}
+			};
+
+			$scope.stop = function () {
+				monitor.stop();
+
+				queryService.disable(location)
+				.error(function () {
+					msg.error('Could not break query');
+				});
 			};
 
 			$scope.debug = function () {
