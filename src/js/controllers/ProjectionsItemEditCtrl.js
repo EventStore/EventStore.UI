@@ -108,6 +108,11 @@ define(['./_module'], function (app) {
 					msg.error('projection could not be stopped');
 				});
 			};
+
+
+			$scope.$on('$destroy', function () {
+				monitor.stop();
+			});
 		}
 	]);
 });
