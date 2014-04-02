@@ -2,9 +2,15 @@
 		<header class="page-header">
 			<h2 class="page-title">Query</h2>
 			<ul class="page-nav">
-				<li class="page-nav__item"><a href="#">Run</a></li>
-				<li class="page-nav__item"><a href="#">Break</a></li>
-				<li class="page-nav__item"><a href="#">Debug</a></li>
+				<li class="page-nav__item">
+					<button ng-click="run()">Run</button>
+				</li>
+				<li class="page-nav__item">
+					<em>I DO NOT SEE A POINT OF BREAK HERE...</em>
+				</li>
+				<li class="page-nav__item">
+					<button ng-click="debug()" ng-disabled="!isCreated">Debug</button>
+				</li>
 			</ul>
 		</header>
 		<div class="container">
@@ -15,6 +21,8 @@
 			</div>
 			<div class="container-right">
 				<h3 class="block-title">State</h3>
-				<textarea class="code-half code-read-only">Text</textarea>
+		<pre>
+{{state | json}}
+		</pre>
 			</div>
 		</div>

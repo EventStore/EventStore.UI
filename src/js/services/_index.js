@@ -10,6 +10,7 @@ define([
     './DashboardService',
     './DashboardMapper',
     './StreamsService',
+    './QueryService',
     './ProjectionsService',
     './ProjectionsMapper',
     './MessageService',

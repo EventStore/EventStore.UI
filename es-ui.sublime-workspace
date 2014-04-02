@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"an",
+				"angular"
+			],
+			[
+				"angu",
+				"angular-ui-utils"
+			],
+			[
+				"poller",
+				"pollerProvider"
+			],
+			[
+				"re",
+				"resultEntries"
+			],
+			[
+				"show",
+				"showJson"
+			],
+			[
 				"de",
 				"deferredGlobal"
 			],
@@ -22,10 +42,6 @@
 			[
 				"resu",
 				"result"
-			],
-			[
-				"re",
-				"resultLinks"
 			],
 			[
 				"pre",
@@ -264,10 +280,6 @@
 				"$destroy	AngularJS"
 			],
 			[
-				"angu",
-				"angular.isDefined	AngularJS"
-			],
-			[
 				"Se",
 				"SewerCtrl"
 			],
@@ -392,66 +404,58 @@
 	"buffers":
 	[
 		{
-			"file": "src/js/controllers/StreamsItemEventCtrl.js",
+			"file": "src/views/query.tpl.html",
 			"settings":
 			{
-				"buffer_size": 979,
+				"buffer_size": 605,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/js/controllers/StreamsItemEventsCtrl.js",
+			"file": "src/views/projections.item.debug.tpl.html",
 			"settings":
 			{
-				"buffer_size": 3039,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/controllers/DashboardListCtrl.js",
-			"settings":
-			{
-				"buffer_size": 820,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/services/AtomEventsReader.js",
-			"settings":
-			{
-				"buffer_size": 2708,
+				"buffer_size": 1887,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/views/streams.item.events.tpl.html",
+			"file": "src/js/controllers/ProjectionsItemDebugCtrl.js",
 			"settings":
 			{
-				"buffer_size": 1410,
+				"buffer_size": 359,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/views/dashboard.list.tpl.html",
+			"file": "src/js/controllers/QueryCtrl.js",
 			"settings":
 			{
-				"buffer_size": 1223,
+				"buffer_size": 269,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/js/services/_index.js",
+			"file": "/F/T-CHU7DEUC/image/validinfo.txt",
 			"settings":
 			{
-				"buffer_size": 385,
+				"buffer_size": 47,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/js/services/Poller.js",
+			"file": "/F/T-CHU7DEUC/image/info.txt",
 			"settings":
 			{
-				"buffer_size": 1468,
+				"buffer_size": 18,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "gulpfile.js",
+			"settings":
+			{
+				"buffer_size": 3024,
 				"line_ending": "Unix"
 			}
 		}
@@ -709,6 +713,54 @@
 	},
 	"file_history":
 	[
+		"/F/T-CHU7DEUC_3002/T-CHU7DEUC/image/validinfo.txt",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDetailsCtrl.js",
+		"/F/T-CHU7DEUC_3002/T-CHU7DEUC/image/info.txt",
+		"/F/T-CHU7DEUC/image/version_info.txt",
+		"/G/T-CHU7DEUC/image/validinfo.txt",
+		"/G/T-CHU7DEUC/run.sh",
+		"/G/T-CHU7DEUC/image/info.txt",
+		"/G/T-CHU7DEUC/image/version_info.txt",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.details.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular/angular-csp.css",
+		"/D/_Projects/EventStore/EventStore.UI/gulpfile.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.edit.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.standard.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemEditCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsNewCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/Poller.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDeleteCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDebugCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/app.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/main.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/index.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.new.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsStandardCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/ProjectionsService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/ProjectionsMonitor.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/ace-builds/src/ace.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/ace-builds/README.md",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.delete.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.debug.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/.bowerrc",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventsCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/DashboardListCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/AtomEventsReader.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.events.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersListCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/bower.json",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsListCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.list.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/_index.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/users.list.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/UserService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDeleteCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/users.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/users.item.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/es-ui.sublime-project",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.snapshot.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.row.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/DashboardMapper.js",
@@ -716,17 +768,12 @@
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/DashboardService.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/StreamsService.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsStandardCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.events.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.list.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/jQuery/src/data.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsNewCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.event.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/SprintfService.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/MessageService.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/unit/services/authServiceSpec.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/AdminService.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/services/UserService.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/AuthService.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/jQuery/src/serialize.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/fonts/sourcecodepro-extralight-webfont.svg",
@@ -734,32 +781,17 @@
 		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/consts.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/routes.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventsCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/UrlBuilder.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/src/urlRouter.js",
-		"/D/_Projects/EventStore/EventStore.UI/es-ui.sublime-project",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemEventCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/e2e/scenario.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/data.json",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDetailsCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemEditCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/services/_index.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/Base64.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/release/angular-ui-router.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/app.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.standard.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/src/state.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDeleteCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDebugCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/package.json",
-		"/D/_Projects/EventStore/EventStore.UI/bower.json",
 		"/D/_Projects/EventStore/EventStore.UI/README.md",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/AdminCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/DashboardListCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/StreamsItemAclCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDeleteCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemDisableCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemEditCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersItemEnableCtrl.js",
@@ -768,7 +800,6 @@
 		"/D/_Projects/EventStore/EventStore.UI/test/main.js",
 		"/D/_Projects/EventStore/EventStore.UI/config/karma.conf.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/main-test.js",
-		"/D/_Projects/EventStore/EventStore.UI/gulpfile.js",
 		"/D/_Projects/EventStore/EventStore.UI/.gitignore",
 		"/D/_Projects/EPA/CRM Extensions/Services/LemaSpatialServices/Proximity/Main/Compass.Lema.Proximity.IRepository/Compass.Lema.Proximity.IRepository.csproj",
 		"/D/Users/Jakub/Downloads/es/gulpfile.js",
@@ -809,44 +840,18 @@
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/_index.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/users.list.tpl.html",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/bower_components/angular-ui-router/src/templateFactory.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/test_results/coverage/PhantomJS 1.9.7 (Windows 8)/singlenode-web/js/controllers/ProjectionsListCtrl.js.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/dist/index.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/dist/bower_components/angular-ui-utils/ui-utils.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/users.item.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/users.item.reset.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/dist/bower_components/jQuery/src/attributes/prop.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/fonts/sourcecodepro-black-webfont.svg",
-		"/D/_Presentations/wdi-js-debugging/Wdi/Wdi.sln",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/package.json",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_old_singlenode-web/singlenode-web/post-standard-projection.htm",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_old_singlenode-web/singlenode-web/js/projections/Observer.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_old_singlenode-web/singlenode-web/projections.htm",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/index.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/projections.standard.tpl.html",
-		"/D/Tools/Downloads/EventStore-master/EventStore-master/src/EventStore/EventStore.Web/es-common-web/js/atom/FeedElement.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/StreamsItemEventsCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/StreamsItemEventCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/ProjectionsStandardCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web.7z",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/fonts/sourcecodepro-semibold-webfont.svg",
-		"/D/_Projects/EventStore/es-webui/login.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/EsRest.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/projections.new.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/StreamsItemAclCtrl.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/UserService.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/services/StreamsService.js",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.acl.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/streams.item.tpl.html"
+		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/test_results/coverage/PhantomJS 1.9.7 (Windows 8)/singlenode-web/js/controllers/ProjectionsListCtrl.js.html"
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
 		"height": 93.0,
 		"where_history":
 		[
+			"D:\\_Projects\\EventStore\\EventStore.UI\\src\\js",
 			"D:\\_Projects\\EventStore\\EventStore.UI",
 			"D:\\_Projects\\EventStore\\EventStore.UI\\src\\js",
 			"D:\\_Projects\\EventStore\\EventStore\\src\\EventStore\\EventStore.SingleNode.Web\\singlenode-web\\js\\services",
@@ -859,6 +864,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"sec",
+			"version",
+			"'poller'",
+			"previous",
 			"entires",
 			"EventType",
 			"EsRest",
@@ -982,11 +991,7 @@
 			"bServerSide",
 			"Category Name=\"Text Editor ",
 			"KeyWord",
-			"tab",
-			"Common",
-			"DWPR0000078",
-			"New Property cannot be created. Property of",
-			"Castle.Windsor"
+			"tab"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1067,29 +1072,29 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/js/controllers/StreamsItemEventCtrl.js",
+					"file": "src/views/query.tpl.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 979,
+						"buffer_size": 605,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								605,
+								605
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1101,112 +1106,81 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/js/controllers/StreamsItemEventsCtrl.js",
+					"file": "src/views/projections.item.debug.tpl.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3039,
+						"buffer_size": 1887,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2745,
-								2748
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1653.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/js/controllers/DashboardListCtrl.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 820,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								807,
-								742
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/js/services/AtomEventsReader.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2708,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2270,
-								2270
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1520.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/views/streams.item.events.tpl.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1410,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								221,
-								221
+								459,
+								459
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/js/controllers/ProjectionsItemDebugCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								340,
+								340
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/js/controllers/QueryCtrl.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 269,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								250,
+								250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1216,71 +1190,12 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "src/views/dashboard.list.tpl.html",
+					"buffer": 4,
+					"file": "/F/T-CHU7DEUC/image/validinfo.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1223,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1125,
-								1125
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 456.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/js/services/_index.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 385,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								385,
-								385
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "src/js/services/Poller.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1468,
+						"buffer_size": 47,
 						"regions":
 						{
 						},
@@ -1293,14 +1208,71 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
-						"translation.x": -0.0,
-						"translation.y": 684.0,
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/F/T-CHU7DEUC/image/info.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "gulpfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3024,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								979,
+								979
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 228.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1352,6 +1324,66 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"gulp",
+				"gulpfile.js"
+			],
+			[
+				"projections.item.",
+				"src\\views\\projections.item.details.tpl.html"
+			],
+			[
+				"query",
+				"src\\js\\controllers\\QueryCtrl.js"
+			],
+			[
+				"proje",
+				"src\\js\\controllers\\ProjectionsItemDetailsCtrl.js"
+			],
+			[
+				"projectionitemde",
+				"src\\js\\controllers\\ProjectionsItemDebugCtrl.js"
+			],
+			[
+				"projections.item.ed",
+				"src\\views\\projections.item.edit.tpl.html"
+			],
+			[
+				"projectionse",
+				"src\\js\\controllers\\ProjectionsItemEditCtrl.js"
+			],
+			[
+				"projectionsst",
+				"src\\js\\controllers\\ProjectionsStandardCtrl.js"
+			],
+			[
+				"projections.s",
+				"src\\views\\projections.standard.tpl.html"
+			],
+			[
+				"projections.n",
+				"src\\views\\projections.new.tpl.html"
+			],
+			[
+				"projectionne",
+				"src\\js\\controllers\\ProjectionsNewCtrl.js"
+			],
+			[
+				"projectionsitemde",
+				"src\\js\\controllers\\ProjectionsItemDetailsCtrl.js"
+			],
+			[
+				"projections.item.de",
+				"src\\views\\projections.item.details.tpl.html"
+			],
+			[
+				"pol",
+				"src\\js\\services\\Poller.js"
+			],
+			[
+				"usersl",
+				"src\\js\\controllers\\UsersListCtrl.js"
+			],
 			[
 				"das",
 				"src\\js\\controllers\\DashboardListCtrl.js"

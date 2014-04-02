@@ -21,6 +21,15 @@ define(['./app'], function (app) {
 			enable: '/users/%s/command/enable',		// %s - user name	
 			resetPassword: '/users/%s/command/reset-password'	// %s - user name
 		},
+		query: {
+			create: '/projections/transient?',
+			update: '%s/query?emit=no', // $s - query url
+			state: '%s/state', // $s - query url
+			commands: {
+				enable: '%s/command/enable', // $s - query url
+				disable: '%s/command/disable' // $s - query url
+			}
+		},
 		projections: {
 			any: '/projections/any',
 			allNonTransient: '/projections/all-non-transient',
