@@ -87,7 +87,9 @@ define(['./_module'], function (app) {
 				query = null;
 				result = null;
 
-				deferred.resolve();
+				if(deferred) {
+					deferred.resolve();	
+				}
 			}
 
 			return {
