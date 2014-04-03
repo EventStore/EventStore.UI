@@ -110,6 +110,15 @@ define(['./_module'], function (app) {
 					msg.error('Projection not updated');
 				});
 			};
+			$scope.stop = function () {
+				projectionsService.disable($scope.location)
+				.success(function () {
+					msg.info('projection stopped');
+				})
+				.error(function () {
+					msg.error('projection could not be stopped');
+				});
+			};
 		}
 	]);
 });
