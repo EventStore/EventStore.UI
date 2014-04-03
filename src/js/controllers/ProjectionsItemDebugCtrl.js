@@ -13,6 +13,11 @@ define(['./_module'], function (app) {
 				$scope.statusInfo = message;
 			}
 
+			function setPartition (partition) {
+				partition = '(' + partition + ')';
+				$scope.currentPartition = partition;
+			}
+
 			updateStatusInfo('');
 			$scope.location = $stateParams.location;
 
