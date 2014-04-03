@@ -106,6 +106,22 @@ define(['./_module'], function (app) {
 
 						return $http.get(url);
 					},
+					readEvents: function(definition, position, count) {
+						var params,
+							url = urlBuilder.build(urls.projections.readEvents);
+
+						count = count || 10;
+
+						params = {
+							query: definition,
+							position: position,
+							maxEvents: count
+						};
+
+						console.dir(params.position);
+						return $http.post(url, JSON.stringify(params));
+
+					},
 					remove: function (url, params) {
 						var qp = uriProvider.getQuery(params);
 
@@ -132,7 +148,13 @@ define(['./_module'], function (app) {
 						return $http.post(url);
 					},
 					updateQuery: function (url, emit, source) {
-						url = urlBuilder.simpleBuild(urls.projections.updateQuery, url) + emit;
+
+						if(source) {
+							url = urlBuilder.simpleBuild(urls.projections.updateQuery, url) + emit;
+						} else {
+							source = emit;
+							url = urlBuilder.simpleBuild(urls.projections.updatePlainQuery, url);
+						}
 
 						return $http.put(url, source);
 						// 	, {

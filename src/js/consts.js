@@ -43,7 +43,9 @@ define(['./app'], function (app) {
 			remove: '%s?', // %s - projection url
 			query: '%s/query?config=yes',
 			updateQuery: '%s/query?emit=',
+			updatePlainQuery: '%s/query',
 			queryWithoutConfig: '%s/query?config=no',
+			readEvents: '/projections/read-events',
 			commands: {
 				reset: '%s/command/reset',
 				enable: '%s/command/enable',
