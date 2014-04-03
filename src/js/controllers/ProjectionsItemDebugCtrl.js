@@ -37,10 +37,10 @@ define(['./_module'], function (app) {
 
 			$scope.isRunning = false;
 			$scope.query = '';
-			$scope.state = {};
 			$scope.events = '';
-			$scope.rawEvents = null;
-			$scope.currentEvent = {};
+			$scope.state = '';
+			
+			var rawEvents, currentEvent, definition, currentPosition, partition, initialized, processor, cachedStates = {};
 
 			var requests = [];
 			updateStatusInfo('Loading definition...');
@@ -62,9 +62,15 @@ define(['./_module'], function (app) {
 					query = data[2],
 					position;
 
+				if(stats.data.status !== 'Stopped' && stats.data.status !== 'Faulted') {
+					msg.warn('Projection needs to be stopped before it can be debugged');
+					$scope.isRunning = true;
+				} 
+
 				position = state.headers()['es-position'];
-				$scope.currentPosition = angular.fromJson(position); 
-				$scope.definition = query.data.definition;
+				currentPosition = angular.fromJson(position); 
+				definition = query.data.definition;
+				
 				$scope.query = query.data.query;
 
 				updateStatusInfo('');
@@ -72,12 +78,12 @@ define(['./_module'], function (app) {
 			});
 
 			function loadEvents () {
-				projectionsService.readEvents($scope.definition, $scope.currentPosition)
+				projectionsService.readEvents(definition, currentPosition)
 				.success(function (data) {
 					$scope.events = JSON.stringify(data, undefined, 4);
-					$scope.rawEvents = data.events;
+					rawEvents = data.events;
 
-					if($scope.rawEvents && $scope.rawEvents.length) {
+					if(rawEvents && rawEvents.length) {
 						prepare ();
 					} else {
 						updateStatusInfo('No further events are available. Waiting...');
@@ -91,17 +97,71 @@ define(['./_module'], function (app) {
 			}
 
 			function prepare () {
-				if($scope.initialized) {
+				currentEvent = rawEvents[0];
+
+				if(initialized) {
 					loadState();
 					return;
 				}
 
 				updateStatusInfo('Running the definition...');
 				// todo: load resources
+
 			}
 
 			function loadState () {
 				console.trace();
+
+				if(!processor) {
+					$timeout(loadState, 1000);
+				}
+
+				initialized = true;
+				updateStatusInfo('');
+				partition = null;
+
+				if(definition.byCustomPartitions) {
+					partition = processor.get_state_partition(
+                            currentEvent.isJson ? angular.toJson(currentEvent.data) : currentEvent.data,
+                            currentEvent.eventStreamId,
+                            currentEvent.eventType,
+                            currentEvent.category,
+                            currentEvent.eventNumber,
+                            currentEvent.isJson ? angular.toJson(currentEvent.metadata) : currentEvent.metadata);
+				} else if(definition.byStream) {
+					partition = currentEvent.eventStreamId;
+				} else {
+					partition = '';
+				}
+
+				setPartition(partition);
+
+				if(cachedStates[partition]) {
+					stateLoaded(cachedStates[partition]);
+				} else {
+					updateStatusInfo('Loading the projection state...');
+
+					projectionsService.state($scope.location, {
+						partition: partition
+					})
+					.success(stateLoaded)
+					.error(function () {
+						updateStatusInfo('Error loading the projection state');
+					});
+				}
+			}
+
+			function stateLoaded (data) {
+				updateStatusInfo('Ready for debugging!');
+				$scope.isRunning = false;
+				if(data) {
+					processor.initialize();
+					cachedStates[partition] = processor.debugging_get_state();
+				} else {
+					processor.set_state(data);
+				}
+
+				$scope.state = cachedStates[partition];
 			}
 
 			$scope.update = function () {
@@ -119,6 +179,7 @@ define(['./_module'], function (app) {
 				projectionsService.disable($scope.location)
 				.success(function () {
 					msg.info('projection stopped');
+					$scope.isRunning = false;
 				})
 				.error(function () {
 					msg.error('projection could not be stopped');
