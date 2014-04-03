@@ -1,5 +1,6 @@
 define([
     './EsQueueRow',
     './EsQueueRowHeader',
-    './EsValidateEquals'
+    './EsValidateEquals',
+    './EsProjDebugFrame'
 ], function () {});
