@@ -82,8 +82,15 @@ define(['./_module'], function (app) {
 
 						return $http.get(url);
 					},
-					state: function (url) {
-						url = urlBuilder.simpleBuild(urls.projections.state, url);
+					state: function (url, params) {
+						var qp;
+
+						if(params) {
+							qp = uriProvider.getQuery(params);
+							url = urlBuilder.simpleBuild(urls.projections.state, url) + '?' + qp;
+						} else {
+							url = urlBuilder.simpleBuild(urls.projections.state, url);
+						}
 
 						return $http.get(url);
 					},
