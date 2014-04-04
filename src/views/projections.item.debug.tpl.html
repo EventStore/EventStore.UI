@@ -2,12 +2,12 @@
 			<h2 class="page-title">Projection Debug</h2>
 			<ul class="page-nav">
 				<li class="page-nav__item">
-					<button ng-click="runStep()" ng-disabled="!isRunning">
+					<button ng-click="runStep()" ng-disabled="isRunning">
 						Run Step
 					</button>
 				</li>
 				<li class="page-nav__item">
-					<button ng-click="stop()" ng-disabled="isRunning">
+					<button ng-click="stop()" ng-disabled="!isRunning">
 					Stop
 					</button>
 				</li>
@@ -64,6 +64,7 @@
 			</div>
 			<div class="container-right">
 				<h3 class="block-title">Log Viewer</h3>
-				<textarea class="code-half code-read-only code-console">Console</textarea>
+
+				<div es-proj-debug-frame es-location="location"></div>
 			</div>
 		</div>

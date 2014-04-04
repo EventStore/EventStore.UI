@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('ProjectionsItemDebugCtrl', [
-		'$scope', '$stateParams','$q', '$timeout', 'ProjectionsService', 'MessageService',
-		function ($scope, $stateParams, $q, $timeout, projectionsService, msg) {
+		'$scope','$state', '$stateParams','$q', '$timeout', 'ProjectionsService', 'MessageService',
+		function ($scope, $state, $stateParams, $q, $timeout, projectionsService, msg) {
 
 			function updateStatusInfo (message) {
 				if(!message) {
@@ -63,7 +63,7 @@ define(['./_module'], function (app) {
 					position;
 
 				if(stats.data.status !== 'Stopped' && stats.data.status !== 'Faulted') {
-					msg.warn('Projection needs to be stopped before it can be debugged');
+					//msg.warn('Projection needs to be stopped before it can be debugged');
 					$scope.isRunning = true;
 				} 
 
@@ -105,15 +105,17 @@ define(['./_module'], function (app) {
 				}
 
 				updateStatusInfo('Running the definition...');
-				// todo: load resources
+				$scope.$broadcast('load-scripts');
+				$timeout(loadState, 100);
 
 			}
 
 			function loadState () {
-				console.trace();
 
+				processor = document.getElementById('script-placeholder').contentWindow.processor;
 				if(!processor) {
 					$timeout(loadState, 1000);
+					return;
 				}
 
 				initialized = true;
@@ -152,17 +154,41 @@ define(['./_module'], function (app) {
 			}
 
 			function stateLoaded (data) {
+				var cached;
 				updateStatusInfo('Ready for debugging!');
 				$scope.isRunning = false;
-				if(data) {
+				if(!data) {
 					processor.initialize();
 					cachedStates[partition] = processor.debugging_get_state();
 				} else {
 					processor.set_state(data);
 				}
-
-				$scope.state = cachedStates[partition];
+				try {
+					cached = angular.fromJson(cachedStates[partition]);
+					$scope.state = cached;
+				} catch (e) {
+					$scope.state = '';
+				}
 			}
+
+			$scope.runStep = function () {
+				var state = processor.process_event(
+                    currentEvent.isJson ? JSON.stringify(currentEvent.data) : currentEvent.data,
+                    currentEvent.isJson,
+                    currentEvent.eventStreamId,
+                    currentEvent.eventType,
+                    currentEvent.category,
+                    currentEvent.eventNumber,
+                    currentEvent.isJson ? JSON.stringify(currentEvent.metadata) : currentEvent.metadata,
+                    partition);
+
+
+                cachedStates[partition] = state;
+                //console.log(currentEvent.readerPosition);
+                currentPosition = currentEvent.readerPosition;
+                //eventsLoaded = false;
+                loadEvents();
+			};
 
 			$scope.update = function () {
 				projectionsService.updateQuery($scope.location, $scope.query)
@@ -170,6 +196,10 @@ define(['./_module'], function (app) {
 					msg.info('projection updated');
 					// todo: not sure, we can reset debugging state, or
 					// transfer user to different page?
+
+					//$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+					msg.info('there is a bug in UI-Router that does not reload controllers after $state.reload, please click F5');
+					$state.reload();
 				})
 				.error(function () {
 					msg.error('Projection not updated');

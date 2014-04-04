@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"state",
+				"stateLoaded"
+			],
+			[
+				"ca",
+				"cachedStates"
+			],
+			[
+				"cu",
+				"currentPartition"
+			],
+			[
+				"cur",
+				"currentPartition"
+			],
+			[
+				"current",
+				"currentPartition"
+			],
+			[
+				"update",
+				"updateStatusInfo"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"de",
+				"definition"
+			],
+			[
+				"st",
+				"statusInfo"
+			],
+			[
+				"q",
+				"query"
+			],
+			[
 				"moni",
 				"monitorState"
 			],
@@ -34,10 +74,6 @@
 			[
 				"show",
 				"showJson"
-			],
-			[
-				"de",
-				"deferredGlobal"
 			],
 			[
 				"pol",
@@ -78,10 +114,6 @@
 			[
 				"po",
 				"poller"
-			],
-			[
-				"st",
-				"start"
 			],
 			[
 				"proje",
@@ -324,10 +356,6 @@
 				"bufferSize"
 			],
 			[
-				"state",
-				"stateParams"
-			],
-			[
 				"lo",
 				"location"
 			],
@@ -348,16 +376,8 @@
 				"addressService"
 			],
 			[
-				"cu",
-				"currentData"
-			],
-			[
 				"curr",
 				"currentData"
-			],
-			[
-				"cur",
-				"current"
 			],
 			[
 				"currentLo",
@@ -416,42 +436,34 @@
 	"buffers":
 	[
 		{
-			"file": "src/js/services/QueryService.js",
+			"file": "src/js/controllers/ProjectionsItemDebugCtrl.js",
 			"settings":
 			{
-				"buffer_size": 1019,
+				"buffer_size": 4850,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/js/directives/EsProjDebugFrame.js",
+			"settings":
+			{
+				"buffer_size": 293,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/views/projections.list.tpl.html",
+			"file": "/C/Windows/System32/drivers/etc/hosts",
 			"settings":
 			{
-				"buffer_size": 1919,
-				"line_ending": "Unix"
+				"buffer_size": 1402,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/js/controllers/ProjectionsItemEditCtrl.js",
+			"file": "src/js/directives/EsQueueRowHeader.js",
 			"settings":
 			{
-				"buffer_size": 2903,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/js/services/ProjectionsMonitor.js",
-			"settings":
-			{
-				"buffer_size": 1741,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "gulpfile.js",
-			"settings":
-			{
-				"buffer_size": 3024,
+				"buffer_size": 572,
 				"line_ending": "Unix"
 			}
 		}
@@ -459,9 +471,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 58.0,
+		"height": 150.0,
 		"selected_items":
 		[
+			[
+				"SS: JS",
+				"Set Syntax: JavaScript"
+			],
 			[
 				"instal",
 				"Package Control: Install Package"
@@ -525,10 +541,6 @@
 			[
 				"SS JSON",
 				"Set Syntax: JSON"
-			],
-			[
-				"SS: JS",
-				"Set Syntax: JavaScript"
 			],
 			[
 				"SS XML",
@@ -709,29 +721,36 @@
 	},
 	"file_history":
 	[
-		"/D/_Projects/EventStore/EventStore.UI/src/views/query.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.edit.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.debug.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/QueryCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsListCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/directives/_index.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDeleteCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDetailsCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDebugCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsListCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/ProjectionsMonitor.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsNewCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/Poller.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/services/ProjectionsService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/QueryService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.list.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.edit.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/consts.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemEditCtrl.js",
+		"/D/_Projects/EventStore/EventStore.UI/gulpfile.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.debug.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/routes.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/services/ProjectionsService.js",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.details.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.standard.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.delete.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/views/query.tpl.html",
+		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/QueryCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/DashboardListCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.list.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDebugCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/UrlBuilder.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.delete.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemDeleteCtrl.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular-ui-router/src/urlRouter.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/UsersListCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.standard.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/services/ProjectionsMonitor.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/services/QueryService.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.details.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.snapshot.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/dashboard.row.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/DashboardService.js",
@@ -740,7 +759,6 @@
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/MessageService.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/_index.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsStandardCtrl.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/controllers/ProjectionsItemEditCtrl.js",
 		"/F/T-CHU7DEUC/image/validinfo.txt",
 		"/F/T-CHU7DEUC/image/info.txt",
 		"/F/T-CHU7DEUC_3002/T-CHU7DEUC/image/validinfo.txt",
@@ -751,13 +769,10 @@
 		"/G/T-CHU7DEUC/image/info.txt",
 		"/G/T-CHU7DEUC/image/version_info.txt",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/angular/angular-csp.css",
-		"/D/_Projects/EventStore/EventStore.UI/gulpfile.js",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.item.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/app.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/main.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/index.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.new.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/views/projections.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/ace-builds/src/ace.js",
 		"/D/_Projects/EventStore/EventStore.UI/src/bower_components/ace-builds/README.md",
 		"/D/_Projects/EventStore/EventStore.UI/.bowerrc",
@@ -784,7 +799,6 @@
 		"/D/_Projects/EventStore/EventStore.UI/src/fonts/sourcecodepro-extralight-webfont.svg",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.item.tpl.html",
 		"/D/_Projects/EventStore/EventStore.UI/src/views/streams.tpl.html",
-		"/D/_Projects/EventStore/EventStore.UI/src/js/routes.js",
 		"/D/_Projects/EventStore/EventStore.UI/test/e2e/scenario.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/data.json",
 		"/D/_Projects/EventStore/EventStore.UI/src/js/services/Base64.js",
@@ -834,9 +848,7 @@
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/dashboard.tpl.html",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_old_singlenode-web/singlenode-web/js/projections/lib/ace/theme-pastel_on_dark.js",
 		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/projections.item.delete.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/projections.item.debug.tpl.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/_new_ui/projections.html",
-		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/js/controllers/ProjectionsListCtrl.js"
+		"/D/_Projects/EventStore/EventStore/src/EventStore/EventStore.SingleNode.Web/singlenode-web/views/projections.item.debug.tpl.html"
 	],
 	"find":
 	{
@@ -860,6 +872,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$scope",
+			" $",
 			"sec",
 			"version",
 			"'poller'",
@@ -985,9 +999,7 @@
 			"bServerSide",
 			"bSortable",
 			"bServerSide",
-			"Category Name=\"Text Editor ",
-			"KeyWord",
-			"tab"
+			"Category Name=\"Text Editor "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1068,24 +1080,53 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/js/services/QueryService.js",
+					"file": "src/js/controllers/ProjectionsItemDebugCtrl.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1019,
+						"buffer_size": 4850,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								850,
-								857
+								2587,
+								2587
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1550.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/js/directives/EsProjDebugFrame.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 293,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								271,
+								271
 							]
 						],
 						"settings":
@@ -1101,49 +1142,49 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "src/views/projections.list.tpl.html",
+					"buffer": 2,
+					"file": "/C/Windows/System32/drivers/etc/hosts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1919,
+						"buffer_size": 1402,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								545,
-								545
+								540,
+								540
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 342.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/js/controllers/ProjectionsItemEditCtrl.js",
-					"semi_transient": false,
+					"buffer": 3,
+					"file": "src/js/directives/EsQueueRowHeader.js",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 2903,
+						"buffer_size": 572,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								812,
-								812
+								251,
+								262
 							]
 						],
 						"settings":
@@ -1156,65 +1197,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/js/services/ProjectionsMonitor.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1741,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1741,
-								1741
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 399.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "gulpfile.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3024,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								687,
-								687
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 228.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1267,6 +1249,34 @@
 		"selected_items":
 		[
 			[
+				"projectionsitemde",
+				"src\\js\\controllers\\ProjectionsItemDebugCtrl.js"
+			],
+			[
+				"consts",
+				"src\\js\\consts.js"
+			],
+			[
+				"rou",
+				"src\\js\\routes.js"
+			],
+			[
+				"projectionsse",
+				"src\\js\\services\\ProjectionsService.js"
+			],
+			[
+				"projectionsitemd",
+				"src\\js\\controllers\\ProjectionsItemDebugCtrl.js"
+			],
+			[
+				"projections.item.edit",
+				"src\\views\\projections.item.edit.tpl.html"
+			],
+			[
+				"projections.item.de",
+				"src\\views\\projections.item.debug.tpl.html"
+			],
+			[
 				"queryser",
 				"src\\js\\services\\QueryService.js"
 			],
@@ -1307,20 +1317,12 @@
 				"src\\views\\query.tpl.html"
 			],
 			[
-				"consts",
-				"src\\js\\consts.js"
-			],
-			[
 				"dash",
 				"src\\js\\controllers\\DashboardListCtrl.js"
 			],
 			[
 				"projectionse",
 				"src\\js\\controllers\\ProjectionsItemEditCtrl.js"
-			],
-			[
-				"projectionsse",
-				"src\\js\\services\\ProjectionsService.js"
 			],
 			[
 				"projectionsn",
@@ -1361,14 +1363,6 @@
 			[
 				"projectionne",
 				"src\\js\\controllers\\ProjectionsNewCtrl.js"
-			],
-			[
-				"projectionsitemde",
-				"src\\js\\controllers\\ProjectionsItemDetailsCtrl.js"
-			],
-			[
-				"projections.item.de",
-				"src\\views\\projections.item.details.tpl.html"
 			],
 			[
 				"pol",
@@ -1471,16 +1465,8 @@
 				"singlenode-web\\js\\controllers\\ProjectionsItemEditCtrl.js"
 			],
 			[
-				"projections.item.edit",
-				"singlenode-web\\views\\projections.item.edit.tpl.html"
-			],
-			[
 				"projectionsit",
 				"singlenode-web\\js\\controllers\\ProjectionsItemDetailsCtrl.js"
-			],
-			[
-				"rou",
-				"singlenode-web\\js\\routes.js"
 			],
 			[
 				"projections",

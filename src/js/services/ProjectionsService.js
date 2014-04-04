@@ -125,7 +125,6 @@ define(['./_module'], function (app) {
 							maxEvents: count
 						};
 
-						console.dir(params.position);
 						return $http.post(url, JSON.stringify(params));
 
 					},
