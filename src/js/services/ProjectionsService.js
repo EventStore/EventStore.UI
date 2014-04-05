@@ -95,7 +95,7 @@ define(['./_module'], function (app) {
 						return $http.get(url);
 					},
 					result: function (url) {
-						url = urlBuilder.simpleBuild(urls.projections.reseult, url);
+						url = urlBuilder.simpleBuild(urls.projections.result, url);
 
 						return $http.get(url);
 					},
