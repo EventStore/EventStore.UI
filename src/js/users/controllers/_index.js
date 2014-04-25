@@ -1,6 +1,10 @@
 define([
-    './ProjectionsService',
-    './ProjectionsMapper',
-    './ProjectionsMonitor',
-    './AtomEventsReader'
+    './UsersItemDeleteCtrl',
+	'./UsersItemDetailsCtrl',
+	'./UsersItemDisableCtrl',
+	'./UsersItemEditCtrl',
+	'./UsersItemEnableCtrl',
+	'./UsersItemResetCtrl',
+	'./UsersListCtrl',
+	'./UsersNewCtrl'
 ], function () {});

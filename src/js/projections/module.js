@@ -79,6 +79,16 @@ define(['./_index'], function (app) {
                 data: {
                     title: 'Projection Edit'
                 }
+            })
+
+            // ========================================QUERY============
+            .state('query', {
+                url: '/query',
+                templateUrl: 'query.tpl.html',
+                controller: 'QueryCtrl',
+                data: {
+                    title: 'Query'
+                }
             });
     }]);
 });
