@@ -1,6 +1,4 @@
 define([
-    './ProjectionsService',
-    './ProjectionsMapper',
-    './ProjectionsMonitor',
-    './AtomEventsReader'
+    './DashboardListCtrl',
+	'./DashboardSnapshotCtrl'
 ], function () {});

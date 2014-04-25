@@ -1,6 +1,6 @@
 define([
-    './ProjectionsService',
-    './ProjectionsMapper',
-    './ProjectionsMonitor',
-    './AtomEventsReader'
+    './StreamsItemEventCtrl',
+	'./StreamsItemEventsCtrl',
+	'./StreamsItemAclCtrl',
+	'./StreamsListCtrl'
 ], function () {});
