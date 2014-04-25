@@ -1,7 +1,7 @@
 /* global define */
 /*jshint sub: true */
 
-define(['./_module'], function (app) {
+define(['./_index'], function (app) {
 	'use strict';
 
     return app.config([
