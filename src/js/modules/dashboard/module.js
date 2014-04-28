@@ -11,7 +11,7 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================DASHBOARD============
             .state('dashboard', {
-                url: '/',
+                url: '/dashboard',
                 templateUrl: 'dashboard.tpl.html',
                 abstract: true,
                 data: {
@@ -28,7 +28,7 @@ define(['./_index'], function (app) {
                 }
             })
             .state('dashboard.snapshot', {
-                url: 'snapshot',
+                url: '/snapshot',
                 templateUrl: 'dashboard.snapshot.tpl.html',
                 controller: 'DashboardSnaphostCtrl',
                 data: {
