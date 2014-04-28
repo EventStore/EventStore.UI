@@ -3,13 +3,13 @@ define([
 	'uiRouter',
 	'uiUtils',
 	'uiAce',
-	'./projections/module',
-	'./admin/module',
-	'./dashboard/module',
-	'./query/module',
-	'./streams/module',
-	'./users/module',
+	'./modules/projections/module',
+	'./modules/admin/module',
+	'./modules/dashboard/module',
+	'./modules/streams/module',
+	'./modules/users/module',
 	'./services/_index',
+	'./directives/_index',
 	'./templates/_index'
 ], function (ng) {
 	'use strict';
@@ -17,7 +17,11 @@ define([
 	// defines application, and depedencies
 
 	return ng.module('es-ui', [
-		'es-ui.controllers',
+		'es-ui.projections',
+		'es-ui.admin',
+		'es-ui.dashboard',
+		'es-ui.streams',
+		'es-ui.users',
 		'es-ui.directives',
 		'es-ui.services',
 		'es-ui.templates',

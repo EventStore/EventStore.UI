@@ -34,8 +34,9 @@ gulp.task('bower', function() {
  * Creates JS version of HTML tpl files used
  * by ES UI
  **/
-gulp.task('html', function () {
-	gulp.src(paths.app.templatesSource)
+
+function templateForModule (moduleSource, moduleDest, moduleName) {
+    gulp.src(moduleSource)
         .pipe(cache('html'))
         .pipe(htmlmin({
             //collapseBooleanAttributes: true,
@@ -48,12 +49,33 @@ gulp.task('html', function () {
             removeStyleLinkTypeAttributes: true
         }))
         .pipe(ngHtml2Js({
-            moduleName: 'es-ui.templates',
+            moduleName: moduleName,
             prefix: ''
         }))
         .pipe(concat('templates.js'))
         .pipe(wrap('define([\'angular\'], function (angular) {\'use strict\'; <%= contents %> });'))
-        .pipe(gulp.dest(paths.app.templatesDestination));
+        .pipe(gulp.dest(moduleDest));
+}
+
+gulp.task('html', function () {
+	templateForModule('./src/views/*.tpl.html', 
+        './src/js/templates', 
+        'es-ui.templates');
+    templateForModule('./src/js/modules/projections/views/*.tpl.html',
+        './src/js/modules/projections/templates',
+        'es-ui.projections.templates');
+    templateForModule('./src/js/modules/dashboard/views/*.tpl.html',
+        './src/js/modules/dashboard/templates',
+        'es-ui.dashboard.templates');
+    templateForModule('./src/js/modules/streams/views/*.tpl.html',
+        './src/js/modules/streams/templates',
+        'es-ui.streams.templates');
+    templateForModule('./src/js/modules/users/views/*.tpl.html',
+        './src/js/modules/users/templates',
+        'es-ui.users.templates');
+    templateForModule('./src/js/modules/admin/views/*.tpl.html',
+        './src/js/modules/admin/templates',
+        'es-ui.admin.templates');
 });
 
 /**
