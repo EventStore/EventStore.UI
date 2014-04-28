@@ -1,10 +1,7 @@
 define([
-    './ProjectionsItemDebugCtrl',
-	'./ProjectionsItemDeleteCtrl',
-	'./ProjectionsItemDetailsCtrl',
-	'./ProjectionsItemEditCtrl',
-	'./ProjectionsListCtrl',
-	'./ProjectionsNewCtrl',
-	'./ProjectionsStandardCtrl',
-	'./QueryCtrl',
+    './ProjectionsService',
+    './ProjectionsMapper',
+    './ProjectionsMonitor',
+    './QueryService',
+    './AtomEventsReader'
 ], function () {});
