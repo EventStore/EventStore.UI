@@ -64,6 +64,9 @@ gulp.task('html', function () {
     templateForModule('./src/js/modules/projections/views/*.tpl.html',
         './src/js/modules/projections/templates',
         'es-ui.projections.templates');
+    templateForModule('./src/js/modules/security/views/*.tpl.html',
+        './src/js/modules/security/templates',
+        'es-ui.security.templates');
     templateForModule('./src/js/modules/dashboard/views/*.tpl.html',
         './src/js/modules/dashboard/templates',
         'es-ui.dashboard.templates');

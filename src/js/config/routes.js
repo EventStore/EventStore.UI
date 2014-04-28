@@ -5,11 +5,20 @@ define(['es-ui'], function (app) {
 	'use strict';
 
     return app.config([
-    '$stateProvider', '$urlRouterProvider', '$httpProvider', '$provide',
-    function ($stateProvider, $urlRouterProvider, $httpProvider, $provide) {
+    '$stateProvider', '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider
             .otherwise('/');
 
+        // $stateProvider
+        //     // ========================================DASHBOARD============
+        //     .state('main', {
+        //         url: '/',
+        //         templateUrl: 'index.tpl.html',
+        //         controller: ['$state', function ($state) {
+        //             $state.go('signin');
+        //         }]
+        //     });;
     }]);
 });
