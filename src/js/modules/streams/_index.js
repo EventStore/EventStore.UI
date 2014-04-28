@@ -3,7 +3,6 @@ define([
 	'uiRouter',
     './controllers/_index',
     './services/_index',
-    './directives/_index',
     './templates/templates'
 ], function (ng) {
 

@@ -10,9 +10,9 @@ define([
 	'use strict';
     return ng.module('es-ui.dashboard', [
 		'ui.router',
+        'es-ui.dashboard.templates',
     	'es-ui.dashboard.controllers',
     	'es-ui.dashboard.services',
-        'es-ui.dashboard.directives',
-        'es-ui.dashboard.templates'
+        'es-ui.dashboard.directives'
 	]);
 });
