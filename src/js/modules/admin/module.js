@@ -11,7 +11,8 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================ADMIN============
             .state('admin', {
-                url: '/admin',
+                url: 'admin',
+                parent: 'app',
                 templateUrl: 'admin.tpl.html',
                 controller: 'AdminCtrl',
                 data: {

@@ -1,7 +1,8 @@
 define(['es-ui'], function (app) {
 
 	'use strict';
-
+	app.value('baseUrl', '');
+	
 	return app.constant('urls', {
 		base: 'http://127.0.0.1:2113',
 		guid: '/new-guid',

@@ -7,7 +7,13 @@ define(['es-ui'], function (app) {
         function ($rootScope, $state, $stateParams, authService) {
 
 			// for testing purpose
-			authService.setCredentials('admin', 'changeit');
+            authService.existsAndValid()
+            .then(function () {
+
+            }, function () {
+                $rootScope.$currentState = $state.current;
+                $state.go('signin');
+            })
 
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
