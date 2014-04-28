@@ -11,7 +11,8 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================PROJECTIONS============
             .state('projections', {
-                url: '/projections',
+                url: 'projections',
+                parent: 'app',
                 abstract: true,
                 templateUrl: 'projections.tpl.html',
                 data: {
@@ -83,7 +84,8 @@ define(['./_index'], function (app) {
 
             // ========================================QUERY============
             .state('query', {
-                url: '/query',
+                url: 'query',
+                parent: 'app',
                 templateUrl: 'query.tpl.html',
                 controller: 'QueryCtrl',
                 data: {

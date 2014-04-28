@@ -11,7 +11,8 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================STREAMS============
             .state('streams', {
-                url: '/streams',
+                url: 'streams',
+                parent: 'app',
                 templateUrl: 'streams.tpl.html',
                 abstract: true
             })

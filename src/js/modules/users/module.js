@@ -11,7 +11,8 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================USERS============
             .state('users', {
-                url: '/users',
+                url: 'users',
+                parent: 'app',
                 templateUrl: 'users.tpl.html',
                 abstract: true,
                 data: {

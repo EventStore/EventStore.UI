@@ -4,6 +4,7 @@ define([
 	'es-ui',
 	'run',
 	'./config/consts',
+	'./config/values',
 	'./config/http',
 	'./config/qDecorator',
 	'./config/routes'

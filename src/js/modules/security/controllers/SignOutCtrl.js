@@ -3,9 +3,10 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SignOutCtrl', [
-		'$scope', 'MessageService',
-		function ($scope, msg) {
-
+		'$scope', '$state', 'AuthService',
+		function ($scope, $state, authService) {
+			authService.clearCredentials();
+			$state.go('signin');
 		}
 	]);
 

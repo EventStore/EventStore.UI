@@ -19,8 +19,9 @@ define(['./_index'], function (app) {
                 }
             })
             .state('signout', {
-                url: '/signout',
-                templateUrl: 'signout.tpl.html',
+                url: 'signout',
+                parent: 'app',
+                template: '<div ui-view></div>',
                 controller: 'SignOutCtrl',
                 data: {
                     title: 'Sign out'

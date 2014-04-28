@@ -11,14 +11,13 @@ define(['es-ui'], function (app) {
         $urlRouterProvider
             .otherwise('/');
 
-        // $stateProvider
-        //     // ========================================DASHBOARD============
-        //     .state('main', {
-        //         url: '/',
-        //         templateUrl: 'index.tpl.html',
-        //         controller: ['$state', function ($state) {
-        //             $state.go('signin');
-        //         }]
-        //     });;
+        $stateProvider
+            // ========================================DASHBOARD============
+            .state('app', {
+                url: '/',
+                templateUrl: 'index.tpl.html',
+                abstract: true
+                //controller: ['$state']
+            });
     }]);
 });

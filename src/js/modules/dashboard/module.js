@@ -11,7 +11,8 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================DASHBOARD============
             .state('dashboard', {
-                url: '/dashboard',
+                parent: 'app',
+                url: 'dashboard',
                 templateUrl: 'dashboard.tpl.html',
                 abstract: true,
                 data: {
