@@ -4,7 +4,8 @@ this is dev branch - work in progress. it may not work during short period of ti
 
 current changes:
 
-* _2014-03-29_: projections/streams/dashboard etc. split as separate modules
+* _2014-03-29_: login/logout functionality added so
+* _2014-03-28_: projections/streams/dashboard etc. split as separate modules
 
 # EventStore.UI
 
@@ -17,8 +18,8 @@ The new user interface for Event Store.
 To use new UI you will need to do few things manually (as for todate: 2014-04-16).
 
 * You need custom build of [EventStore](https://github.com/EventStore/EventStore) dev branch. This branch includes changes that where included to allow CORS. Without this custom build, UI will not work for you.
-* User name and password for administrator needs to be `admin:changeit` - if you want to change it, update this value in `run.js`.
-* EventStore needs to run on default address: `http://127.0.0.1:2113` - if you want to change it, update this value in `consts.js`.
+* ~~User name and password for administrator needs to be `admin:changeit` - if you want to change it, update this value in `run.js`.~~
+* ~~EventStore needs to run on default address: `http://127.0.0.1:2113` - if you want to change it, update this value in `consts.js`.~~
 
 ## Running new UI
 
