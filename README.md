@@ -1,3 +1,11 @@
+# Dev Branch
+
+this is dev branch - work in progress. it may not work during short period of time.
+
+current changes:
+
+* _2014-03-29_: projections/streams/dashboard etc. split as separate modules
+
 # EventStore.UI
 
 *this project is still under development*
