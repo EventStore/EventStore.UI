@@ -10,6 +10,7 @@ define(['./_module'], function (app) {
 		'$cookieStore', 
 		'$http', 
 		'$rootScope',
+		//'baseUrl', // not sure why by this does not work for services
 		function (Base64, $q, $cookieStore, $http, $rootScope) {
 			// initialize to whatever is in the cookie, if anything
 			var authdata = $cookieStore.get('authdata');
@@ -21,6 +22,7 @@ define(['./_module'], function (app) {
  
 			function setBaseUrl (url) {
 				$rootScope.baseUrl = url;
+				//baseUrl = { url: url };
 			}
 
 			function getBaseUrl () {

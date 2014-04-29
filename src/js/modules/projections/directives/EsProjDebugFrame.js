@@ -15,7 +15,7 @@ define(['./_module'], function (app) {
 		return ('0000' + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
 	}
 
-    return app.directive('esProjDebugFrame', [function () {
+    return app.directive('esProjDebugFrame', ['$rootScope', function ($rootScope) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -30,7 +30,7 @@ define(['./_module'], function (app) {
 '<script>window.processor = $initialize_hosted_projections(); processor.set_debugging();</script>' +
 '<script src="LOCATION/query?UID"></script>';
 
-				iframeHtml = iframeHtml.replace(/BASE_URI/g, 'http://127.0.0.1:2113');
+				iframeHtml = iframeHtml.replace(/BASE_URI/g, $rootScope.baseUrl);
 				iframeHtml = iframeHtml.replace(/LOCATION/g, decodeURIComponent(scope.esLocation));
 				iframeHtml = iframeHtml.replace(/UID/g, generateUIDNotMoreThan1million());
 
