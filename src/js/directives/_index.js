@@ -1,3 +1,4 @@
 define([
-    './EsValidateEquals'
+    './EsValidateEquals',
+    './EsHeight'
 ], function () {});
