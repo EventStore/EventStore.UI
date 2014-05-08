@@ -2,6 +2,7 @@ define([
 	'angular',
 	'uiRouter',
     './controllers/_index',
+    './directives/_index',
     './services/_index',
     './templates/templates'
 ], function (ng) {
@@ -11,6 +12,7 @@ define([
 		'ui.router',
     	'es-ui.streams.controllers',
     	'es-ui.streams.services',
-        'es-ui.streams.templates'
+        'es-ui.streams.templates',
+        'es-ui.streams.directives'
 	]);
 });

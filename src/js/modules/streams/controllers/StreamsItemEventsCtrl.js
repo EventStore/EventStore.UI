@@ -19,10 +19,21 @@ define(['./_module'], function (app) {
 				msg.error('stream does not exists');
 			}, function (data) {
 				
+				$scope.$broadcast('add-link-header', findSelf(data.links));
+				
 				$scope.$parent.streams = atom.map(data.entries, showJson);
 				$scope.$parent.links = data.links;
 
 			});
+
+			function findSelf (links) {
+				var i = 0;
+				for(; i < links.length; i++) {
+					if(links[i].relation === 'self') {
+						return links[i].fullUri;
+					}
+				}
+			}
 
 			$scope.toggleJson = function ($event, evt) {
 				$event.preventDefault();
