@@ -424,6 +424,9 @@ kbd {
   background: #fdeff0;
   color: #e22430; }
 
+.new-projection-form tr td:first-child {
+  width: 15em; }
+
 .site-footer {
   padding: 1.5rem 3rem 3rem;
   text-align: center; }
