@@ -341,12 +341,19 @@ kbd {
   .page-nav__item a, .page-nav__item button, .page-nav__item input[type="submit"] {
     display: inline-block;
     padding: 0.5rem;
+    background: white;
     color: #5a8a00;
+    cursor: pointer;
     border: 1px solid #6ba300;
     border-radius: 0.25rem; }
     .page-nav__item a:active, .page-nav__item button:active, .page-nav__item input[type="submit"]:active {
       background: #6ba300;
       color: white; }
+    .page-nav__item a[disabled], .page-nav__item a.disabled, .page-nav__item button[disabled], .page-nav__item button.disabled, .page-nav__item input[type="submit"][disabled], .page-nav__item input[type="submit"].disabled {
+      background: #f2f4f0;
+      border-color: #e2e4e0;
+      cursor: default;
+      color: #e2e4e0; }
   .page-nav__item form {
     margin: 0;
     padding: 0; }
@@ -432,7 +439,10 @@ kbd {
   min-height: 400px;
   height: 100%;
   font-size: 14px !important; }
-.login-height { height: 100%}
+
+.login-height {
+  height: 100%; }
+
 .site-footer {
   padding: 1.5rem 3rem 3rem;
   text-align: center; }

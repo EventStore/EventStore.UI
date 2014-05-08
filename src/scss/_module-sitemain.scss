@@ -99,14 +99,22 @@
 	margin: 0 0 0 0.5rem;
 	a, button, input[type="submit"] {
 		display: inline-block;
-		padding: 0.5rem;
-		color: $green-dark;
-		border: 1px solid $green;
-		border-radius: 0.25rem;
-		&:active {
-			background: $green;
-			color: $white;
-		}
+	    padding: 0.5rem;
+	    background: $white; // This to ensure buttons and inputs get a white background
+	    color: $green-dark;
+	    border: 1px solid $green;
+	    border-radius: 0.25rem;
+	    cursor: pointer;
+	    &:active {
+	        background: $green;
+	        color: $white;
+	    }
+	    &[disabled], &.disabled { // <button disabled>, <a href="#" class="disabled">
+	        background: $white-off;
+	        border-color: $grey-light;
+	        color: $grey-light;
+      		cursor: default;
+	    }
 	}
 	form {
 		margin: 0;
