@@ -1,12 +1,3 @@
-# Dev Branch
-
-this is dev branch - work in progress. it may not work during short period of time.
-
-current changes:
-
-* _2014-04-29_: login/logout functionality added
-* _2014-04-28_: projections/streams/dashboard etc. split as separate modules
-
 # EventStore.UI
 
 *this project is still under development - you can see changes on [dev branch](https://github.com/EventStore/EventStore.UI/tree/dev)*
