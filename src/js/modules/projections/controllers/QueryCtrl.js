@@ -40,25 +40,33 @@ define(['./_module'], function (app) {
 				}).then(null, null, function (data) {
 					var s, stopped;
 
-					$scope.state = data.state;
+					if(data.state) {
+						$scope.state = data.state;
+						if($scope.isStopped) {
+							stopAndDisable();
+						}
+					}
+					
 					if(data.statistics && data.statistics.projections.length) {
 						s = data.statistics.projections[0].status;
 						$scope.status = s;
 
-						stopped = !!~s.indexOf('Stopped') || !!~s.indexOf('Faulted') || !!~s.indexOf('Completed');;
-						//$scope.isStopped = stopped;
-						// todo: shell we stop monitoring when status is completed/faulted?
-						//if(stopped) {
-						//	monitor.stop();
-						//}
+						stopped = (!!~s.indexOf('Stopped') && !~s.indexOf('Preparing')) || !!~s.indexOf('Faulted') ||!!~s.indexOf('Completed');
+						$scope.isStopped = stopped;
 					}
 				});
+			}
+
+			function stopAndDisable () {
+				monitor.stop();
+				return queryService.disable(location);
 			}
 
 			function run () {
 				var updated = queryService.update(location, $scope.query);
 				
 				updated.success(function () {
+
 					var enabled = queryService.enable(location);
 					// start monitoring ms before query will be enabled
 					monitorState();
@@ -67,6 +75,11 @@ define(['./_module'], function (app) {
 						msg.error('Could not start query');
 						monitor.stop();
 					});
+
+					//var disable = queryService.disable(location);
+					//disable.success(function () {
+						
+					//});
 				})
 				.error(function () {
 					msg.error('Query not updated');
@@ -102,10 +115,10 @@ define(['./_module'], function (app) {
 			};
 
 			$scope.stop = function () {
-				monitor.stop();
 
-				queryService.disable(location)
-				.error(function () {
+				var disable = stopAndDisable();
+				
+				disable.error(function () {
 					msg.error('Could not break query');
 				});
 			};
@@ -120,7 +133,7 @@ define(['./_module'], function (app) {
 
 			$scope.$watch('query', function(scope, newValue, oldValue) {
 				if(newValue != oldValue) {
-					$scope.isCreated = false;
+					//$scope.isCreated = false;
 				}
 			});
 
