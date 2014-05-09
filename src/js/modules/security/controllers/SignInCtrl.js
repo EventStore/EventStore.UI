@@ -9,7 +9,7 @@ define(['./_module'], function (app) {
 			$scope.log = {
 				username: '',
 				password: '',
-				server: ''
+				server: authService.getServer()
 			};
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
@@ -19,6 +19,7 @@ define(['./_module'], function (app) {
 
 				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
 				.success(function () {
+					authService.storeServer($scope.log.server);
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
 					redirectToPreviousState();
 				})
