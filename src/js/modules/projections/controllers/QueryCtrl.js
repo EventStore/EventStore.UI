@@ -38,15 +38,19 @@ define(['./_module'], function (app) {
 					ignoreQuery: true,
 					ignoreResult: true
 				}).then(null, null, function (data) {
-					var s;
+					var s, stopped;
 
 					$scope.state = data.state;
 					if(data.statistics && data.statistics.projections.length) {
 						s = data.statistics.projections[0].status;
 						$scope.status = s;
 
-						$scope.isStopped = !!~s.indexOf('Stopped') || !!~s.indexOf('Faulted');
+						stopped = !!~s.indexOf('Stopped') || !!~s.indexOf('Faulted') || !!~s.indexOf('Completed');;
+						//$scope.isStopped = stopped;
 						// todo: shell we stop monitoring when status is completed/faulted?
+						//if(stopped) {
+						//	monitor.stop();
+						//}
 					}
 				});
 			}
@@ -113,6 +117,12 @@ define(['./_module'], function (app) {
 					inherit: false 
 				});
 			};
+
+			$scope.$watch('query', function(scope, newValue, oldValue) {
+				if(newValue != oldValue) {
+					$scope.isCreated = false;
+				}
+			});
 
 			$scope.$on('$destroy', function () {
 				monitor.stop();
