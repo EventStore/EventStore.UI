@@ -4,6 +4,7 @@ this is dev branch - work in progress. it may not work during short period of ti
 
 current changes:
 
+* _2014-05-09_: remember server on login screen (#13)
 * _2014-05-09_: bug fixes for query screen (#9, #10, #13)
 * _2014-05-08_: marging all changes to master branch
 * _2014-05-08_: adding atom link header to stream page (#4)
