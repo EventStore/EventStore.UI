@@ -9,7 +9,7 @@ define(['./_module'], function (app) {
 			$scope.log = {
 				username: '',
 				password: '',
-				server: authService.getServer()
+				server: authService.getServer() || '127.0.0.1:2113' // defaulting to default location
 			};
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
