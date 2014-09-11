@@ -5,7 +5,6 @@ define(['es-ui'], function (app) {
 	
 	return app.constant('urls', {
 		base: 'http://127.0.0.1:2113',
-		guid: '/new-uuid',
 		stats: '/stats',
 		admin: {
 			halt: '/admin/halt',
