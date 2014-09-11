@@ -4,9 +4,9 @@ define(['./_module'], function (app) {
 
 	return app.provider('ProjectionsService', function () {
 		this.$get = [
-			'$http', '$q', 'urls', 'UrlBuilder', 'uri',
+			'$http', '$q', 'urls', 'constants', 'UrlBuilder', 'uri',
 
-			function ($http, $q, urls, urlBuilder, uriProvider) {
+			function ($http, $q, urls, constants, urlBuilder, uriProvider) {
 
 				var errors = '';
 				function formatMultipleErrors (err, name) {
@@ -18,7 +18,7 @@ define(['./_module'], function (app) {
 					errors = '';
 				}
 
-				function executeCommand (forItems, command) {
+				function executeCommand (forItems, command, expectedStatus) {
 					var all = forItems(),
 						deferred = $q.defer();
 					clearErrors();
@@ -27,6 +27,7 @@ define(['./_module'], function (app) {
 
 						angular.forEach(data.projections, function (value) {
 							url = value.statusUrl + command;
+							if(value.status == expectedStatus) return;
 							calls.push($http.post(url).error(function (err) {
 								formatMultipleErrors(err, value.name);
 							}));
@@ -61,10 +62,10 @@ define(['./_module'], function (app) {
 						return $http.get(url);
 					},
 					disableAll: function () {
-						return executeCommand(this.all, urls.projections.disable);
+						return executeCommand(this.all, urls.projections.disable, constants.projectionStatus.stopped);
 					},
 					enableAll: function () {
-						return executeCommand(this.all, urls.projections.enable);
+						return executeCommand(this.all, urls.projections.enable, constants.projectionStatus.running);
 					},
 					create: function (mode, source, params) {
 						var qp = uriProvider.getQuery(params),
