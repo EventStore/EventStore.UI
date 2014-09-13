@@ -11,16 +11,6 @@ define(['./_module'], function (app) {
 					$event.stopPropagation();
 				};
 
-			$scope.halt = function ($event) {
-				stop($event);
-
-				adminService.halt().then(function () {
-					msg.info('server halted');
-				}, function () {
-					msg.error('halt failed');
-				});
-			};
-
 			$scope.shutdown = function ($event) {
 				stop($event);
 
