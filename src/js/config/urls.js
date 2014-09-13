@@ -7,7 +7,6 @@ define(['es-ui'], function (app) {
 		base: 'http://127.0.0.1:2113',
 		stats: '/stats',
 		admin: {
-			halt: '/admin/halt',
 			shutdown: '/admin/shutdown',
 			scavenge: '/admin/scavenge'
 		},
