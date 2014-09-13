@@ -60,7 +60,9 @@ define(['es-ui'], function (app) {
 			tryharder: '?embed=tryharder',
 			metadata: '/streams/%s%s/head',
 			updateAcl: '/streams/$$%s'
+		},
+		system:{
+			subsystems: '/sys/subsystems'
 		}
 	});
-
 });

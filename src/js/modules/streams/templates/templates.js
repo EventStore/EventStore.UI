@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.acl.tpl.html',
-    '<header class=page-header><h2 class=page-title>Edit ACL for Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.events>Back</a></li></ul></header><form novalidate="" name=editAcl ng-submit=updateAcl()><table><tbody><tr><td>Reader</td><td><input name=reader class=form-table ng-model=reader></td></tr><tr><td>Writer</td><td><input name=writer class=form-table ng-model=writer></td></tr><tr><td>Deleter</td><td><input name=deleter class=form-table ng-model=deleter></td></tr><tr><td>Meta Reader</td><td><input name=metareader class=form-table ng-model=metareader></td></tr><tr><td>Meta Writer</td><td><input name=metawriter class=form-table ng-model=metawriter></td></tr></tbody></table><ul><li><button type=submit>Save</button></li></ul></form>');
+    '<header class=page-header><h2 class=page-title>Edit ACL for Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.events>Back</a></li></ul></header><form novalidate name=editAcl ng-submit=updateAcl()><table><tbody><tr><td>Reader</td><td><input name=reader class=form-table ng-model=reader></td></tr><tr><td>Writer</td><td><input name=writer class=form-table ng-model=writer></td></tr><tr><td>Deleter</td><td><input name=deleter class=form-table ng-model=deleter></td></tr><tr><td>Meta Reader</td><td><input name=metareader class=form-table ng-model=metareader></td></tr><tr><td>Meta Writer</td><td><input name=metawriter class=form-table ng-model=metawriter></td></tr></tbody></table><ul><li><button type=submit>Save</button></li></ul></form>');
 }]);
 })();
 
@@ -54,7 +54,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.tpl.html',
-    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=.acl>Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul><li ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a> </li></ul><div ui-view="" es-link-header=""></div>');
+    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=.acl>Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul><li ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a> </li></ul><div ui-view es-link-header></div>');
 }]);
 })();
 
@@ -66,7 +66,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.list.tpl.html',
-    '<header class=page-header><h2 class=page-title>Stream Browser</h2><ul class=page-nav><li class=page-nav__item><form><input ui-keypress="{\'enter\': \'gotoStream($event)\'}" ng-model=search></form></li></ul></header><div class=container><div class=container-left><table><thead><tr><th>Recently Created Streams <small>issue: #1</small></th></tr></thead><tbody><tr ng-repeat="stream in createdStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=createdStreams><td><em>No recently created streams</em></td></tr></tbody></table></div><div class=container-right><table><thead><tr><th>Recently Changed Streams</th></tr></thead><tbody><tr ng-repeat="stream in changedStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=changedStreams><td><em>No recently changed streams</em></td></tr></tbody></table></div></div>');
+    '<header class=page-header><h2 class=page-title>Stream Browser</h2><ul class=page-nav><li class=page-nav__item><form><input ui-keypress="{\'enter\': \'gotoStream($event)\'}" ng-model="search"></form></li></ul></header><div class=container><div class=container-left><table><thead><tr><th>Recently Created Streams <small>issue: #1</small></th></tr></thead><tbody><tr ng-repeat="stream in createdStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=createdStreams><td><em>No recently created streams</em></td></tr></tbody></table></div><div class=container-right><table><thead><tr><th>Recently Changed Streams</th></tr></thead><tbody><tr ng-repeat="stream in changedStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=changedStreams><td><em>No recently changed streams</em></td></tr></tbody></table></div></div>');
 }]);
 })();
 
@@ -78,7 +78,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.tpl.html',
-    '<div ui-view=""></div>');
+    '<div ui-view></div>');
 }]);
 })();
  });

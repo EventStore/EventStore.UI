@@ -5,7 +5,17 @@ define(['./_module'], function (app) {
     return app.controller('AdminCtrl', [
 		'$scope', 'AdminService', 'MessageService',
 		function ($scope, adminService, msg) {
-
+			$scope.subSystems = [];
+			adminService.getSubsystems()
+			.success(function(data){
+				if(!data){
+					return;
+				}
+				$scope.subSystems = data;
+			})
+			.error(function(){
+				msg.error('could not get sub systems');
+			})
 			var stop = function ($event) {
 					$event.preventDefault();
 					$event.stopPropagation();
@@ -32,6 +42,4 @@ define(['./_module'], function (app) {
 			};
 		}
 	]);
-
-
 });
