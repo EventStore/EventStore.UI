@@ -87,7 +87,7 @@ define(['./_module'], function (app) {
 		        	}
 
 		            server = prepareUrl(server);
-		        	return $http.get(server + '/ping', {
+		        	return $http.get(server + '/info', {
 		        		headers: {
 		        			'Accept': '*/*',
 		        			Authorization: 'Basic ' + encoded
