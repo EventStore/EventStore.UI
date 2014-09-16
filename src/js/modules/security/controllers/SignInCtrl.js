@@ -18,7 +18,8 @@ define(['./_module'], function (app) {
 				}
 
 				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
-				.success(function () {
+				.success(function (info) {
+					$rootScope.esVersion = info.esVersion || '0.0.0.0';
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
 					redirectToPreviousState();
 				})
