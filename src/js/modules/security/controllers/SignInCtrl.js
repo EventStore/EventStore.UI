@@ -3,13 +3,13 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SignInCtrl', [
-		'$scope', '$rootScope', '$state', 'AuthService', 'MessageService',
-		function ($scope, $rootScope, $state, authService, msg) {
+		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService',
+		function ($scope, $rootScope, $state, $location, authService, msg) {
 
 			$scope.log = {
 				username: '',
 				password: '',
-				server: ''
+				server: $location.host() + ':' + $location.port()
 			};
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
