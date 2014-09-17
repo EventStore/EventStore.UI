@@ -200,8 +200,7 @@ define(['./_module'], function (app) {
 				    // transfer user to different page?
 
 				    //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-				    msg.info('there is a bug in UI-Router that does not reload controllers after $state.reload, please click F5');
-				    $state.reload();
+				    $state.go($state.current, {}, {reload: true});
 				})
 				.error(function () {
 				    msg.error('Projection not updated');
