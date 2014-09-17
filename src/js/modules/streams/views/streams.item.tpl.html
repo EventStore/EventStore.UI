@@ -10,7 +10,7 @@
 	</ul>
 </header>
 <ul>
-		<li ng-repeat="link in links">
+		<li class="page-nav__item" ng-repeat="link in links">
 			<a ng-href="{{link.uri}}"> {{ link.relation }}</a>
 			<!-- <a ui-sref="^.navigation(link.param)">{{ link.relation }}</a> -->
 		</li>
