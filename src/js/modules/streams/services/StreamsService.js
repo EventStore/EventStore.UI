@@ -1,98 +1,82 @@
-define(['./_module'], function (app) {
+define(['./_module'], function(app) {
 
-	'use strict';
+    'use strict';
 
-	return app.provider('StreamsService', function () {
-		this.$get = [
-			'$http', '$q', 'urls', 'UrlBuilder',
-			function ($http, $q, urls, urlBuilder) {
+    return app.provider('StreamsService', function() {
+        this.$get = [
+            '$http', '$q', 'urls', 'UrlBuilder',
+            function($http, $q, urls, urlBuilder) {
 
-				return {
-					getAcl: function (streamId) {
-						var url = urlBuilder.build(urls.streams.metadata, '$$', streamId);
+                return {
+                    getAcl: function(streamId) {
+                        var url = urlBuilder.build(urls.streams.metadata, '$$', streamId);
 
-						return $http.get(url);
-					},
-					updateAcl: function (streamId, post) {
-						var deferred = $q.defer(),
-							url = urlBuilder.build(urls.guid);
+                        return $http.get(url);
+                    },
+                    updateAcl: function(streamId, post) {
+                        var deferred = $q.defer();
 
-						$http.get(url, {
-							headers: {
-								'Accept': '*/*'
-							}
-						})
-						.success(function (guid) {
-							var url = urlBuilder.build(urls.streams.updateAcl, streamId);
-							var d = [{
-								data: post,
-								isJson: true,
-								eventId: guid,
-								eventType: '$metadata'
-							}];
-							console.dir(post);
-							$http.post(url, d, {
-								headers: {
-									'Content-Type': 'application/vnd.eventstore.events+json'
-								}
-							})
-							.success(function () {
-								deferred.resolve();
-							})
-							.error(function () {
-								deferred.reject();
-							});
-						})
-						.error(function () {
-							deferred.reject();
-						});
+                        var url = urlBuilder.build(urls.streams.updateAcl, streamId);
+                        
+                        $http.post(url, JSON.stringify(post), {
+                            headers: {
+                                'ES-EventType':'$metadata',
+                                'Content-Type':'application/json'
+                            }
+                        })
+                        .success(function() {
+                            deferred.resolve();
+                        })
+                        .error(function() {
+                            deferred.reject();
+                        });
 
-						return deferred.promise;
-					},
-					validateFullUrl: function (check) {
-						var url = urlBuilder.simpleBuild(urls.streams.base, check);
+                        return deferred.promise;
+                    },
+                    validateFullUrl: function(check) {
+                        var url = urlBuilder.simpleBuild(urls.streams.base, check);
 
-						return $http.get(url);
-					},
-					recentlyChangedStreams: function () {
-						var url = urlBuilder.build(urls.streams.recent);
-						return $http.get(url);
-					},
-					recentlyCreatedStreams: function () {
-						var url = urlBuilder.build(urls.streams.created);
-						return $http.get(url);
-					},
-					streamEvents: function (state) {
-						var url = urlBuilder.build(urls.streams.events, state.streamId);
-						
-						if(state.position) {
-							url += '/' + state.position;
-						}
+                        return $http.get(url);
+                    },
+                    recentlyChangedStreams: function() {
+                        var url = urlBuilder.build(urls.streams.recent);
+                        return $http.get(url);
+                    },
+                    recentlyCreatedStreams: function() {
+                        var url = urlBuilder.build(urls.streams.created);
+                        return $http.get(url);
+                    },
+                    streamEvents: function(state) {
+                        var url = urlBuilder.build(urls.streams.events, state.streamId);
 
-						if(state.type) {
-							url += '/' + state.type;
-						}
+                        if (state.position) {
+                            url += '/' + state.position;
+                        }
 
-						if(state.count) {
-							url += '/' + state.count;
-						}
+                        if (state.type) {
+                            url += '/' + state.type;
+                        }
 
-						url += urls.streams.tryharder;
+                        if (state.count) {
+                            url += '/' + state.count;
+                        }
 
-						return $http.get(url);
-					},
-					eventContent: function (streamId, eventNumber) {
-						var url = urlBuilder.build(urls.streams.eventDetails, streamId, eventNumber);
-						var header = {
-							headers: {
-								Accept: 'application/vnd.eventstore.atom+json'
-							}
-						};
+                        url += urls.streams.tryharder;
 
-						return $http.get(url, header);
-					}
-				};
-		}];
-	});
+                        return $http.get(url);
+                    },
+                    eventContent: function(streamId, eventNumber) {
+                        var url = urlBuilder.build(urls.streams.eventDetails, streamId, eventNumber);
+                        var header = {
+                            headers: {
+                                Accept: 'application/vnd.eventstore.atom+json'
+                            }
+                        };
 
+                        return $http.get(url, header);
+                    }
+                };
+            }
+        ];
+    });
 });

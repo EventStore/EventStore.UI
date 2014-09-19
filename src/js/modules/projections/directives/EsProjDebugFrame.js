@@ -42,6 +42,7 @@ define(['./_module'], function (app) {
 						doc;
 		            
 		            iframe.setAttribute('frameborder', '0');
+		            iframe.setAttribute('width', '100%');
 		            iframe.id = 'script-placeholder';
 		            elem[0].appendChild(iframe);	
 

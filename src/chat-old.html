@@ -1,0 +1,467 @@
+<!doctype html>
+<html>
+<head>
+    <title>Chat</title>
+    <script src="http://127.0.0.1:2113/web/es/lib/jquery/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="http://127.0.0.1:2113/web/es/lib/jsrender/jsrender.js" type="text/javascript"></script>
+    <!-- <script src="http://127.0.0.1:2113/web/es/js/es.tmpl.js" type="text/javascript"></script> -->
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" href="http://127.0.0.1:2113/web/es/img/favicon.ico" type="image/x-icon" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- styles section -->
+    <link href="http://127.0.0.1:2113/web/es/lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="http://127.0.0.1:2113/web/es/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="http://127.0.0.1:2113/web/es/lib/jquery/jquery-ui-1.8.23.custom.css" rel="stylesheet"/>
+    <link href="http://127.0.0.1:2113/web/es/css/es.sitelayout.css" rel="stylesheet"/> 
+    <style>
+        .chat-window {
+            width: 98%;
+            border: 1px solid #d6d6d6;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: default !important;
+        }
+        .input-window {
+            width: 100%;
+        }
+        .input-window .username {
+            width: 10%;
+            margin: 10px 0;
+        }
+        .input-window .message-input{
+            margin: 10px;
+            width: 80%;
+        }    
+        .input-window .send {
+            width: 10%;
+        }
+        .input-window .send, .input-dialog .submit {
+            background-color: whitesmoke;
+            color: #222222;
+            border: 1px solid #d6d6d6;
+            border-radius: 4px;
+            padding: 5px;
+            margin: 3px;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- ==================================== top navigation section ====================================-->
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- ==== show menu for device ====-->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <!-- ==== site logo ====-->
+                    <a class="brand" href="/">
+                        <img src="http://127.0.0.1:2113/web/es/img/eventstore_logo.png">
+                    </a>
+                    <!-- ==== show menu for desktop device ====-->
+                    <div class="nav-collapse collapse topmenu">
+                        <ul class="nav" id="navmenu">
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                    <script src="http://127.0.0.1:2113/web/es/js/es.util.js"></script>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- ==================================== content section ====================================-->
+        <div class="container content">
+            <h2>
+            EventStore based Chat</h2>
+            <h3 class="chartroom">
+                Room
+            </h3>
+            <textarea readonly="readonly" cols="70" rows="30" class="chat-window"></textarea>
+            <form class="input-window">
+            <span class="username"></span>
+            <input type="text" class="message-input" />
+            <input type="submit" class="send" value="Send" />
+            </form>
+            <form class="input-dialog" style="display: none">
+            <div>
+                Your name:
+                <input type="text" class="input-name" value="John Smith" /></div>
+            <div>
+                Chat room:
+                <input type="text" class="input-room" value="GeneralChat" /></div>
+            <input type="submit" class="submit" value="Enter" />
+            </form>
+            <div class="error" style="display: none">
+            </div>
+            </div>
+        <!-- /container -->
+        
+    </div>
+    <div class="push">
+        </div>
+
+    <!-- ==================================== footer section ====================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <p>
+                        &copy; EventStore 2012</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ==================================== javascript section ====================================-->
+    <script src="http://127.0.0.1:2113/web/es/lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="http://127.0.0.1:2113/web/es/lib/jquery/jquery-ui-1.8.23.min.js" type="text/javascript"></script>
+    <script src="http://127.0.0.1:2113/web/es/js/projections/v8/Prelude/Modules.js"> </script>
+    <script src="http://127.0.0.1:2113/web/es/js/projections/v8/Prelude/Projections.js"> </script>
+    <script src="http://127.0.0.1:2113/web/es/js/projections/es.projections.environment.js"> </script>
+    <script src="http://127.0.0.1:2113/web/es/js/projections/v8/Prelude/1Prelude.js"> </script>
+    <script> 
+    if (!window.es) { window.es = {}; };
+es.projection = function (settings) {
+
+    var projectionBody = settings.body;
+    var onStateUpdate = settings.onStateUpdate || function () { };
+    var showError = settings.showError || function () { };
+    var hideError = settings.hideError || function () { };
+
+    var currentTimeout = null;
+    var category = null;
+
+    return {
+        start: startProjection,
+        stop: stopProjection
+    };
+
+    function startProjection() {
+
+        stopProjection();
+        var processor = $initialize_hosted_projections();
+        projectionBody();
+        processor.initialize();
+
+        var sources = JSON.parse(processor.get_sources());
+        if ((sources.categories != null && sources.categories.length > 1)
+            || (sources.streams != null && sources.streams.length > 1)) {
+            throw "Unsupported projection source to run in the web browser";
+        }
+
+        if (sources.allStreams) {
+            category = null;
+            startPolling('$all', processEvent);
+        } else if (sources.categories != null && sources.categories.length == 1) {
+            category = sources.categories[0];
+            startPolling("$ce-" + category, processEvent);
+        } else {
+            category = null;
+            startPolling(sources.streams[0], processEvent);
+        }
+
+        function processEvent(event) {
+            var stateStr = processor.process_event(event.data,
+                                                   "1", // isJson
+                                                   event.eventStreamId,
+                                                   event.eventType,
+                                                   category,
+                                                   event.eventNumber,
+                                                   event.metadata);
+            var stateObj = JSON.parse(stateStr);
+            onStateUpdate(stateObj, stateStr);
+        }
+    }
+
+    function stopProjection() {
+        if (currentTimeout !== null)
+            clearTimeout(currentTimeout);
+        currentTimeout = null;
+    };
+    
+    function getFeedLink(links, linkRel) {
+        var res = $.grep(links, function (link) { return link.relation === linkRel; });
+        return res.length ? res[0].uri : null;
+    }
+
+    function startPolling(streamId, callback) {
+        var nextPageUrl = 'http://127.0.0.1:2113/streams/' + encodeURIComponent(streamId);
+        var readNextPage = readFirstPage;
+
+        readFirstPage();
+
+        function readFirstPage() {
+            currentTimeout = null;
+            $.ajax(nextPageUrl + "?embed=content",
+                   {
+                       dataType: 'json',
+                       headers: {
+                            'Accept': 'application/vnd.eventstore.atom+json'
+                       }
+                   })
+            .done(function(data, textStatus, jqXHR) {
+                var lastLink = getFeedLink(data.links, 'last');
+                if (!lastLink) {
+                    // head is the last page already
+                    if (data.entries) {
+                        for (var i = 0, n = data.entries.length; i < n; i += 1) {
+                            var event = data.entries[n - i - 1].content;
+                            if (event)
+                                callback(event);
+                        }
+                    }
+                    nextPageUrl = getFeedLink(data.links, 'previous');
+                } else {
+                    nextPageUrl = lastLink;
+                }
+                readNextPage = readForwardPage;
+                currentTimeout = setTimeout(readNextPage, 0);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                currentTimeout = setTimeout(readNextPage, 1000);
+            });
+        }
+
+        function readForwardPage() {
+            currentTimeout = null;
+            $.ajax(nextPageUrl + "?embed=content",
+                   {
+                       dataType: 'json',
+                       headers: {
+                           'Accept': 'application/vnd.eventstore.atom+json',
+                           'ES-LongPoll': 30
+                       }
+                   })
+            .done(function (data, textStatus, jqXHR) {
+                if (data.entries) {
+                    for (var i = 0, n = data.entries.length; i < n; i += 1) {
+                        var event = data.entries[n - i - 1].content;
+                        if (event)
+                            callback(event);
+                    }
+                }
+                var prevLink = getFeedLink(data.links, 'previous');
+                nextPageUrl = prevLink || nextPageUrl;
+                currentTimeout = setTimeout(readNextPage, prevLink ? 0 : 1000);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                currentTimeout = setTimeout(readNextPage, 1000);
+            });
+        }
+    }
+};
+
+    </script>
+    <script> 
+
+        if (!window.es) { window.es = {}; };
+        es.postEvent = function (settings) {
+
+            var eventType = settings.eventType || (function () { throw "eventType is required"; })();
+            var stream = settings.stream || (function () { throw "stream is required"; })();
+            var data = settings.data || (function () { throw "data is required"; })();
+
+            var expectedVersion = settings.expectedVersion || -2;
+            var eventId = settings.eventId || guid();
+            var correlationId = settings.correlationId || guid();
+            var metadata = settings.metadata || "";
+            var onError = settings.error || function() {};
+            var onSuccess = settings.success || function() {};
+
+            var dataStr = null;
+            if (typeof data === "object" || typeof data === "string") {
+                dataStr = data;
+            } else {
+                throw "couldn't parse data";
+            }
+
+            var event = {
+                "EventId": eventId,
+                "EventType": eventType,
+                "Data": dataStr,
+                "Metadata": metadata
+            };
+            var body = [event];
+            
+            var bodyStr = JSON.stringify(body);
+            var encodedStream = encodeURIComponent(stream);
+            var url = "http://127.0.0.1:2113/streams/" + encodedStream;
+            $.ajax(url, {
+                type: "post",
+                data: bodyStr,
+                headers: {
+                    "Accept": "application/json",
+                    "ES-ExpectedVersion": expectedVersion
+                },
+                contentType: "application/vnd.eventstore.events+json",
+                success: function () {
+                    onSuccess(eventId, correlationId);
+                },
+                error: function (xhr, status, error) {
+                    onError(xhr, eventId, correlationId, expectedVersion);
+                }
+            });
+
+            function S4() {
+                return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+            }
+            function guid() {
+                return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+            }
+        }
+
+    </script>
+    <script>
+        $(function () {
+ 
+            var userName = null;
+            var chatRoomName = null;
+ 
+            tryLoadUserData();
+ 
+            $(".input-dialog")
+                .dialog({
+                    modal: true,
+                    closeOnEscape: false,
+                    open: function(event, ui) {
+                        $(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide();
+                    }
+                })
+                .submit(onUserDataInput)
+                .show();
+ 
+            $(".input-window").submit(onMessageInput);
+ 
+            $(".input-dialog").bind("dialogclose", function (event, ui) {
+                var projection = initProjection(userName, chatRoomName);
+                projection.start();
+            });
+ 
+            function initProjection(userName, chatRoomName) {
+                return es.projection({
+                    body: function () {
+                        var stream = chatRoomName == '$all' ? fromAll() : fromStream('chat-' + chatRoomName);
+                        stream.when({
+                            'ChatMessage': function (state, event) {
+                                var body = event.body;
+                                return { "text": (body.time + "> " + body.sender + ": " + body.message) };
+                            },
+                            'UserJoinedChat': function (state, event) {
+                                var body = event.body;
+                                return { "text": (body.time + "> user " + body.user + " has joined the chat!") };
+                            },
+                            $any: function(state, event) {
+                                return { "text": ('GENERIC EVENT: ' + JSON.stringify(event)) };
+                            }
+                        });
+                    },
+                    onStateUpdate: function (state) {
+                        var currentText = $('.chat-window').val();
+ 
+                        var chatWindow = $('.chat-window').val(currentText + (state.text || "") + "\r\n")[0];
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                    },
+                    showError: function (err) {
+                        $('.error').text(err);
+                    },
+                    hideError: function () {
+                        $('.error').hide().text("");
+                    }
+                });
+            }
+ 
+            function onUserDataInput(event) {
+                event.preventDefault();
+ 
+                userName = $(".input-dialog .input-name").val();
+                chatRoomName = $(".input-dialog .input-room").val();
+ 
+                if (!userName || !chatRoomName)
+                    return;
+ 
+                $(".input-window .username").append(userName + ": ");
+                $(".chartroom").append(chatRoomName);
+                $(".input-window .message-input")[0].focus();
+ 
+                trySaveUserData(userName, chatRoomName);
+ 
+                $(this).dialog("close");
+ 
+                (function postUserEnteredChatEvent() {
+                    var data = {
+                        time: getFormattedTime(),
+                        user: userName
+                    };
+                    es.postEvent({
+                        data: data,
+                        stream: 'chat-' + chatRoomName,
+                        eventType: 'UserJoinedChat'
+                    });
+                })();
+            }
+ 
+            function onMessageInput(event) {
+                event.preventDefault();
+ 
+                var input = $(".message-input").val();
+                if (!input)
+                    return;
+ 
+                var data = {
+                    sender: userName,
+                    message: input,
+                    time: getFormattedTime()
+                };
+                es.postEvent({
+                    data: data,
+                    stream: "chat-" + chatRoomName,
+                    eventType: 'ChatMessage',
+                    success: function () {
+                        $(".input-window .message-input").val("");
+                    }
+                });
+            }
+ 
+            function trySaveUserData(es_username, es_chatroom) {
+                if (window.localStorage) {
+                    localStorage.setItem('$es_username', es_username);
+                    localStorage.setItem('$es_chatroom', es_chatroom);
+                }
+            };
+ 
+            function tryLoadUserData() {
+                if (window.localStorage) {
+                    var es_username = localStorage.getItem('$es_username');
+                    var es_chatroom = localStorage.getItem('$es_chatroom');
+ 
+                    if (es_username)
+                        $(".input-dialog .input-name").val(es_username);
+                    if (es_chatroom)
+                        $(".input-dialog .input-room").val(es_chatroom);
+                }
+            };
+ 
+            function getFormattedTime() {
+                var now = new Date();
+                return _format(now.getHours()) + ":" + _format(now.getMinutes()) + ":" + _format(now.getSeconds());
+ 
+                function _format(timeUnit) {
+                    if (timeUnit < 10)
+                        return "0" + timeUnit;
+                    else
+                        return "" + timeUnit;
+                }
+            }
+ 
+        });
+    </script>
+</body>
+</html>

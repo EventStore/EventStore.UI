@@ -77,6 +77,19 @@ define(['./_module'], function (app) {
 
 		        	return deferred.promise;
 		        },
+		        storeServer: function (server) {
+		        	$cookieStore.put('es-server', {
+		        		server: server
+		        	});
+		        },
+		        getServer: function () {
+		        	var s = $cookieStore.get('es-server');
+		        	if(s && s.server) {
+		        		return s.server;
+		        	}
+
+		        	return '';
+		        },
 		        validate: function (username, password, server) {
 		        	var encoded;
 		        	if(!server) {
@@ -87,7 +100,7 @@ define(['./_module'], function (app) {
 		        	}
 
 		            server = prepareUrl(server);
-		        	return $http.get(server + '/new-guid', {
+		        	return $http.get(server + '/info', {
 		        		headers: {
 		        			'Accept': '*/*',
 		        			Authorization: 'Basic ' + encoded
