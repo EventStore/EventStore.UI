@@ -28,14 +28,13 @@ define(['./_module'], function (app) {
 				name = item.name;
 				last = lastRequest[name];
 				current[name] = item;
-				
-				if(last === undefined || !lastTimestamp) {
-					continue;
-				}
 
-				eventProcessed = item.eventsProcessedAfterRestart - last.eventsProcessedAfterRestart;
-				elapsedTime = currentTime - lastTimestamp;
-				item.eventsPerSecond = (1000.0 * eventProcessed / elapsedTime).toFixed(1);
+				if(last !== undefined && lastTimestamp) {
+					eventProcessed = item.eventsProcessedAfterRestart - last.eventsProcessedAfterRestart;
+					elapsedTime = currentTime - lastTimestamp;
+					item.eventsPerSecond = (1000.0 * eventProcessed / elapsedTime).toFixed(1);
+				}
+				
 				item.location = encodeURIComponent(item.statusUrl);
 				proj[i] = item;
 			}
