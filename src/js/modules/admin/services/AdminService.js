@@ -19,7 +19,11 @@ define(['./_module'], function (app) {
 					scavenge: function () {
 						var url = urlBuilder.build(urls.admin.scavenge);
 						return $http.post(url);
-					}
+					},
+					getSubsystems: function() {
+                        var url = urlBuilder.build(urls.system.subsystems);
+                        return $http.get(url);
+                    }
 				};
 		}];
 	});

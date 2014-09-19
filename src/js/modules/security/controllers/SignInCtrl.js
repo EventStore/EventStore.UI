@@ -3,13 +3,13 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SignInCtrl', [
-		'$scope', '$rootScope', '$state', 'AuthService', 'MessageService',
-		function ($scope, $rootScope, $state, authService, msg) {
+		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService',
+		function ($scope, $rootScope, $state, $location, authService, msg) {
 
 			$scope.log = {
 				username: '',
 				password: '',
-				server: authService.getServer() || '127.0.0.1:2113' // defaulting to default location
+				server: $location.host() + ':' + $location.port()
 			};
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
@@ -18,8 +18,8 @@ define(['./_module'], function (app) {
 				}
 
 				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
-				.success(function () {
-					authService.storeServer($scope.log.server);
+				.success(function (info) {
+					$rootScope.esVersion = info.esVersion || '0.0.0.0';
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
 					redirectToPreviousState();
 				})

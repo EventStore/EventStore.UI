@@ -5,21 +5,21 @@ define(['./_module'], function (app) {
     return app.controller('AdminCtrl', [
 		'$scope', 'AdminService', 'MessageService',
 		function ($scope, adminService, msg) {
-
+			$scope.subSystems = [];
+			adminService.getSubsystems()
+			.success(function(data){
+				if(!data){
+					return;
+				}
+				$scope.subSystems = data;
+			})
+			.error(function(){
+				msg.error('could not get sub systems');
+			})
 			var stop = function ($event) {
 					$event.preventDefault();
 					$event.stopPropagation();
 				};
-
-			$scope.halt = function ($event) {
-				stop($event);
-
-				adminService.halt().then(function () {
-					msg.info('server halted');
-				}, function () {
-					msg.error('halt failed');
-				});
-			};
 
 			$scope.shutdown = function ($event) {
 				stop($event);
@@ -42,6 +42,4 @@ define(['./_module'], function (app) {
 			};
 		}
 	]);
-
-
 });

@@ -5,10 +5,8 @@ define(['es-ui'], function (app) {
 	
 	return app.constant('urls', {
 		base: 'http://127.0.0.1:2113',
-		guid: '/new-guid',
 		stats: '/stats',
 		admin: {
-			halt: '/admin/halt',
 			shutdown: '/admin/shutdown',
 			scavenge: '/admin/scavenge'
 		},
@@ -62,7 +60,9 @@ define(['es-ui'], function (app) {
 			tryharder: '?embed=tryharder',
 			metadata: '/streams/%s%s/head',
 			updateAcl: '/streams/$$%s'
+		},
+		system:{
+			subsystems: '/sys/subsystems'
 		}
 	});
-
 });

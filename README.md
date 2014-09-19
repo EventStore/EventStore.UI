@@ -1,18 +1,3 @@
-# Dev Branch
-
-this is dev branch - work in progress. it may not work during short period of time.
-
-current changes:
-
-* _2014-05-09_: remember server on login screen (#13)
-* _2014-05-09_: bug fixes for query screen (#9, #10, #13)
-* _2014-05-08_: marging all changes to master branch
-* _2014-05-08_: adding atom link header to stream page (#4)
-* _2014-05-08_: removing link for password reset (#6)
-* _2014-05-08_: some small styling issue fixes (#8, #7, #5)
-* _2014-04-29_: login/logout functionality added
-* _2014-04-28_: projections/streams/dashboard etc. split as separate modules
-
 # EventStore.UI
 
 *this project is still under development - you can see changes on [dev branch](https://github.com/EventStore/EventStore.UI/tree/dev)*

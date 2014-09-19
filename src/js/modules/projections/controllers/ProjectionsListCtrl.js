@@ -33,7 +33,7 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.disableAll().then(function () {
-					msg.info('all projectsion disabled');
+					msg.info('all projections disabled');
 				}, function (err) {
 					msg.error('disable all failed' + '\n\r' + err);
 				});
@@ -50,7 +50,7 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.enableAll().then(function () {
-					msg.info('all projectsion enabled');
+					msg.info('all projections enabled');
 				}, function (err) {
 					msg.error('enable all failed' + '\n\r' + err);
 				});
