@@ -2,15 +2,7 @@
 
 *this project is still under development - you can see changes on [dev branch](https://github.com/EventStore/EventStore.UI/tree/dev)*
 
-The new user interface for Event Store.
-
-## Prerequisites
-
-To use new UI you will need to do few things manually (as for todate: 2014-04-16).
-
-* You need custom build of [EventStore](https://github.com/EventStore/EventStore) dev branch. This branch includes changes that where included to allow CORS. Without this custom build, UI will not work for you.
-* ~~User name and password for administrator needs to be `admin:changeit` - if you want to change it, update this value in `run.js`.~~
-* ~~EventStore needs to run on default address: `http://127.0.0.1:2113` - if you want to change it, update this value in `consts.js`.~~
+The new user interface for Event Store. This is included as a submodule in the main [Event Store](https://github.com/EventStore/EventStore) repository.
 
 ## Running new UI
 
