@@ -5,5 +5,6 @@ define([
     './UrlBuilder',
     './SprintfService',
     './AuthService',
+    './InfoService',
     './MessageService'
 ], function () {});
