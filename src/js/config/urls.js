@@ -62,7 +62,8 @@ define(['es-ui'], function (app) {
 			updateAcl: '/streams/$$%s'
 		},
 		system:{
-			subsystems: '/sys/subsystems'
+			subsystems: '/sys/subsystems',
+			info: '/info'
 		}
 	});
 });
