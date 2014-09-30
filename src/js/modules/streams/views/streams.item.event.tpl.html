@@ -10,15 +10,15 @@
 	</ul>
 </header>
 
-<ul>
-	<li ng-if="next">
+<ul class="page-nav" style="padding:0 0 0.75rem 0 !important">
+	<li class="page-nav__item" ng-if="next">
 		<a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber + 1})">next</a>
 	</li>
-	<li ng-if="prev">
+	<li class="page-nav__item" ng-if="prev">
 		<a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber - 1})">prev</a>
 	</li>
 </ul>
-
+<br/>
 <table>
 	<thead>
 		<tr>
