@@ -1,4 +1,5 @@
 define([
     './EsValidateEquals',
-    './EsHeight'
+    './EsHeight',
+    './EsAutoFocus'
 ], function () {});
