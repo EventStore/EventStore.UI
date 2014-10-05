@@ -9,7 +9,7 @@ The new user interface for Event Store. This is included as a submodule in the m
 Currently there are two ways to run the new UI:
 
 * Open `index.html` located int `src` folder in browser.
-* Execute `gulp connect` - this command [gulp-connect](https://github.com/avevlad/gulp-connect) run webserver with LiveReload (see dev section for info how to set up gulp if you are new to it).
+* Execute `gulp connect` - this command [gulp-connect](https://github.com/avevlad/gulp-connect) run webserver with LiveReload (see dev section for info how to set up gulp if you are new to it) - `gulp connect` needs `gulp` to run, please see Dev information on how to install it.
 
 ## Dev
 
@@ -51,5 +51,6 @@ gulp lint
 // transforming html file tamples into anguler.js module
 gulp html
 
-// todo: rest of the commands
+// building project - creating minified version of css, js etc.
+gulp dist
 ```
