@@ -85,6 +85,65 @@ gulp.task('bower', function() {
     bower();
 });
 
+gulp.task('dist-min-css', function () {
+    return gulp.src('./src/css/*.css')
+        .pipe(minifyCSS())
+        .pipe(concat('main.min.css'))
+        .pipe(gulp.dest('./es-dist/css/'));
+});
+
+gulp.task('dist-min-images', function () {
+
+    // minify images and copy
+    gulp.src('./src/images/*')
+    .pipe(imagemin({
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngcrush()]
+    }))
+    .pipe(gulp.dest('./es-dist/images/'));
+
+    gulp.src('./src/*.png')
+    .pipe(imagemin({
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}],
+        use: [pngcrush()]
+    }))
+    .pipe(gulp.dest('./es-dist/'));
+
+});
+
+gulp.task('dist-copy-fonts', function () {
+    return gulp.src('./src/fonts/*')
+    .pipe(gulp.dest('./es-dist/fonts'));
+});
+
+gulp.task('dist-js', function () {
+
+    gulp.src('./src/bower_components/requirejs/*.js')
+    .pipe(concat('requirejs.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./es-dist/js/'));
+
+    rjs(rjsOpts)
+    .pipe(insert.append('require(["bootstrap"]);'))
+    //.pipe(uglify())
+    .pipe(gulp.dest('./es-dist/js/'));
+
+});
+
+gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-copy-fonts', 'dist-js'], function() {
+    return gulp.src('./src/index.html') 
+        .pipe(htmlreplace({
+          css: 'css/main.min.css',
+          js: {
+            src: [['js/app.min.js', 'js/requirejs.min.js']],
+            tpl: '<script data-main="%s" src="%s"></script>'
+          }
+        }))
+        .pipe(gulp.dest('./es-dist/'));
+});
+
 /**
  * Creates JS version of HTML tpl files used
  * by ES UI
