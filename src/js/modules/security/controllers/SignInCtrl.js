@@ -11,6 +11,11 @@ define(['./_module'], function (app) {
 				password: '',
 				server: $location.host() + ':' + $location.port()
 			};
+
+			if(!$location.host()) {
+				$scope.log.server = 'http://127.0.0.1:2113';
+			}
+
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
 					msg.warn('Please fix all validation errors');
