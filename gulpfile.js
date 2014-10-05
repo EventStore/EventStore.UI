@@ -1,17 +1,22 @@
 'use strict';
 
-var gulp = require('gulp');
-//var gutil = require('gulp-util');
-var connect = require('gulp-connect');
-//var rjs = require('gulp-requirejs');
-var concat = require('gulp-concat');
-var htmlmin = require('gulp-htmlmin');
-var ngHtml2Js = require('gulp-ng-html2js');
-var wrap = require('gulp-wrap');
-var jshint = require('gulp-jshint');
-var karma = require('gulp-karma');
-var cache = require('gulp-cached');
-var bower = require('gulp-bower');
+var gulp = require('gulp'),
+    connect = require('gulp-connect'),
+    concat = require('gulp-concat'),
+    htmlmin = require('gulp-htmlmin'),
+    ngHtml2Js = require('gulp-ng-html2js'),
+    wrap = require('gulp-wrap'),
+    jshint = require('gulp-jshint'),
+    karma = require('gulp-karma'),
+    cache = require('gulp-cached'),
+    bower = require('gulp-bower'),
+    // new packages for dist
+    insert = require('gulp-insert'),
+    minifyCSS = require('gulp-minify-css'),
+    imagemin = require('gulp-imagemin'),
+    pngcrush = require('imagemin-pngcrush'),
+    rjs = require('gulp-requirejs'),
+    htmlreplace = require('gulp-html-replace');
 
 var paths = {
     app: {
