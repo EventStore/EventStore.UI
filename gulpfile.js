@@ -35,6 +35,7 @@ var paths = {
 var rjsOpts = {
     baseUrl: './src/js/',
     name: 'bootstrap',
+    findNestedDependencies: true,
     out: 'app.min.js',
     shim: {
         'angular': {
@@ -59,9 +60,6 @@ var rjsOpts = {
         },
         'sprintf': {
             exports: 'sprintf'
-        },
-        'domReady': {
-            exports: 'domReady'
         }
     },
     priority: [
