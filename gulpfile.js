@@ -126,7 +126,7 @@ gulp.task('dist-js', function () {
 
     rjs(rjsOpts)
     .pipe(insert.append('require(["bootstrap"]);'))
-    //.pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/'));
 
 });
