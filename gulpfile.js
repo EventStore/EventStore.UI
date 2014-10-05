@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     karma = require('gulp-karma'),
     cache = require('gulp-cached'),
     bower = require('gulp-bower'),
+    uglify = require('gulp-uglify'),
     // new packages for dist
     insert = require('gulp-insert'),
     minifyCSS = require('gulp-minify-css'),
