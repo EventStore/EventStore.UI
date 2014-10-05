@@ -8,6 +8,7 @@ lib-cov
 *.pid
 *.gz
 
+es-dist
 pids
 logs
 results
