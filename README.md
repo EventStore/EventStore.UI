@@ -53,7 +53,4 @@ gulp html
 
 // building project - creating minified version of css, js etc.
 gulp dist
-
-// if dist has been build, connect-dist will do same as connect but for dist folder.
-gulp connect-dist
 ```
