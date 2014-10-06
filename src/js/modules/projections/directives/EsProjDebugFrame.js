@@ -32,7 +32,7 @@ define(['./_module'], function (app) {
 
 				iframeHtml = iframeHtml.replace(/BASE_URI/g, $rootScope.baseUrl);
 				iframeHtml = iframeHtml.replace(/LOCATION/g, decodeURIComponent(scope.esLocation));
-				iframeHtml = iframeHtml.replace(/UID/g, generateUIDNotMoreThan1million());
+				//iframeHtml = iframeHtml.replace(/UID/g, generateUIDNotMoreThan1million());
 
 				scope.$on('load-scripts', function () {
 
