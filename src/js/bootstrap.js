@@ -3,6 +3,8 @@ define([
 	'angular',
 	'es-ui',
 	'run',
+	//'ace-js',
+	//'ace-monokai',
 	'./config/constants',
 	'./config/urls',
 	'./config/values',

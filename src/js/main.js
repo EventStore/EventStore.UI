@@ -11,6 +11,8 @@ require.config({
 		'sprintf': '../bower_components/sprintf/src/sprintf',
 		'uiAce': '../bower_components/angular-ui-ace/ui-ace',
 		'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
+		//'ace-js': '../bower_components/ace-builds/src-min-noconflict/mode-javascript',
+		//'ace-monokai': '../bower_components/ace-builds/src-min-noconflict/theme-monokai',
 		'es-ui': './app'
 	},
 	shim: {

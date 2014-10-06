@@ -76,6 +76,8 @@ var rjsOpts = {
         'sprintf': '../bower_components/sprintf/src/sprintf',
         'uiAce': '../bower_components/angular-ui-ace/ui-ace',
         'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
+        //'ace-js': '../bower_components/ace-builds/src-min-noconflict/mode-javascript',
+        //'ace-monokai': '../bower_components/ace-builds/src-min-noconflict/theme-monokai',
         'es-ui': './app'
     }
 };
@@ -124,9 +126,33 @@ gulp.task('dist-js', function () {
     .pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/'));
 
+    // copy ace, do not try to minify it :/
+     gulp.src('./src/bower_components/ace-builds/src-min-noconflict/*')
+    //.pipe(uglify())
+    .pipe(gulp.dest('./es-dist/js/ace'));
+
+    // can't figure out better option of doing it :(
     rjs(rjsOpts)
-    .pipe(insert.append('require(["bootstrap"]);'))
-    .pipe(uglify())
+    .pipe(insert.append(';\n\r'+
+
+        'define("es-dist-main", ["bootstrap", "ace"], function (_i, _a) {\n\r'+
+        '    var _c = ace.require("ace/config");\n\r'+
+        '    _c.set("packaged",true);\n\r'+
+        '    var _aa_cfg_dist_path = "js/ace";\n\r'+
+        '   _c.set("workerPath", location.href.replace(location.hash, "").replace("index.html", "") + "/" + _aa_cfg_dist_path);\n\r'+
+        '   _c.set("modePath", _aa_cfg_dist_path);\n\r'+
+        '   _c.set("themePath", _aa_cfg_dist_path);\n\r'+
+        '    _c.set("basePath", _aa_cfg_dist_path);\n\r'+
+        '});\n\r'+
+
+        'require(["es-dist-main"]);\n\r'+
+        ''))
+    // .pipe(insert.append(';require(["bootstrap"]);'))
+    // .pipe(insert.append('; var _aa_cfg_dist = require("ace/config");' +
+    //     '_aa_cfg_dist.set("packaged",true);' +
+    //     'var _aa_cfg_dist_path = "js/ace";' +
+    //     '_aa_cfg_dist.set("basePath", _aa_cfg_dist_path);'))
+    // .pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/'));
 
 });
@@ -249,6 +275,15 @@ gulp.task('watch-lint', function () {
  **/
 gulp.task('connect', connect.server({
     root: ['src'],
+    port: 8888,
+    livereload: true,
+    open: {
+        browser: 'chrome'
+    }
+}));
+
+gulp.task('connect-dist', connect.server({
+    root: ['es-dist'],
     port: 8888,
     livereload: true,
     open: {
