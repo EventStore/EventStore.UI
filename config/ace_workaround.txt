@@ -1,0 +1,14 @@
+<%= contents %>
+define('es-dist-main', ['bootstrap', 'ace'], function (_i, _a) {
+    var _c = ace.require('ace/config'),
+    	_aa_cfg_dist_path = 'js/ace';
+    
+    _c.set('packaged',true);
+
+  	_c.set('workerPath', location.href.replace(location.hash, '').replace('index.html', '') + '/' + _aa_cfg_dist_path);
+   	_c.set('modePath', _aa_cfg_dist_path);
+   	_c.set('themePath', _aa_cfg_dist_path);
+   	_c.set('basePath', _aa_cfg_dist_path);
+});
+
+require(["es-dist-main"]);

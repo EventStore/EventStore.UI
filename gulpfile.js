@@ -1,23 +1,19 @@
 'use strict';
 
 var gulp = require('gulp'),
-    connect = require('gulp-connect'),
     concat = require('gulp-concat'),
     htmlmin = require('gulp-htmlmin'),
     ngHtml2Js = require('gulp-ng-html2js'),
     wrap = require('gulp-wrap'),
     jshint = require('gulp-jshint'),
-    karma = require('gulp-karma'),
     cache = require('gulp-cached'),
-    bower = require('gulp-bower'),
     uglify = require('gulp-uglify'),
-    // new packages for dist
-    insert = require('gulp-insert'),
     minifyCSS = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     pngcrush = require('imagemin-pngcrush'),
     rjs = require('gulp-requirejs'),
-    htmlreplace = require('gulp-html-replace');
+    htmlreplace = require('gulp-html-replace'),
+    webserver = require('gulp-webserver');
 
 var paths = {
     app: {
@@ -26,10 +22,23 @@ var paths = {
         source: './src/js/**/*.js'
     },
     all: [
-        './src/js/**/*.js',
-        './test/**/*.js'
+        './src/js/**/*.js'
     ],
-    tests: './test/**/*.js'
+    dist: {
+        js: ['js/app.min.js', 'js/requirejs.min.js'],
+        css: 'css/main.min.css'
+    }
+};
+
+var htmlMinOpts = {
+    //collapseBooleanAttributes: true,
+    collapseWhitespace: true,
+    removeAttributeQuotes: true,
+    removeComments: true,
+    removeEmptyAttributes: true,
+    removeRedundantAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true
 };
 
 var rjsOpts = {
@@ -82,10 +91,6 @@ var rjsOpts = {
     }
 };
 
-gulp.task('bower', function() {
-    bower();
-});
-
 gulp.task('dist-min-css', function () {
     return gulp.src('./src/css/*.css')
         .pipe(minifyCSS())
@@ -128,31 +133,12 @@ gulp.task('dist-js', function () {
 
     // copy ace, do not try to minify it :/
      gulp.src('./src/bower_components/ace-builds/src-min-noconflict/*')
-    //.pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/ace'));
 
     // can't figure out better option of doing it :(
     rjs(rjsOpts)
-    .pipe(insert.append(';\n\r'+
-
-        'define("es-dist-main", ["bootstrap", "ace"], function (_i, _a) {\n\r'+
-        '    var _c = ace.require("ace/config");\n\r'+
-        '    _c.set("packaged",true);\n\r'+
-        '    var _aa_cfg_dist_path = "js/ace";\n\r'+
-        '   _c.set("workerPath", location.href.replace(location.hash, "").replace("index.html", "") + "/" + _aa_cfg_dist_path);\n\r'+
-        '   _c.set("modePath", _aa_cfg_dist_path);\n\r'+
-        '   _c.set("themePath", _aa_cfg_dist_path);\n\r'+
-        '    _c.set("basePath", _aa_cfg_dist_path);\n\r'+
-        '});\n\r'+
-
-        'require(["es-dist-main"]);\n\r'+
-        ''))
-    // .pipe(insert.append(';require(["bootstrap"]);'))
-    // .pipe(insert.append('; var _aa_cfg_dist = require("ace/config");' +
-    //     '_aa_cfg_dist.set("packaged",true);' +
-    //     'var _aa_cfg_dist_path = "js/ace";' +
-    //     '_aa_cfg_dist.set("basePath", _aa_cfg_dist_path);'))
-    // .pipe(uglify())
+    .pipe(wrap({ src: './config/ace_workaround.txt'}))
+    .pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/'));
 
 });
@@ -160,12 +146,13 @@ gulp.task('dist-js', function () {
 gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-copy-fonts', 'dist-js'], function() {
     return gulp.src('./src/index.html') 
         .pipe(htmlreplace({
-          css: 'css/main.min.css',
+          css: paths.dist.css,
           js: {
-            src: [['js/app.min.js', 'js/requirejs.min.js']],
+            src: [paths.dist.js],
             tpl: '<script data-main="%s" src="%s"></script>'
           }
         }))
+        .pipe(htmlmin(htmlMinOpts))
         .pipe(gulp.dest('./es-dist/'));
 });
 
@@ -177,16 +164,7 @@ gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-copy-fonts',
 function templateForModule (moduleSource, moduleDest, moduleName) {
     gulp.src(moduleSource)
         .pipe(cache('html'))
-        .pipe(htmlmin({
-            //collapseBooleanAttributes: true,
-            collapseWhitespace: true,
-            removeAttributeQuotes: true,
-            removeComments: true,
-            removeEmptyAttributes: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true
-        }))
+        .pipe(htmlmin(htmlMinOpts))
         .pipe(ngHtml2Js({
             moduleName: moduleName,
             prefix: ''
@@ -236,18 +214,6 @@ gulp.task('lint', function() {
 });
 
 /**
- * Executes Unit Tests
- **/
-gulp.task('karma', function () {
-
-    return gulp.src(['no need to supply files because everything is in config file'])
-        .pipe(karma({
-            configFile: 'config/karma.conf.js',
-            action: 'watch'
-        }));
-});
-
-/**
  * Dev task, executes watches for templates, js files (lint)
  * unit tests, and web browser to test "normally"
  **/
@@ -255,13 +221,11 @@ gulp.task('dev', function () {
 
     // whenever templates changes, re-run templates
     gulp.watch(paths.app.templatesSource, ['html']);
-    // whenever code changes, re-run templates
+    // whenever code changes, re-run js-hint
     gulp.watch(paths.all, ['lint']);
     
-    gulp.run('bower');
     gulp.run('lint');
-    gulp.run('karma');
-    gulp.run('connect');
+    //gulp.run('connect');
 });
 
 gulp.task('watch-lint', function () {
@@ -270,27 +234,24 @@ gulp.task('watch-lint', function () {
 });
 
 
-/**
- * Opens browser with application loaded
- **/
-gulp.task('connect', connect.server({
-    root: ['src'],
-    port: 8000,
-    livereload: true,
-    open: {
-        browser: 'chrome'
-    }
-  })
-);
+gulp.task('connect', function() {
+  gulp.src('src')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: false,
+      open: true,
+      port: 8000
+    }));
+});
 
-// gulp.task('connectDist', connect.server({
-//     root: 'es-dist',
-//     port: 8001,
-//     livereload: true,
-//     open: {
-//         browser: 'chrome'
-//     }
-//   })
-// );
+gulp.task('connectDist', function() {
+  gulp.src('es-dist')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: false,
+      open: true,
+      port: 8001
+    }));
+});
 
 gulp.task('default', ['dev']);
