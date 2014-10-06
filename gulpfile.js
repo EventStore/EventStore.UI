@@ -132,9 +132,18 @@ gulp.task('dist-js', function () {
     .pipe(gulp.dest('./es-dist/js/'));
 
     // copy ace, do not try to minify it :/
-     gulp.src('./src/bower_components/ace-builds/src-min-noconflict/*')
+    //gulp.src('./src/bower_components/ace-builds/src-min-noconflict/*')
+    //.pipe(gulp.dest('./es-dist/js/ace'));
+
+    gulp.src([
+        './src/bower_components/ace-builds/src-min-noconflict/ace.js',
+        './src/bower_components/ace-builds/src-min-noconflict/mode-javascript.js',
+        './src/bower_components/ace-builds/src-min-noconflict/theme-monokai.js',
+        './src/bower_components/ace-builds/src-min-noconflict/worker-javascript.js'
+    ])
     .pipe(gulp.dest('./es-dist/js/ace'));
 
+'./client/src/modules/**/index.js', {base: './client/src/modules'}
     // can't figure out better option of doing it :(
     rjs(rjsOpts)
     .pipe(wrap({ src: './config/ace_workaround.txt'}))
