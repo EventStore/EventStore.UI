@@ -40,7 +40,7 @@ define(['./_module'], function (app) {
 				$event.stopPropagation();
 
 				evt.showJson = !evt.showJson;
-				showJson[evt.title] = evt.showJson
+				showJson[evt.title] = evt.showJson;
 			};
 
 			$scope.$on('$destroy', function () {

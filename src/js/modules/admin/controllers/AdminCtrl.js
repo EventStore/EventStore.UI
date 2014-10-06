@@ -15,7 +15,7 @@ define(['./_module'], function (app) {
 			})
 			.error(function(){
 				msg.error('could not get sub systems');
-			})
+			});
 			var stop = function ($event) {
 					$event.preventDefault();
 					$event.stopPropagation();

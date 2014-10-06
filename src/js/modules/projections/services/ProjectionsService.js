@@ -27,7 +27,9 @@ define(['./_module'], function (app) {
 
 						angular.forEach(data.projections, function (value) {
 							url = value.statusUrl + command;
-							if(value.status == expectedStatus) return;
+							if (value.status === expectedStatus) {
+								return;
+							}
 							calls.push($http.post(url).error(function (err) {
 								formatMultipleErrors(err, value.name);
 							}));

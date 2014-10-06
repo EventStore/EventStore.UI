@@ -36,7 +36,7 @@ define(['./_module'], function (app) {
 
 			function redirectToPreviousState () {
 				if($rootScope.currentState) {
-					$state.go($rootScope.currentState)
+					$state.go($rootScope.currentState);
 				} else {
 					$state.go('dashboard.list');
 				}

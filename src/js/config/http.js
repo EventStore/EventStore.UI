@@ -14,6 +14,6 @@ define(['es-ui'], function (app) {
             'ES-LongPoll': 5 // in sec
         };
 
-    }])
+    }]);
 
 });

@@ -13,7 +13,7 @@ define(['./_module'], function (app) {
 			streamsService.eventContent($scope.streamId, $scope.eventNumber)
 			.success(function (data) {
 				$scope.evt = data;
-				$scope.isNotTheSame = data.positionStreamId != data.streamId || data.positionEventNumber != data.eventNumber;
+				$scope.isNotTheSame = data.positionStreamId !== data.streamId || data.positionEventNumber !== data.eventNumber;
 				$scope.links = data.links;
 
 				streamsService.eventContent($scope.streamId, data.positionEventNumber + 1)

@@ -14,7 +14,7 @@ define(['es-ui'], function (app) {
             }, function () {
                 $rootScope.$currentState = $state.current;
                 $state.go('signin');
-            })
+            });
 
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;

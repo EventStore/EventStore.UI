@@ -13,6 +13,11 @@ define(['./_module'], function (app) {
 		'urls',
 		function (Base64, $q, $cookieStore, $http, $rootScope, urls) {
 			// initialize to whatever is in the cookie, if anything
+			// i know, hoising, but i don't like jshint warnings
+			function setBaseUrl (url) {
+				$rootScope.baseUrl = url;
+			}
+
 			var authdata = $cookieStore.get('authdata');
 			if(authdata) {
 				setBaseUrl(authdata.server);
@@ -20,13 +25,7 @@ define(['./_module'], function (app) {
 			}
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + (authdata || '');
  
-			function setBaseUrl (url) {
-				$rootScope.baseUrl = url;
-			}
-
-			function getBaseUrl () {
-				return $rootScope.baseUrl;
-			}
+			
 
  			function prepareUrl (str) {
 				if(str.indexOf('/', str.length - '/'.length) !== -1) {

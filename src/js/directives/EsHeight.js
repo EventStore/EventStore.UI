@@ -5,7 +5,7 @@ define(['./_module'], function (app) {
     return app.directive('esHeight', [function () {
 		return {
 			restrict: 'A',
-	        link: function(scope, elm, attrs, ctrl) {
+	        link: function(scope, elm) { //, attrs, ctrl
 
 	        	elm.parent().addClass('login-height');
 	        }
