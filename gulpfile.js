@@ -142,7 +142,7 @@ gulp.task('dist-js', function () {
         './src/bower_components/ace-builds/src-min-noconflict/worker-javascript.js'
     ])
     .pipe(gulp.dest('./es-dist/js/ace'));
-    
+
     // can't figure out better option of doing it :(
     rjs(rjsOpts)
     .pipe(wrap({ src: './config/ace_workaround.txt'}))
@@ -151,7 +151,7 @@ gulp.task('dist-js', function () {
 
 });
 
-gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-copy-fonts', 'dist-js'], function() {
+gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-js'], function() {
     return gulp.src('./src/index.html') 
         .pipe(htmlreplace({
           css: paths.dist.css,

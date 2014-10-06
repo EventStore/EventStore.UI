@@ -1,39 +1,3 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/roboto-regular-webfont.eot");
-  src: url("../fonts/roboto-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-regular-webfont.woff") format("woff"), url("../fonts/roboto-regular-webfont.ttf") format("truetype"), url("../fonts/roboto-regular-webfont.svg#robotoregular") format("svg");
-  font-weight: 400;
-  font-style: normal; }
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/roboto-italic-webfont.eot");
-  src: url("../fonts/roboto-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-italic-webfont.woff") format("woff"), url("../fonts/roboto-italic-webfont.ttf") format("truetype"), url("../fonts/roboto-italic-webfont.svg#robotoitalic") format("svg");
-  font-weight: 400;
-  font-style: italic; }
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/roboto-bold-webfont.eot");
-  src: url("../fonts/roboto-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-bold-webfont.woff") format("woff"), url("../fonts/roboto-bold-webfont.ttf") format("truetype"), url("../fonts/roboto-bold-webfont.svg#robotobold") format("svg");
-  font-weight: 700;
-  font-style: normal; }
-@font-face {
-  font-family: "Roboto";
-  src: url("../fonts/roboto-bolditalic-webfont.eot");
-  src: url("../fonts/roboto-bolditalic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto-bolditalic-webfont.woff") format("woff"), url("../fonts/roboto-bolditalic-webfont.ttf") format("truetype"), url("../fonts/roboto-bolditalic-webfont.svg#robotobold_italic") format("svg");
-  font-weight: 700;
-  font-style: italic; }
-@font-face {
-  font-family: "Source Code Pro";
-  src: url("../fonts/sourcecodepro-regular-webfont.eot");
-  src: url("../fonts/sourcecodepro-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sourcecodepro-regular-webfont.woff") format("woff"), url("../fonts/sourcecodepro-regular-webfont.ttf") format("truetype"), url("../fonts/sourcecodepro-regular-webfont.svg#source_code_proregular") format("svg");
-  font-weight: 400;
-  font-style: normal; }
-@font-face {
-  font-family: "Source Code Pro";
-  src: url("../fonts/sourcecodepro-bold-webfont.eot");
-  src: url("../fonts/sourcecodepro-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/sourcecodepro-bold-webfont.woff") format("woff"), url("../fonts/sourcecodepro-bold-webfont.ttf") format("truetype"), url("../fonts/sourcecodepro-bold-webfont.svg#source_code_probold") format("svg");
-  font-weight: 700;
-  font-style: normal; }
 ::-moz-selection {
   background: #525450;
   color: white; }
@@ -55,7 +19,7 @@ body {
   margin: 0;
   background: white;
   color: #424440;
-  font-family: Roboto, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
@@ -87,7 +51,7 @@ ol {
   padding: 0; }
 
 code {
-  font-family: "Source Code Pro", monospace; }
+  font-family: Consolas, "Courier New", monospace; }
 
 main {
   display: block; }
@@ -123,7 +87,7 @@ textarea {
   padding: 0.5rem;
   border-collapse: collapse;
   border: 1px solid #e2e4e0;
-  font-family: "Source Code Pro", monospace; }
+  font-family: Consolas, "Courier New", monospace; }
 
 kbd {
   padding: 0 0.25rem;
@@ -131,7 +95,7 @@ kbd {
   color: #727470;
   border: 1px solid #e2e4e0;
   border-radius: 0.25rem;
-  font-family: Roboto, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 700;
   font-size: 0.9rem; }
 
