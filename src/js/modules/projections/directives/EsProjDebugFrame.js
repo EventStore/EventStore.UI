@@ -28,7 +28,8 @@ define(['./_module'], function (app) {
 '<script src="BASE_URI/web/es/js/projections/es.projections.environment.js"></script>' +
 '<script src="BASE_URI/web/es/js/projections/v8/Prelude/1Prelude.js"></script>' +
 '<script>window.processor = $initialize_hosted_projections(); processor.set_debugging();</script>' +
-'<script src="LOCATION/query?UID"></script>';
+'<script src="LOCATION/query"></script>';
+//'<script src="LOCATION/query?UID"></script>';
 
 				iframeHtml = iframeHtml.replace(/BASE_URI/g, $rootScope.baseUrl);
 				iframeHtml = iframeHtml.replace(/LOCATION/g, decodeURIComponent(scope.esLocation));
