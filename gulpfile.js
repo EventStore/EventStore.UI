@@ -275,20 +275,22 @@ gulp.task('watch-lint', function () {
  **/
 gulp.task('connect', connect.server({
     root: ['src'],
-    port: 8888,
+    port: 8000,
     livereload: true,
     open: {
         browser: 'chrome'
     }
-}));
+  })
+);
 
-gulp.task('connect-dist', connect.server({
-    root: ['es-dist'],
-    port: 8888,
-    livereload: true,
-    open: {
-        browser: 'chrome'
-    }
-}));
+// gulp.task('connectDist', connect.server({
+//     root: 'es-dist',
+//     port: 8001,
+//     livereload: true,
+//     open: {
+//         browser: 'chrome'
+//     }
+//   })
+// );
 
 gulp.task('default', ['dev']);
