@@ -142,8 +142,7 @@ gulp.task('dist-js', function () {
         './src/bower_components/ace-builds/src-min-noconflict/worker-javascript.js'
     ])
     .pipe(gulp.dest('./es-dist/js/ace'));
-
-'./client/src/modules/**/index.js', {base: './client/src/modules'}
+    
     // can't figure out better option of doing it :(
     rjs(rjsOpts)
     .pipe(wrap({ src: './config/ace_workaround.txt'}))
