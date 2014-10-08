@@ -413,6 +413,9 @@ kbd {
   .site-footer p {
     margin: 0; }
 
+.invalid {
+  text-decoration: line-through;
+  color:#c4c4c4; }
 /*
 
 Icons required:
