@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.acl.tpl.html',
-    '<header class=page-header><h2 class=page-title>Edit ACL for Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.events>Back</a></li></ul></header><form novalidate name=editAcl ng-submit=updateAcl()><table><tbody><tr><td>Reader</td><td><input name=reader class=form-table ng-model=reader></td></tr><tr><td>Writer</td><td><input name=writer class=form-table ng-model=writer></td></tr><tr><td>Deleter</td><td><input name=deleter class=form-table ng-model=deleter></td></tr><tr><td>Meta Reader</td><td><input name=metareader class=form-table ng-model=metareader></td></tr><tr><td>Meta Writer</td><td><input name=metawriter class=form-table ng-model=metawriter></td></tr></tbody></table><ul><li><button type=submit>Save</button></li></ul></form>');
+    '<header class=page-header><h2 class=page-title>Edit ACL for Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.events>Back</a></li></ul></header><form novalidate name=editAcl ng-submit=updateAcl()><table><tbody><tr><td>Reader</td><td><input name=reader class=form-table ng-model=reader></td></tr><tr><td>Writer</td><td><input name=writer class=form-table ng-model=writer></td></tr><tr><td>Deleter</td><td><input name=deleter class=form-table ng-model=deleter></td></tr><tr><td>Meta Reader</td><td><input name=metareader class=form-table ng-model=metareader></td></tr><tr><td>Meta Writer</td><td><input name=metawriter class=form-table ng-model=metawriter></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><button type=submit>Save</button></li></ul></form>');
 }]);
 })();
 
