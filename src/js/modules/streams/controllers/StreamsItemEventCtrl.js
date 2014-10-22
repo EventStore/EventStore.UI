@@ -16,6 +16,11 @@ define(['./_module'], function (app) {
 				$scope.isNotTheSame = data.positionStreamId !== data.streamId || data.positionEventNumber !== data.eventNumber;
 				$scope.links = data.links;
 
+				if($scope.isMetadata) {
+					// if this was a metadata, we do not need to update anything
+					return;
+				}
+
 				streamsService.eventContent($scope.streamId, data.positionEventNumber + 1)
 				.success(function () {
 					$scope.next = true;
