@@ -2,7 +2,7 @@
 	<h2 class="page-title">Event Stream '{{ streamId }}'</h2>
 	<ul class="page-nav">
 		<li class="page-nav__item">
-			<a ui-sref=".acl">Edit ACL</a>
+			<a ui-sref=".acl" ng-show="streamId !== '$all'">Edit ACL</a>
 		</li>
 		<li class="page-nav__item">
 			<a ui-sref="^.list">Back</a>

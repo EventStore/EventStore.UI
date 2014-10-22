@@ -23,8 +23,24 @@ define(['./_module'], function (app) {
 				
 				$scope.$parent.streams = atom.map(data.entries, showJson);
 				$scope.$parent.links = data.links;
-
+				if($scope.streamId == '$all'){
+					$scope.$parent.links = removeMetadataLinkFrom($scope.$parent.links);
+				}
 			});
+
+			function removeMetadataLinkFrom(links){
+				var index = -1;
+				for(var i = 0, len = links.length; i < len; i++) {
+				    if (links[i].relation === 'metadata') {
+				        index = i;
+				        break;
+				    }
+				}
+				if(index !== -1){
+					links.splice(index, 1);
+				}
+				return links;
+			}
 
 			function findSelf (links) {
 				var i = 0;
