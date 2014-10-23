@@ -23,7 +23,7 @@ define(['./_module'], function (app) {
 				
 				$scope.$parent.streams = atom.map(data.entries, showJson);
 				$scope.$parent.links = data.links;
-				if($scope.streamId == '$all'){
+				if($scope.streamId == '$all' || $scope.streamId.indexOf('$$$') === 0){
 					$scope.$parent.links = removeMetadataLinkFrom($scope.$parent.links);
 				}
 			});
