@@ -79,6 +79,14 @@ tbody td {
   border-top: 1px solid #e2e4e0;
   border-right: 1px solid #e2e4e0; }
 
+pre {
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 textarea {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
