@@ -24,7 +24,7 @@ define(['./_module'], function (app) {
 
 						user.groups = [];
 						if (user.isAdmin) {
-							user.groups.push('$admin'); // todo: move it somewhere
+							user.groups.push('$admins'); // todo: move it somewhere
 							delete user.isAdmin;
 						}
 						delete user.confirmPassword;
@@ -36,7 +36,7 @@ define(['./_module'], function (app) {
 							groups = [];
 
 						if (isAdmin) {
-							groups.push('$admin'); // todo: move it somewhere
+							groups.push('$admins'); // todo: move it somewhere
 						}
 
 						return $http.put(url, { fullName: fullName, groups: groups});

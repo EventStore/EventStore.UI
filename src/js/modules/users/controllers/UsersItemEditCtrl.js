@@ -28,7 +28,7 @@ define(['./_module'], function (app) {
 			userService.get($stateParams.username)
 			.success(function (data) {
 				$scope.user = data.data;
-				$scope.isAdmin = !!~data.data.groups.indexOf('$admin');
+				$scope.isAdmin = !!~data.data.groups.indexOf('$admins');
 				$scope.fullName = $scope.user.fullName;
 			})
 			.error(function () {
