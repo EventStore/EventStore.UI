@@ -64,6 +64,9 @@ define(['es-ui'], function (app) {
 		system:{
 			subsystems: '/sys/subsystems',
 			info: '/info'
+		},
+		competing:{
+			subscriptions: '/subscriptions'
 		}
 	});
 });

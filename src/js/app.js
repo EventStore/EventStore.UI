@@ -9,6 +9,7 @@ define([
 	'./modules/streams/module',
 	'./modules/security/module',
 	'./modules/users/module',
+	'./modules/competing/module',
 	'./services/_index',
 	'./directives/_index',
 	'./templates/_index'
@@ -23,6 +24,7 @@ define([
 		'es-ui.dashboard',
 		'es-ui.streams',
 		'es-ui.users',
+		'es-ui.competing',
 		'es-ui.security',
 		'es-ui.directives',
 		'es-ui.services',
