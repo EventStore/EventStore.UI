@@ -66,7 +66,8 @@ define(['es-ui'], function (app) {
 			info: '/info'
 		},
 		competing:{
-			subscriptions: '/subscriptions'
+			subscriptions: '/subscriptions',
+			subscriptionDetails: '/subscriptions/%s/%s'
 		}
 	});
 });

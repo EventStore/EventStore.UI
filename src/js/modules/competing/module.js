@@ -29,14 +29,15 @@ define(['./_index'], function (app) {
                 }
             })
             .state('subscriptions.item', {
-                url: '/{streamId}',
+                url: '/{streamId}/{groupName}',
                 templateUrl: 'subscriptions.item.tpl.html',
                 abstract: true,
                 controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
                     $scope.streamId = $stateParams.streamId;
+                    $scope.groupName = $stateParams.groupName;
                 }],
                 data: {
-                    title: 'Stream'
+                    title: 'Subscriptions'
                 }
             })
             .state('subscriptions.item.detail', {

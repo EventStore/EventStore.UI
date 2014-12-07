@@ -30,7 +30,7 @@
 			<td>{{ prop.connectionCount }}</td>
 			<td>{{ prop.status }}</td>
 			<td>
-				<a ng-repeat="link in prop.links" ui-sref="^.item.detail({streamId: prop.eventStreamId})">{{ link.rel }}</a>
+				<a ng-repeat="link in prop.links" ui-sref="^.item.detail({streamId: prop.eventStreamId, groupName: prop.groupName})">{{ link.rel }}</a>
 			</td>
 		</tr>
 	</tbody>

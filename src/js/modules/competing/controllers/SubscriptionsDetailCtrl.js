@@ -3,30 +3,14 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SubscriptionsDetailCtrl', [
-		'$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService', 
-		function ($scope, competingService, subscriptionsMapper, pollerProvider, msg) {
-
-			var subscriptionsPoll  = pollerProvider.create({
-				intevral: 1000,
-				action: competingService.subscriptions,
-				params: []
-			});
-
-			$scope.subscriptions = {};
-
-			subscriptionsPoll.start();
-			subscriptionsPoll.promise.then(null, null, function (data) { 
-				$scope.subscriptions = subscriptionsMapper.map(data, $scope.subscriptions);
-			});
-			subscriptionsPoll.promise.catch(function () {
-				msg.error('An error occured.');
-				$scope.subscriptions = null;
-				subscriptionsPoll.stop(); 
-			});
-			
-			$scope.$on('$destroy', function () {
-				pollerProvider.clear();
-			});
+		'$scope', '$stateParams', 'CompetingService', 'MessageService', 
+		function ($scope, $stateParams, competingService, msg) {
+			$scope.streamId = $stateParams.streamId;
+			$scope.groupName = $stateParams.groupName;
+			competingService.subscriptionDetail($scope.streamId, $scope.groupName)
+				.success(function(data){
+					$scope.detail = data;
+				});
 		}
 	]);
 });

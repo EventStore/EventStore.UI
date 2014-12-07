@@ -11,12 +11,14 @@ define(['./_module'], function (app) {
 				return {
 					subscriptions: function () {
 						var url = urlBuilder.build(urls.competing.subscriptions);
-
 						return $http.get(url);
+					},
+					subscriptionDetail: function(subscriptionId, groupName){
+						var url = urlBuilder.build(urls.competing.subscriptionDetails, subscriptionId, groupName);
+						return $http.get(url);	
 					}
 				};
 			}
 		];
     });
-
 });
