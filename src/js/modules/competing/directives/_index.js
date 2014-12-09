@@ -1,2 +1,4 @@
 define([
+	'./EsSubscriptionRow',
+	'./EsSubscriptionRowHeader'
 ], function () {});

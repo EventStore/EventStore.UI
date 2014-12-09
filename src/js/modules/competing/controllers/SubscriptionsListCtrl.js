@@ -16,7 +16,7 @@ define(['./_module'], function (app) {
 
 			subscriptionsPoll.start();
 			subscriptionsPoll.promise.then(null, null, function (data) { 
-				console.log(data);
+				// console.log(data);
 				$scope.subscriptions = subscriptionsMapper.map(data, $scope.subscriptions);
 			});
 			subscriptionsPoll.promise.catch(function () {

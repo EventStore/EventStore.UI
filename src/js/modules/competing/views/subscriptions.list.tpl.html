@@ -1,38 +1,32 @@
 
 <header class="page-header">
-	<h2 class="page-title">Subscriptions</h2>
+	<h2 class="page-title">Dashboard</h2>
 	<ul class="page-nav">
 	</ul>
 </header>
-
 <table class="table-subscriptions">
 	<thead>
 		<tr>
-			<th>Stream Name</th>
-			<th>Group Name</th>
+			<th>Stream/Group(s)</th>
 			<th>Rate (items/s)</th>
-			<th>Total Items Processed</th>
-			<th>Last Processed Event Number</th>
-			<th>Last Known Event Number</th>
-			<th>No. of Connections</th>
+			<th>Items Processed</th>
+			<th>Connections</th>
 			<th>Status</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody ng-repeat="(key, prop) in subscriptions track by key">
-		<tr>
-			<td>{{ prop.eventStreamId }}</td>
-			<td>{{ prop.groupName }}</td>
-			<td>{{ prop.averageItemsPerSecond }}</td>
-			<td>{{ prop.totalItemsProcessed }}</td>
-			<td>{{ prop.lastProcessedEventNumber }}</td>
-			<td>{{ prop.lastKnownEventNumber }}</td>
-			<td>{{ prop.connectionCount }}</td>
-			<td>{{ prop.status }}</td>
-			<td>
-				<a ng-repeat="link in prop.links" ui-sref="^.item.detail({streamId: prop.eventStreamId, groupName: prop.groupName})">{{ link.rel }}</a>
-			</td>
+		<!-- Case - group header -->
+		<tr ng-if="prop.groups" class="table-subheading" style="cursor: pointer;"
+			es-subscription-row-header es-subscription="prop">	
 		</tr>
+
+		<!-- Case - normal row -->
+		<tr ng-if="!prop.groups" es-subscription-row es-subscription="prop">
+		</tr>
+
+		<!-- Case - in current group -->
+		<tr ng-show="prop.show" ng-repeat="item in prop.groups" class="table-indentedrow" es-subscription-row es-subscription="item">
+		</tr> 
 	</tbody>
 	<tbody ng-hide="subscriptions">
 		<tr>

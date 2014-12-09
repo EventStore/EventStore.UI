@@ -1,0 +1,12 @@
+<td ng-if="esSubscription.show">
+	{{ esSubscription.streamName }} <a class="table-collapsetoggle">&minus;</a>
+</td>
+<td ng-if="!esSubscription.show">
+	{{ esSubscription.streamName }} <a class="table-collapsetoggle">&plus;</a>
+</td>
+<td>{{ esSubscription.averageItemsPerSecond }}</td>
+<td>{{ esSubscription.totalItemsProcessed }}</td>
+<td>{{ esSubscription.connectionCount }}</td>
+<td>n/a</td>
+
+<!-- class="table-subheading" -->
