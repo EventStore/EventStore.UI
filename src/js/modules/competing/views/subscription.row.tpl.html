@@ -1,6 +1,9 @@
 
 <td>{{ esSubscription.groupName }}</td>
 <td>{{ esSubscription.averageItemsPerSecond }}</td>
+<td>{{ esSubscription.readyItems }}</td>
+<td>{{ esSubscription.unackedItems }}</td>
 <td>{{ esSubscription.totalItemsProcessed }}</td>
 <td>{{ esSubscription.connectionCount }}</td>
 <td>{{ esSubscription.status }}</td>
+<td><a ng-repeat="link in esSubscription.links" ui-sref="^.item.detail({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">{{ link.rel }}</a></td>

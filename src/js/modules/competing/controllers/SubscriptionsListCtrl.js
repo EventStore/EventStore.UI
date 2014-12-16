@@ -3,7 +3,7 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SubscriptionsListCtrl', [
-		'$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService', 
+		'$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService',
 		function ($scope, competingService, subscriptionsMapper, pollerProvider, msg) {
 
 			var subscriptionsPoll  = pollerProvider.create({
@@ -16,7 +16,6 @@ define(['./_module'], function (app) {
 
 			subscriptionsPoll.start();
 			subscriptionsPoll.promise.then(null, null, function (data) { 
-				// console.log(data);
 				$scope.subscriptions = subscriptionsMapper.map(data, $scope.subscriptions);
 			});
 			subscriptionsPoll.promise.catch(function () {

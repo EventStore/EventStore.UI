@@ -1,38 +1,48 @@
-
 <header class="page-header">
-	<h2 class="page-title">Dashboard</h2>
-	<ul class="page-nav">
-	</ul>
+    <h2 class="page-title">Dashboard</h2>
+    <ul class="page-nav">
+    </ul>
 </header>
+
 <table class="table-subscriptions">
-	<thead>
-		<tr>
-			<th>Stream/Group(s)</th>
-			<th>Rate (items/s)</th>
-			<th>Items Processed</th>
-			<th>Connections</th>
-			<th>Status</th>
-		</tr>
-	</thead>
-	<tbody ng-repeat="(key, prop) in subscriptions track by key">
-		<!-- Case - group header -->
-		<tr ng-if="prop.groups" class="table-subheading" style="cursor: pointer;"
-			es-subscription-row-header es-subscription="prop">	
-		</tr>
+    <thead>
+        <tr>
+            <th>Stream/Group(s)</th>
+            <th>Rate (items/s)</th>
+            <th colspan="3">Items</th>
+            <th>Connections</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th class="table-subheading">Ready</th>
+            <th class="table-subheading">Unacked</th>
+            <th class="table-subheading">Total</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="(key, prop) in subscriptions track by key">
+        <!-- Case - group header -->
+        <tr ng-if="prop.groups" class="table-subheading" style="cursor: pointer;" es-subscription-row-header es-subscription="prop">
+        </tr>
 
-		<!-- Case - normal row -->
-		<tr ng-if="!prop.groups" es-subscription-row es-subscription="prop">
-		</tr>
-
-		<!-- Case - in current group -->
-		<tr ng-show="prop.show" ng-repeat="item in prop.groups" class="table-indentedrow" es-subscription-row es-subscription="item">
-		</tr> 
-	</tbody>
-	<tbody ng-hide="subscriptions">
-		<tr>
-			<td colspan="8">
-				<em>No subscriptions</em>
-			</td>
-		</tr>
-	</tbody>
+        <!-- Case - normal row -->
+        <tr ng-if="!prop.groups" es-subscription-row es-subscription="prop">
+        </tr>
+        <!-- Case - in current group -->
+        
+        <tr ng-show="prop.show" ng-repeat="item in prop.groups" class="table-indentedrow" es-subscription-row es-subscription="item">
+        </tr>
+    </tbody>
+    <tbody ng-hide="subscriptions">
+        <tr>
+            <td colspan="8">
+                <em>No subscriptions</em>
+            </td>
+        </tr>
+    </tbody>
 </table>
