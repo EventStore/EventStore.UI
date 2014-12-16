@@ -145,7 +145,7 @@ gulp.task('dist-js', function () {
 
 });
 
-gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-js'], function() {
+gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'], function() {
     return gulp.src('./src/index.html') 
         .pipe(htmlreplace({
           css: paths.dist.css,
