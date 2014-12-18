@@ -479,3 +479,22 @@ tbody .table-subheading {
 .site-footer p {
     margin: 0
 }
+.status{
+    position:relative;
+    top:2px;
+    margin-right:5px;
+    float:left;
+    width:12px;
+    height:12px;
+    border-radius:12px;
+    border:1px solid black;
+}
+.idle{
+    background:lime;
+}
+.behind-catchingup{
+    background:orange;
+}
+.behind-notcatchingup{
+    background:red;
+}

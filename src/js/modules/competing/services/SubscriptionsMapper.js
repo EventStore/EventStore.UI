@@ -9,9 +9,12 @@ define(['./_module'], function (app) {
                 averageItemsPerSecond: 0,
                 totalItemsProcessed: 0,
                 connectionCount: 0,
-                readyItems: 0,
-                unackedItems: 0,
+                knownMessages: 0,
+                currentMessages: 0,
+                inFlightMessages: 0,
                 status: 'Idle',
+                behindByMessages: 0.0,
+                behindByTime: 0.0,
                 groups: []
 			};
 		}
@@ -22,6 +25,17 @@ define(['./_module'], function (app) {
 					return group[index];
 				}
 			}
+		}
+
+		function determineStatus(subscription){
+			if(subscription.behindByMessages > 0){
+				if(subscription.averageItemsPerSecond > 0){
+					return 'behind-catchingup';
+				}else{
+					return 'behind-notcatchingup';
+				}
+			}
+			return 'idle';
 		}
 
 		function map (data, source) {
@@ -36,8 +50,13 @@ define(['./_module'], function (app) {
 	            current = groups[prop];
 	            var previous = findGroup(source[current.eventStreamId] ? source[current.eventStreamId].groups : [], current.groupName);
 	            current.averageItemsPerSecond = previous ? current.totalItemsProcessed - previous.totalItemsProcessed : 0;
-	            current.readyItems = current.lastKnownEventNumber - (current.totalItemsProcessed - 1);
-	            current.unackedItems = current.lastKnownEventNumber - current.lastProcessedEventNumber;
+	            current.knownMessages = current.lastKnownEventNumber + 1;
+	            current.currentMessages = current.lastProcessedEventNumber + 1;
+	            current.inFlightMessages = current.totalInFlightMessages;
+	            current.behindByMessages = (current.knownMessages - current.currentMessages);
+	            current.behindByTime = current.behindByMessages / current.averageItemsPerSecond;
+	            current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
+	            current.status = determineStatus(current);
 	            if(current.eventStreamId) {
 	                if(!result[current.eventStreamId]) {
 	                    group = createEmptyGroup(current.eventStreamId);
@@ -50,11 +69,14 @@ define(['./_module'], function (app) {
 	                group.show = exists ? exists.show : false;
 	                group.groups.push(current);
 
-	                group.readyItems += current.readyItems;
-                    group.unackedItems += current.unackedItems;
+	                group.knownMessages += current.knownMessages;
+                    group.currentMessages += current.currentMessages;
+                    group.inFlightMessages += current.totalInFlightMessages;
                     group.averageItemsPerSecond += current.averageItemsPerSecond;
-                    group.totalItemsProcessed += current.totalItemsProcessed;
                     group.connectionCount += current.connectionCount;
+                    group.behindByMessages += current.behindByMessages;
+                    group.behindByTime += current.behindByTime;
+                    group.status = current.status;
                     
 	                result[current.eventStreamId] = group;
 	            } else {
