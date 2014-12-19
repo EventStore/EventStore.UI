@@ -10,6 +10,7 @@ require.config({
 		'sprintf': '../bower_components/sprintf/src/sprintf',
 		'uiAce': '../bower_components/angular-ui-ace/ui-ace',
 		'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
+		'ngToastr': '../bower_components/angular-toastr/dist/angular-toastr.min',
 		'es-ui': './app'
 	},
 	shim: {
@@ -27,6 +28,9 @@ require.config({
 			deps: ['angular', 'ace']
 		},
 		'uiUtils': {
+			deps: ['angular']
+		},
+		'ngToastr': {
 			deps: ['angular']
 		},
 		'sprintf': {

@@ -2,18 +2,18 @@ define(['./_module'], function (app) {
 
 	'use strict';
 
-	return app.factory('MessageService', [
-		function () {
-
+	return app.factory('MessageService', ['toastr',
+		function (toastr) {
+			console.log('toastr', toastr);
 			return {
 				info: function (text) {
-					alert(text);
+					toastr.info(text, 'Information');
 				},
 				warn: function (text) {
-					alert(text);
+					toastr.warning(text, 'Warning');
 				},
 				error: function (text) {
-					alert(text);
+					toastr.error(text, 'Error');
 				},
 				confirm: function (text) {
 					return confirm(text);

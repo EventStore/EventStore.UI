@@ -1,0 +1,24 @@
+{
+  "name": "angular-toastr",
+  "version": "0.5.2",
+  "main": [
+    "./dist/angular-toastr.js",
+    "./dist/angular-toastr.css"
+  ],
+  "ignore": [
+    "config",
+    "node_modules",
+    "playground",
+    "src",
+    "test",
+    ".travis.yml",
+    ".gitignore",
+    ".jshintrc",
+    "CHANGELOG.md",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "latest"
+  }
+}

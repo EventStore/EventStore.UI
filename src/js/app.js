@@ -3,6 +3,7 @@ define([
 	'uiRouter',
 	'uiUtils',
 	'uiAce',
+	'ngToastr',
 	'./modules/projections/module',
 	'./modules/admin/module',
 	'./modules/dashboard/module',
@@ -31,6 +32,7 @@ define([
 		'es-ui.templates',
 		'ui.router',
 		'ui.utils',
-		'ui.ace'
+		'ui.ace',
+		'toastr'
 	]);
 });
