@@ -38,6 +38,15 @@ define(['./_module'], function (app) {
 			return 'idle';
 		}
 
+		function determineGroupStatus(group){
+			for(var index in group.groups){
+				if(group.groups[index].status.indexOf('behind') >= 0){
+					return group.groups[index].status;
+				}
+			}
+			return group.groups[0].status;
+		}
+
 		function map (data, source) {
 			var groups = data,
 				prop,
@@ -76,7 +85,7 @@ define(['./_module'], function (app) {
                     group.connectionCount += current.connectionCount;
                     group.behindByMessages += current.behindByMessages;
                     group.behindByTime += current.behindByTime;
-                    group.status = current.status;
+                    group.status = determineGroupStatus(group);
                     
 	                result[current.eventStreamId] = group;
 	            } else {
