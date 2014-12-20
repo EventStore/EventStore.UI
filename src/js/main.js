@@ -5,12 +5,12 @@ require.config({
 		'angular': '../bower_components/angular/angular',
 		'ngCookies': '../bower_components/angular-cookies/angular-cookies',
 		'uiRouter': '../bower_components/angular-ui-router/release/angular-ui-router',
+		'ngToastr': '../bower_components/angular-toastr/dist/angular-toastr',
 		'uiUtils': '../bower_components/angular-ui-utils/ui-utils',
 		'jQuery': '../bower_components/jQuery/dist/jquery',
 		'sprintf': '../bower_components/sprintf/src/sprintf',
 		'uiAce': '../bower_components/angular-ui-ace/ui-ace',
 		'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
-		'ngToastr': '../bower_components/angular-toastr/dist/angular-toastr.min',
 		'es-ui': './app'
 	},
 	shim: {
@@ -24,13 +24,14 @@ require.config({
 		'uiRouter': {
 			deps: ['angular']
 		},
+		'ngToastr': {
+			deps: ['angular'],
+			exports: 'ngToastr'
+		},
 		'uiAce': {
 			deps: ['angular', 'ace']
 		},
 		'uiUtils': {
-			deps: ['angular']
-		},
-		'ngToastr': {
 			deps: ['angular']
 		},
 		'sprintf': {

@@ -4,7 +4,6 @@ define(['./_module'], function (app) {
 
 	return app.factory('MessageService', ['toastr',
 		function (toastr) {
-			console.log('toastr', toastr);
 			return {
 				info: function (text) {
 					toastr.info(text, 'Information');
