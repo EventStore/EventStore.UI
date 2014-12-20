@@ -2,12 +2,12 @@ define(['./_module'], function (app) {
 
     'use strict';
 
-    return app.directive('esQueueRow', [function () {
+    return app.directive('esSubscriptionRow', [function () {
 		return {
 			restrict: 'A',
-			templateUrl: 'dashboard.row.tpl.html',
+			templateUrl: 'subscription.row.tpl.html',
 			scope: {
-				esQueue: '='
+				esSubscription: '='
 			},
 			link: function () {
 			}

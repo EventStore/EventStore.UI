@@ -1,0 +1,4 @@
+define([
+    './CompetingService',
+    './SubscriptionsMapper'
+], function () {});

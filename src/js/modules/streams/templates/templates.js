@@ -20,7 +20,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.event.tpl.html',
     '<header class=page-header><h2 class=page-title>{{ evt.title }} <small ng-if=isNotTheSame>Link from {{ evt.positionEventNumber + \'@\' + evt.positionStreamId }}</small></h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.events>Back</a></li></ul></header><ul class=page-nav style="padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-if=next><a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber + 1})">next</a></li><li class=page-nav__item ng-if=prev><a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber - 1})">prev</a></li></ul><br><table><thead><tr><th>No</th><th>Stream</th><th>Type</th><th>Timestamp</th></tr></thead><tbody><tr><td>{{ evt.eventNumber }}</td><td><a ui-sref="^.events({streamId: evt.streamId})">{{ evt.streamId }}</a></td><td>{{ evt.eventType }}</td><td>{{ evt.updated | date:\'yyyy-MM-dd HH:mm\'}}</td></tr><tr ng-if="evt.isJson || evt.isMetaData || evt.isLinkMetaData"><td colspan=4><div ng-if=evt.isJson><strong>Data</strong><pre>\n' +
     '{{ evt.data }}\n' +
-    '				</pre></div><div ng-if=evt.isMetaData><strong>Metdata</strong><pre>\n' +
+    '				</pre></div><div ng-if=evt.isMetaData><strong>Metadata</strong><pre>\n' +
     '{{ evt.metaData }}\n' +
     '				</pre></div><div ng-if=evt.isLinkMetaData><strong>Link metadata</strong><pre>\n' +
     '{{ evt.content.linkMetaData }}\n' +
@@ -54,7 +54,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.tpl.html',
-    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\'">Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a> </li></ul><br><div ui-view es-link-header></div>');
+    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\'">Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
 }]);
 })();
 

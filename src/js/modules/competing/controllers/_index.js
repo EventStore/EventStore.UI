@@ -1,0 +1,4 @@
+define([
+    './SubscriptionsListCtrl',
+    './SubscriptionsDetailCtrl',
+], function () {});
