@@ -506,3 +506,7 @@ tbody .table-subheading {
     position: absolute;
     background:rgba(0, 0, 0, 0.4);
 }
+#toast-container.toast-top-full-width > div {
+    position:relative;
+    top:35px;
+}
