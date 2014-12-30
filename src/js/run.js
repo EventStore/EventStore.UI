@@ -3,6 +3,7 @@ define(['es-ui'], function (app) {
 	'use strict';
     app.config(function(toastrConfig){
         angular.extend(toastrConfig, {
+            closeButton: true,
             timeOut: 0,
             positionClass: 'toast-top-full-width',
             preventDuplicates: true
