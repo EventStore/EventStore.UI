@@ -11,11 +11,11 @@
 	<tbody ng-repeat="event in streams">
 		<tr ng-class="{ 'invalid': !event.streamId }">
 			<td>
-				<a ng-if="event.streamId" ui-sref="^.event({streamId: event.streamId, eventNumber: event.positionEventNumber})">{{ event.positionEventNumber }}</a>
+				<a ng-if="event.streamId" ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.positionEventNumber }}</a>
 				<text ng-if="!event.streamId">{{ event.positionEventNumber }}</text>
 			</td>
 			<td>
-				<a ng-if="event.streamId" ui-sref="^.event({streamId: event.streamId,eventNumber: event.positionEventNumber})">{{ event.title }}</a>
+				<a ng-if="event.streamId" ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.title }}</a>
 				<text ng-if="!event.streamId">{{ event.title }}</text>
 			</td>
 			<td>{{ event.eventType }}</td>
