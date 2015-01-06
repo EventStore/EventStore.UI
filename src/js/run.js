@@ -12,6 +12,7 @@ define(['es-ui'], function (app) {
                 infoService.getInfo()
                     .success(function(info){
                         $rootScope.esVersion = info.esVersion || '0.0.0.0';
+                        $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'running locally' : $rootScope.esVersion;
                         $rootScope.projectionsAllowed = info.projectionsMode != 'None';
                     });
             }, function () {
