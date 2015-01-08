@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('subscription.row.header.tpl.html',
-    '<td ng-if=esSubscription.show>{{ esSubscription.streamName }} <a class=table-collapsetoggle>&minus;</a></td><td ng-if=!esSubscription.show>{{ esSubscription.streamName }} <a class=table-collapsetoggle>&plus;</a></td><td>{{ esSubscription.averageItemsPerSecond }}</td><td>{{ esSubscription.knownMessages }}</td><td>{{ esSubscription.currentMessages }}</td><td>{{ esSubscription.inFlightMessages }}</td><td>{{ esSubscription.connectionCount }}</td><td><div class="status {{ esSubscription.status }}"></div>{{ esSubscription.behindByMessages }} / {{ esSubscription.behindByTime }}</td><td>n/a</td>');
+    '<td ng-if=esSubscription.show>{{ esSubscription.streamName }} <a class=table-collapsetoggle>&minus;</a></td><td ng-if=!esSubscription.show>{{ esSubscription.streamName }} <a class=table-collapsetoggle>&plus;</a></td><td>{{ esSubscription.averageItemsPerSecond }}</td><td>{{ esSubscription.knownMessages }}</td><td>{{ esSubscription.currentMessages }}</td><td>{{ esSubscription.inFlightMessages }}</td><td>{{ esSubscription.connectionCount }}</td><td><div class="status {{ esSubscription.status }}"></div>{{ esSubscription.behindByMessages }} / {{ esSubscription.behindByTime | number:0 }}</td><td>n/a</td>');
 }]);
 })();
 
