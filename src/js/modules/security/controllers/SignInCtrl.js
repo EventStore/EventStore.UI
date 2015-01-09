@@ -25,7 +25,7 @@ define(['./_module'], function (app) {
 				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
 				.success(function (info) {
 					$rootScope.esVersion = info.esVersion || '0.0.0.0';
-                    $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'running locally' : $rootScope.esVersion;
+                    $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
 					redirectToPreviousState();
 				})
