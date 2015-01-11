@@ -498,7 +498,7 @@ tbody .table-subheading {
 .behind-notcatchingup{
     background:red;
 }
-#toast-container {
+.toast-container-modal {
     top:0;
     left:0;
     width:100%;
@@ -506,7 +506,7 @@ tbody .table-subheading {
     position: absolute;
     background:rgba(0, 0, 0, 0.4);
 }
-#toast-container.toast-top-full-width > div {
+.toast-container-modal .toast-top-full-width > div {
     position:relative;
     top:35px;
 }
