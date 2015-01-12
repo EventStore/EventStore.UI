@@ -510,3 +510,8 @@ tbody .table-subheading {
     width:96%;
     left:2%;
 }
+
+#toast-container.toast-bottom-full-width > div {
+    position:relative;
+    bottom:35px;
+}
