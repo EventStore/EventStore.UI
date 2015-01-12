@@ -10,7 +10,7 @@ define(['./_module'], function (app) {
 					positionClass: requiresUserAck ? 'toast-container-modal toast-bottom-full-width' : 'toast-bottom-full-width',
 					timeOut: requiresUserAck ? 0 : 
 							  level == 'warning' ? 5000 : 
-							  level == 'info' ? 2000 : 0
+							  level == 'info' || level == 'success' ? 2000 : 0
 				}
 			}
 			function getToastTitle(title, level){
