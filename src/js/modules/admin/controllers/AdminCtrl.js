@@ -23,7 +23,10 @@ define(['./_module'], function (app) {
 
 			$scope.shutdown = function ($event) {
 				stop($event);
-
+				var confirmation = msg.confirm('Are you sure you wish to shutdown the node?')
+				if(!confirmation) {
+					return;
+				}
 				adminService.shutdown().then(function () {
 					msg.success('Server shutdown initiated');
 				}, function () {

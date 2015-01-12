@@ -15,7 +15,7 @@
 		<li ng-if="projectionsAllowed" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }">
 			<a ui-sref="projections.list">Projections</a>
 		</li>
-		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }">
+		<li ng-if="projectionsAllowed" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }">
 			<a ui-sref="query">Query</a>
 		</li>
 		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }">
