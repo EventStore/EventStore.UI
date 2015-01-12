@@ -19,7 +19,7 @@ define(['./_module'], function (app) {
 					$state.go('^.list');
 				})
 				.error(function () {
-					msg.error('user not created');
+					msg.failure('user not created');
 				});
 			};
 		}

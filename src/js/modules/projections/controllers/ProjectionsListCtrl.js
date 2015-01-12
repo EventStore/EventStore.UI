@@ -18,7 +18,7 @@ define(['./_module'], function (app) {
 			});
 
 			all.promise.catch(function () {
-				msg.error('error');
+				msg.failure('error');
 				all.stop();
 			});
 
@@ -35,7 +35,7 @@ define(['./_module'], function (app) {
 				projectionsService.disableAll().then(function () {
 					msg.info('all projections disabled');
 				}, function (err) {
-					msg.error('disable all failed' + '\n\r' + err);
+					msg.failure('disable all failed' + '\n\r' + err);
 				});
 			};
 
@@ -52,7 +52,7 @@ define(['./_module'], function (app) {
 				projectionsService.enableAll().then(function () {
 					msg.info('all projections enabled');
 				}, function (err) {
-					msg.error('enable all failed' + '\n\r' + err);
+					msg.failure('enable all failed' + '\n\r' + err);
 				});
 			};
 

@@ -15,7 +15,7 @@ define(['./_module'], function (app) {
 					msg.info('user deleted');
 					$state.go('users.list');
 				}, function () {
-					msg.error('user not deleted');
+					msg.failure('user not deleted');
 				});
 			};
 
@@ -25,7 +25,7 @@ define(['./_module'], function (app) {
 				$scope.disable = false;
 			})
 			.error(function () {
-				msg.error('user does not exists or you do not have perms');
+				msg.failure('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

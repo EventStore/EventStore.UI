@@ -47,7 +47,7 @@ define(['./_module'], function (app) {
 						});
 					})
 					.error(function () {
-						msg.error('Coudn\'t create new standard projection');
+						msg.failure('Coudn\'t create new standard projection');
 					});
 			};
 		}

@@ -16,7 +16,7 @@ define(['./_module'], function (app) {
 
 			atom.start($stateParams)
 			.then(null, function () {
-				msg.error('stream does not exists');
+				msg.failure('stream does not exists');
 			}, function (data) {
 				
 				$scope.$broadcast('add-link-header', findSelf(data.links));

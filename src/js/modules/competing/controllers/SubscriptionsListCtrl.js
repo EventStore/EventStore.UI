@@ -19,7 +19,7 @@ define(['./_module'], function (app) {
 				$scope.subscriptions = subscriptionsMapper.map(data, $scope.subscriptions);
 			});
 			subscriptionsPoll.promise.catch(function () {
-				msg.error('An error occured.');
+				msg.failure('An error occured.');
 				$scope.subscriptions = null;
 				subscriptionsPoll.stop(); 
 			});

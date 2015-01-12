@@ -20,7 +20,7 @@ define(['./_module'], function (app) {
 
 			all.promise.catch(function () {
 				all.stop();
-				msg.error('Cannot get list of users');
+				msg.failure('Cannot get list of users');
 			});
 
 

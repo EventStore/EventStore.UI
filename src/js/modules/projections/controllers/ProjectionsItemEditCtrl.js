@@ -35,7 +35,7 @@ define(['./_module'], function (app) {
 				$scope.emit = data.emitEnabled;
 			})
 			.error(function () {
-				msg.error('Projection does not exists or is unaccesbile');
+				msg.failure('Projection does not exists or is unaccesbile');
 			});
 
 			monitor.start($scope.location, {
@@ -67,7 +67,7 @@ define(['./_module'], function (app) {
 					msg.info('projection saved');
 				})
 				.error(function () {
-					msg.error('Projection not saved');
+					msg.failure('Projection not saved');
 				});
 
 			};
@@ -85,7 +85,7 @@ define(['./_module'], function (app) {
 					msg.info('projection reseted');
 				})
 				.error(function () {
-					msg.error('reset failed');
+					msg.failure('reset failed');
 				});
 			};
 
@@ -95,7 +95,7 @@ define(['./_module'], function (app) {
 					msg.info('projection started');
 				})
 				.error(function () {
-					msg.error('projection could not be started');
+					msg.failure('projection could not be started');
 				});
 			};
 
@@ -105,7 +105,7 @@ define(['./_module'], function (app) {
 					msg.info('projection stopped');
 				})
 				.error(function () {
-					msg.error('projection could not be stopped');
+					msg.failure('projection could not be stopped');
 				});
 			};
 

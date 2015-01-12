@@ -76,7 +76,7 @@ define(['./_module'], function (app) {
 					msg.info('projection reseted');
 				})
 				.error(function () {
-					msg.error('reset failed');
+					msg.failure('reset failed');
 				});
 			};
 
@@ -86,7 +86,7 @@ define(['./_module'], function (app) {
 					msg.info('projection started');
 				})
 				.error(function () {
-					msg.error('projection could not be started');
+					msg.failure('projection could not be started');
 				});
 			};
 
@@ -96,7 +96,7 @@ define(['./_module'], function (app) {
 					msg.info('projection stopped');
 				})
 				.error(function () {
-					msg.error('projection could not be stopped');
+					msg.failure('projection could not be stopped');
 				});
 			};
 

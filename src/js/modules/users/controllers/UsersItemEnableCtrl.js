@@ -17,7 +17,7 @@ define(['./_module'], function (app) {
 					$state.go('^.details');
 				})
 				.error(function () {
-					msg.error('user not enabled');
+					msg.failure('user not enabled');
 				});
 			};
 
@@ -32,7 +32,7 @@ define(['./_module'], function (app) {
 				}
 			})
 			.error(function () {
-				msg.error('user does not exists or you do not have perms');
+				msg.failure('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

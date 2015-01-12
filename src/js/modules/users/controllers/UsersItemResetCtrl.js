@@ -18,7 +18,7 @@ define(['./_module'], function (app) {
 					$state.go('^.details');
 				})
 				.error(function () {
-					msg.error('password not reseted');
+					msg.failure('password not reseted');
 				});
 			};
 
@@ -27,7 +27,7 @@ define(['./_module'], function (app) {
 				$scope.user = data.data;
 			})
 			.error(function () {
-				msg.error('user does not exists or you do not have perms');
+				msg.failure('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

@@ -38,7 +38,7 @@ define(['./_module'], function (app) {
 					$state.go('projections.list');
 				})
 				.error(function () {
-					msg.error('Projection not removed');
+					msg.failure('Projection not removed');
 				});
 			};
 		}

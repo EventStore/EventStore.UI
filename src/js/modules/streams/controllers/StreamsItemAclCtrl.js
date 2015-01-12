@@ -28,7 +28,7 @@ define(['./_module'], function (app) {
 				}
 			})
 			.error(function () {
-				msg.error('could not load metadata for stream: ' + $scope.streamId);
+				msg.failure('could not load metadata for stream: ' + $scope.streamId);
 
 				$state.go('^.events');
 			});
