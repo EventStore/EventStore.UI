@@ -19,7 +19,7 @@ define(['./_module'], function (app) {
 				$scope.queues = dashboardMapper.map(data, $scope.queues);
 			});
 			statsPoll.promise.catch(function () {
-				msg.error('An error occured.');
+				msg.failure('An error occured.');
 				$scope.queues = null;
 				statsPoll.stop(); // if error we do not want to continue...
 			});

@@ -21,7 +21,7 @@ define(['./_module'], function (app) {
 					$state.go('^.details');
 				})
 				.error(function () {
-					msg.error('user not updated');
+					msg.failure('user not updated');
 				});
 			};
 
@@ -32,7 +32,7 @@ define(['./_module'], function (app) {
 				$scope.fullName = $scope.user.fullName;
 			})
 			.error(function () {
-				msg.error('user does not exists or you do not have perms');
+				msg.failure('user does not exists or you do not have perms');
 				$state.go('users');
 			});
 		}

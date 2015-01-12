@@ -14,7 +14,7 @@ define(['./_module'], function (app) {
 				$scope.subSystems = data;
 			})
 			.error(function(){
-				msg.error('could not get sub systems');
+				msg.failure('Could not retrieve sub systems');
 			});
 			var stop = function ($event) {
 					$event.preventDefault();
@@ -25,9 +25,9 @@ define(['./_module'], function (app) {
 				stop($event);
 
 				adminService.shutdown().then(function () {
-					msg.info('server shutdown');
+					msg.success('Server shutdown initiated');
 				}, function () {
-					msg.error('halt failed');
+					msg.failure('Shutdown failed');
 				});
 			};
 
@@ -35,9 +35,9 @@ define(['./_module'], function (app) {
 				stop($event);
 
 				adminService.scavenge().then(function () {
-					msg.info('ok');
+					msg.success('Scavenge initiated');
 				}, function () {
-					msg.error('scavenge failed');
+					msg.failure('Scavenge failed');
 				});
 			};
 		}

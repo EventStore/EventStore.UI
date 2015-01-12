@@ -15,11 +15,11 @@ define(['./_module'], function (app) {
 
 				userService.create($scope.newUser)
 				.success(function () {
-					msg.info('user created');
+					msg.success('User created');
 					$state.go('^.list');
 				})
-				.error(function () {
-					msg.error('user not created');
+				.error(function (response) {
+					msg.failure('Failed to create user, reason : ' + response.error);
 				});
 			};
 		}

@@ -13,12 +13,11 @@ define(['./_module'], function (app) {
 
 			all.start();
 			all.promise.then(null, null, function (data) {
-
 				$scope.projections = projectionsMapper.map(data);
 			});
 
 			all.promise.catch(function () {
-				msg.error('error');
+				msg.failure('An error occurred');
 				all.stop();
 			});
 
@@ -33,9 +32,9 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.disableAll().then(function () {
-					msg.info('all projections disabled');
+					msg.success('All projections have been disabled');
 				}, function (err) {
-					msg.error('disable all failed' + '\n\r' + err);
+					msg.failure('Disabling all the projections have failed, reason :' + '\n\r' + err);
 				});
 			};
 
@@ -50,9 +49,9 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.enableAll().then(function () {
-					msg.info('all projections enabled');
+					msg.success('All projections have been enabled');
 				}, function (err) {
-					msg.error('enable all failed' + '\n\r' + err);
+					msg.failure('Enabling all projections have failed, reason : ' + '\n\r' + err);
 				});
 			};
 

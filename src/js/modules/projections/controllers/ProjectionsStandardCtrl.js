@@ -35,7 +35,7 @@ define(['./_module'], function (app) {
 			$scope.save = function () {
 
 				if($scope.newProj.$invalid) {
-					msg.info('please fix all validation errors');
+					msg.info('Please fix all validation errors');
 					return;
 				}
 
@@ -47,7 +47,7 @@ define(['./_module'], function (app) {
 						});
 					})
 					.error(function () {
-						msg.error('Coudn\'t create new standard projection');
+						msg.failure('Coudn\'t create new standard projection');
 					});
 			};
 		}

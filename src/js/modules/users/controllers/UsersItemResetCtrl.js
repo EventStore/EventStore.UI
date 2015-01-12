@@ -14,11 +14,11 @@ define(['./_module'], function (app) {
 
 				userService.resetPassword($scope.user.loginName, $scope.password)
 				.success(function () {
-					msg.info('password reseted');
+					msg.success('Password has been reset');
 					$state.go('^.details');
 				})
 				.error(function () {
-					msg.error('password not reseted');
+					msg.failure('password not reseted');
 				});
 			};
 
@@ -27,7 +27,7 @@ define(['./_module'], function (app) {
 				$scope.user = data.data;
 			})
 			.error(function () {
-				msg.error('user does not exists or you do not have perms');
+				msg.failure('uUser does not exists or you do not have permissions');
 				$state.go('users');
 			});
 		}

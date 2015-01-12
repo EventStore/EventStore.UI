@@ -26,7 +26,7 @@ define(['./_module'], function (app) {
 				})
 				.error(function () {
 					$scope.isCreated = false;
-					msg.error('Couldn\'t create new query');
+					msg.failure('Couldn\'t create new query');
 				});
 			}
 
@@ -72,7 +72,7 @@ define(['./_module'], function (app) {
 					monitorState();
 
 					enabled.error(function () {
-						msg.error('Could not start query');
+						msg.failure('Could not start query');
 						monitor.stop();
 					});
 
@@ -82,7 +82,7 @@ define(['./_module'], function (app) {
 					//});
 				})
 				.error(function () {
-					msg.error('Query not updated');
+					msg.failure('Query not updated');
 				});
 			}
 
@@ -119,7 +119,7 @@ define(['./_module'], function (app) {
 				var disable = stopAndDisable();
 				
 				disable.error(function () {
-					msg.error('Could not break query');
+					msg.failure('Could not break query');
 				});
 			};
 

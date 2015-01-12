@@ -57,6 +57,10 @@ var rjsOpts = {
         'uiRouter': {
             deps: ['angular']
         },
+        'ngToastr': {
+            deps: ['angular'],
+            exports: 'ngToastr'
+        },
         'uiAce': {
             deps: ['angular', 'ace']
         },
@@ -75,6 +79,7 @@ var rjsOpts = {
         'angular': '../bower_components/angular/angular',
         'ngCookies': '../bower_components/angular-cookies/angular-cookies',
         'uiRouter': '../bower_components/angular-ui-router/release/angular-ui-router',
+        'ngToastr': '../bower_components/angular-toastr/dist/angular-toastr',
         'uiUtils': '../bower_components/angular-ui-utils/ui-utils',
         'jQuery': '../bower_components/jQuery/dist/jquery',
         'sprintf': '../bower_components/sprintf/src/sprintf',

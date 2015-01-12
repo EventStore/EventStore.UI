@@ -34,11 +34,11 @@ define(['./_module'], function (app) {
 					deleteStateStream: $scope.deleteState ? 'yes' : 'no'
 				})
 				.success(function () {
-					msg.info('Projection removed');
+					msg.success('Projection has been removed');
 					$state.go('projections.list');
 				})
 				.error(function () {
-					msg.error('Projection not removed');
+					msg.failure('Projection not removed');
 				});
 			};
 		}

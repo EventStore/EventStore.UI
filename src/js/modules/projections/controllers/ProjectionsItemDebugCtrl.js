@@ -203,7 +203,7 @@ define(['./_module'], function (app) {
 				    $state.go($state.current, {}, {reload: true});
 				})
 				.error(function () {
-				    msg.error('Projection not updated');
+				    msg.failure('Projection not updated');
 				});
 		    };
 		    $scope.stop = function () {
@@ -213,7 +213,7 @@ define(['./_module'], function (app) {
 				    $scope.isRunning = false;
 				})
 				.error(function () {
-				    msg.error('projection could not be stopped');
+				    msg.failure('projection could not be stopped');
 				});
 		    };
 		}

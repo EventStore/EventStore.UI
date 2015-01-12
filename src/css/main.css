@@ -498,3 +498,20 @@ tbody .table-subheading {
 .behind-notcatchingup{
     background:red;
 }
+.toast-container-modal {
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.4);
+}
+
+#toast-container.toast-container-modal.toast-bottom-full-width > div {
+    position:absolute;
+    bottom:35px;
+    width:96%;
+    left:2%;
+}
+
+#toast-container.toast-bottom-full-width > div {
+    position:relative;
+    bottom:35px;
+}

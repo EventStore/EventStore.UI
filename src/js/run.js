@@ -1,7 +1,12 @@
 define(['es-ui'], function (app) {
 
 	'use strict';
-
+    app.config(['toastrConfig', function(toastrConfig){
+        angular.extend(toastrConfig, {
+            timeOut: 0,
+            preventDuplicates: true
+        });
+    }]);
 	return app.run([
         '$rootScope', '$state', '$stateParams', 'AuthService', 'InfoService',
         function ($rootScope, $state, $stateParams, authService, infoService) {
@@ -24,5 +29,4 @@ define(['es-ui'], function (app) {
             $rootScope.$stateParams = $stateParams;
         }
     ]);
-
 });
