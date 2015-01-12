@@ -29,7 +29,7 @@ define(['./_module'], function (app) {
 					redirectToPreviousState();
 				})
 				.error(function () {
-					msg.warn('Server does not exists or wrong user data');
+					msg.warn('Server does not exist or incorrect user credentials supplied.');
 				});
 			};
 

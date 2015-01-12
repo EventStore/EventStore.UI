@@ -7,7 +7,7 @@ define(['./_module'], function (app) {
 			function getToastOptions(requiresUserAck, level){
 				return {
 					closeButton: requiresUserAck ? true : level == 'warning' ? true : false,
-					positionClass: requiresUserAck ? "toast-container-modal toast-top-full-width" : "toast-top-full-width",
+					positionClass: requiresUserAck ? "toast-container-modal toast-bottom-full-width" : "toast-bottom-full-width",
 					timeOut: requiresUserAck ? 0 : 
 							  level == 'warning' ? 5000 : 
 							  level == 'info' ? 2000 : 0

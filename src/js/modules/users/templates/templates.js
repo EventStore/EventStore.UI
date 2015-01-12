@@ -36,7 +36,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('users.item.disable.tpl.html',
     '<header class=page-header><h2 class=page-title>Disable User {{ user.loginName }}</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><pre>\n' +
     '{{ user | json }}\n' +
-    '</pre><ul><li><a href=# ng-click=confirm($event) ng-disabled=disable>Disable</a></li></ul>');
+    '</pre><ul class=page-nav><li class=page-nav__item><a href=# ng-click=confirm($event) ng-disabled=disable>Disable</a></li></ul>');
 }]);
 })();
 
@@ -48,7 +48,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('users.item.edit.tpl.html',
-    '<header class=page-header><h2 class=page-title>Edit User {{ user.loginName }}</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><form novalidate name=editUsr ng-submit=confirm()><table><tbody><tr><td>Login Name</td><td>{{ user.loginName}}</td></tr><tr><td>Full Name</td><td><input name=fullName class=form-table ng-class="{ \'form-table--error\' : editUsr.fullName.$invalid && !editUsr.fullName.$pristine }" ng-model=fullName required></td></tr><tr><td>Groups</td><td><input type=checkbox name=isAdmin ng-model=isAdmin><label for=isAdmin>Is Administrator</label></td></tr></tbody></table><ul><li><button type=submit ng-disabled=editUsr.$invalid>Update</button></li></ul></form>');
+    '<header class=page-header><h2 class=page-title>Edit User {{ user.loginName }}</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><form novalidate name=editUsr ng-submit=confirm()><table><tbody><tr><td>Login Name</td><td>{{ user.loginName}}</td></tr><tr><td>Full Name</td><td><input name=fullName class=form-table ng-class="{ \'form-table--error\' : editUsr.fullName.$invalid && !editUsr.fullName.$pristine }" ng-model=fullName required></td></tr><tr><td>Groups</td><td><input type=checkbox name=isAdmin ng-model=isAdmin><label for=isAdmin>Is Administrator</label></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><button type=submit ng-disabled=editUsr.$invalid>Update</button></li></ul></form>');
 }]);
 })();
 
@@ -74,7 +74,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('users.item.reset.tpl.html',
-    '<header class=page-header><h2 class=page-title>Reset User {{ user.loginName }} Password</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><form novalidate name=resetPwd ng-submit=confirm()><table><tbody><tr><td>Login Name</td><td>{{ user.loginName}}</td></tr><tr><td>Password</td><td><input type=password name=password class=form-table ng-class="{ \'form-table--error\' : resetPwd.password.$invalid && !resetPwd.password.$pristine }" ng-model=password required></td></tr><tr><td>Confirm Password</td><td><input type=password class=form-table name=confirmPassword ng-model=confirmPassword ng-class="{ \'form-table--error\' : resetPwd.confirmPassword.$invalid && !resetPwd.confirmPassword.$pristine }" es-validate-equals=password></td></tr></tbody></table><ul><li><button type=submit ng-disabled=resetPwd.$invalid>Reset password</button></li></ul></form>');
+    '<header class=page-header><h2 class=page-title>Reset User {{ user.loginName }} Password</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><form novalidate name=resetPwd ng-submit=confirm()><table><tbody><tr><td>Login Name</td><td>{{ user.loginName}}</td></tr><tr><td>Password</td><td><input type=password name=password class=form-table ng-class="{ \'form-table--error\' : resetPwd.password.$invalid && !resetPwd.password.$pristine }" ng-model=password required></td></tr><tr><td>Confirm Password</td><td><input type=password class=form-table name=confirmPassword ng-model=confirmPassword ng-class="{ \'form-table--error\' : resetPwd.confirmPassword.$invalid && !resetPwd.confirmPassword.$pristine }" es-validate-equals=password></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><button type=submit ng-disabled=resetPwd.$invalid>Reset password</button></li></ul></form>');
 }]);
 })();
 

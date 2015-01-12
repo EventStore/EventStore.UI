@@ -4,7 +4,6 @@ define(['es-ui'], function (app) {
     app.config(function(toastrConfig){
         angular.extend(toastrConfig, {
             timeOut: 0,
-            positionClass: 'toast-top-full-width',
             preventDuplicates: true
         })
     })
