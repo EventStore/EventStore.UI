@@ -34,7 +34,7 @@ define(['./_module'], function (app) {
 				projectionsService.disableAll().then(function () {
 					msg.success('All projections have been disabled');
 				}, function (err) {
-					msg.failure('Disabling all the projections has failed, reason :' + '\n\r' + err);
+					msg.failure('Disabling all the projections have failed, reason :' + '\n\r' + err);
 				});
 			};
 
@@ -49,9 +49,9 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.enableAll().then(function () {
-					msg.success('All projections has been enabled');
+					msg.success('All projections have been enabled');
 				}, function (err) {
-					msg.failure('Enabling all projections has failed, reason : ' + '\n\r' + err);
+					msg.failure('Enabling all projections have failed, reason : ' + '\n\r' + err);
 				});
 			};
 
