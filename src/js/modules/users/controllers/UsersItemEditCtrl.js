@@ -17,7 +17,7 @@ define(['./_module'], function (app) {
 					$scope.fullName, 
 					$scope.isAdmin)
 				.success(function () {
-					msg.info('user updated');
+					msg.success('user updated');
 					$state.go('^.details');
 				})
 				.error(function () {
