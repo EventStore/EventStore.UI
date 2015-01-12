@@ -12,10 +12,10 @@ define(['./_module'], function (app) {
 				$event.stopPropagation();
 
 				userService.remove($scope.user.loginName).then(function () {
-					msg.info('user deleted');
+					msg.success('User deleted');
 					$state.go('users.list');
 				}, function () {
-					msg.failure('user not deleted');
+					msg.failure('User was not deleted');
 				});
 			};
 
@@ -25,7 +25,7 @@ define(['./_module'], function (app) {
 				$scope.disable = false;
 			})
 			.error(function () {
-				msg.failure('user does not exists or you do not have perms');
+				msg.failure('User does not exists or you do not have permissions');
 				$state.go('users');
 			});
 		}

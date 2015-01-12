@@ -33,7 +33,7 @@ define(['./_module'], function (app) {
 			$scope.save = function () {
 
 				if($scope.newProj.$invalid) {
-					msg.warn('please fix all validation errors');
+					msg.warn('Please fix all validation errors');
 					return;
 				}
 

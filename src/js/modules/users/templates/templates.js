@@ -8,7 +8,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('users.item.delete.tpl.html',
     '<header class=page-header><h2 class=page-title>Delete User {{ user.loginName }}</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><pre>\n' +
     '{{ user | json }}\n' +
-    '</pre><ul><li><a href=# ng-click=confirm($event) ng-disabled=disable>Delete</a></li></ul>');
+    '</pre><ul class=page-nav><li class=page-nav__item><a href=# ng-click=confirm($event) ng-disabled=disable>Delete</a></li></ul>');
 }]);
 })();
 
@@ -110,7 +110,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('users.new.tpl.html',
-    '<header class=page-header><h2 class=page-title>New User</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><form novalidate name=newUsr ng-submit=confirm()><table><tbody><tr><td>Login Name</td><td><input class=form-table autofocus required name=loginName ng-class="{ \'form-table--error\' : newUsr.loginName.$invalid && !newUsr.loginName.$pristine }" ng-model=newUser.loginName></td></tr><tr><td>Full Name</td><td><input ng-class="{ \'form-table--error\' : newUsr.fullName.$invalid && !newUsr.fullName.$pristine }" name=fullName class=form-table required ng-model=newUser.fullName></td></tr><tr><td>Password</td><td><input type=password ng-class="{ \'form-table--error\' : newUsr.password.$invalid && !newUsr.password.$pristine }" name=password class=form-table ng-model=newUser.password required></td></tr><tr><td>Confirm Password</td><td><input type=password ng-class="{ \'form-table--error\' : newUsr.confirmPassword.$invalid && !newUsr.confirmPassword.$pristine }" name=confirmPassword class=form-table required ng-model=newUser.confirmPassword es-validate-equals=newUser.password></td></tr><tr><td>Groups</td><td><input type=checkbox name=isAdmin ng-model=newUser.isAdmin><label for=isAdmin>Is Administrator</label></td></tr></tbody></table><ul><li><button type=submit ng-disabled=newUsr.$invalid>Create</button></li></ul></form>');
+    '<header class=page-header><h2 class=page-title>New User</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><form novalidate name=newUsr ng-submit=confirm()><table><tbody><tr><td>Login Name</td><td><input class=form-table autofocus required name=loginName ng-class="{ \'form-table--error\' : newUsr.loginName.$invalid && !newUsr.loginName.$pristine }" ng-model=newUser.loginName></td></tr><tr><td>Full Name</td><td><input ng-class="{ \'form-table--error\' : newUsr.fullName.$invalid && !newUsr.fullName.$pristine }" name=fullName class=form-table required ng-model=newUser.fullName></td></tr><tr><td>Password</td><td><input type=password ng-class="{ \'form-table--error\' : newUsr.password.$invalid && !newUsr.password.$pristine }" name=password class=form-table ng-model=newUser.password required></td></tr><tr><td>Confirm Password</td><td><input type=password ng-class="{ \'form-table--error\' : newUsr.confirmPassword.$invalid && !newUsr.confirmPassword.$pristine }" name=confirmPassword class=form-table required ng-model=newUser.confirmPassword es-validate-equals=newUser.password></td></tr><tr><td>Groups</td><td><input type=checkbox name=isAdmin ng-model=newUser.isAdmin><label for=isAdmin>Is Administrator</label></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><button type=submit ng-disabled=newUsr.$invalid>Create</button></li></ul></form>');
 }]);
 })();
 

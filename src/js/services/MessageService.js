@@ -14,17 +14,17 @@ define(['./_module'], function (app) {
 				}
 			}
 			return {
-				success: function(text, requiresUserAck){
-					toastr.info(text, 'Success', getToastOptions(requiresUserAck, 'success'));
+				success: function(text, title){
+					toastr.success(text, title  || 'Success', getToastOptions(false, 'success'));
 				},
-				info: function (text, requiresUserAck) {
-					toastr.info(text, 'Info', getToastOptions(requiresUserAck, 'info'));
+				info: function (text, title) {
+					toastr.info(text, title  || 'Info', getToastOptions(false, 'info'));
 				},
-				warn: function (text, requiresUserAck) {
-					toastr.warning(text, 'Warning', getToastOptions(requiresUserAck, 'warning'));
+				warn: function (text, title) {
+					toastr.warning(text, title  || 'Warning', getToastOptions(false, 'warning'));
 				},
-				failure: function (text, requiresUserAck) {
-					toastr.error(text, 'Failure', getToastOptions(true, 'failure'));
+				failure: function (text, title) {
+					toastr.error(text, title || 'Failure', getToastOptions(true, 'failure'));
 				},
 				confirm: function (text) {
 					return confirm(text);

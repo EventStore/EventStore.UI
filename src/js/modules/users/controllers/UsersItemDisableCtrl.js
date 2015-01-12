@@ -13,11 +13,11 @@ define(['./_module'], function (app) {
 
 				userService.disable($scope.user.loginName)
 				.success(function () {
-					msg.info('user disabled');
+					msg.success('User disabled');
 					$scope.$state.go('^.details');
 				})
-				.error(function () {
-					msg.failure('user not disabled');
+				.error(function (response) {
+					msg.failure('Failed to disable user, reason : ' + response.error);
 				});
 			};
 
@@ -26,12 +26,12 @@ define(['./_module'], function (app) {
 				$scope.user = data.data;
 				$scope.disable = false;
 				if($scope.user.disabled) {
-					msg.warn('user already disabled');
+					msg.warn('User already disabled');
 					$state.go('^.details');
 				}
 			})
 			.error(function () {
-				msg.failure('user does not exists or you do not have perms');
+				msg.failure('User does not exist or you do not have permissions');
 				$state.go('users');
 			});
 		}
