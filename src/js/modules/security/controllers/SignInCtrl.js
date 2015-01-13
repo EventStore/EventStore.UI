@@ -26,6 +26,7 @@ define(['./_module'], function (app) {
 				.success(function (info) {
 					$rootScope.esVersion = info.esVersion || '0.0.0.0';
                     $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
+                    $rootScope.projectionsAllowed = info.projectionsMode != 'None';
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
 					redirectToPreviousState();
 				})
