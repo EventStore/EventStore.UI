@@ -43,17 +43,6 @@ define(['./_module'], function (app) {
 					$state.go('dashboard.list');
 				}
 			}
-
-			function checkCookie () {
-				
-				authService.existsAndValid()
-				.then(function () {
-					redirectToPreviousState();
-				});
-			}
-
-			checkCookie();
-
 		}
 	]);
 
