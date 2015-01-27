@@ -364,6 +364,10 @@ kbd {
     border-radius: 0.25rem;
     cursor: pointer
 }
+.page-nav__item a.highlight, .page-nav__item button.highlight, .page-nav__item input[type="submit"].highlight {
+    background: #6BA300;
+    color: #fff;
+}
 .page-nav__item button{
 	height:34px;
  }

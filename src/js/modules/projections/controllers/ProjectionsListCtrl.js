@@ -56,6 +56,9 @@ define(['./_module'], function (app) {
 			};
 
 			$scope.includeQueries = false;
+			$scope.toggleIncludeQueries = function(){
+				$scope.includeQueries = !$scope.includeQueries;
+			}
 			$scope.$watch('includeQueries', function (newVal, oldVal) {
 				if(newVal !== oldVal) {
 					all.update({params: [newVal]});

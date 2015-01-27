@@ -9,7 +9,8 @@
 					<a ng-click="enableAll($event)">Enable All</a>
 				</li>
 				<li class="page-nav__item">
-					<input type="checkbox" ng-model="includeQueries" />Include Queries
+					<a ng-if="includeQueries" class="highlight" ng-click="toggleIncludeQueries()">Don't Include Queries</a>
+					<a ng-if="!includeQueries" ng-click="toggleIncludeQueries()">Include Queries</a>
 				</li>
 				<li class="page-nav__item">
 					<a ui-sref="^.new">New Projection</a>
