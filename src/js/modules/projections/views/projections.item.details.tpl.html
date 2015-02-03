@@ -21,7 +21,8 @@
 				<a ui-sref="^.debug">Debug</a>
 			</li>
 			<li class="page-nav__item">
-				<a ui-sref="^.delete">Delete</a>
+				<a ui-sref="^.delete" ng-if="!isRunning">Delete</a>
+				<a title="a Projection must be stopped before it may be deleted." ng-if="isRunning" ng-disabled="isRunning">Delete</a>
 			</li>
 			<li class="page-nav__item">
 				<button ng-click="reset($event)">Reset</button>
