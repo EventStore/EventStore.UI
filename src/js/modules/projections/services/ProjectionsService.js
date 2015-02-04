@@ -166,11 +166,6 @@ define(['./_module'], function (app) {
 						}
 
 						return $http.put(url, source);
-						// 	, {
-						// 	headers: {
-						// 		'Content-Type': 'application/x-www-form-urlencoded'
-						// 	}
-						// });
 					}
 				};
 		}];
