@@ -10,8 +10,10 @@ define(['./_module'], function (app) {
 				var filtered = {}, i = 0, length = entries.length, item, result = [];
 
 				for(; i<length; i++) {
-					item = entries[i];
-					filtered[item.streamId] = true;
+					if(entries[i].streamId){
+						item = entries[i];
+						filtered[item.streamId] = true;
+					}
 				}
 
 				for (item in filtered) {
