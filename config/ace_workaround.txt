@@ -5,7 +5,7 @@ define('es-dist-main', ['bootstrap', 'ace'], function (_i, _a) {
     
     _c.set('packaged',true);
 
-  	_c.set('workerPath', location.href.replace(location.hash, '').replace('index.html', '') + '/' + _aa_cfg_dist_path);
+  	_c.set('workerPath', location.href.replace(location.hash, '').replace('index.html', '') + _aa_cfg_dist_path);
    	_c.set('modePath', _aa_cfg_dist_path);
    	_c.set('themePath', _aa_cfg_dist_path);
    	_c.set('basePath', _aa_cfg_dist_path);
