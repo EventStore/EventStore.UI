@@ -2,6 +2,8 @@ define(['es-ui'], function (app) {
 
 	'use strict';
     app.config(['toastrConfig', function(toastrConfig){
+        // ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
+
         angular.extend(toastrConfig, {
             timeOut: 0,
             preventDuplicates: true

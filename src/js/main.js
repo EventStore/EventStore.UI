@@ -11,7 +11,9 @@ require.config({
 		'sprintf': '../bower_components/sprintf/src/sprintf',
 		'uiAce': '../bower_components/angular-ui-ace/ui-ace',
 		'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
-		'es-ui': './app'
+		'es-ui': './app',
+		'zeroclipboard': '../bower_components/zeroclipboard/dist/ZeroClipboard',
+		'ngClip': '../bower_components/ng-clip/dest/ng-clip.min',
 	},
 	shim: {
 		'angular': {
@@ -36,7 +38,11 @@ require.config({
 		},
 		'sprintf': {
 			exports: 'sprintf'
-		}
+		},
+		'ngClip': {
+			deps: ['zeroclipboard', 'angular'],
+			exports: 'ngClip'
+		},
 	},
 	priority: [
 		'angular'
