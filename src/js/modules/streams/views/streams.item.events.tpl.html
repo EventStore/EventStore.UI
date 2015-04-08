@@ -24,9 +24,7 @@
 				<a ng-click="toggleJson($event, event)"
 					style="cursor: pointer;" 
 				   ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a>
-				<input type="text" ng-model="myText" />
-				<button ui-zeroclip zeroclip-copied="copied=true" zeroclip-model="myText">Copy</button>
-				<span ng-show="copied">Text Copied!</span>
+				<a clip-copy="getTextToCopy(event.data)"><img src="../images/clipboard.png"/></a>
 			</td>
 		</tr>
 		<tr ng-show="event.showJson">

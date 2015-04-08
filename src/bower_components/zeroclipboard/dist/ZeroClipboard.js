@@ -2569,6 +2569,7 @@
   };
   if (typeof define === "function" && define.amd) {
     define(function() {
+      window.ZeroClipboard = ZeroClipboard;
       return ZeroClipboard;
     });
   } else if (typeof module === "object" && module && typeof module.exports === "object" && module.exports) {

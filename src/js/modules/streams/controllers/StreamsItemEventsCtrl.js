@@ -59,6 +59,11 @@ define(['./_module'], function (app) {
 				showJson[evt.title] = evt.showJson;
 			};
 
+
+			$scope.getTextToCopy = function(data){
+				return data;
+			}
+
 			$scope.$on('$destroy', function () {
 				atom.stop();
 			});
