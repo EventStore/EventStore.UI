@@ -60,8 +60,9 @@ define(['./_module'], function (app) {
 			};
 
 
-			$scope.getTextToCopy = function(data){
-				return data;
+			$scope.getTextToCopy = function(event){
+				msg.info('The event data for ' + event.title + ' will be copied to the clipboard', 'Copied to clipboard');
+				return event.data;
 			}
 
 			$scope.$on('$destroy', function () {
