@@ -519,3 +519,17 @@ tbody .table-subheading {
     position:relative;
     bottom:35px;
 }
+
+.copyable {
+    display: inline-block;
+    width: 1.5rem;
+    text-indent: 100%;
+    overflow: hidden;
+    background-image: url('../images/clipboard.svg');
+    background-size: 0.75rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.copyable:focus, .copyable:hover {
+    background-image: url('../images/clipboard--hover.svg');
+}

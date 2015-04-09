@@ -24,7 +24,7 @@
 				<a ng-click="toggleJson($event, event)"
 					style="cursor: pointer;" 
 				   ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a>
-				<a clip-copy="getTextToCopy(event)"><img src="../images/clipboard.png"/></a>
+				<a class="copyable" clip-copy="getTextToCopy(event)">Copy</a>
 			</td>
 		</tr>
 		<tr ng-show="event.showJson">
