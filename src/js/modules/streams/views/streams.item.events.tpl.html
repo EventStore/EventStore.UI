@@ -8,7 +8,7 @@
 			<th></th>
 		</tr>
 	</thead>
-	<tbody ng-repeat="event in streams">
+	<tbody ng-repeat="event in streams track by event.eventNumber">
 		<tr ng-class="{ 'invalid': !event.streamId }">
 			<td>
 				<a ng-if="event.streamId" ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.positionEventNumber }}</a>
