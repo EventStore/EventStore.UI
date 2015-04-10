@@ -523,10 +523,12 @@ tbody .table-subheading {
 .copyable {
     display: inline-block;
     width: 1.5rem;
+    height: 1rem;
+    margin: 0 0 -0.125rem;
     text-indent: 100%;
     overflow: hidden;
     background-image: url('../images/clipboard.svg');
-    background-size: 0.75rem;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
