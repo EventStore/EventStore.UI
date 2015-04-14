@@ -1,10 +1,9 @@
 define([
 	'require',
 	'angular',
+	'zeroclipboard',
 	'es-ui',
 	'run',
-	//'ace-js',
-	//'ace-monokai',
 	'./config/constants',
 	'./config/urls',
 	'./config/values',

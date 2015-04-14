@@ -69,7 +69,11 @@ var rjsOpts = {
         },
         'sprintf': {
             exports: 'sprintf'
-        }
+        },
+        'ngClip': {
+            deps: ['zeroclipboard', 'angular'],
+            exports: 'ngClip'
+        },
     },
     priority: [
         'angular'
@@ -85,7 +89,9 @@ var rjsOpts = {
         'sprintf': '../bower_components/sprintf/src/sprintf',
         'uiAce': '../bower_components/angular-ui-ace/ui-ace',
         'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
-        'es-ui': './app'
+        'es-ui': './app',
+        'zeroclipboard': '../bower_components/zeroclipboard/dist/ZeroClipboard',
+        'ngClip': '../bower_components/ng-clip/dest/ng-clip.min',
     }
 };
 
@@ -122,6 +128,11 @@ gulp.task('dist-copy-fonts', function () {
     .pipe(gulp.dest('./es-dist/fonts'));
 });
 
+gulp.task('dist-copy-assets', function () {
+    return gulp.src('./src/assets/*')
+    .pipe(gulp.dest('./es-dist/assets'));
+});
+
 gulp.task('dist-js', function () {
 
     gulp.src('./src/bower_components/requirejs/*.js')
@@ -150,7 +161,7 @@ gulp.task('dist-js', function () {
 
 });
 
-gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'], function() {
+gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts', 'dist-copy-assets'], function() {
     return gulp.src('./src/index.html') 
         .pipe(htmlreplace({
           css: paths.dist.css,
