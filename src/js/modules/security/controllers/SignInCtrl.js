@@ -37,9 +37,11 @@ define(['./_module'], function (app) {
 
 
 			function redirectAfterLoggingIn() {
-				if($rootScope.previousUrl) {
-					$location.path($rootScope.previousUrl);
-				} else {
+				if($rootScope.previousUrl && $rootScope.previousUrl != '/'){
+					var urltoNavigateTo = $rootScope.previousUrl;
+					$rootScope.previousUrl = null;
+					$location.path(urltoNavigateTo);
+				}else{
 					$state.go('dashboard.list');
 				}
 			}
