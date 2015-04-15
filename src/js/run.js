@@ -10,9 +10,8 @@ define(['es-ui'], function (app) {
         });
     }]);
 	return app.run([
-        '$rootScope', '$state', '$stateParams', 'AuthService', 'InfoService',
-        function ($rootScope, $state, $stateParams, authService, infoService) {
-            // be default disallow projections
+        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService',
+        function ($rootScope, $location, $state, $stateParams, authService, infoService) {
             $rootScope.projectionsAllowed = false;
             authService.existsAndValid()
             .then(function () {
@@ -23,7 +22,7 @@ define(['es-ui'], function (app) {
                         $rootScope.projectionsAllowed = info.projectionsMode != 'None';
                     });
             }, function () {
-                $rootScope.$currentState = $state.current;
+                $rootScope.previousUrl = $location.$$path;
                 $state.go('signin');
             });
 
