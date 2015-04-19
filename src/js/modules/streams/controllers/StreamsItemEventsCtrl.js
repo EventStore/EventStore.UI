@@ -67,6 +67,9 @@ define(['./_module'], function (app) {
 
 			$scope.$on('$destroy', function () {
 				atom.stop();
+				$scope.$parent.streams = [];
+				$scope.$parent.links = [];
+				showJson = {};
 			});
 		}
 	]);

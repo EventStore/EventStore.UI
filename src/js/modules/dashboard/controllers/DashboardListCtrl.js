@@ -7,12 +7,13 @@ define(['./_module'], function (app) {
 		function ($scope, dashboardService, dashboardMapper, pollerProvider, msg) {
 
 			var statsPoll = pollerProvider.create({
-				intevral: 1000,
+				interval: 1000,
 				action: dashboardService.stats,
 				params: []
 			});
 
 			$scope.queues = {};
+			$scope.queues.__tag = "queues";
 
 			statsPoll.start();
 			statsPoll.promise.then(null, null, function (data) { 
@@ -26,6 +27,7 @@ define(['./_module'], function (app) {
 			
 			$scope.$on('$destroy', function () {
 				pollerProvider.clear();
+				$scope.queues = {};
 			});
 		}
 	]);

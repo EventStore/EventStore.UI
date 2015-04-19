@@ -7,7 +7,7 @@ define(['./_module'], function (app) {
 		function ($scope, userService, poller, msg) {
 
 			var all = poller.create({
-				intevral: 1000,
+				interval: 1000,
 				action: userService.all,
 				params: [
 				]
