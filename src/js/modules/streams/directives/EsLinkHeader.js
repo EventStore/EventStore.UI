@@ -15,7 +15,7 @@ define(['./_module'], function (app) {
 			restrict: 'A',
 	        link: function(scope) { //, elm, attrs, ctrl
 
-	        	scope.$on('add-link-header', function (evt, linkUrl) {
+	        		var unbindHandler = scope.$on('add-link-header', function (evt, linkUrl) {
 
 					destroy();
 
@@ -25,6 +25,9 @@ define(['./_module'], function (app) {
 		        	link.href = linkUrl;
 					
 					document.head.appendChild(link);
+				});
+	        	scope.$on('$destroy', function esLinkHeaderScopeDestroyed(){
+					unbindHandler();
 				});
 	        }
 		};

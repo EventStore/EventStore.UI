@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
 	return app.factory('poller', [
-		'$timeout', '$q',
-		function ($timeout, $q)  {
+		'$interval', '$q',
+		function ($interval, $q)  {
 			var tasks = [];
 
 			function Task (opts) {
@@ -16,34 +16,29 @@ define(['./_module'], function (app) {
 					var deferred = $q.defer(),
 						self = this;
 
-					(function tick () {
+					function tick () {
 
-						var p = self.opts.action.apply(null, self.opts.params),
-							rejected = false;
-
-						p.then(function (data) {
+						self.opts.action.apply(null, self.opts.params)
+						.then(function (data) {
 							deferred.notify(data.data);
 						}, function () {
-							rejected = true;
 							deferred.reject('Error occured');
 						});
-
-						self.timeoutId = $timeout(tick, self.opts.intevral);
-
-					})();
+					}
+					tick();
+					self.intervalId = $interval(tick, self.opts.interval);
 
 					this.promise = deferred.promise;
 
 					return this;
 				},
 				stop: function () {
-					$timeout.cancel(this.timeoutId);
-					this.timeoutId = null;
+					$interval.cancel(this.intervalId);
+					this.intervalId = null;
 				},
 				update: function (opts) {
-					opts.intevral = opts.intevral || this.opts.intevral;
+					opts.interval = opts.interval || this.opts.interval;
 					opts.params = opts.params || this.opts.params;
-					opts.intevral = opts.intevral || this.opts.intevral;
 					opts.action = this.opts.action;
 					this.opts = opts;
 				}

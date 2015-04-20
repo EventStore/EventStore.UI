@@ -131,13 +131,14 @@ define(['./_module'], function (app) {
 				});
 			};
 
-			$scope.$watch('query', function(scope, newValue, oldValue) {
+			var unbindHandler = $scope.$watch('query', function(scope, newValue, oldValue) {
 				if(newValue != oldValue) {
 					//$scope.isCreated = false;
 				}
 			});
 
 			$scope.$on('$destroy', function () {
+				unbindHandler();
 				monitor.stop();
 			});
 		}

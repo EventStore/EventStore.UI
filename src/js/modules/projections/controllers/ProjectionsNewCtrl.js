@@ -57,7 +57,7 @@ define(['./_module'], function (app) {
 			};
 
 			
-			$scope.$watch('mode', function (newVal, oldVal) {
+			var unbindHandler = $scope.$watch('mode', function (newVal, oldVal) {
 				var isContinuous;
 				if(newVal !== oldVal) {
 					isContinuous = newVal === 'continuous';
@@ -70,6 +70,10 @@ define(['./_module'], function (app) {
 						$scope.checkpoints = true;
 					}
 				}
+			});
+			$scope.$on('$destroy', function () {
+				unbindHandler();
+				pollerProvider.clear();
 			});
 		}
 	]);

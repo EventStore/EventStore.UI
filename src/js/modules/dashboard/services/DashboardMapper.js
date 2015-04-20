@@ -21,16 +21,15 @@ define(['./_module'], function (app) {
 		}
 
 		function map (data, source) {
-			var queues = data.es.queue,
-				prop,
+			var prop,
 				current,
 				result = {},
 				group,
 				exists;
 	        
 
-	        for(prop in queues) {
-	            current = queues[prop];
+	        for(prop in data.es.queue) {
+	            current = data.es.queue[prop];
 	            
 	            if(current.groupName) {
 	                

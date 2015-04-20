@@ -79,7 +79,7 @@ define(['./_module'], function (app) {
 
 					deferredGlobal = $q.defer();
 					polling = poller.create({
-						intevral: 1000,
+						interval: 1000,
 						action: streams.streamEvents,
 						params: [
 							params

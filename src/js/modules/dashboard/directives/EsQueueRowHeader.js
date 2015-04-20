@@ -15,12 +15,15 @@ define(['./_module'], function (app) {
 					scope.esQueue.show = !scope.esQueue.show;
 				};
 
-				// workaround for replace issuse: https://github.com/angular/angular.js/issues/1459
-				elem.bind('click', function () {
+				function toggle(){
 					scope.$apply(function () {
 						scope.toggle();
 					});
-				});
+				}
+				elem.bind('click', toggle);
+				scope.$on('$destroy', function () {
+					elem.unbind('click', toggle);
+				})
 			}
 		};
 	}]);

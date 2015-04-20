@@ -7,7 +7,7 @@ define(['./_module'], function (app) {
 		function ($scope, competingService, subscriptionsMapper, pollerProvider, msg) {
 
 			var subscriptionsPoll  = pollerProvider.create({
-				intevral: 1000,
+				interval: 1000,
 				action: competingService.subscriptions,
 				params: []
 			});

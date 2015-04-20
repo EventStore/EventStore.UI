@@ -7,7 +7,7 @@ define(['./_module'], function (app) {
 		function ($scope, projectionsService, projectionsMapper, pollerProvider, msg) {
 
 			var all = pollerProvider.create({
-				intevral: 2000,
+				interval: 2000,
 				action: projectionsService.all
 			});
 
@@ -59,13 +59,14 @@ define(['./_module'], function (app) {
 			$scope.toggleIncludeQueries = function(){
 				$scope.includeQueries = !$scope.includeQueries;
 			}
-			$scope.$watch('includeQueries', function (newVal, oldVal) {
+			var unbindHandler = $scope.$watch('includeQueries', function (newVal, oldVal) {
 				if(newVal !== oldVal) {
 					all.update({params: [newVal]});
 				}
 				
 			});
 			$scope.$on('$destroy', function () {
+				unbindHandler();
 				pollerProvider.clear();
 			});
 		}

@@ -14,7 +14,7 @@ define(['./_module'], function (app) {
 			function createAndStartPoller (url, action, callback) {
 
 				var poller = pollerProvider.create({
-					intevral: 1000,
+					interval: 1000,
 					action: action,
 					params: [
 						url

@@ -10,14 +10,19 @@ define(['./_module'], function (app) {
 				esSubscription: '='
 			},
 			link: function (scope, elem) {
+				
 				scope.toggle = function () {
 					scope.esSubscription.show = !scope.esSubscription.show;
 				};
 
-				elem.bind('click', function () {
+				function toggle(){
 					scope.$apply(function () {
 						scope.toggle();
 					});
+				}
+				elem.bind('click', toggle);
+				scope.$on('$destroy', function () {
+					elem.unbind('click', toggle);
 				});
 			}
 		};
