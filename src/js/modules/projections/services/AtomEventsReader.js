@@ -44,30 +44,19 @@ define(['./_module'], function (app) {
 				};
 			}
 
-			function checkIfPoll (previous, doNotPollCallback) {
-				
+			function checkIfPoll (previous, headOfStream, onContinuePollCallback, doNotPollCallback) {
+				if(!headOfStream){
+					doNotPollCallback();
+					return;
+				}
 				if(!previous.uri) {
 					// case: we have reached head of stream. there is a chance, that
 					// after some time previous will show up
-					return;
+					onContinuePollCallback();
 				}
-
 				streams.validateFullUrl(previous.uri)
 				.success(function (data) {
-					var i, length = data.links.length, poll = true, item;
-					for(i = 0; i< length; i++) {
-						item = data.links[i];
-						// previous exists, we do not do poll
-						if(item.relation === 'previous') {
-							poll = false;
-							// this ensure that poll stay's false
-							break;
-						}
-					}
-
-					if(!poll) {
-						doNotPollCallback();
-					}
+					onContinuePollCallback();
 				});
 			}
 
@@ -88,16 +77,20 @@ define(['./_module'], function (app) {
 
 					polling.start();
 					polling.promise.then(null, null, function (data) {
+						poller.stopAll();
 
 						var result = map(data);
 
 						deferredGlobal.notify(result);
 
-						checkIfPoll(result.previous, function () {
+						checkIfPoll(result.previous, data.headOfStream,
+						function onContinuePolling(){
+							poller.resume();
+						},
+						function onNotPolling() {
 							poller.clear();
 							deferredGlobal.resolve();
 						});
-
 					});
 
 					polling.promise.catch(function () {
@@ -124,6 +117,12 @@ define(['./_module'], function (app) {
 				},
 				stop: function () {
 					poller.clear();
+				},
+				pause: function() {
+					poller.stopAll();
+				},
+				resume: function() {
+					poller.resume();
 				}
 			};
 

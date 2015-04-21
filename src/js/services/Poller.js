@@ -3,38 +3,38 @@ define(['./_module'], function (app) {
     'use strict';
 
 	return app.factory('poller', [
-		'$interval', '$q',
-		function ($interval, $q)  {
+		'$timeout', '$q',
+		function ($timeout, $q)  {
 			var tasks = [];
 
 			function Task (opts) {
+				this.deferred = $q.defer();
 				this.opts = opts;
 			}
 
 			Task.prototype = {
-				start: function () {
-					var deferred = $q.defer(),
-						self = this;
-
-					function tick () {
-
+				resume: function(){
+					(function tick () {
 						self.opts.action.apply(null, self.opts.params)
 						.then(function (data) {
-							deferred.notify(data.data);
+							self.intervalId = $timeout(tick, self.opts.interval);
+							self.deferred.notify(data.data);
 						}, function () {
 							deferred.reject('Error occured');
 						});
-					}
-					tick();
-					self.intervalId = $interval(tick, self.opts.interval);
+					})();
+				},
+				start: function () {
+					self = this;
 
-					this.promise = deferred.promise;
+					this.resume();
+
+					this.promise = this.deferred.promise;
 
 					return this;
 				},
 				stop: function () {
-					$interval.cancel(this.intervalId);
-					this.intervalId = null;
+					$timeout.cancel(this.intervalId);
 				},
 				update: function (opts) {
 					opts.interval = opts.interval || this.opts.interval;
@@ -49,6 +49,13 @@ define(['./_module'], function (app) {
 				tasks.push(task);
 
 				return task;
+			}
+
+			function resume(){
+				var i = 0, len = tasks.length;
+				for(; i < len; i++) {
+					tasks[i].resume();
+				}
 			}
 
 			function stopAll () {
@@ -66,7 +73,8 @@ define(['./_module'], function (app) {
 			return {
 				create: create,
 				stopAll: stopAll,
-				clear: clear
+				clear: clear,
+				resume: resume
 			};
 
 	}]);
