@@ -10,28 +10,55 @@ define(['./_module'], function (app) {
 			function Task (opts) {
 				this.deferred = $q.defer();
 				this.opts = opts;
+				this.canceler = null;
+				this.isPaused = false;
 			}
 
 			Task.prototype = {
+				resumePaused: function () {
+					var self = this;
+					self.isPaused = false;
+					self.resume();
+				},
 				resume: function(){
+					var self = this;
+					
+					if(self.isPaused) {
+						return;
+					}
+
+					self.canceler = $q.defer();
+					
 					(function tick () {
-						self.opts.action.apply(null, self.opts.params)
+						var arr = self.opts.params.slice();
+						arr.push({timeout: self.canceler.promise});
+
+						self.opts.action.apply(null, arr)
 						.then(function (data) {
 							self.intervalId = $timeout(tick, self.opts.interval);
 							self.deferred.notify(data.data);
 						}, function () {
-							deferred.reject('Error occured');
+							self.deferred.reject('Error occured');
 						});
 					})();
 				},
 				start: function () {
-					self = this;
+					var self = this;
 
 					this.resume();
 
 					this.promise = this.deferred.promise;
 
 					return this;
+				},
+				pause: function (){
+
+					if(this.canceler) {
+						this.canceler.resolve('pausing');
+					}
+
+					$timeout.cancel(this.intervalId);
+					this.isPaused = true;
 				},
 				stop: function () {
 					$timeout.cancel(this.intervalId);
@@ -58,10 +85,27 @@ define(['./_module'], function (app) {
 				}
 			}
 
+			function resumePaused(){
+				var i = 0, len = tasks.length;
+				for(; i < len; i++) {
+					tasks[i].resumePaused();
+				}
+			}
+
+			
+
 			function stopAll () {
 				var i = 0, len = tasks.length;
 				for(; i < len; i++) {
 					tasks[i].stop();
+				}
+			}
+
+
+			function pauseAll () {
+				var i = 0, len = tasks.length;
+				for(; i < len; i++) {
+					tasks[i].pause();
 				}
 			}
 
@@ -73,6 +117,8 @@ define(['./_module'], function (app) {
 			return {
 				create: create,
 				stopAll: stopAll,
+				pauseAll: pauseAll,
+				resumePaused: resumePaused,
 				clear: clear,
 				resume: resume
 			};

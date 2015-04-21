@@ -13,12 +13,6 @@ define(['./_module'], function (app) {
 				var resultEntries = [], resultLinks = [], i, length, item, previous = {};
 
 				resultEntries = data.entries;
-				// create result object from array
-				// length = data.entries.length;
-				// for(i = length - 1; i >= 0; i--) {
-				// 	item = data.entries[i];
-				// 	resultEntries[item.title] = item;
-				// }
 
 				// map links with extra info
 				length = data.links.length;
@@ -38,6 +32,7 @@ define(['./_module'], function (app) {
 				}
 
 				return {
+					headOfStream: data.headOfStream,
 					entries: resultEntries,
 					links: resultLinks,
 					previous: previous
@@ -119,10 +114,13 @@ define(['./_module'], function (app) {
 					poller.clear();
 				},
 				pause: function() {
-					poller.stopAll();
+					poller.pauseAll();
 				},
 				resume: function() {
 					poller.resume();
+				},
+				resumePaused: function() {
+					poller.resumePaused();
 				}
 			};
 
