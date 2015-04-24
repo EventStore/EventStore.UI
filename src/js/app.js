@@ -4,7 +4,6 @@ define([
 	'uiUtils',
 	'uiAce',
 	'ngToastr',
-	'ngClip',
 	'./modules/projections/module',
 	'./modules/admin/module',
 	'./modules/dashboard/module',
@@ -34,7 +33,6 @@ define([
 		'ui.router',
 		'ui.utils',
 		'ui.ace',
-		'toastr',
-		'ngClipboard'
+		'toastr'
 	]);
 });

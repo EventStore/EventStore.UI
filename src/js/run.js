@@ -1,9 +1,7 @@
 define(['es-ui'], function (app) {
 
 	'use strict';
-    app.config(['toastrConfig', 'ngClipProvider', function(toastrConfig, ngClipProvider){
-        ngClipProvider.setPath("../../assets/ZeroClipboard.swf");
-
+    app.config(['toastrConfig', function(toastrConfig){
         angular.extend(toastrConfig, {
             timeOut: 0,
             preventDuplicates: true
