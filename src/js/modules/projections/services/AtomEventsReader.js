@@ -72,6 +72,7 @@ define(['./_module'], function (app) {
 
 					polling.start();
 					polling.promise.then(null, null, function (data) {
+
 						poller.stopAll();
 
 						var result = map(data);
@@ -112,6 +113,7 @@ define(['./_module'], function (app) {
 				},
 				stop: function () {
 					poller.clear();
+					deferredGlobal = null;
 				},
 				pause: function() {
 					poller.pauseAll();

@@ -10,7 +10,7 @@ define(['./_module'], function (app) {
 			function Task (opts) {
 				this.deferred = $q.defer();
 				this.opts = opts;
-				this.canceler = null;
+				this.canceller = null;
 				this.isPaused = false;
 			}
 
@@ -27,11 +27,11 @@ define(['./_module'], function (app) {
 						return;
 					}
 
-					self.canceler = $q.defer();
+					self.canceller = $q.defer();
 					
 					(function tick () {
 						var arr = self.opts.params.slice();
-						arr.push({timeout: self.canceler.promise});
+						arr.push({timeout: self.canceller.promise});
 
 						self.opts.action.apply(null, arr)
 						.then(function (data) {
@@ -53,8 +53,8 @@ define(['./_module'], function (app) {
 				},
 				pause: function (){
 
-					if(this.canceler) {
-						this.canceler.resolve('pausing');
+					if(this.canceller) {
+						this.canceller.resolve('pausing');
 					}
 
 					$timeout.cancel(this.intervalId);
@@ -62,6 +62,10 @@ define(['./_module'], function (app) {
 				},
 				stop: function () {
 					$timeout.cancel(this.intervalId);
+					 if(this.canceller) {
+                        this.canceller.resolve('pausing');
+                        this.canceller = null;
+                    }
 				},
 				update: function (opts) {
 					opts.interval = opts.interval || this.opts.interval;
