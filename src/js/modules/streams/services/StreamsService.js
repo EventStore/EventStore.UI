@@ -46,7 +46,7 @@ define(['./_module'], function(app) {
                         var url = urlBuilder.build(urls.streams.created);
                         return $http.get(url);
                     },
-                    streamEvents: function(state) {
+                    streamEvents: function(state, opt) {
                         var url = urlBuilder.build(urls.streams.events, state.streamId);
 
                         if (state.position) {
@@ -62,8 +62,13 @@ define(['./_module'], function(app) {
                         }
 
                         url += urls.streams.tryharder;
+                        
+                        if(opt) {
+                            return $http.get(url, opt);
+                        }
 
                         return $http.get(url);
+                        
                     },
                     eventContent: function(streamId, eventNumber) {
                         var url = urlBuilder.build(urls.streams.eventDetails, streamId, eventNumber);

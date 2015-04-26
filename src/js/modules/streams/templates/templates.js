@@ -36,7 +36,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.events.tpl.html',
-    '<table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in streams track by event.title"><tr ng-class="{ \'invalid\': !event.streamId }"><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.positionEventNumber }}</a><text ng-if=!event.streamId>{{ event.positionEventNumber }}</text></td><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.title }}</a><text ng-if=!event.streamId>{{ event.title }}</text></td><td>{{ event.eventType }}</td><td>{{ event.updated | date:\'yyyy-MM-dd HH:mm\'}}</td><td><a ng-click="toggleJson($event, event)" style="cursor: pointer" ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a> <a class=copyable clip-copy=getTextToCopy(event)>Copy</a></td></tr><tr ng-show=event.showJson><td colspan=5><div ng-if=event.isJson><strong>Data</strong><pre>\n' +
+    '<table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in streams track by event.title"><tr ng-class="{ \'invalid\': !event.streamId }"><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.positionEventNumber }}</a><text ng-if=!event.streamId>{{ event.positionEventNumber }}</text></td><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.title }}</a><text ng-if=!event.streamId>{{ event.title }}</text></td><td>{{ event.eventType }}</td><td>{{ event.updated | date:\'yyyy-MM-dd HH:mm\'}}</td><td><a ng-click="toggleJson($event, event)" style="cursor: pointer" ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a></td></tr><tr ng-show=event.showJson><td colspan=5><div ng-if=event.isJson><strong>Data</strong><pre>\n' +
     '{{ event.data }}					\n' +
     '					</pre></div><div ng-if=event.metaData><strong>Metadata</strong><pre>\n' +
     '{{ event.metaData }}					\n' +
@@ -54,7 +54,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.tpl.html',
-    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\'">Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
+    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ng-class="{highlight: isPolling == false}" ng-click=togglePause() ng-show=headOfStream>{{ isPolling == true ? \'Pause\' : \'Resume\' }}</a></li><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\'">Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
 }]);
 })();
 

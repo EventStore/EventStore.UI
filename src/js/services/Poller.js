@@ -3,38 +3,69 @@ define(['./_module'], function (app) {
     'use strict';
 
 	return app.factory('poller', [
-		'$interval', '$q',
-		function ($interval, $q)  {
+		'$timeout', '$q',
+		function ($timeout, $q)  {
 			var tasks = [];
 
 			function Task (opts) {
+				this.deferred = $q.defer();
 				this.opts = opts;
+				this.canceller = null;
+				this.isPaused = false;
 			}
 
 			Task.prototype = {
-				start: function () {
-					var deferred = $q.defer(),
-						self = this;
-
-					function tick () {
-
-						self.opts.action.apply(null, self.opts.params)
-						.then(function (data) {
-							deferred.notify(data.data);
-						}, function () {
-							deferred.reject('Error occured');
-						});
+				resumePaused: function () {
+					var self = this;
+					self.isPaused = false;
+					self.resume();
+				},
+				resume: function(){
+					var self = this;
+					
+					if(self.isPaused) {
+						return;
 					}
-					tick();
-					self.intervalId = $interval(tick, self.opts.interval);
 
-					this.promise = deferred.promise;
+					self.canceller = $q.defer();
+					
+					(function tick () {
+						var arr = self.opts.params.slice();
+						arr.push({timeout: self.canceller.promise});
+
+						self.opts.action.apply(null, arr)
+						.then(function (data) {
+							self.intervalId = $timeout(tick, self.opts.interval);
+							self.deferred.notify(data.data);
+						}, function () {
+							self.deferred.reject('Error occured');
+						});
+					})();
+				},
+				start: function () {
+					var self = this;
+
+					this.resume();
+
+					this.promise = this.deferred.promise;
 
 					return this;
 				},
+				pause: function (){
+
+					if(this.canceller) {
+						this.canceller.resolve('pausing');
+					}
+
+					$timeout.cancel(this.intervalId);
+					this.isPaused = true;
+				},
 				stop: function () {
-					$interval.cancel(this.intervalId);
-					this.intervalId = null;
+					$timeout.cancel(this.intervalId);
+					 if(this.canceller) {
+                        this.canceller.resolve('pausing');
+                        this.canceller = null;
+                    }
 				},
 				update: function (opts) {
 					opts.interval = opts.interval || this.opts.interval;
@@ -51,10 +82,34 @@ define(['./_module'], function (app) {
 				return task;
 			}
 
+			function resume(){
+				var i = 0, len = tasks.length;
+				for(; i < len; i++) {
+					tasks[i].resume();
+				}
+			}
+
+			function resumePaused(){
+				var i = 0, len = tasks.length;
+				for(; i < len; i++) {
+					tasks[i].resumePaused();
+				}
+			}
+
+			
+
 			function stopAll () {
 				var i = 0, len = tasks.length;
 				for(; i < len; i++) {
 					tasks[i].stop();
+				}
+			}
+
+
+			function pauseAll () {
+				var i = 0, len = tasks.length;
+				for(; i < len; i++) {
+					tasks[i].pause();
 				}
 			}
 
@@ -66,7 +121,10 @@ define(['./_module'], function (app) {
 			return {
 				create: create,
 				stopAll: stopAll,
-				clear: clear
+				pauseAll: pauseAll,
+				resumePaused: resumePaused,
+				clear: clear,
+				resume: resume
 			};
 
 	}]);

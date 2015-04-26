@@ -2,6 +2,9 @@
 	<h2 class="page-title">Event Stream '{{ streamId }}'</h2>
 	<ul class="page-nav">
 		<li class="page-nav__item">
+			<a ng-class="{highlight: isPolling == false}" ng-click="togglePause()" ng-show="headOfStream">{{ isPolling == true ? 'Pause' : 'Resume' }}</a>
+		</li>
+		<li class="page-nav__item">
 			<a ui-sref=".acl" ng-show="streamId !== '$all'">Edit ACL</a>
 		</li>
 		<li class="page-nav__item">

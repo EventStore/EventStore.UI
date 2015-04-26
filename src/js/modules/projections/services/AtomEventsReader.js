@@ -13,12 +13,6 @@ define(['./_module'], function (app) {
 				var resultEntries = [], resultLinks = [], i, length, item, previous = {};
 
 				resultEntries = data.entries;
-				// create result object from array
-				// length = data.entries.length;
-				// for(i = length - 1; i >= 0; i--) {
-				// 	item = data.entries[i];
-				// 	resultEntries[item.title] = item;
-				// }
 
 				// map links with extra info
 				length = data.links.length;
@@ -38,36 +32,26 @@ define(['./_module'], function (app) {
 				}
 
 				return {
+					headOfStream: data.headOfStream,
 					entries: resultEntries,
 					links: resultLinks,
 					previous: previous
 				};
 			}
 
-			function checkIfPoll (previous, doNotPollCallback) {
-				
+			function checkIfPoll (previous, headOfStream, onContinuePollCallback, doNotPollCallback) {
+				if(!headOfStream){
+					doNotPollCallback();
+					return;
+				}
 				if(!previous.uri) {
 					// case: we have reached head of stream. there is a chance, that
 					// after some time previous will show up
-					return;
+					onContinuePollCallback();
 				}
-
 				streams.validateFullUrl(previous.uri)
 				.success(function (data) {
-					var i, length = data.links.length, poll = true, item;
-					for(i = 0; i< length; i++) {
-						item = data.links[i];
-						// previous exists, we do not do poll
-						if(item.relation === 'previous') {
-							poll = false;
-							// this ensure that poll stay's false
-							break;
-						}
-					}
-
-					if(!poll) {
-						doNotPollCallback();
-					}
+					onContinuePollCallback();
 				});
 			}
 
@@ -89,15 +73,20 @@ define(['./_module'], function (app) {
 					polling.start();
 					polling.promise.then(null, null, function (data) {
 
+						poller.stopAll();
+
 						var result = map(data);
 
 						deferredGlobal.notify(result);
 
-						checkIfPoll(result.previous, function () {
+						checkIfPoll(result.previous, data.headOfStream,
+						function onContinuePolling(){
+							poller.resume();
+						},
+						function onNotPolling() {
 							poller.clear();
 							deferredGlobal.resolve();
 						});
-
 					});
 
 					polling.promise.catch(function () {
@@ -124,6 +113,16 @@ define(['./_module'], function (app) {
 				},
 				stop: function () {
 					poller.clear();
+					deferredGlobal = null;
+				},
+				pause: function() {
+					poller.pauseAll();
+				},
+				resume: function() {
+					poller.resume();
+				},
+				resumePaused: function() {
+					poller.resumePaused();
 				}
 			};
 

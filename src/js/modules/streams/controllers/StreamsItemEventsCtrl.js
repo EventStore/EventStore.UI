@@ -18,7 +18,7 @@ define(['./_module'], function (app) {
 			.then(null, function () {
 				msg.failure('stream does not exists');
 			}, function (data) {
-				
+				$scope.$parent.headOfStream = data.headOfStream;	
 				$scope.$broadcast('add-link-header', findSelf(data.links));
 				
 				$scope.$parent.streams = atom.map(data.entries, showJson);
@@ -59,6 +59,16 @@ define(['./_module'], function (app) {
 				showJson[evt.title] = evt.showJson;
 			};
 
+			$scope.$parent.isPolling = true;
+			$scope.$parent.togglePause = function (){
+				if($scope.$parent.isPolling){
+					atom.pause();
+				}else{
+					atom.resumePaused();
+				}
+
+				$scope.$parent.isPolling = !$scope.$parent.isPolling;
+			};
 
 			$scope.getTextToCopy = function(event){
 				msg.info('The event data for ' + event.title + ' will be copied to the clipboard', 'Copied to clipboard');
@@ -69,6 +79,7 @@ define(['./_module'], function (app) {
 				atom.stop();
 				$scope.$parent.streams = [];
 				$scope.$parent.links = [];
+				$scope.$parent.isPolling = null;
 				showJson = {};
 			});
 		}

@@ -1,7 +1,6 @@
 define([
 	'require',
 	'angular',
-	'zeroclipboard',
 	'es-ui',
 	'run',
 	'./config/constants',
