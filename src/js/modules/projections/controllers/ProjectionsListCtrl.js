@@ -8,7 +8,8 @@ define(['./_module'], function (app) {
 
 			var all = pollerProvider.create({
 				interval: 2000,
-				action: projectionsService.all
+				action: projectionsService.all,
+				params: [ false ]
 			});
 
 			all.start();
