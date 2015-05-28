@@ -57,7 +57,13 @@ define(['./_module'], function (app) {
 
 	        for(prop in groups) {
 	            current = groups[prop];
-	            var previous = findGroup(source[current.eventStreamId] ? source[current.eventStreamId].groups : [], current.groupName);
+				var key = current.eventStreamId;
+				if(key.startsWith("$"))
+				{
+					key = "_" + key
+				}
+				
+	            var previous = findGroup(source[key] ? source[key].groups : [], current.groupName);
 	            current.averageItemsPerSecond = previous ? current.totalItemsProcessed - previous.totalItemsProcessed : 0;
 	            current.knownMessages = current.lastKnownEventNumber + 1;
 	            current.currentMessages = current.lastProcessedEventNumber + 1;
@@ -66,14 +72,14 @@ define(['./_module'], function (app) {
 	            current.behindByTime = current.behindByMessages / current.averageItemsPerSecond;
 	            current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
 	            current.status = determineStatus(current);
-	            if(current.eventStreamId) {
-	                if(!result[current.eventStreamId]) {
+	            if(key) {
+	                if(!result[key]) {
 	                    group = createEmptyGroup(current.eventStreamId);
 	                } else {
-	                    group = result[current.eventStreamId];
+	                    group = result[key];
 	                }
 
-	                exists = source[current.eventStreamId];
+	                exists = source[key];
 
 	                group.show = exists ? exists.show : false;
 	                group.groups.push(current);
@@ -87,9 +93,9 @@ define(['./_module'], function (app) {
                     group.behindByTime += current.behindByTime;
                     group.status = determineGroupStatus(group);
                     
-	                result[current.eventStreamId] = group;
+	                result[key] = group;
 	            } else {
-	                result[current.eventStreamId] = current;
+	                result[key] = current;
 	            }
 	        }
 	        return result;
