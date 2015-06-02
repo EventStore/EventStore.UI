@@ -30,10 +30,7 @@ define(['./_module'], function (app) {
 					self.canceller = $q.defer();
 					
 					(function tick () {
-						var arr = self.opts.params.slice();
-						arr.push({timeout: self.canceller.promise});
-
-						self.opts.action.apply(null, arr)
+						self.opts.action.apply(null, self.opts.params)
 						.then(function (data) {
 							self.intervalId = $timeout(tick, self.opts.interval);
 							self.deferred.notify(data.data);
