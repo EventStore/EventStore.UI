@@ -31,7 +31,11 @@ define(['./_module'], function (app) {
 			projectionsService.query($scope.location)
 			.success(function (data) {
 				$scope.query = data.query;
-				$scope.stream = data.definition.resultStreamName;
+				if(data.definition) {
+					$scope.stream = data.definition.resultStreamName;
+				} else {
+					$scope.stream = undefined;
+				}
 				$scope.emit = data.emitEnabled;
 			})
 			.error(function () {
