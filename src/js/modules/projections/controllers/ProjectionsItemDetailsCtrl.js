@@ -50,7 +50,12 @@ define(['./_module'], function (app) {
 				}
 
 				if(data.query) {
-					$scope.stream = data.query.definition.resultStreamName;
+					if(data.query.definition) {
+						$scope.stream = data.query.definition.resultStreamName;	
+					} else {
+						$scope.stream = undefined;
+					}
+					
 					$scope.query = data.query.query;
 				}
 
