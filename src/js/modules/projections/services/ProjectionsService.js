@@ -75,46 +75,47 @@ define(['./_module'], function (app) {
 
 						return $http.post(url, source);
 					},
-					createStandard: function (name, type, source) {
+					createStandard: function (name, type, source, opt) {
 						var url = urlBuilder.build(urls.projections.createStandard, name, type);
 
 						return $http.post(url, source);
 					},
-					status: function (url) {
+					status: function (url, opt) {
 						url = urlBuilder.simpleBuild('%s', url);
 
-						return $http.get(url);
+						return $http.get(url, opt);
 					},
-					state: function (url, params) {
+					state: function (url, params, opt) {
 						var qp;
 
-						if(params) {
+						if(params && !params.timeout) {
 							qp = uriProvider.getQuery(params);
 							url = urlBuilder.simpleBuild(urls.projections.state, url) + '?' + qp;
 						} else {
+							opt = params;
 							url = urlBuilder.simpleBuild(urls.projections.state, url);
 						}
 
-						return $http.get(url);
+						return $http.get(url, opt);
 					},
-					result: function (url) {
+					result: function (url, opt) {
 						url = urlBuilder.simpleBuild(urls.projections.result, url);
 
-						return $http.get(url);
+						return $http.get(url, opt);
 					},
-					statistics: function (url) {
+					statistics: function (url, opt) {
 						url = urlBuilder.simpleBuild(urls.projections.statistics, url);
 
-						return $http.get(url);
+						return $http.get(url, opt);
 					},
-					query: function (url, withoutConfig) {
-						if(withoutConfig) {
+					query: function (url, withoutConfig, opt) {
+						if(withoutConfig && !withoutConfig.timeout) {
 							url = urlBuilder.simpleBuild(urls.projections.queryWithoutConfig, url);
 						} else {
 							url = urlBuilder.simpleBuild(urls.projections.query, url);
 						}
 
-						return $http.get(url);
+						return $http.get(url, opt);
 					},
 					readEvents: function(definition, position, count) {
 						var params,
@@ -131,7 +132,10 @@ define(['./_module'], function (app) {
 						return $http.post(url, JSON.stringify(params));
 
 					},
-					remove: function (url, params) {
+					remove: function (url, params, opt) {
+						if(params.timeout) {
+							params = undefined;
+						}
 						var qp = uriProvider.getQuery(params);
 
 						url = urlBuilder.simpleBuild(urls.projections.remove, url) + qp;

@@ -22,7 +22,7 @@ define(['./_module'], function (app) {
 				});
 				
 				poller.start();
-				poller.promise.then(null, null, callback);
+				poller.promise.then(function () {}, function () {}, callback);
 
 				return poller;
 			}
@@ -35,6 +35,10 @@ define(['./_module'], function (app) {
 					stats = createAndStartPoller(url, 
 						projectionsService.statistics, 
 						function (data) {
+							if(!deferred) { 
+								console.log('deffered is null');
+								return ;
+							}
 							deferred.notify({
 								statistics: data
 							});
@@ -46,6 +50,10 @@ define(['./_module'], function (app) {
 					state = createAndStartPoller(url, 
 						projectionsService.state, 
 						function (data) {
+							if(!deferred) { 
+								console.log('deffered is null');
+								return ;
+							}
 							deferred.notify({
 								state: data
 							});
@@ -57,6 +65,10 @@ define(['./_module'], function (app) {
 					query = createAndStartPoller(url, 
 						projectionsService.query, 
 						function (data) {
+							if(!deferred) { 
+								console.log('deffered is null');
+								return ;
+							}
 							deferred.notify({
 								query: data
 							});
@@ -68,6 +80,10 @@ define(['./_module'], function (app) {
 					result = createAndStartPoller(url, 
 						projectionsService.result, 
 						function (data) {
+							if(!deferred) { 
+								console.log('deffered is null');
+								return ;
+							}
 							deferred.notify({
 								result: data
 							});

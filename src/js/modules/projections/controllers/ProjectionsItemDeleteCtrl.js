@@ -24,26 +24,34 @@ define(['./_module'], function (app) {
 				$scope.projection.name = data.name;
 			});
 
+			function removeProjection(location){
+				projectionsService.remove($scope.location, {
+					deleteCheckpointStream: $scope.deleteCheckpoint ? 'yes' : 'no',
+					deleteStateStream: $scope.deleteState ? 'yes' : 'no'
+				})
+				.success(function () {
+					msg.success('Projection has been removed');
+					$state.go('projections.list');
+				})
+				.error(function () {
+					msg.failure('Projection not removed');
+				});
+			}
+
 			$scope.remove = function ($event) {
 				$event.preventDefault();
 				$event.stopPropagation();
 
 				projectionsService.disable($scope.location)
 				.success(function () {
-					projectionsService.remove($scope.location, {
-						deleteCheckpointStream: $scope.deleteCheckpoint ? 'yes' : 'no',
-						deleteStateStream: $scope.deleteState ? 'yes' : 'no'
-					})
-					.success(function () {
-						msg.success('Projection has been removed');
-						$state.go('projections.list');
-					})
-					.error(function () {
-						msg.failure('Projection not removed');
-					});
+					removeProjection($scope.location);
 				})
-				.error(function () {
-					msg.failure('Projection could not be stopped');
+				.error(function (message) {
+					if(message.indexOf('Not enabled') != -1){
+						removeProjection($scope.location);
+					}else{
+						msg.failure('Projection could not be stopped');
+					}
 				});
 			};
 		}
