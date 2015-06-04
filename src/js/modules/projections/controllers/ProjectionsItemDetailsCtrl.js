@@ -64,7 +64,7 @@ define(['./_module'], function (app) {
 				}
 
 				if(data.state) {
-					$scope.sate = data.state;
+					$scope.state = data.state;
 				}
 			});
 
