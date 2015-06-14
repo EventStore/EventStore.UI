@@ -21,7 +21,7 @@ define(['./_module'], function (app) {
 
 			userService.get($stateParams.username)
 			.success(function (data) {
-				$scope.user = data;
+				$scope.user = data.data;
 				$scope.disable = false;
 			})
 			.error(function () {
