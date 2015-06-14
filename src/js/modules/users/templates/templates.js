@@ -62,7 +62,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('users.item.enable.tpl.html',
     '<header class=page-header><h2 class=page-title>Enable User {{ user.loginName }}</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.details>Back</a></li></ul></header><pre>\n' +
     '{{ user | json }}\n' +
-    '</pre><ul><li><a href=# ng-click=confirm($event) ng-disabled=disable>Enable</a></li></ul>');
+    '</pre><ul class=page-nav><li class=page-nav__item><a href=# ng-click=confirm($event) ng-disabled=disable>Enable</a></li></ul>');
 }]);
 })();
 
