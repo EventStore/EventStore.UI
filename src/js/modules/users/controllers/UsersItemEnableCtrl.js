@@ -13,7 +13,7 @@ define(['./_module'], function (app) {
 
 				userService.enable($scope.user.loginName)
 				.success(function () {
-					msg.info('user enabled');
+					msg.success('user enabled');
 					$state.go('^.details');
 				})
 				.error(function () {
