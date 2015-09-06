@@ -493,11 +493,8 @@ tbody .table-subheading {
     border-radius:12px;
     border:1px solid black;
 }
-.idle{
+.subscription-active{
     background:lime;
-}
-.behind-catchingup{
-    background:orange;
 }
 .behind-notcatchingup{
     background:red;

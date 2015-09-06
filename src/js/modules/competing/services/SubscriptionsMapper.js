@@ -30,12 +30,12 @@ define(['./_module'], function (app) {
 		function determineStatus(subscription){
 			if(subscription.behindByMessages > 0){
 				if(subscription.averageItemsPerSecond > 0){
-					return 'behind-catchingup';
+					return 'subscription-active';
 				}else{
 					return 'behind-notcatchingup';
 				}
 			}
-			return 'idle';
+			return 'subscription-active';
 		}
 
 		function determineGroupStatus(group){
@@ -69,7 +69,7 @@ define(['./_module'], function (app) {
 	            current.currentMessages = current.lastProcessedEventNumber + 1;
 	            current.inFlightMessages = current.totalInFlightMessages;
 	            current.behindByMessages = (current.knownMessages - current.currentMessages);
-	            current.behindByTime = current.behindByMessages / current.averageItemsPerSecond;
+	            current.behindByTime = Math.round((current.behindByMessages / current.averageItemsPerSecond) * 100)/100;
 	            current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
 	            current.status = determineStatus(current);
 	            if(key) {
@@ -91,6 +91,7 @@ define(['./_module'], function (app) {
                     group.connectionCount += current.connectionCount;
                     group.behindByMessages += current.behindByMessages;
                     group.behindByTime += current.behindByTime;
+                    group.behindByTime = Math.round(current.behindByTime * 100)/100;
                     group.status = determineGroupStatus(group);
                     
 	                result[key] = group;

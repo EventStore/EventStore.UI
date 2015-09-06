@@ -138,7 +138,8 @@ gulp.task('dist-js', function () {
         './src/bower_components/ace-builds/src-min-noconflict/mode-javascript.js',
         './src/bower_components/ace-builds/src-min-noconflict/theme-monokai.js',
         './src/bower_components/ace-builds/src-min-noconflict/mode-json.js',
-        './src/bower_components/ace-builds/src-min-noconflict/worker-javascript.js'
+        './src/bower_components/ace-builds/src-min-noconflict/worker-javascript.js',
+        './src/bower_components/ace-builds/src-min-noconflict/worker-json.js'
     ])
     .pipe(gulp.dest('./es-dist/js/ace'));
 
