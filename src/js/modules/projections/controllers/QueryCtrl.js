@@ -123,12 +123,19 @@ define(['./_module'], function (app) {
 				});
 			};
 
+
 			$scope.debug = function () {
-				$state.go('projections.item.debug', { 
-					location: encodeURIComponent(location) 
-				}, { 
-					inherit: false 
-				});
+				queryService.disable(location)
+                .then(function onQueryDisabled(){
+                    queryService.reset(location)
+                    .then(function onQueryReset(){
+                        $state.go('projections.item.debug', {
+                            location: encodeURIComponent(location)
+                        }, { 
+                            inherit: false 
+                        });
+                    })
+                });
 			};
 
 			var unbindHandler = $scope.$watch('query', function(scope, newValue, oldValue) {

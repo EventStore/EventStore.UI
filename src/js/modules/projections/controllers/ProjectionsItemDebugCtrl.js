@@ -44,6 +44,7 @@ define(['./_module'], function (app) {
 
 		    var requests = [];
 		    updateStatusInfo('Loading definition...');
+
 		    var stats = projectionsService.statistics($scope.location);
 		    var state = projectionsService.state($scope.location);
 		    var query = projectionsService.query($scope.location);
@@ -74,9 +75,11 @@ define(['./_module'], function (app) {
 			    $scope.query = query.data.query;
 
 			    updateStatusInfo('');
-			    loadEvents();
+                projectionsService.enable($scope.location)
+                .then(function onProjectionEnabled(){
+                    loadEvents();
+                });
 			});
-
 		    function loadEvents() {
 		        projectionsService.readEvents(definition, currentPosition)
 				.success(function (data) {
@@ -87,12 +90,14 @@ define(['./_module'], function (app) {
 				        prepare();
 				    } else {
 				        updateStatusInfo('No further events are available. Waiting...');
+                        $scope.isRunning = true;
 				        $timeout(loadEvents, 1000);
 				    }
 
 				})
-				.error(function () {
-				    $timeout(loadEvents, 1000);
+				.error(function (data, status) {
+                    msg.failure("We failed reading the events for the projection.");
+				    //$timeout(loadEvents, 1000);
 				});
 		    }
 
@@ -198,11 +203,10 @@ define(['./_module'], function (app) {
 				.success(function () {
                     $scope.isUpdating = false;
 				    msg.info('projection updated');
-				    // todo: not sure, we can reset debugging state, or
-				    // transfer user to different page?
-
-				    //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
-				    $state.go($state.current, {}, {reload: true});
+                    projectionsService.disable($scope.location)
+                    .then(function onProjectionDisabled(){
+                        $state.go($state.current, {}, {reload: true});
+                    });
 				})
 				.error(function () {
                     $scope.isUpdating = false;

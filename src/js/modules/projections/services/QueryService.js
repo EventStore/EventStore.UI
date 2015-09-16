@@ -36,6 +36,12 @@ define(['./_module'], function (app) {
 
 						return $http.post(url);
 					},
+					reset: function (url) {
+						url = urlBuilder.simpleBuild(urls.query.commands.reset, 
+							url);
+
+						return $http.post(url);
+					},
 				};
 			}
 		];
