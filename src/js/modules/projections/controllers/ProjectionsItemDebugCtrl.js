@@ -5,7 +5,6 @@ define(['./_module'], function (app) {
     return app.controller('ProjectionsItemDebugCtrl', [
 		'$scope', '$state', '$stateParams', '$q', '$timeout', 'ProjectionsService', 'MessageService',
 		function ($scope, $state, $stateParams, $q, $timeout, projectionsService, msg) {
-
 		    function updateStatusInfo(message) {
 		        if (!message) {
 		            message = 'N/A';
@@ -36,6 +35,7 @@ define(['./_module'], function (app) {
 		    };
 
 		    $scope.isRunning = false;
+		    $scope.isUpdating = false;
 		    $scope.query = '';
 		    $scope.events = '';
 		    $scope.state = '';
@@ -193,8 +193,10 @@ define(['./_module'], function (app) {
 		    };
 
 		    $scope.update = function () {
+                $scope.isUpdating = true;
 		        projectionsService.updateQuery($scope.location, $scope.query)
 				.success(function () {
+                    $scope.isUpdating = false;
 				    msg.info('projection updated');
 				    // todo: not sure, we can reset debugging state, or
 				    // transfer user to different page?
@@ -203,6 +205,7 @@ define(['./_module'], function (app) {
 				    $state.go($state.current, {}, {reload: true});
 				})
 				.error(function () {
+                    $scope.isUpdating = false;
 				    msg.failure('Projection not updated');
 				});
 		    };
