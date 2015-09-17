@@ -26,7 +26,8 @@ define(['es-ui'], function (app) {
 			state: '%s/state', // $s - query url
 			commands: {
 				enable: '%s/command/enable', // $s - query url
-				disable: '%s/command/disable' // $s - query url
+				disable: '%s/command/disable', // $s - query url
+				reset: '%s/command/reset' // $s - query url
 			}
 		},
 		projections: {
