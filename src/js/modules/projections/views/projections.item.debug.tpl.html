@@ -12,7 +12,7 @@
 					</button>
 				</li>
 				<li class="page-nav__item">
-					<button ng-click="update()">Update</button>
+					<button ng-click="update()" ng-disabled="isUpdating">Update</button>
 				</li>
 				<li class="page-nav__item"><a ui-sref="^.details">Back</a></li>
 			</ul>
