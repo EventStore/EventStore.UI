@@ -28,6 +28,14 @@ define(['./_index'], function (app) {
                     title: 'Subscriptions'
                 }
             })
+            .state('subscriptions.new', {
+                url: '/new',
+                templateUrl: 'subscriptions.new.tpl.html',
+                controller: 'SubscriptionsNewCtrl',
+                data: {
+                    title: 'New Subscription'
+                }
+            })
             .state('subscriptions.item', {
                 url: '/{streamId}/{groupName}',
                 templateUrl: 'subscriptions.item.tpl.html',
@@ -47,6 +55,22 @@ define(['./_index'], function (app) {
                 data: {
                     title: 'Subscription Detail'
                 }
-            });
+            })
+            .state('subscriptions.item.edit', {
+                url: '/edit',
+                templateUrl: 'subscriptions.item.edit.tpl.html',
+                controller: 'SubscriptionsEditCtrl',
+                data: {
+                    title: 'Edit Subscription'
+                }
+            })
+            .state('subscriptions.item.delete', {
+                url: '/delete',
+                templateUrl: 'subscriptions.item.delete.tpl.html',
+                controller: 'SubscriptionsDeleteCtrl',
+                data: {
+                    title: 'Delete Subscription'
+                }
+            })
     }]);
 });

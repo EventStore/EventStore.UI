@@ -1,0 +1,128 @@
+<header class="page-header">
+	<h2 class="page-title">New Subscription</h2>
+	<ul class="page-nav">
+		<li class="page-nav__item">
+			<a ui-sref="^.list">Back</a>
+		</li>
+	</ul>
+</header>
+
+<form novalidate name="newSubscription" ng-submit="save()" class="new-subscription-form">
+<table>
+	<tbody>
+        <tr class="table-subheading">
+            <td colspan="2">Basic Details</td>
+        </tr>
+		<tr>
+			<td>Group</td>
+			<td>
+				<input type="text" ng-model="subscription" required class="form-table" name="subscription"
+					   ng-class="{ 'form-table--error' : newSubscription.subscription.$invalid && !newSubscription.subscription.$pristine }" />
+			</td>
+		</tr>
+		<tr>
+			<td>Stream</td>
+			<td>
+				<input type="text" ng-model="stream" required class="form-table" name="stream"
+					   ng-class="{ 'form-table--error' : newSubscription.stream.$invalid && !newSubscription.stream.$pristine }" />
+			</td>
+		</tr>
+        <tr class="table-subheading">
+            <td colspan="2">Configuration</td>
+        </tr>
+		<tr>
+			<td>Resolve Link Tos</td>
+			<td>
+				<input type="checkbox" 
+					   ng-model="resolveLinktos" 
+					   ng-disabled="resolveLinktosDisabled" />
+			</td>
+		</tr>
+		<tr>
+			<td>Start From</td>
+			<td>
+				<input type="text" ng-model="startFrom" class="form-table" name="startFrom" />
+			</td>
+		</tr>
+		<tr>
+			<td>Message Timeout (ms)</td>
+			<td>
+				<input type="text" ng-model="messageTimeoutMilliseconds" class="form-table" name="messageTimeoutMilliseconds" />
+			</td>
+		</tr>
+		<tr>
+			<td>Extra Statistics</td>
+			<td>
+				<input type="checkbox" 
+					   ng-model="extraStatistics" 
+					   ng-disabled="extraStatisticsDisabled" />
+			</td>
+		</tr>
+		<tr>
+			<td>Max Retry Count</td>
+			<td>
+				<input type="text" ng-model="maxRetryCount" class="form-table" name="maxRetryCount" />
+			</td>
+		</tr>
+		<tr>
+			<td>Live Buffer Size</td>
+			<td>
+				<input type="text" ng-model="liveBufferSize" class="form-table" name="liveBufferSize" />
+			</td>
+		</tr>
+		<tr>
+			<td>Buffer Size</td>
+			<td>
+				<input type="text" ng-model="bufferSize" class="form-table" name="bufferSize" />
+			</td>
+		</tr>
+		<tr>
+			<td>Read Batch Size</td>
+			<td>
+				<input type="text" ng-model="readBatchSize" class="form-table" name="readBatchSize" />
+			</td>
+		</tr>
+		<tr>
+			<td>CheckPoint After (ms)</td>
+			<td>
+				<input type="text" ng-model="checkPointAfterMilliseconds" class="form-table" name="checkPointAfterMilliseconds" />
+			</td>
+		</tr>
+		<tr>
+			<td>Min CheckPoint Count</td>
+			<td>
+				<input type="text" ng-model="minCheckPointCount" class="form-table" name="minCheckPointCount" />
+			</td>
+		</tr>
+		<tr>
+			<td>Max CheckPoint Count</td>
+			<td>
+				<input type="text" ng-model="maxCheckPointCount" class="form-table" name="maxCheckPointCount" />
+			</td>
+		</tr>
+		<tr>
+			<td>Max Subscriber Count</td>
+			<td>
+				<input type="text" ng-model="maxSubscriberCount" class="form-table" name="maxSubscriberCount" />
+			</td>
+		</tr>
+		<tr>
+			<td>Named Consumer Strategy</td>
+			<td>
+				<select ng-model="namedConsumerStrategy" 
+						class="form-table"
+						ng-options="obj.value as obj.name for obj in namedConsumerStrategies">
+				</select>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	<ul class="page-nav">
+		<li class="page-nav__item">
+			<button type="submit" ng-disabled="newSubscription.$invalid">Create</button>
+		</li>
+	</ul>
+
+</form>

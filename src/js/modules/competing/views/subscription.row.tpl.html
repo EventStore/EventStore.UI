@@ -8,4 +8,16 @@
 <td>
 	<div class=" status {{ esSubscription.status }}"></div>{{ esSubscription.behindByMessages }} / {{ esSubscription.behindByTime }}
 </td>
-<td><a ng-repeat="link in esSubscription.links" ui-sref="^.item.detail({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">{{ link.rel }}</a></td>
+<td>
+    <ul class="page-nav">
+        <li class="page-nav__item">
+            <a ui-sref="^.item.edit({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Edit</a>
+        </li>
+        <li class="page-nav__item">
+       		<a ui-sref="^.item.delete({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Delete</a>
+        </li>
+        <li class="page-nav__item">
+			<a ui-sref="^.item.detail({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Detail</a>
+        </li>
+    </ul>
+</td>
