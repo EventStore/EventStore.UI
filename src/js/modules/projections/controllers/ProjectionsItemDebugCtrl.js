@@ -42,62 +42,71 @@ define(['./_module'], function (app) {
 
 		    var rawEvents, currentEvent, definition, currentPosition, partition, initialized, processor, cachedStates = {};
 
-		    var requests = [];
 		    updateStatusInfo('Loading definition...');
 
-		    var stats = projectionsService.statistics($scope.location);
-		    var state = projectionsService.state($scope.location);
-		    var query = projectionsService.query($scope.location);
+            function loadProjection(){
+                //clear the cache
+                cachedStates = {};
+                
+                var requests = [];
+                var stats = projectionsService.statistics($scope.location);
+                var state = projectionsService.state($scope.location, {timeout: 2000});
+                var query = projectionsService.query($scope.location);
 
-		    requests.push(stats);
-		    requests.push(state);
-		    requests.push(query);
+                requests.push(stats);
+                requests.push(state);
+                requests.push(query);
 
-		    $q.allSettled(requests)
-			.then(function (data) {
-			    // 0 - stats
-			    // 1 - state
-			    // 2 - query
-			    var stats = data[0],
-					state = data[1],
-					query = data[2],
-					position;
+                $q.allSettled(requests)
+                .then(function (data) {
+                    // 0 - stats
+                    // 1 - state
+                    // 2 - query
+                    var stats = data[0],
+                        state = data[1],
+                        query = data[2],
+                        position;
 
-			    if (stats.data.status !== 'Stopped' && stats.data.status !== 'Faulted') {
-			        //msg.warn('Projection needs to be stopped before it can be debugged');
-			        $scope.isRunning = true;
-			    }
+                    if (stats.data.projections[0].status.indexOf('Stopped') > -1 && stats.data.projections[0].status.indexOf('Faulted') > -1) {
+                        $scope.isRunning = true;
+                    }
 
-			    position = state.headers()['es-position'];
-			    currentPosition = angular.fromJson(position);
-			    definition = query.data.definition;
+                    position = state.headers()['es-position'];
+                    currentPosition = angular.fromJson(position);
+                    definition = query.data.definition;
 
-			    $scope.query = query.data.query;
+                    $scope.query = query.data.query;
 
-			    updateStatusInfo('');
-                projectionsService.enable($scope.location)
-                .then(function onProjectionEnabled(){
+                    updateStatusInfo('');
                     loadEvents();
-                });
-			});
+                }, function (data){
+                    var stats = data[0];
+					msg.failure('Projection has failed because of ' + stats.data.projections[0].stateReason, stats.data.projections[0].status);
+				});
+            }
+            msg.info("projection needs to be stopped for debugging");
+            projectionsService.disable($scope.location)
+            .then(function onProjectionEnabled(){
+	            loadProjection();
+	        });
+           	var currentLoadEventsTimeout;
 		    function loadEvents() {
 		        projectionsService.readEvents(definition, currentPosition)
 				.success(function (data) {
 				    $scope.events = JSON.stringify(data, undefined, 4);
 				    rawEvents = data.events;
 
-				    if (rawEvents && rawEvents.length) {
+				    if (rawEvents && rawEvents.length > 0) {
 				        prepare();
 				    } else {
 				        updateStatusInfo('No further events are available. Waiting...');
                         $scope.isRunning = true;
-				        $timeout(loadEvents, 1000);
+				        currentLoadEventsTimeout = $timeout(loadEvents, 1000);
 				    }
 
 				})
 				.error(function (data, status) {
                     msg.failure("We failed reading the events for the projection.");
-				    //$timeout(loadEvents, 1000);
 				});
 		    }
 
@@ -147,12 +156,11 @@ define(['./_module'], function (app) {
 		            stateLoaded(cachedStates[partition]);
 		        } else {
 		            updateStatusInfo('Loading the projection state...');
-
 		            projectionsService.state($scope.location, {
 		                partition: partition
 		            })
 					.success(function (data) {
-					    stateLoaded(angular.toJson(data));
+					    stateLoaded(data);
 					})
 					.error(function () {
 					    updateStatusInfo('Error loading the projection state');
@@ -164,7 +172,7 @@ define(['./_module'], function (app) {
 		        var cached;
 		        updateStatusInfo('Ready for debugging!');
 		        $scope.isRunning = false;
-		        if (!data) {
+		        if (data === "") {
 		            processor.initialize();
 		            cachedStates[partition] = processor.debugging_get_state();
 		        } else {
@@ -176,6 +184,13 @@ define(['./_module'], function (app) {
 		        } catch (e) {
 		            $scope.state = '';
 		        }
+		    }
+
+		    function cancelLoadingEvents(){
+		    	if(currentLoadEventsTimeout){
+		    		$timeout.cancel(currentLoadEventsTimeout);
+		    		currentLoadEventsTimeout = null;
+		    	}
 		    }
 
 		    $scope.runStep = function () {
@@ -191,32 +206,31 @@ define(['./_module'], function (app) {
 
 
 		        cachedStates[partition] = state;
-		        //console.log(currentEvent.readerPosition);
 		        currentPosition = currentEvent.readerPosition;
-		        //eventsLoaded = false;
 		        loadEvents();
 		    };
 
 		    $scope.update = function () {
+		    	cancelLoadingEvents();
                 $scope.isUpdating = true;
 		        projectionsService.updateQuery($scope.location, $scope.query)
 				.success(function () {
                     $scope.isUpdating = false;
-				    msg.info('projection updated');
-                    projectionsService.disable($scope.location)
-                    .then(function onProjectionDisabled(){
-                        $state.go($state.current, {}, {reload: true});
-                    });
+				    msg.info('Projection Updated');
+				    initialized = false;
+                    loadProjection();
 				})
 				.error(function () {
                     $scope.isUpdating = false;
 				    msg.failure('Projection not updated');
 				});
 		    };
+
 		    $scope.stop = function () {
+		    	cancelLoadingEvents();
 		        projectionsService.disable($scope.location)
 				.success(function () {
-				    msg.info('projection stopped');
+				    msg.info('Projection Stopped');
 				    $scope.isRunning = false;
 				})
 				.error(function () {
