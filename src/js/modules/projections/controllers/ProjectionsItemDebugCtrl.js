@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('ProjectionsItemDebugCtrl', [
-		'$scope', '$state', '$stateParams', '$q', '$timeout', 'ProjectionsService', 'MessageService',
-		function ($scope, $state, $stateParams, $q, $timeout, projectionsService, msg) {
+		'$scope', '$state', '$stateParams', '$q', '$timeout', '$window', 'ProjectionsService', 'MessageService',
+		function ($scope, $state, $stateParams, $q, $timeout, $window, projectionsService, msg) {
 		    function updateStatusInfo(message) {
 		        if (!message) {
 		            message = 'N/A';
@@ -77,14 +77,22 @@ define(['./_module'], function (app) {
 
                     $scope.query = query.data.query;
 
+                    if(!currentPosition){
+	                    msg.failure('The projection\`s state query did not return an ES-Position header.\nEnsure that the projection is not Completed/Stopped or Faulted.\nWe cannot continue debugging.', 'Please ensure that the header includes ES-Position.');
+	                    $scope.isRunning = true;
+	                    return;
+	                }
+
                     updateStatusInfo('');
                     loadEvents();
                 }, function (data){
-                    var stats = data[0];
+                    var stats = data[0],
+                    	query = data[2];
+                    $scope.query = query.data.query;
 					msg.failure('Projection has failed because of ' + stats.data.projections[0].stateReason, stats.data.projections[0].status);
 				});
             }
-            msg.info("projection needs to be stopped for debugging");
+            msg.info("The projection will be stopped for debugging");
             projectionsService.disable($scope.location)
             .then(function onProjectionEnabled(){
 	            loadProjection();
@@ -176,6 +184,7 @@ define(['./_module'], function (app) {
 		            processor.initialize();
 		            cachedStates[partition] = processor.debugging_get_state();
 		        } else {
+		        	cachedStates[partition] = data;
 		            processor.set_state(data);
 		        }
 		        try {
@@ -204,21 +213,17 @@ define(['./_module'], function (app) {
                     currentEvent.isJson ? JSON.stringify(currentEvent.metadata) : currentEvent.metadata,
                     partition);
 
-
 		        cachedStates[partition] = state;
 		        currentPosition = currentEvent.readerPosition;
 		        loadEvents();
 		    };
 
 		    $scope.update = function () {
-		    	cancelLoadingEvents();
                 $scope.isUpdating = true;
 		        projectionsService.updateQuery($scope.location, $scope.query)
 				.success(function () {
-                    $scope.isUpdating = false;
 				    msg.info('Projection Updated');
-				    initialized = false;
-                    loadProjection();
+                    $window.location.reload();
 				})
 				.error(function () {
                     $scope.isUpdating = false;
