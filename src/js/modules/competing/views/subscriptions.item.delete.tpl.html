@@ -1,0 +1,28 @@
+<form novalidate name="deleteSubscription" ng-submit="delete()" class="delete-subscription-form">
+<table>
+	<tbody>
+		<tr>
+			<td>Group</td>
+			<td>
+				<input type="text" ng-model="subscription" required readonly="true" class="form-table" name="subscription"
+					   ng-class="{ 'form-table--error' : deleteSubscription.subscription.$invalid && !deleteSubscription.subscription.$pristine }" />
+			</td>
+		</tr>
+		<tr>
+			<td>Stream</td>
+			<td>
+				<input type="text" ng-model="stream" required readonly="true" class="form-table" name="stream"
+					   ng-class="{ 'form-table--error' : deleteSubscription.stream.$invalid && !deleteSubscription.stream.$pristine }" />
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	<ul class="page-nav">
+		<li class="page-nav__item">
+			<button type="submit" ng-disabled="deleteSubscription.$invalid">Delete</button>
+		</li>
+	</ul>
+
+</form>

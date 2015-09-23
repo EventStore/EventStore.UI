@@ -68,7 +68,10 @@ define(['es-ui'], function (app) {
 		},
 		competing:{
 			subscriptions: '/subscriptions',
-			subscriptionDetails: '/subscriptions/%s/%s'
+			subscriptionDetails: '/subscriptions/%s/%s',
+			create: '/subscriptions/%s/%s',
+			update: '/subscriptions/%s/%s',
+			delete: '/subscriptions/%s/%s'
 		}
 	});
 });

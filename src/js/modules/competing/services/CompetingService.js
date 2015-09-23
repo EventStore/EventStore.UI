@@ -16,7 +16,31 @@ define(['./_module'], function (app) {
 					subscriptionDetail: function(subscriptionId, groupName){
 						var url = urlBuilder.build(urls.competing.subscriptionDetails, subscriptionId, groupName);
 						return $http.get(url);	
-					}
+					},
+					create: function (stream, subscription, config) {
+						var url = urlBuilder.build(urls.competing.create, stream, subscription);
+						return $http.put(url, config, {
+							headers: {
+                                'Content-Type':'application/json'
+                            }
+						});
+					},
+					update: function (stream, subscription, config) {
+						var url = urlBuilder.build(urls.competing.update, stream, subscription);
+						return $http.post(url, config, {
+							headers: {
+                                'Content-Type':'application/json'
+                            }
+						});
+					},
+					delete: function (stream, subscription) {
+						var url = urlBuilder.build(urls.competing.delete, stream, subscription);
+						return $http.delete(url, {
+							headers: {
+                                'Content-Type':'application/json'
+                            }
+						});
+					},
 				};
 			}
 		];
