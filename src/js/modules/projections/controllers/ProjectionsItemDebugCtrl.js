@@ -184,6 +184,7 @@ define(['./_module'], function (app) {
 		            processor.initialize();
 		            cachedStates[partition] = processor.debugging_get_state();
 		        } else {
+		        	data = tryParseJSON(data) ? data : angular.toJson(data)
 		        	cachedStates[partition] = data;
 		            processor.set_state(data);
 		        }
@@ -194,6 +195,18 @@ define(['./_module'], function (app) {
 		            $scope.state = '';
 		        }
 		    }
+
+			function tryParseJSON (jsonString){
+			    try {
+			        var o = JSON.parse(jsonString);
+			        if (o && typeof o === "object" && o !== null) {
+			            return o;
+			        }
+			    }
+			    catch (e) { }
+
+			    return false;
+			};
 
 		    function cancelLoadingEvents(){
 		    	if(currentLoadEventsTimeout){
