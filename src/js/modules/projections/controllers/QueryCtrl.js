@@ -81,8 +81,12 @@ define(['./_module'], function (app) {
 						
 					//});
 				})
-				.error(function () {
-					msg.failure('Query not updated');
+				.error(function (response, statusCode) {
+					if(statusCode == 404){
+						msg.failure("The query was not updated because it was not found. The query probably expired and was deleted.");
+					}else{
+						msg.failure('Query not updated');
+					}
 				});
 			}
 
