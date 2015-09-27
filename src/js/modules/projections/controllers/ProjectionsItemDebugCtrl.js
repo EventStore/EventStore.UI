@@ -20,11 +20,16 @@ define(['./_module'], function (app) {
 		    updateStatusInfo('');
 		    $scope.location = $stateParams.location;
 
+		    function queryChanged(){
+		    	$scope.queryUpdated = true;
+		    };
+
 		    $scope.aceConfig = {
 		        mode: 'javascript',
 		        useWrapMode: false,
 		        showGutter: true,
-		        theme: 'monokai'
+		        theme: 'monokai',
+		        onChange: queryChanged
 		    };
 
 		    $scope.aceEventsConfig = {
