@@ -56,7 +56,6 @@ define(['./_module'], function (app) {
 						});
 					})
 					.error(function (response) {
-						console.log(response);
 						msg.failure('Coudn\'t update subscription because ' + response.reason);
 					});
 			};

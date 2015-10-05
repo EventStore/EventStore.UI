@@ -49,7 +49,6 @@ define(['./_module'], function (app) {
 						});
 					})
 					.error(function (response) {
-						console.log(response);
 						msg.failure('Coudn\'t create new subscription because ' + response.reason);
 					});
 			};
