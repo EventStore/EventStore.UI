@@ -10,23 +10,54 @@ define(['./_module'], function (app) {
 		'$cookieStore', 
 		'$http', 
 		'$rootScope',
+		'$location',
 		'urls',
-		function (Base64, $q, $cookieStore, $http, $rootScope, urls) {
+		function (Base64, $q, $cookieStore, $http, $rootScope, $location, urls) {
 			// initialize to whatever is in the cookie, if anything
 			// i know, hoising, but i don't like jshint warnings
+			var currentUrl = $location.host() + ':' + $location.port();
+
+			function getCredentialsFromCookie(server){
+				var escreds = $cookieStore.get('es-creds');
+				if(!escreds || !escreds.servers[server]){
+					return null;
+				}
+				return escreds.servers[server].credentials;
+			}
+
+			function clearCredentials(server){
+	            document.execCommand('ClearAuthenticationCache');
+		        $http.defaults.headers.common.Authorization = 'Basic ';
+	            var escreds = $cookieStore.get('es-creds');
+	            if(escreds){
+	            	escreds.servers[server] = {};
+	            	$cookieStore.put('es-creds', escreds);
+	            }
+			}
+
+			function addCredentialsToCookie(server, username, password){
+				var escreds = $cookieStore.get('es-creds');
+				if(!escreds){
+					escreds = {
+						servers : {}
+					}
+				}
+				escreds.servers[server] = {
+					credentials : Base64.encode(username + ':' + password)
+				}
+				$cookieStore.put('es-creds', escreds);
+			}
+
 			function setBaseUrl (url) {
 				$rootScope.baseUrl = url;
 			}
 
-			var authdata = $cookieStore.get('authdata');
-			if(authdata) {
-				setBaseUrl(authdata.server);
-				authdata = authdata.encoded;
+			var escreds = getCredentialsFromCookie(currentUrl);
+			if(escreds) {
+				setBaseUrl(currentUrl);
+				escreds = escreds.credentials;
 			}
-			$http.defaults.headers.common['Authorization'] = 'Basic ' + (authdata || '');
  
-			
-
  			function prepareUrl (str) {
 				if(str.indexOf('/', str.length - '/'.length) !== -1) {
 	            	str = str.substring(0, str.length - 1);
@@ -39,32 +70,27 @@ define(['./_module'], function (app) {
 	            return str;
 			}
 
+
 		    return {
 		        setCredentials: function (username, password, server) {
-		            var encoded = Base64.encode(username + ':' + password);
-		            $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+		            var credentials = Base64.encode(username + ':' + password);
+		            $http.defaults.headers.common.Authorization = 'Basic ' + credentials;
 
 		            server = prepareUrl(server);
 		            setBaseUrl(server);
 
-		            $cookieStore.put('authdata', {
-		            	encoded: encoded,
-		            	server: server
-		            });
+		            addCredentialsToCookie(server, username, password);
 		        },
 		        clearCredentials: function () {
-		            document.execCommand('ClearAuthenticationCache');
-		            $cookieStore.remove('authdata');
-		            $http.defaults.headers.common.Authorization = 'Basic ';
+		            clearCredentials($rootScope.baseUrl);
 		        },
-		        existsAndValid: function () {
+		        existsAndValid: function (server) {
 		        	var deferred = $q.defer();
-		        	var data = $cookieStore.get('authdata');
-		        	
-		        	if(!data) {
+		        	var credentials = getCredentialsFromCookie(server);
+		        	if(!credentials) {
 		        		deferred.reject('Data does not exists');
 		        	} else {
-		        		this.validate(data.encoded, data.server)
+		        		this.validate(credentials, server)
 		        		.success(function() {
 		        			deferred.resolve();
 		        		})
@@ -75,33 +101,22 @@ define(['./_module'], function (app) {
 
 		        	return deferred.promise;
 		        },
-		        storeServer: function (server) {
-		        	$cookieStore.put('es-server', {
-		        		server: server
-		        	});
-		        },
-		        getServer: function () {
-		        	var s = $cookieStore.get('es-server');
-		        	if(s && s.server) {
-		        		return s.server;
-		        	}
-
-		        	return '';
-		        },
 		        validate: function (username, password, server) {
-		        	var encoded;
+		        	var credentials;
 		        	if(!server) {
 		        		server = password;
-		        		encoded = username;
+		        		credentials = username;
 		        	} else {
-		        		encoded = Base64.encode(username + ':' + password);
+		        		credentials = Base64.encode(username + ':' + password);
 		        	}
 
 		            server = prepareUrl(server);
+		            setBaseUrl(server);
+					$http.defaults.headers.common['Authorization'] = 'Basic ' + (credentials || '');
 		        	return $http.get(server + urls.system.info, {
 		        		headers: {
 		        			'Accept': '*/*',
-		        			Authorization: 'Basic ' + encoded
+		        			Authorization: 'Basic ' + credentials
 		        		}
 		        	});
 		        }

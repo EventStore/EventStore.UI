@@ -11,7 +11,16 @@ define(['es-ui'], function (app) {
         '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService',
         function ($rootScope, $location, $state, $stateParams, authService, infoService) {
             $rootScope.projectionsAllowed = false;
-            authService.existsAndValid()
+            var log = {
+                username: '',
+                password: '',
+                server: $location.protocol() + "://" + $location.host() + ':' + $location.port()
+            };
+
+            if(!$location.host()) {
+                log.server = 'http://127.0.0.1:2113';
+            }
+            authService.existsAndValid(log.server)
             .then(function () {
                 infoService.getInfo()
                     .success(function(info){
