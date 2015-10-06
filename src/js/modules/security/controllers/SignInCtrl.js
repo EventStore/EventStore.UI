@@ -9,7 +9,7 @@ define(['./_module'], function (app) {
 			$scope.log = {
 				username: '',
 				password: '',
-				server: $location.host() + ':' + $location.port()
+				server: $location.protocol() + "://" + $location.host() + ':' + $location.port()
 			};
 
 			if(!$location.host()) {
@@ -47,7 +47,7 @@ define(['./_module'], function (app) {
 			}
 
 			function checkCookie () {
-				authService.existsAndValid()
+				authService.existsAndValid($scope.log.server)
 				.then(function () {
 					redirectAfterLoggingIn();
 				});
