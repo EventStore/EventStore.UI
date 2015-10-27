@@ -7,6 +7,10 @@ define(['./_module'], function (app) {
 		        getInfo: function () {
 		        	var url = urlBuilder.build(urls.system.info);
                     return $http.get(url);
+		        },
+		        getOptions: function () {
+		        	var url = urlBuilder.build(urls.system.options);
+                    return $http.get(url);
 		        }
 		    };
 		}

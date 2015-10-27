@@ -10,6 +10,7 @@ define(['es-ui'], function (app) {
 			shutdown: '/admin/shutdown',
 			scavenge: '/admin/scavenge'
 		},
+		gossip: '/gossip',
 		users: {
 			list: '/users/',
 			get: '/users/%s',		// %s - user name
@@ -64,7 +65,8 @@ define(['es-ui'], function (app) {
 		},
 		system:{
 			subsystems: '/sys/subsystems',
-			info: '/info'
+			info: '/info',
+			options: '/info/options'
 		},
 		competing:{
 			subscriptions: '/subscriptions',

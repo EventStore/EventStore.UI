@@ -1,0 +1,99 @@
+<header class="page-header">
+    <h2 class="page-title">Cluster Status</h2>
+    <ul class="page-nav">
+        <li class="page-nav__item">
+            <a ui-sref="^.snapshot">Snapshot</a>
+        </li>
+    </ul>
+</header>
+<div>
+    <table class="table-nodes">
+        <thead>
+            <tr>
+                <th>Internal Tcp</th>
+                <th>External Tcp</th>
+                <th>Internal Http</th>
+                <th>External Http</th>
+                <th>Status</th>
+                <th>State</th>
+                <th>Timestamp (UTC)</th>
+                <th>Checkpoints</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="node in nodes" ng-class="{dead: !node.isAlive}">
+                <td>{{ node.internalTcpIp }}:{{ node.internalTcpPort }}</td>
+                <td>{{ node.externalTcpIp }}:{{ node.externalTcpPort }}</td>
+                <td>{{ node.internalHttpIp }}:{{ node.internalHttpPort }}</td>
+                <td>{{ node.externalHttpIp }}:{{ node.externalHttpPort }}</td>
+                <td ng-class="{dead: !node.isAlive}">
+                    <text ng-if="node.isAlive">Alive</text>
+                    <text ng-if="!node.isAlive">Dead</text>
+                </td>
+                <td>
+                    <text ng-if="node.state == 'Master'"><b>{{ node.state }}</b></text>
+                    <text ng-if="node.state == 'Manager'" style="color:lightgray">{{ node.state }}</text>
+                    <text ng-if="node.state != 'Master' && node.state != 'Manager'">{{ node.state }}</text>
+                </td>
+                <td>{{ node.timeStamp | date : 'yyyy-MM-d HH:mm:ss' }}</td>
+                <td>
+                    <text ng-if="node.state == 'Manager'">n/a</text>
+                    <text ng-if="node.state != 'Manager'">
+                        L{{ node.lastCommitPosition}} / W {{node.writerCheckpoint}} / C {{node.chaserCheckpoint}}<br />
+                        E{{ node.epochNumber }} @ {{ node.epochPosition }} : { {{ node.epochId }} }
+                    </text>
+                </td>
+                <td style="text-align:center;">
+                    <ul class="page-nav">
+                        <li class="page-nav__item">
+                            <a ng-href="http://{{node.externalHttpIp}}:{{node.externalHttpPort}}/ping" target="_blank">ping</a>
+                        </li>
+                        <li class="page-nav__item">
+                            <a ng-href="http://{{node.externalHttpIp}}:{{node.externalHttpPort}}" target="_blank">show website</a>
+                        </li>
+                        <li class="page-nav__item">
+                            <a ng-href="http://{{node.internalHttpIp}}:{{node.internalHttpPort}}/gossip" target="_blank">show gossip</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr ng-hide="nodes">
+                <td colspan="9">
+                    <em>No nodes in the cluster</em>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="last-updated">Last updated: <span>{{ lastUpdatedTime | date : 'yyyy-MM-d HH:mm:ss' }}</span></div>
+</div>
+<script type="text/javascript">
+    function selectText(element) {
+        var doc = document
+          , text = doc.getElementById(element)
+          , range
+          , selection;
+        if (doc.body.createTextRange) { //ms
+            range = doc.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) { //all others
+            selection = window.getSelection();
+            range = doc.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+</script>

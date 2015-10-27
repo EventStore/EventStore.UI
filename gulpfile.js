@@ -195,6 +195,9 @@ gulp.task('html', function () {
     templateForModule('./src/js/modules/dashboard/views/*.tpl.html',
         './src/js/modules/dashboard/templates',
         'es-ui.dashboard.templates');
+    templateForModule('./src/js/modules/clusterstatus/views/*.tpl.html',
+        './src/js/modules/clusterstatus/templates',
+        'es-ui.clusterstatus.templates');
     templateForModule('./src/js/modules/streams/views/*.tpl.html',
         './src/js/modules/streams/templates',
         'es-ui.streams.templates');

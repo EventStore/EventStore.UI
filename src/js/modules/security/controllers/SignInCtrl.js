@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SignInCtrl', [
-		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService',
-		function ($scope, $rootScope, $state, $location, authService, msg) {
+		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService', 'InfoService',
+		function ($scope, $rootScope, $state, $location, authService, msg, infoService) {
 
 			$scope.log = {
 				username: '',
@@ -24,11 +24,20 @@ define(['./_module'], function (app) {
 
 				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
 				.success(function (info) {
+					$rootScope.singleNode = true;
 					$rootScope.esVersion = info.esVersion || '0.0.0.0';
                     $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                     $rootScope.projectionsAllowed = info.projectionsMode != 'None';
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
-					redirectAfterLoggingIn();
+                    infoService.getOptions().then(function onGetOptions(response){
+                        var options = response.data;
+                        for (var index in options) {
+                            if(options[index].name == "ClusterSize" && options[index].value > 1){
+                                $rootScope.singleNode = false;
+                            }
+                        }
+						redirectAfterLoggingIn();
+                    });
 				})
 				.error(function () {
 					msg.warn('Server does not exist or incorrect user credentials supplied.');

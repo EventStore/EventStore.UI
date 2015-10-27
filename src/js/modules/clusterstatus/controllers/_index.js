@@ -1,0 +1,4 @@
+define([
+    './ClusterStatusListCtrl',
+    './ClusterStatusSnapshotCtrl',
+], function () {});

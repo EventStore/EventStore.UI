@@ -11,6 +11,7 @@ define(['es-ui'], function (app) {
         '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService',
         function ($rootScope, $location, $state, $stateParams, authService, infoService) {
             $rootScope.projectionsAllowed = false;
+            $rootScope.singleNode = true;
             var log = {
                 username: '',
                 password: '',
@@ -20,6 +21,7 @@ define(['es-ui'], function (app) {
             if(!$location.host()) {
                 log.server = 'http://127.0.0.1:2113';
             }
+
             authService.existsAndValid(log.server)
             .then(function () {
                 infoService.getInfo()
@@ -27,6 +29,14 @@ define(['es-ui'], function (app) {
                         $rootScope.esVersion = info.esVersion || '0.0.0.0';
                         $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                         $rootScope.projectionsAllowed = info.projectionsMode != 'None';
+                        infoService.getOptions().then(function onGetOptions(response){
+                            var options = response.data;
+                            for (var index in options) {
+                                if(options[index].name == "ClusterSize" && options[index].value > 1){
+                                    $rootScope.singleNode = false;
+                                }
+                            }
+                        });
                     });
             }, function () {
                 $rootScope.previousUrl = $location.$$path;
