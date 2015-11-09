@@ -41,13 +41,10 @@ define(['./_module'], function (app) {
 				};
 
 				competingService.create($scope.stream, $scope.subscription, param)
-					.then(function (data, status, headers) {
-						var location = headers()['location'];
+					.then(function (data, status) {
 						msg.success("Subscription has been created");
-						$state.go('^.list', {
-							location: encodeURIComponent(location)
-						});
-					}, function(response, status, data, header){
+						$state.go('^.list');
+					}, function(response){
 						msg.failure('Coudn\'t create new subscription because ' + response.statusText);
 					});
 			};
