@@ -23,20 +23,19 @@ define(['./_module'], function (app) {
 						var url = urlBuilder.build(urls.users.create);
 
 						user.groups = [];
-						if (user.isAdmin) {
-							user.groups.push('$admins'); // todo: move it somewhere
-							delete user.isAdmin;
+						if(user.role){
+							user.groups.push(user.role)
 						}
 						delete user.confirmPassword;
 
 						return $http.post(url, user);
 					},
-					update: function (username, fullName, isAdmin) {
+					update: function (username, fullName, role) {
 						var url = urlBuilder.build(urls.users.update, username),
 							groups = [];
 
-						if (isAdmin) {
-							groups.push('$admins'); // todo: move it somewhere
+						if(role){
+							groups.push(role);
 						}
 
 						return $http.put(url, { fullName: fullName, groups: groups});

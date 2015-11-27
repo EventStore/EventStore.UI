@@ -12,7 +12,6 @@ define(['./_module'], function (app) {
 					msg.warn('Please fix all validation errors');
 					return;
 				}
-
 				userService.create($scope.newUser)
 				.success(function () {
 					msg.success('User created');
