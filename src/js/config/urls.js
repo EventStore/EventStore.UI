@@ -70,7 +70,7 @@ define(['es-ui'], function (app) {
 		},
 		competing:{
 			subscriptions: '/subscriptions',
-			subscriptionDetails: '/subscriptions/%s/%s',
+			subscriptionDetails: '/subscriptions/%s/%s/info',
 			create: '/subscriptions/%s/%s',
 			update: '/subscriptions/%s/%s',
 			delete: '/subscriptions/%s/%s'
