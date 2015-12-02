@@ -14,7 +14,7 @@ define(['./_module'], function (app) {
 				name: 'Dispatch To Single'
 			}];
 
-			$scope.namedConsumerStrategy = 'RoundRobin';
+            setDefaults();
 
 			$scope.save = function () {
 				if($scope.newSubscription.$invalid) {
@@ -24,7 +24,6 @@ define(['./_module'], function (app) {
 
 				var param = {
 					checkpoints: $scope.checkpoints,
-					enabled: $scope.enabled,
 					resolveLinktos: $scope.resolveLinktos,
 		            startFrom: $scope.startFrom,
 		            messageTimeoutMilliseconds: $scope.messageTimeoutMilliseconds,
@@ -48,6 +47,23 @@ define(['./_module'], function (app) {
 						msg.failure('Coudn\'t create new subscription because ' + response.statusText);
 					});
 			};
+
+            function setDefaults(){
+                $scope.checkpoints = 1000;
+                $scope.resolveLinktos = false;
+                $scope.startFrom = 0;
+                $scope.messageTimeoutMilliseconds = 10000;
+                $scope.extraStatistics = false;
+                $scope.maxRetryCount = 10;
+                $scope.liveBufferSize = 500;
+                $scope.bufferSize = 500;
+                $scope.readBatchSize = 20;
+                $scope.checkPointAfterMilliseconds = 1000;
+                $scope.minCheckPointCount = 10;
+                $scope.maxCheckPointCount = 500;
+                $scope.maxSubscriberCount = 10;
+                $scope.namedConsumerStrategy = 'RoundRobin';
+            }
 		}
 	]);
 });
