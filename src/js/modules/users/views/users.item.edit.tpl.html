@@ -29,8 +29,12 @@
 		<tr>
 			<td>Groups</td>
 			<td>
-				<input type="checkbox" name="isAdmin" ng-model="isAdmin"> 
-				<label for="isAdmin">Is Administrator</label>
+                <input type="radio" name="role" ng-model="user.role" value="$ops">
+                <label for="isOperations">Is Operations</label>
+                <input type="radio" name="role" ng-model="user.role" value="$admins">
+                <label for="isAdmin">Is Administrator</label>
+                <input type="radio" name="role" ng-model="user.role" value="">
+                <label for="hasNoRole">None</label>
 			</td>
 		</tr>
 	</tbody>

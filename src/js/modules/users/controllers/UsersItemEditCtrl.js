@@ -6,16 +6,13 @@ define(['./_module'], function (app) {
 	return app.controller('UsersItemEditCtrl', [
 		'$scope', '$state', '$stateParams', 'UserService', 'MessageService',
 		function ($scope, $state, $stateParams, userService, msg) {
-			
 			$scope.confirm = function () {
 				if ($scope.editUsr.$invalid) {
 					msg.warn('Please fix all validation errors');
 					return;
 				}
-
 				userService.update($scope.user.loginName, 
-					$scope.fullName, 
-					$scope.isAdmin)
+					$scope.fullName, $scope.user.role)
 				.success(function () {
 					msg.success('user updated');
 					$state.go('^.details');
@@ -28,7 +25,7 @@ define(['./_module'], function (app) {
 			userService.get($stateParams.username)
 			.success(function (data) {
 				$scope.user = data.data;
-				$scope.isAdmin = !!~data.data.groups.indexOf('$admins');
+				$scope.user.role = data.data.groups[0];
 				$scope.fullName = $scope.user.fullName;
 			})
 			.error(function () {
