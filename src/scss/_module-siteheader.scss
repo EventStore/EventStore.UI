@@ -13,12 +13,7 @@
 	        justify-content: space-between;
 	padding: 0 3rem;
 	background: $green;
-	background-image: linear-gradient(45deg, transparentize($green, 0.5) 0%, transparentize($green, 0.5) 50%, transparentize($green-dark, 0.5) 50%, transparentize($green-dark, 0.5) 100%),
-		linear-gradient(135deg, transparentize($green, 0.5) 0%, transparentize($green, 0.5) 50%, transparentize($green-dark, 0.5) 50%, transparentize($green-dark, 0.5) 100%);
 	font-weight: 700;
-	@media screen and (max-width: 1270px), screen and (max-device-width: 1270px) {
-		background-image: linear-gradient(90deg, $green 0%, $green-dark 100%);
-	}
 }
 
 .site-title {
@@ -53,7 +48,7 @@
 		text-decoration: none;
 		border-radius: 0.25rem;
 		&:focus, &:hover {
-			background: $green;
+			background: $green-dark;
 			color: $white-off;
 		}
 	}
@@ -62,10 +57,10 @@
 .site-nav__item--active {
 	@extend .site-nav__item;
 	a {
-		background: $green;
+		background: $green-dark;
 		color: $white;
 		&:focus, &:hover {
-			background: $green;
+			background: $green-dark;
 			color: $white;
 		}
 	}
