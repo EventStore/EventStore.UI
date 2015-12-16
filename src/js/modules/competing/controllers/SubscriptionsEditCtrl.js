@@ -14,6 +14,9 @@ define(['./_module'], function (app) {
 			}, {
 				value: 'DispatchToSingle',
 				name: 'Dispatch To Single'
+			}, {
+				value: 'Pinned',
+				name: 'Pinned'
 			}];
 
 			competingService.subscriptionDetail($scope.stream, $scope.subscription)
