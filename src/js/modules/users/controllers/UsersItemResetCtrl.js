@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('UsersItemResetCtrl', [
-		'$scope', '$state', 'UserService', 'MessageService',
-		function ($scope, $state, userService, msg) {
+		'$rootScope','$scope', '$state', 'UserService', 'MessageService', 'AuthService',
+		function ($rootScope, $scope, $state, userService, msg, authService) {
 			
 			$scope.confirm = function () {
 				if ($scope.resetPwd.$invalid) {
@@ -15,10 +15,16 @@ define(['./_module'], function (app) {
 				userService.resetPassword($scope.user.loginName, $scope.password)
 				.success(function () {
 					msg.success('Password has been reset');
-					$state.go('^.details');
+					authService.resetCredentials($scope.user.loginName, $scope.password, $rootScope.baseUrl)
+					.then(function(){
+						$state.go('^.details');
+					}, function(){
+						msg.failure("We tried to reset the credentials in the cookie and failed. Please log in again.");
+						$state.go('signin');
+					});
 				})
 				.error(function () {
-					msg.failure('password not reseted');
+					msg.failure('Password not reset');
 				});
 			};
 
@@ -27,7 +33,7 @@ define(['./_module'], function (app) {
 				$scope.user = data.data;
 			})
 			.error(function () {
-				msg.failure('uUser does not exists or you do not have permissions');
+				msg.failure('User does not exist or you do not have permission');
 				$state.go('users');
 			});
 		}
