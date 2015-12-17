@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     pngcrush = require('imagemin-pngcrush'),
     rjs = require('gulp-requirejs'),
     htmlreplace = require('gulp-html-replace'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    sass = require('gulp-sass');
 
 var paths = {
     app: {
@@ -89,6 +90,12 @@ var rjsOpts = {
     }
 };
 
+gulp.task('compile-sass', function () {
+  gulp.src('./src/scss/*.scss')
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(gulp.dest('./src/css'));
+});
+
 gulp.task('dist-min-css', function () {
     return gulp.src('./src/css/*.css')
         .pipe(minifyCSS())
@@ -151,7 +158,7 @@ gulp.task('dist-js', function () {
 
 });
 
-gulp.task('dist', ['html', 'dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'], function() {
+gulp.task('dist', ['html', 'compile-sass', 'dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'], function() {
     return gulp.src('./src/index.html') 
         .pipe(htmlreplace({
           css: paths.dist.css,
