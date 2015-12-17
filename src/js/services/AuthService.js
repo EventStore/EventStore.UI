@@ -101,6 +101,23 @@ define(['./_module'], function (app) {
 
 		        	return deferred.promise;
 		        },
+		        resetCredentials: function(username, newPassword, server){
+		        	var deferred = $q.defer();
+		        	var credentials = getCredentialsFromCookie(server);
+		        	var storedUsername = Base64.decode(credentials).split(':')[0];
+		        	if(storedUsername == username){
+		        		this.validate(username, newPassword, server)
+		        		.success(function() {
+		        			deferred.resolve();
+		        		})
+		        		.error(function (){
+		        			deferred.reject('Wrong credentials or server not exists');
+		        		});
+		        	}else{
+		        		deferred.resolve();
+		        	}
+	        		return deferred.promise;
+		        },
 		        validate: function (username, password, server) {
 		        	var credentials;
 		        	if(!server) {
