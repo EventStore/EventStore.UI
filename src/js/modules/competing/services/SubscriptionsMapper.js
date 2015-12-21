@@ -3,6 +3,12 @@ define(['./_module'], function (app) {
 	'use strict';
 
 	return app.provider('SubscriptionsMapper', function () {
+		if (!String.prototype.startsWith) {
+		  String.prototype.startsWith = function(searchString, position) {
+		    position = position || 0;
+		    return this.indexOf(searchString, position) === position;
+		  };
+		}
 		function createEmptyGroup (groupName) {
 			return {
                 streamName: groupName,
