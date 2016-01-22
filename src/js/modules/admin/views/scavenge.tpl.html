@@ -1,0 +1,44 @@
+<header class="page-header">
+    <h2 class="page-title">Scavenge {{nodeEndpoint}}</h2>
+    <ul class="page-nav">
+        <li class="page-nav__item">
+            <a ui-sref="admin">Back</a>
+        </li>
+    </ul>
+</header>
+<h3 class="page-title"><em>{{scavengeId}}</em></h3>
+<ul style="list-style-type: none; padding:0 0 0.75rem 0 !important">
+    <li class="page-nav__item">
+        <a ng-click="pageForward()" ng-disabled="!pagination.canGoForward()">Next</a>
+        <a ng-click="pageBackward()" ng-disabled="!pagination.canGoBackward()">Previous</a>
+    </li>
+</ul>
+<br />
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Space Saved (bytes)</th>
+                <th>Time Taken</th>
+                <th>Additional Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="info in scavengeInfo">
+                <td>
+                    {{info.status}}
+                </td>
+                <td>
+                    {{info.spaceSaved | number}}
+                </td>
+                <td>
+                    {{info.timeTaken}}
+                </td>
+                <td>
+                    <span ng-if="info.type=='$scavengeChunksCompleted'">{{info.wasScavenged ? 'Some chunks scavenged' : 'Nothing scavenged'}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

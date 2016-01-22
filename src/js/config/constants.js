@@ -5,6 +5,9 @@ define(['es-ui'], function (app) {
 		projectionStatus: {
 			running: 'Running',
 			stopped: 'Stopped'
+		},
+		scavengeStatus: {
+		    pollInterval: 2000,
 		}
 	});
 });

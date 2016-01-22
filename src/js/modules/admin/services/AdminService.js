@@ -23,6 +23,18 @@ define(['./_module'], function (app) {
 					getSubsystems: function() {
                         var url = urlBuilder.build(urls.system.subsystems);
                         return $http.get(url);
+                    },
+                    scavengeStatus: function() {
+                    	var url = urlBuilder.build(urls.streams.scavenges + '?embed=tryharder');
+                    	return $http.get(url);
+                    },
+                    scavengeInfo: function(scavengeId, fromEvent, pageSize) {
+                    	var url = urlBuilder.build(urls.streams.scavenges + '-' + scavengeId + '/' + fromEvent + '/' + pageSize + '?embed=tryharder');
+                    	return $http.get(url);
+                    },
+                    lastScavengeStatus: function() {
+                    	var url = urlBuilder.build(urls.streams.scavenges + '/head/1?embed=tryharder');
+                    	return $http.get(url);
                     }
 				};
 		}];

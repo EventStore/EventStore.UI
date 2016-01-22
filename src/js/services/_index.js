@@ -6,5 +6,6 @@ define([
     './SprintfService',
     './AuthService',
     './InfoService',
-    './MessageService'
+    './MessageService',
+    './ScavengeNotificationService'
 ], function () {});

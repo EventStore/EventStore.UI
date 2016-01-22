@@ -18,6 +18,15 @@ define(['./_index'], function (app) {
                 data: {
                     title: 'Admin'
                 }
+            })
+            .state('scavenge', {
+            	url: 'scavenge/{scavengeId}/?page?from',
+            	parent: 'app',
+            	templateUrl: 'scavenge.tpl.html',
+            	controller: 'ScavengeCtrl',
+            	data: {
+            		title: 'Scavenge'
+            	}
             });
     }]);
 });

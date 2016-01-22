@@ -8,8 +8,8 @@ define(['es-ui'], function (app) {
         });
     }]);
 	return app.run([
-        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService',
-        function ($rootScope, $location, $state, $stateParams, authService, infoService) {
+        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'ScavengeNotificationService',
+        function ($rootScope, $location, $state, $stateParams, authService, infoService, scavengeNotificationService) {
             $rootScope.projectionsAllowed = false;
             $rootScope.singleNode = true;
             var log = {
@@ -29,6 +29,7 @@ define(['es-ui'], function (app) {
                         $rootScope.esVersion = info.esVersion || '0.0.0.0';
                         $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                         $rootScope.projectionsAllowed = info.projectionsMode != 'None';
+                        scavengeNotificationService.start();
                         infoService.getOptions().then(function onGetOptions(response){
                             var options = response.data;
                             for (var index in options) {
