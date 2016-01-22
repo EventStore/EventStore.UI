@@ -13,6 +13,10 @@ define(['./_module'], function (app) {
 						var url = urlBuilder.build(urls.stats);
 
 						return $http.get(url);
+					},
+					tcpStats: function() {
+						var url = urlBuilder.build(urls.tcpStats);
+						return $http.get(url);
 					}
 				};
 			}
