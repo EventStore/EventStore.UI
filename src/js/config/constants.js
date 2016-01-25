@@ -7,7 +7,10 @@ define(['es-ui'], function (app) {
 			stopped: 'Stopped'
 		},
 		scavengeStatus: {
-		    pollInterval: 2000,
+		    pollInterval: 2000
+		},
+		tcpStats: {
+			pollInterval: 1000
 		}
 	});
 });
