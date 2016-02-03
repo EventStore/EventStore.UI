@@ -19,7 +19,7 @@
 				<text ng-if="!event.streamId">{{ event.title }}</text>
 			</td>
 			<td>{{ event.eventType }}</td>
-			<td>{{ event.updated | date:'yyyy-MM-dd HH:mm'}}</td>
+			<td>{{ event.updated | date:'yyyy-MM-dd HH:mm:ss'}}</td>
 			<td>
 				<a ng-click="toggleJson($event, event)"
 					style="cursor: pointer;" 
