@@ -33,7 +33,7 @@
 			<td>{{ evt.eventNumber }}</td>
 			<td><a ui-sref="^.events({streamId: evt.streamId})">{{ evt.streamId }}</a></td>
 			<td>{{ evt.eventType }}</td>
-			<td>{{ evt.updated | date:'yyyy-MM-dd HH:mm'}}</td>
+			<td>{{ evt.updated | date:'yyyy-MM-dd HH:mm:ss'}}</td>
 		</tr>
 		<tr ng-if="evt.isJson || evt.isMetaData || evt.isLinkMetaData">
 			<td colspan="4">
