@@ -11,6 +11,9 @@ define(['es-ui'], function (app) {
 		},
 		tcpStats: {
 			pollInterval: 1000
+		},
+		clusterStatus: {
+			replicaPollInterval: 1000
 		}
 	});
 });
