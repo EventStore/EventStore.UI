@@ -7,6 +7,9 @@ define(['./_module'], function (app) {
 		function ($scope, $state, $stateParams, streamsService) {
 			
 			$scope.streamId = $stateParams.streamId;
+			try {
+				$scope.streamId = decodeURIComponent($stateParams.streamId);
+			} catch(ex) { }
 			$scope.isMetadata = $state.current.data.metadata;
 			$scope.eventNumber = $scope.isMetadata ? 'metadata' : $stateParams.eventNumber;
 

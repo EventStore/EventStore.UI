@@ -10,6 +10,9 @@ define(['./_module', 'angular'], function (app, angular) {
 				simpleBuild: function (format, url) {
 					return print.format(format, decodeURIComponent(url));
 				},
+				simpleBuildWithoutDecoding: function(format, url) {
+					return print.format(format, url);
+				},
 				build: function (url) {
 					var args = [].slice.call(arguments, 1),
 						params = [];

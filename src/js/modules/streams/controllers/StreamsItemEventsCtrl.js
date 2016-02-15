@@ -14,7 +14,7 @@ define(['./_module'], function (app) {
 
 			$scope.streamId = $stateParams.streamId;
 
-			atom.start($stateParams)
+			atom.start({streamId: encodeStreamId($scope.streamId)})
 			.then(null, function () {
 				msg.failure('stream does not exist');
 			}, function (data) {
@@ -27,6 +27,14 @@ define(['./_module'], function (app) {
 					$scope.$parent.links = removeMetadataLinkFrom($scope.$parent.links);
 				}
 			});
+            
+            function encodeStreamId(streamId) {
+                var escapedStream = streamId;
+                try {
+                    escapedStream = decodeURIComponent(escapedStream);
+                } catch (ex) { }
+                return encodeURIComponent(escapedStream);
+            }
 
 			function removeMetadataLinkFrom(links){
 				var index = -1;

@@ -14,10 +14,12 @@ define(['./_module'], function (app) {
 						return $http.get(url);
 					},
 					subscriptionDetail: function(subscriptionId, groupName){
+                        subscriptionId = encodeURIComponent(subscriptionId);
 						var url = urlBuilder.build(urls.competing.subscriptionDetails, subscriptionId, groupName);
 						return $http.get(url);	
 					},
 					create: function (stream, subscription, config) {
+                        stream = encodeURIComponent(stream);
 						var url = urlBuilder.build(urls.competing.create, stream, subscription);
 						return $http.put(url, config, {
 							headers: {
@@ -26,6 +28,7 @@ define(['./_module'], function (app) {
 						});
 					},
 					update: function (stream, subscription, config) {
+                        stream = encodeURIComponent(stream);
 						var url = urlBuilder.build(urls.competing.update, stream, subscription);
 						return $http.post(url, config, {
 							headers: {
@@ -34,6 +37,7 @@ define(['./_module'], function (app) {
 						});
 					},
 					delete: function (stream, subscription) {
+                        stream = encodeURIComponent(stream);
 						var url = urlBuilder.build(urls.competing.delete, stream, subscription);
 						return $http.delete(url, {
 							headers: {

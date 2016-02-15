@@ -34,7 +34,7 @@ define(['./_module'], function(app) {
                         return deferred.promise;
                     },
                     validateFullUrl: function(check) {
-                        var url = urlBuilder.simpleBuild(urls.streams.base, check);
+                        var url = urlBuilder.simpleBuildWithoutDecoding(urls.streams.base, check);
 
                         return $http.get(url);
                     },
@@ -67,6 +67,7 @@ define(['./_module'], function(app) {
                         
                     },
                     eventContent: function(streamId, eventNumber) {
+                        streamId = encodeURIComponent(streamId);
                         var url = urlBuilder.build(urls.streams.eventDetails, streamId, eventNumber);
                         var header = {
                             headers: {

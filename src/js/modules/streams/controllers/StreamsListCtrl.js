@@ -17,7 +17,9 @@ define(['./_module'], function (app) {
 				}
 
 				for (item in filtered) {
-					result.push({ streamId: item });
+                    result.push({ 
+                        streamId: item,
+                    });
 				}
 
 				return result;
@@ -44,6 +46,14 @@ define(['./_module'], function (app) {
 				$scope.createdStreams = filter(data.entries);
 			});
 		}
-	]);
+	]).filter('decode', function() {
+        return function(input) {
+            try {
+                return window.decodeURIComponent(input);
+            } catch(err) {
+                return input;
+            }
+        };
+    });
 });
 
