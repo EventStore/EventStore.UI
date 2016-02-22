@@ -3,9 +3,14 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('ProjectionsListCtrl', [
-		'$scope', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService',
-		function ($scope, projectionsService, projectionsMapper, pollerProvider, msg) {
+		'$rootScope', '$scope', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService', '$state',
+		function ($rootScope, $scope, projectionsService, projectionsMapper, pollerProvider, msg, $state) {
 
+            if(!$rootScope.projectionsAllowed) {
+                msg.failure('Projections are not enabled on the node');
+                $state.go('dashboard.list');
+            }
+            
 			var all = pollerProvider.create({
 				interval: 2000,
 				action: projectionsService.all,
