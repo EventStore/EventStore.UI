@@ -83,6 +83,7 @@ define(['./_module'], function (app) {
             }
 
             var scavengeQuery = {};
+            var timeout;
             function setupScavengeStatusPoller() {
                 scavengeQuery = poller.create({
                     interval: constants.scavengeStatus.pollInterval,
@@ -93,7 +94,11 @@ define(['./_module'], function (app) {
 
                 scavengeQuery.promise.then(null,
                     function() {
-                        $timeout(function() {
+                        if(timeout){
+                            $timeout.cancel(timeout);
+                            timeout = null;
+                        }
+                        timeout = $timeout(function() {
                             setupScavengeStatusPoller();
                         }, constants.scavengeStatus.pollInterval);
                     }, getScavengeHistory);
@@ -102,6 +107,10 @@ define(['./_module'], function (app) {
             setupScavengeStatusPoller();
 
             $scope.$on('$destroy', function() {
+                if(timeout){
+                    $timeout.cancel(timeout);
+                    timeout = null;
+                }
                 scavengeQuery.stop();
             });
         }
