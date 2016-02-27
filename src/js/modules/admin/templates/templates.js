@@ -6,7 +6,19 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin.tpl.html',
-    '<header class=page-header><h2 class=page-title>Admin</h2><ul class=page-nav><li class=page-nav__item><a href=# ng-click=shutdown($event)>Shutdown Server</a></li><li class=page-nav__item><a href=# ng-click=scavenge($event)>Scavenge</a></li></ul></header><div class=container><div class=container-left><table><thead><tr><th>Enabled Sub Systems</th></tr></thead><tbody><tr ng-repeat="subSystem in subSystems"><td>{{ subSystem }}</td></tr><tr ng-hide=subSystems><td><em>No sub systems are running.</em></td></tr></tbody></table></div></div>');
+    '<header class=page-header><h2 class=page-title>Admin</h2><ul class=page-nav><li class=page-nav__item><a href=# ng-click=shutdown($event)>Shutdown Server</a></li><li class=page-nav__item><a href=# ng-click=scavenge($event)>Scavenge</a></li></ul></header><div class=container><div class=container-left><table><thead><tr><th>Enabled Sub Systems</th></tr></thead><tbody><tr ng-repeat="subSystem in subSystems"><td>{{ subSystem }}</td></tr><tr ng-hide=subSystems><td><em>No sub systems are running.</em></td></tr></tbody></table></div><div class=container-right><table><thead><tr><th>Scavenge</th><th>Started</th><th>Completed</th></tr></thead><tbody><tr ng-hide="scavengeHistory.length > 0"><td colspan=3><em>No scavenges have been run.</em></td></tr><tr ng-repeat="history in scavengeHistory track by history.scavengeId | orderBy : \'startTime\'"><td><a ui-sref="scavenge({scavengeId: history.scavengeId, page: 0, from: 0})">{{history.nodeEndpoint}}<br>{{history.scavengeId}}</a></td><td>{{history.startTime | date:\'yyyy-MM-dd HH:mm\'}}</td><td><span ng-show=history.endTime>{{history.endTime | date:\'yyyy-MM-dd HH:mm\'}}</span><em ng-hide=history.endTime>Running...</em></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><a href=#/streams/$scavenges>Scavenge History</a></li></ul></div></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('es-ui.admin.templates');
+} catch (e) {
+  module = angular.module('es-ui.admin.templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('scavenge.tpl.html',
+    '<header class=page-header><h2 class=page-title>Scavenge {{nodeEndpoint}}</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=admin>Back</a></li></ul></header><h3 class=page-title><em>{{scavengeId}}</em></h3><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item><a ng-click=pageForward() ng-disabled=!pagination.canGoForward()>Next</a> <a ng-click=pageBackward() ng-disabled=!pagination.canGoBackward()>Previous</a></li></ul><br><div class=container><table><thead><tr><th>Status</th><th>Space Saved (bytes)</th><th>Time Taken</th><th>Additional Info</th></tr></thead><tbody><tr ng-repeat="info in scavengeInfo"><td>{{info.status}}</td><td>{{info.spaceSaved | number}}</td><td>{{info.timeTaken}}</td><td><span ng-if="info.type==\'$scavengeChunksCompleted\'">{{info.wasScavenged ? \'Some chunks scavenged\' : \'Nothing scavenged\'}}</span></td></tr></tbody></table></div>');
 }]);
 })();
  });

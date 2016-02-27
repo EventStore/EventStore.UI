@@ -2,10 +2,12 @@ define(['es-ui'], function (app) {
 
 	'use strict';
 	app.value('baseUrl', '');
-	
+
 	return app.constant('urls', {
 		base: 'http://127.0.0.1:2113',
 		stats: '/stats',
+		tcpStats: '/stats/tcp',
+		replicationStats: '/stats/replication',
 		admin: {
 			shutdown: '/admin/shutdown',
 			scavenge: '/admin/scavenge'
@@ -18,7 +20,7 @@ define(['es-ui'], function (app) {
 			update: '/users/%s',	// %s - user name
 			remove: '/users/%s',	// %s - user name
 			disable: '/users/%s/command/disable',	// %s - user name
-			enable: '/users/%s/command/enable',		// %s - user name	
+			enable: '/users/%s/command/enable',		// %s - user name
 			resetPassword: '/users/%s/command/reset-password'	// %s - user name
 		},
 		query: {
@@ -61,12 +63,13 @@ define(['es-ui'], function (app) {
 			eventDetails: '/streams/%s/%s?embed=tryharder',
 			tryharder: '?embed=tryharder',
 			metadata: '/streams/%s%s/head',
-			updateAcl: '/streams/$$%s'
+			updateAcl: '/streams/$$%s',
+			scavenges: '/streams/$scavenges'
 		},
 		system:{
 			subsystems: '/sys/subsystems',
 			info: '/info',
-			options: '/info/options'
+			options: '/info/options',
 		},
 		competing:{
 			subscriptions: '/subscriptions',

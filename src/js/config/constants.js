@@ -5,6 +5,15 @@ define(['es-ui'], function (app) {
 		projectionStatus: {
 			running: 'Running',
 			stopped: 'Stopped'
+		},
+		scavengeStatus: {
+		    pollInterval: 2000
+		},
+		tcpStats: {
+			pollInterval: 1000
+		},
+		clusterStatus: {
+			replicaPollInterval: 1000
 		}
 	});
 });

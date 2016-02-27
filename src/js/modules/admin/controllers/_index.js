@@ -1,3 +1,4 @@
 define([
-    './AdminCtrl'
+    './AdminCtrl',
+    './ScavengeCtrl'
 ], function () {});
