@@ -50,7 +50,7 @@
                     <td><a ui-sref="scavenge({scavengeId: history.scavengeId, page: 0, from: 0})">{{history.nodeEndpoint}}
                         <br />{{history.scavengeId}}</a></td>
                     <td>{{history.startTime | date:'yyyy-MM-dd HH:mm'}}</td>
-                    <td><span ng-show="history.endTime">{{history.endTime | date:'yyyy-MM-dd HH:mm'}}</span><em ng-hide="history.endTime">Running...</em></td>
+                    <td><span ng-show="history.endTime">{{history.endTime | date:'yyyy-MM-dd HH:mm'}}</span><em ng-hide="history.endTime">Not Finished</em></td>
                 </tr>
             </tbody>
         </table>
