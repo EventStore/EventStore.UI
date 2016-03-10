@@ -152,6 +152,7 @@ define(['./_module'], function (app) {
 		        if (definition.byCustomPartitions) {
 		            partition = processor.get_state_partition(
                             currentEvent.isJson ? angular.toJson(currentEvent.data) : currentEvent.data,
+                            currentEvent.isJson,
                             currentEvent.eventStreamId,
                             currentEvent.eventType,
                             currentEvent.category,
