@@ -28,6 +28,7 @@ define(['./_module'], function (app) {
 					$rootScope.esVersion = info.esVersion || '0.0.0.0';
                     $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                     $rootScope.projectionsAllowed = info.projectionsMode != 'None';
+                    $rootScope.projectionsMode = info.projectionsMode;
                     scavengeNotificationService.start();
 					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
                     infoService.getOptions().then(function onGetOptions(response){

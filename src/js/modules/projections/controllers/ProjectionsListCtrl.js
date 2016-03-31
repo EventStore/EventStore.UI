@@ -6,9 +6,10 @@ define(['./_module'], function (app) {
 		'$rootScope', '$scope', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService', '$state',
 		function ($rootScope, $scope, projectionsService, projectionsMapper, pollerProvider, msg, $state) {
 
-            if(!$rootScope.projectionsAllowed) {
+            if($rootScope.projectionsMode == 'None') {
                 msg.failure('Projections are not enabled on the node');
                 $state.go('dashboard.list');
+                return;
             }
             
 			var all = pollerProvider.create({
