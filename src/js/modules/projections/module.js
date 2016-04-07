@@ -66,7 +66,7 @@ define(['./_index'], function (app) {
                 }
             })
             .state('projections.item.debug', {
-                url: '/debug',
+                url: '/debug?fromQueryState',
                 templateUrl: 'projections.item.debug.tpl.html',
                 controller: 'ProjectionsItemDebugCtrl',
                 data: {
@@ -84,7 +84,7 @@ define(['./_index'], function (app) {
 
             // ========================================QUERY============
             .state('query', {
-                url: 'query',
+                url: 'query?location',
                 parent: 'app',
                 templateUrl: 'query.tpl.html',
                 controller: 'QueryCtrl',

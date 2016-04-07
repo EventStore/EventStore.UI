@@ -75,6 +75,16 @@ define(['./_module'], function(app) {
                         };
 
                         return $http.get(url, header);
+                    },
+                    checkStreamExists: function(streamId) {
+                        var deferred = $q.defer();
+                        var url = urlBuilder.build(urls.streams.events, streamId);
+                        $http.get(url).success(function() {
+                            deferred.resolve(true);
+                        }).error(function() {
+                            deferred.resolve(false);
+                        });
+                        return deferred.promise;
                     }
                 };
             }

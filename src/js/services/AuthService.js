@@ -12,7 +12,8 @@ define(['./_module'], function (app) {
 		'$rootScope',
 		'$location',
 		'urls',
-		function (Base64, $q, $cookieStore, $http, $rootScope, $location, urls) {
+		'UrlBuilder',
+		function (Base64, $q, $cookieStore, $http, $rootScope, $location, urls, urlBuilder) {
 			// initialize to whatever is in the cookie, if anything
 			// i know, hoising, but i don't like jshint warnings
 			var currentUrl = $location.host() + ':' + $location.port();
@@ -25,6 +26,14 @@ define(['./_module'], function (app) {
 				return escreds.servers[server].credentials;
 			}
 
+			function getGroupsFromCookie(server){
+				var escreds = $cookieStore.get('es-creds');
+				if(!escreds || !escreds.servers[server]){
+					return null;
+				}
+				return escreds.servers[server].groups;
+			}
+
 			function clearCredentials(server){
 	            document.execCommand('ClearAuthenticationCache');
 		        $http.defaults.headers.common.Authorization = 'Basic ';
@@ -35,7 +44,7 @@ define(['./_module'], function (app) {
 	            }
 			}
 
-			function addCredentialsToCookie(server, username, password){
+			function addCredentialsToCookie(server, username, password, groups){
 				var escreds = $cookieStore.get('es-creds');
 				if(!escreds){
 					escreds = {
@@ -43,13 +52,22 @@ define(['./_module'], function (app) {
 					}
 				}
 				escreds.servers[server] = {
-					credentials : Base64.encode(username + ':' + password)
+					credentials : Base64.encode(username + ':' + password),
+					groups : groups
 				}
 				$cookieStore.put('es-creds', escreds);
 			}
 
 			function setBaseUrl (url) {
 				$rootScope.baseUrl = url;
+			}
+
+			function setUserAdmin(groups) {
+				$rootScope.isAdmin = false;
+				if(groups && groups.length > 0)
+				{
+            		$rootScope.isAdmin = groups.indexOf('$admins') > -1;
+            	}
 			}
 
 			var escreds = getCredentialsFromCookie(currentUrl);
@@ -72,14 +90,16 @@ define(['./_module'], function (app) {
 
 
 		    return {
-		        setCredentials: function (username, password, server) {
+		        setCredentials: function (username, password, server, groups) {
 		            var credentials = Base64.encode(username + ':' + password);
+		            
 		            $http.defaults.headers.common.Authorization = 'Basic ' + credentials;
 
 		            server = prepareUrl(server);
 		            setBaseUrl(server);
+		            setUserAdmin(groups);
 
-		            addCredentialsToCookie(server, username, password);
+		            addCredentialsToCookie(server, username, password, groups);
 		        },
 		        clearCredentials: function () {
 		            clearCredentials($rootScope.baseUrl);
@@ -92,6 +112,8 @@ define(['./_module'], function (app) {
 		        	} else {
 		        		this.validate(credentials, server)
 		        		.success(function() {
+		        			var groups = getGroupsFromCookie(server);
+		        			setUserAdmin(groups);
 		        			deferred.resolve();
 		        		})
 		        		.error(function (){
@@ -136,6 +158,14 @@ define(['./_module'], function (app) {
 		        			Authorization: 'Basic ' + credentials
 		        		}
 		        	});
+		        },
+		        getUserGroups: function(username) {
+		        	var deferred = $q.defer();
+	        		$http.get(urlBuilder.build(urls.users.get, username)).success(function(userInfo) {
+		            	var groups = userInfo.data.groups;
+		            	deferred.resolve(groups);
+	            	});
+	            	return deferred.promise;
 		        }
 		    };
 		}
