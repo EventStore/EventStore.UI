@@ -16,8 +16,11 @@ define(['es-ui'], function (app) {
             .state('app', {
                 url: '/',
                 templateUrl: 'index.tpl.html',
-                abstract: true
-                //controller: ['$state']
+                abstract: true,
+                controller: ['$scope', function($scope) {
+                    $scope.notAdminMessage = 'You must be an admin to view this item';
+                    $scope.projectionsNotRunningMessage = 'Projections are not running on Event Store';
+                }]
             });
     }]);
 });

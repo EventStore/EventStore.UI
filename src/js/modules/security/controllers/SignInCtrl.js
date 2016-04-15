@@ -29,16 +29,23 @@ define(['./_module'], function (app) {
                     $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                     $rootScope.projectionsAllowed = info.projectionsMode != 'None';
                     $rootScope.projectionsMode = info.projectionsMode;
-                    scavengeNotificationService.start();
-					authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server);
-                    infoService.getOptions().then(function onGetOptions(response){
-                        var options = response.data;
-                        for (var index in options) {
-                            if(options[index].name == "ClusterSize" && options[index].value > 1){
-                                $rootScope.singleNode = false;
-                            }
-                        }
-						redirectAfterLoggingIn();
+
+                    authService.getUserGroups($scope.log.username).then(function(groups) {
+						authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server, groups);
+						if($rootScope.isAdmin) {
+	                    	scavengeNotificationService.start();
+		                    infoService.getOptions().then(function onGetOptions(response){
+		                        var options = response.data;
+		                        for (var index in options) {
+		                            if(options[index].name == "ClusterSize" && options[index].value > 1){
+		                                $rootScope.singleNode = false;
+		                            }
+		                        }
+								redirectAfterLoggingIn();
+		                    });
+	                	} else {
+	                		redirectAfterLoggingIn();
+	                	}
                     });
 				})
 				.error(function () {

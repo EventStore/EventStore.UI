@@ -243,11 +243,15 @@ kbd {
   .site-nav__item a:focus, .site-nav__item--active a:focus, .site-nav__item a:hover, .site-nav__item--active a:hover {
     background: #2E9625;
     color: #F2F4F0; }
+  .site-nav__item a.disabled, .site-nav__item--active a.disabled {
+    color: #2E9625;
+    pointer-events: none;
+    cursor: default; }
 
 .site-nav__item--active a {
   background: #2E9625;
   color: #FFFFFF; }
-  .site-nav__item--active a:focus, .site-nav__item--active a:hover {
+  .site-nav__item--active a:focus, .site-nav__item--active a:hover, .site-nav__item--active a.disabled {
     background: #2E9625;
     color: #FFFFFF; }
 

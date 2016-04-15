@@ -51,6 +51,11 @@
 			background: $green-dark;
 			color: $white-off;
 		}
+		&.disabled {
+			color:$green-dark;
+			pointer-events:none;
+			cursor:default;
+		}
 	}
 }
 
@@ -59,7 +64,7 @@
 	a {
 		background: $green-dark;
 		color: $white;
-		&:focus, &:hover {
+		&:focus, &:hover, &.disabled {
 			background: $green-dark;
 			color: $white;
 		}

@@ -5,12 +5,12 @@
 	<ul class="page-nav">
 		<li class="page-nav__item">
 			<form>
-				<input type="text" ui-keypress="{'enter': 'gotoStream($event)'}" ng-model="search" />
+				<input type="text" ui-keypress="{'enter': 'gotoStream($event)'}" ng-model="search" placeholder="Search for stream"/>
 			</form>
 		</li>
 	</ul>
 </header>
-<div class="container">
+<div ng-if="isAdmin" class="container">
 	<div class="container-left">
 		<table>
 			<thead>
@@ -56,3 +56,4 @@
 		</table>
 	</div>
 </div>
+<em ng-if="!isAdmin">You must be an admin to view recently created streams</em>

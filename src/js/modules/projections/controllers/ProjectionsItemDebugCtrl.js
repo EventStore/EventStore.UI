@@ -261,6 +261,14 @@ define(['./_module'], function (app) {
 				    msg.failure('projection could not be stopped');
 				});
 		    };
+
+		    $scope.goBack = function() {
+		    	if($stateParams.fromQueryState) {
+		    		$state.go('query', {location: $scope.location});
+		    	} else {
+		    		$state.go('^.details');
+		    	}
+		    }
 		}
     ]);
 });

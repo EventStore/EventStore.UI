@@ -54,7 +54,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.tpl.html',
-    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ng-class="{highlight: isPolling == false}" ng-click=togglePause() ng-show=headOfStream>{{ isPolling == true ? \'Pause\' : \'Resume\' }}</a></li><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\'">Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
+    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ng-class="{highlight: isPolling == false}" ng-click=togglePause() ng-show=headOfStream>{{ isPolling == true ? \'Pause\' : \'Resume\' }}</a></li><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\' && isAdmin">Edit ACL</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
 }]);
 })();
 
@@ -66,7 +66,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.list.tpl.html',
-    '<header class=page-header><h2 class=page-title>Stream Browser</h2><ul class=page-nav><li class=page-nav__item><form><input ui-keypress="{\'enter\': \'gotoStream($event)\'}" ng-model="search"></form></li></ul></header><div class=container><div class=container-left><table><thead><tr><th>Recently Created Streams</th></tr></thead><tbody><tr ng-repeat="stream in createdStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=createdStreams><td><em>No recently created streams</em></td></tr></tbody></table></div><div class=container-right><table><thead><tr><th>Recently Changed Streams</th></tr></thead><tbody><tr ng-repeat="stream in changedStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=changedStreams><td><em>No recently changed streams</em></td></tr></tbody></table></div></div>');
+    '<header class=page-header><h2 class=page-title>Stream Browser</h2><ul class=page-nav><li class=page-nav__item><form><input ui-keypress="{\'enter\': \'gotoStream($event)\'}" ng-model=search placeholder="Search for stream"></form></li></ul></header><div ng-if=isAdmin class=container><div class=container-left><table><thead><tr><th>Recently Created Streams</th></tr></thead><tbody><tr ng-repeat="stream in createdStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=createdStreams><td><em>No recently created streams</em></td></tr></tbody></table></div><div class=container-right><table><thead><tr><th>Recently Changed Streams</th></tr></thead><tbody><tr ng-repeat="stream in changedStreams"><td><a ui-sref="^.item.events({streamId: stream.streamId})">{{ stream.streamId }}</a></td></tr><tr ng-hide=changedStreams><td><em>No recently changed streams</em></td></tr></tbody></table></div></div><em ng-if=!isAdmin>You must be an admin to view recently created streams</em>');
 }]);
 })();
 

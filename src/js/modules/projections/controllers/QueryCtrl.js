@@ -6,10 +6,16 @@ define(['./_module'], function (app) {
     // todo: remove State Params if we will not add query for existing queries
 
     return app.controller('QueryCtrl', [
-		'$scope', '$state', '$stateParams', 'QueryService', 'ProjectionsMonitor', 'MessageService',
-		function ($scope, $state, $stateParams, queryService, monitor, msg) {
+		'$scope', '$state', '$stateParams', 'QueryService', 'ProjectionsMonitor', 'MessageService','ProjectionsService',
+		function ($scope, $state, $stateParams, queryService, monitor, msg, projectionsService) {
 
 			var location;
+			if ($stateParams.location) {
+				location = $stateParams.location;
+                projectionsService.query(location).then(function (result) {
+	                $scope.query = result.data.query
+                });
+			}
 
 			function create () {
 				var param = {
@@ -38,7 +44,7 @@ define(['./_module'], function (app) {
 					ignoreQuery: true,
 					ignoreResult: true
 				}).then(null, null, function (data) {
-					var s, stopped;
+					var projection, status, stateReason, stopped;
 
 					if(data.state) {
 						$scope.state = data.state;
@@ -48,10 +54,13 @@ define(['./_module'], function (app) {
 					}
 					
 					if(data.statistics && data.statistics.projections.length) {
-						s = data.statistics.projections[0].status;
-						$scope.status = s;
-
-						stopped = (!!~s.indexOf('Stopped') && !~s.indexOf('Preparing')) || !!~s.indexOf('Faulted') ||!!~s.indexOf('Completed');
+						projection = data.statistics.projections[0];
+						status = projection.status;
+						stateReason = projection.stateReason;
+						$scope.status = status;
+						var lines = stateReason.match(/[^\r\n]+/g);
+						$scope.stateReason = lines !== null && lines.length > 0 ? lines[0] : stateReason;
+						stopped = (!!~status.indexOf('Stopped') && !~status.indexOf('Preparing')) || !!~status.indexOf('Faulted') ||!!~status.indexOf('Completed');
 						$scope.isStopped = stopped;
 					}
 				});
@@ -134,7 +143,8 @@ define(['./_module'], function (app) {
                     queryService.reset(location)
                     .then(function onQueryReset(){
                         $state.go('projections.item.debug', {
-                            location: encodeURIComponent(location)
+                            location: encodeURIComponent(location),
+                            fromQueryState : true
                         }, { 
                             inherit: false 
                         });
