@@ -29,6 +29,7 @@ define(['./_module'], function (app) {
 			$scope.enabled = true;
 			$scope.checkpointsDisabled = false;
 			$scope.checkpoints = false;
+			$scope.trackEmittedStreams = false;
 
 			$scope.save = function () {
 
@@ -41,7 +42,8 @@ define(['./_module'], function (app) {
 					name: $scope.name,
 					emit: yesOrNo($scope.emit),
 					checkpoints: yesOrNo($scope.checkpoints),
-					enabled: yesOrNo($scope.enabled)
+					enabled: yesOrNo($scope.enabled),
+					trackemittedstreams: yesOrNo($scope.trackemittedstreams),
 				};
 
 				projectionsService.create($scope.mode, $scope.source, param)
@@ -56,8 +58,17 @@ define(['./_module'], function (app) {
 					});
 			};
 
-			
-			var unbindHandler = $scope.$watch('mode', function (newVal, oldVal) {
+			var unbindEmitHandler = $scope.$watch('emit', function (newVal, oldVal) {
+				if(newVal == true){
+					$scope.trackemittedstreams = true;
+					$scope.trackEmittedStreamsDisabled = false;
+				} else {
+					$scope.trackEmittedStreamsDisabled = true;
+					$scope.trackemittedstreams = false;
+				}
+			});
+
+			var unbindModeHandler = $scope.$watch('mode', function (newVal, oldVal) {
 				var isContinuous;
 				if(newVal !== oldVal) {
 					isContinuous = newVal === 'continuous';
@@ -71,8 +82,10 @@ define(['./_module'], function (app) {
 					}
 				}
 			});
+			
 			$scope.$on('$destroy', function () {
-				unbindHandler();
+				unbindEmitHandler();
+				unbindModeHandler();
 			});
 		}
 	]);

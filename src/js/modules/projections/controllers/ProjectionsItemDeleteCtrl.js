@@ -27,7 +27,8 @@ define(['./_module'], function (app) {
 			function removeProjection(location){
 				projectionsService.remove($scope.location, {
 					deleteCheckpointStream: $scope.deleteCheckpoint ? 'yes' : 'no',
-					deleteStateStream: $scope.deleteState ? 'yes' : 'no'
+					deleteStateStream: $scope.deleteState ? 'yes' : 'no',
+					deleteEmittedStreams: $scope.deleteEmittedStreams ? 'yes' : 'no'
 				})
 				.success(function () {
 					msg.success('Projection has been removed');
