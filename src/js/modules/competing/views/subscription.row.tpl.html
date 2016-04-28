@@ -19,5 +19,8 @@
         <li class="page-nav__item">
 			<a ui-sref="^.item.detail({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Detail</a>
         </li>
+        <li class="page-nav__item">
+            <a ng-click="$parent.replayParkedMessages(esSubscription.eventStreamId, esSubscription.groupName)">Replay Parked Messages</a>
+        </li>
     </ul>
 </td>
