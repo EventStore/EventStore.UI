@@ -41,6 +41,14 @@ define(['./_module'], function (app) {
                             }
 						});
 					},
+					replayParked: function (stream, subscription) {
+						var url = urlBuilder.build(urls.competing.replayParked, stream, subscription);
+						return $http.post(url, {}, {
+							headers: {
+                                'Content-Type':'application/json'
+                            }
+						});
+					},
 				};
 			}
 		];

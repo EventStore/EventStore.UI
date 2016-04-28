@@ -12,6 +12,14 @@ define(['./_module'], function (app) {
 				params: []
 			});
 
+			$scope.replayParkedMessages = function(streamId, groupName){
+				competingService.replayParked(streamId, groupName).then(function () {
+					msg.success('Replaying Parked Messages');
+				}, function (err) {
+					msg.failure('Failed to initiate replaying of parked messages because ' + err);
+				});
+			}
+
 			$scope.subscriptions = {};
 
 			subscriptionsPoll.start();
