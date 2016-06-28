@@ -484,3 +484,19 @@ kbd {
   text-align: center; }
   .site-footer p {
     margin: 0; }
+
+.note,.note--warning
+{
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;display:block;margin:1.5rem 0;
+  padding:1.5rem;
+  background:#EEF3FF;
+  color:#00216f;
+  border-left:0.75rem solid #bbcfff;
+  font-style:italic
+}
+.note--warning{
+  background:#FFF6CA;
+  color:#4b3e00;
+  border-left:0.75rem solid #ffed97
+}
