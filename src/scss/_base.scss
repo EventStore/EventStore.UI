@@ -120,3 +120,19 @@ kbd {
 	font-weight: 700;
 	font-size: 0.9rem;
 }
+
+.note,.note--warning
+{
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;display:block;margin:1.5rem 0;
+  padding:1.5rem;
+  background:$baby-blue;
+  color:$dark-blue;
+  border-left:0.75rem solid $dark-baby-blue;
+  font-style:italic
+}
+.note--warning{
+  background:$pale-yellow;
+  color:$dark-yellow;
+  border-left:0.75rem solid $dark-pale-yellow;
+}
