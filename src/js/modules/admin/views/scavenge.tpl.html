@@ -21,7 +21,7 @@
                 <th>Status</th>
                 <th>Space Saved (bytes)</th>
                 <th>Time Taken</th>
-                <th>Additional Info</th>
+                <th>Result</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                     {{info.timeTaken}}
                 </td>
                 <td>
-                    <span ng-if="info.type=='$scavengeChunksCompleted'">{{info.wasScavenged ? 'Some chunks scavenged' : 'Nothing scavenged'}}</span>
+                    {{info.result}}
                 </td>
             </tr>
         </tbody>
