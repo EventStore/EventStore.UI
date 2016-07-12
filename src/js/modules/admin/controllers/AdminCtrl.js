@@ -68,6 +68,7 @@ define(['./_module'], function (app) {
                     }
                     if(entry.eventType === '$scavengeCompleted') {
                         currScavenge.endTime = new Date(entry.updated);
+                        currScavenge.result = data.result;
                     }
                 }
                 var agg = Object.keys(aggregated).map(function (key) {return aggregated[key];});

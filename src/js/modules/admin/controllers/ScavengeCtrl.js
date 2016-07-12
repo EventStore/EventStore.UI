@@ -81,22 +81,32 @@ define(['./_module'], function (app) {
                             break;
                         } case '$scavengeChunksCompleted': {
                             var chunkData = JSON.parse(entry.data);
+                            var result = 'No chunks scavenged';
+                            if(chunkData.wasScavenged) {
+                                var chunksScavenged = chunkData.chunkEndNumber - chunkData.chunkStartNumber + 1;
+                                result = chunksScavenged + ' chunk(s) scavenged';
+                            }
                             info.push({
                                 status: 'Scavenging chunks ' + chunkData.chunkStartNumber + ' - ' +
                                             chunkData.chunkEndNumber + ' complete',
-                                wasScavenged: chunkData.wasScavenged,
                                 timeTaken: chunkData.timeTaken,
                                 spaceSaved: chunkData.spaceSaved,
-                                type: entry.eventType
+                                type: entry.eventType,
+                                result: result
                             });
                             break;
                         } case '$scavengeCompleted': {
                             var data = JSON.parse(entry.data);
+                            var result = data.result;
+                            if(data.result === 'Failed') {
+                                result += ': ' + data.error;
+                            }
                             info.push({
                                 status: 'Completed',
                                 timeTaken: data.timeTaken,
                                 spaceSaved: data.spaceSaved,
-                                type: entry.EventType
+                                type: entry.EventType,
+                                result: result
                             });
                         }
                     }

@@ -38,11 +38,12 @@
                     <th>Scavenge</th>
                     <th>Started</th>
                     <th>Completed</th>
+                    <th>Result</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-hide="scavengeHistory.length > 0">
-                    <td colspan="3">
+                    <td colspan="4">
                         <em>No scavenges have been run.</em>
                     </td>
                 </tr>
@@ -51,6 +52,7 @@
                         <br />{{history.scavengeId}}</a></td>
                     <td>{{history.startTime | date:'yyyy-MM-dd HH:mm'}}</td>
                     <td><span ng-show="history.endTime">{{history.endTime | date:'yyyy-MM-dd HH:mm'}}</span><em ng-hide="history.endTime">Not Finished</em></td>
+                    <td><span ng-show="history.result">{{history.result}}</span><span ng-hide="history.result">...</span></td>
                 </tr>
             </tbody>
         </table>
