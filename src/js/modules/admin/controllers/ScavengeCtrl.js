@@ -86,6 +86,9 @@ define(['./_module'], function (app) {
                                 var chunksScavenged = chunkData.chunkEndNumber - chunkData.chunkStartNumber + 1;
                                 result = chunksScavenged + ' chunk(s) scavenged';
                             }
+                            if (chunkData.errorMessage) {
+                                result = 'Error: ' + chunkData.errorMessage;
+                            }
                             info.push({
                                 status: 'Scavenging chunks ' + chunkData.chunkStartNumber + ' - ' +
                                             chunkData.chunkEndNumber + ' complete',
