@@ -47,7 +47,11 @@ define(['./_module'], function (app) {
 						msg.success("Subscription has been created");
 						$state.go('^.list');
 					}, function(response){
-						msg.failure('Coudn\'t create new subscription because ' + response.statusText);
+						var error = response.statusText;
+						if(response.data && response.data.reason) {
+							error = response.data.reason;
+						}
+						msg.failure('Coudn\'t create new subscription because ' + error);
 					});
 			};
 
