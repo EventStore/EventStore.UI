@@ -1,7 +1,5 @@
 # EventStore.UI
 
-*this project is still under development - you can see changes on [dev branch](https://github.com/EventStore/EventStore.UI/tree/dev)*
-
 The new user interface for Event Store. This is included as a submodule in the main [Event Store](https://github.com/EventStore/EventStore) repository.
 
 ## Running new UI
