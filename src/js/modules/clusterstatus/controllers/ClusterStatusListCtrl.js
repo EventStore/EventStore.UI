@@ -80,7 +80,7 @@ define(['./_module'], function (app) {
                     }
                     var seconds = (new Date().getTime() - replica.catchupStartTime) / constants.clusterStatus.replicaPollInterval;
                     var bytes = replica.totalBytesSent - replica.catchupStartBytesSent;
-                    replica.approxSpeed = bytes / seconds;
+                    replica.approxSpeed = Math.round(bytes / seconds);
                     var estimatedTime = Math.round(replica.bytesToCatchUp / replica.approxSpeed);
                     if(estimatedTime < 1) {
                         estimatedTime = 1;
