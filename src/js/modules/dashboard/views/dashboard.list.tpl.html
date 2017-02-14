@@ -93,7 +93,7 @@
 	<tbody>
 	    <tr ng-repeat="stat in tcpStats | startFrom:tcpStatsPaging.currentPage * tcpStatsPaging.pageSize | limitTo: tcpStatsPaging.pageSize">
 			<td>{{stat.connectionId}}</td>
-			<td>{{stat.isExternalConnection ? 'External' : 'Internal'}}</td>
+			<td>{{stat.isExternalConnection ? 'External' : 'Internal'}} {{stat.isSslConnection ? 'SSL' : ''}}</td>
 			<td>{{stat.remoteEndPoint}}</td>
 			<td>{{stat.averageBytesSentPerSecond | number}}</td>
 			<td>{{stat.totalBytesSent | number}}</td>
