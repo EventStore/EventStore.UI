@@ -22,6 +22,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Status</th>
+					<th>Checkpoint Status</th>
 					<th>Mode</th>
 					<th>Done</th>
 					<th>Read / Write in Progress</th>
@@ -39,13 +40,15 @@
 					<th></th>
 					<th></th>
 					<th></th>
+					<th></th>
 					<th class="table-subheading">Processed</th>
 					<th class="table-subheading">Buffered</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="projection in projections">
 					<td><a ui-sref="^.item.details({location: projection.location})">{{ projection.name }}</a></td>
-					<td>{{ projection.status }}{{ projection.checkpointStatus }}</td>
+					<td>{{ projection.status }}</td>
+					<td>{{ projection.checkpointStatus == '' ? '-' : projection.checkpointStatus }}</td>
 					<td>{{ projection.mode }}</td>
 					<td>{{ projection.progress.toFixed(1) }}%</td>
 					<td>{{ projection.readsInProgress }} / {{ projection.writesInProgress }}</td>
