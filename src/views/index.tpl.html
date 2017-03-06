@@ -22,7 +22,7 @@
 				<a ng-class="{'disabled':!projectionsAllowed}" ui-sref="query">Query</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }" title="{{!isAdmin ? notAdminMessage : ''}}">
-				<a ng-class="{'disabled': !isAdmin}" ui-sref="subscriptions.list">Competing Consumers</a>
+				<a ng-class="{'disabled': !isAdmin}" ui-sref="subscriptions.list">Persistent Subscriptions</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('admin') }" title="{{!isAdmin ? notAdminMessage : ''}}">
 				<a ng-class="{'disabled': !isAdmin}" ui-sref="admin">Admin</a>
