@@ -73,6 +73,7 @@
     <thead>
         <tr>
             <th>Connection</th>
+            <th>Client Connection Name</th>
 			<th>Type</th>
             <th>IP Address</th>
             <th colspan="3">Sent (Bytes)</th>
@@ -80,6 +81,7 @@
         </tr>
         <tr>
 			<th></th>
+            <th></th>
             <th></th>
             <th></th>
             <th class="table-subheading">Rate (Bytes/s)</th>
@@ -93,6 +95,7 @@
 	<tbody>
 	    <tr ng-repeat="stat in tcpStats | startFrom:tcpStatsPaging.currentPage * tcpStatsPaging.pageSize | limitTo: tcpStatsPaging.pageSize">
 			<td>{{stat.connectionId}}</td>
+			<td>{{stat.clientConnectionName ? stat.clientConnectionName : 'N/A'}}</td>
 			<td>{{stat.isExternalConnection ? 'External' : 'Internal'}} {{stat.isSslConnection ? 'SSL' : ''}}</td>
 			<td>{{stat.remoteEndPoint}}</td>
 			<td>{{stat.averageBytesSentPerSecond | number}}</td>
