@@ -4,8 +4,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('StreamsItemEventsCtrl', [
-		'$scope', '$stateParams', 'AtomEventsReader', 'MessageService',
-		function ($scope, $stateParams, atom, msg) {
+		'$scope', '$stateParams', 'AtomEventsReader', 'MessageService', 'StreamsService',
+		function ($scope, $stateParams, atom, msg, streamsService) {
 
 			var showJson = {};
 
@@ -57,6 +57,29 @@ define(['./_module'], function (app) {
 
 				evt.showJson = !evt.showJson;
 				showJson[evt.title] = evt.showJson;
+			};
+
+			function deleteStream(streamId){
+				if (streamId === undefined) {
+					msg.info('You cannot delete this stream as the stream id is empty of undefined');
+					return;
+				}
+				var confirmation = msg.confirm('Are you sure you want to delete the stream: ' + streamId + '?');
+				if(!confirmation) {
+					return;
+				}
+				streamsService.deleteStream(streamId)
+				.success(function () {
+					$scope.prev = true;
+				});
+			}
+
+			$scope.deleteStream = function ($event, evt) {
+				deleteStream($scope.streamId);
+			};
+
+			$scope.$parent.deleteStream = function (){
+				deleteStream($scope.streamId);
 			};
 
 			$scope.$parent.isPolling = true;
