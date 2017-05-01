@@ -5,6 +5,9 @@ define(['./_module'], function (app) {
     return app.controller('SignInCtrl', [
 		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService', 'InfoService', 'ScavengeNotificationService',
 		function ($scope, $rootScope, $state, $location, authService, msg, infoService, scavengeNotificationService) {
+      if(window.location.pathname!="/web/index.html"){
+        msg.warn("Hi there! If you want to run Event Store behind a reverse proxy mapped under a subfolder please make sure your proxy server is configured to send the X-Forwarded-Prefix header. If you're mapping Event Store directly under the root directory, there's no need to set this header.","Warning");
+      }
 
 			$scope.log = {
 				username: '',
