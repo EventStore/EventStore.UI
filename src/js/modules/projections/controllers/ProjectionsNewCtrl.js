@@ -58,16 +58,6 @@ define(['./_module'], function (app) {
 					});
 			};
 
-			var unbindEmitHandler = $scope.$watch('emit', function (newVal, oldVal) {
-				if(newVal == true){
-					$scope.trackemittedstreams = true;
-					$scope.trackEmittedStreamsDisabled = false;
-				} else {
-					$scope.trackEmittedStreamsDisabled = true;
-					$scope.trackemittedstreams = false;
-				}
-			});
-
 			var unbindModeHandler = $scope.$watch('mode', function (newVal, oldVal) {
 				var isContinuous;
 				if(newVal !== oldVal) {
@@ -84,7 +74,6 @@ define(['./_module'], function (app) {
 			});
 			
 			$scope.$on('$destroy', function () {
-				unbindEmitHandler();
 				unbindModeHandler();
 			});
 		}
