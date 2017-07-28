@@ -170,6 +170,20 @@ define(['./_module'], function (app) {
 						}
 
 						return $http.put(url, source);
+					},
+					configuration: function (url) {
+						url = urlBuilder.simpleBuild(urls.projections.configuration, 
+							url);
+						return $http.get(url);
+					},
+					updateConfiguration: function (url, configuration) {
+						url = urlBuilder.simpleBuild(urls.projections.configuration, 
+							url);
+						return $http.put(url, configuration, {
+							headers: {
+                                'Content-Type':'application/json'
+                            }
+						});
 					}
 				};
 		}];
