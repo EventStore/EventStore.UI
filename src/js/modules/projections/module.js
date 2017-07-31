@@ -81,6 +81,14 @@ define(['./_index'], function (app) {
                     title: 'Projection Edit'
                 }
             })
+            .state('projections.item.config', {
+                url: '/config',
+                templateUrl: 'projections.item.config.tpl.html',
+                controller: 'ProjectionsItemConfigCtrl',
+                data: {
+                    title: 'Projection Configuration'
+                }
+            })
 
             // ========================================QUERY============
             .state('query', {
