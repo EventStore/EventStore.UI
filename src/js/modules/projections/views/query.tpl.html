@@ -27,7 +27,7 @@
 			</div>
 			<div class="container-right">
 				<h3 class="block-title">State</h3>
-		<pre ng-visible="state !== undefined && isStopped">
+		<pre ng-if="state !== undefined && isStopped">
 {{state | json}}
 		</pre>
 			</div>
