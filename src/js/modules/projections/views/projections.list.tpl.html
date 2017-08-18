@@ -44,8 +44,8 @@
 					<th class="table-subheading">Processed</th>
 					<th class="table-subheading">Buffered</th>
 			</thead>
-			<tbody>
-				<tr ng-repeat="projection in projections">
+			<tbody ng-repeat="projection in projections">
+				<tr>
 					<td><a ui-sref="^.item.details({location: projection.location})">{{ projection.name }}</a></td>
 					<td>{{ projection.status }}</td>
 					<td>{{ projection.checkpointStatus == '' ? '-' : projection.checkpointStatus }}</td>
@@ -57,6 +57,9 @@
 					<td>{{ projection.eventsPerSecond }}</td>
 					<td>{{ projection.eventsProcessedAfterRestart }}</td>
 					<td>{{ projection.bufferedEvents }}</td>
+				</tr>
+				<tr ng-if="projection.status.indexOf('Faulted') !== -1">
+                                  <td style="background-color: red; color: white; font-size: .9rem; padding-left: 2rem;" colspan="10000">{{ projection.stateReason }}</td>
 				</tr>
 				<tr ng-hide="projections">
 					<td colspan="10">
