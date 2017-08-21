@@ -12,7 +12,6 @@ define(['./_module'], function (app) {
 				deferred;
 
 			function createAndStartPoller (url, action, callback) {
-
 				var poller = pollerProvider.create({
 					interval: 1000,
 					action: action,
@@ -46,9 +45,22 @@ define(['./_module'], function (app) {
 					);
 				}
 
-				if(!opts.ignoreState) {
+				if(!opts.ignoreState && opts.partitionProvider) {
 					state = createAndStartPoller(url, 
-						projectionsService.state, 
+						projectionsService.partitionedState(opts.partitionProvider),
+						function (data) {
+							if(!deferred) { 
+								console.log('deffered is null');
+								return ;
+							}
+							deferred.notify({
+								state: data
+							});
+						}
+					);
+				} else if(!opts.ignoreState && !opts.partitionProvider) {
+					state = createAndStartPoller(url, 
+						projectionsService.state,
 						function (data) {
 							if(!deferred) { 
 								console.log('deffered is null');

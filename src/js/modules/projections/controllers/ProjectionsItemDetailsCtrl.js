@@ -35,7 +35,7 @@ define(['./_module'], function (app) {
 				$scope.isStopped = !!~s.indexOf('Stopped');
 			}
 
-			monitor.start($scope.location)
+			monitor.start($scope.location, { partitionProvider: $scope })
 			.then(null, null, function (data) {
 				if(data.statistics && data.statistics.projections.length) {
 					$scope.stats = data.statistics.projections[0];
@@ -108,6 +108,10 @@ define(['./_module'], function (app) {
 			$scope.$on('$destroy', function () {
 				monitor.stop();
 			});
+
+                        $scope.clearState = function () {
+				$scope.state = undefined;
+                        };
 		}
 	]);
 });

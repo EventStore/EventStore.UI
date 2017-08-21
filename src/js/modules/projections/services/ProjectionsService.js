@@ -85,6 +85,30 @@ define(['./_module'], function (app) {
 
 						return $http.get(url, opt);
 					},
+					partitionedState: function (partitionProvider) {
+                                          return function (url, params, opt) {
+						console.log(partitionProvider, url, params, opt);
+						var qp;
+
+						if(params && !params.timeout) {
+							if(partitionProvider.partition) {
+								params.partition = partitionProvider.partition;
+                                                        }
+							qp = '?' + uriProvider.getQuery(params);
+						} else {
+							if(partitionProvider.partition) {
+								qp = '?' + uriProvider.getQuery({ partition: partitionProvider.partition });
+							} else {
+								qp = '';
+							}
+
+							opt = params;
+						}
+
+						url = urlBuilder.simpleBuild(urls.projections.state, url) + qp;
+
+						return $http.get(url, opt);
+					}},
 					state: function (url, params, opt) {
 						var qp;
 
