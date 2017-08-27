@@ -456,6 +456,9 @@ kbd {
 .new-projection-form tr td:first-child {
   width: 15em; }
 
+.edit-projection.maximized {
+  width: 100%; }
+
 .ace_editor {
   min-height: 400px;
   height: 100%;
