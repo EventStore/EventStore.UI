@@ -89,6 +89,19 @@ define(['./_index'], function (app) {
                     title: 'Edit Stream ACL'
                 }
 
+            })
+            .state('streams.item.addStreamEvent', {
+                url: '/addEvent',
+                views: {
+                    '@streams': {
+                        templateUrl: 'streams.item.event.new.tpl.html',
+                        controller: 'StreamsItemAddEventCtrl'
+                    }
+                },
+                data: {
+                    title: 'Add Event To Stream'
+                }
+
             });
     }]);
 });

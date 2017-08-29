@@ -17,6 +17,18 @@ try {
   module = angular.module('es-ui.streams.templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('streams.item.event.new.tpl.html',
+    '<header class=page-header><h2 class=page-title>New Event</h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><form novalidate name=newEvent ng-submit=save() class=new-subscription-form><table><tbody><tr><td>Stream</td><td><input ng-model=streamId class=form-table name=stream ng-class="{ \'form-table--error\' : newEvent.stream.$invalid && !newEvent.stream.$pristine }" disabled="disabled"></td></tr><tr><td>ID</td><td><input ng-model=eventId class=form-table name=evnt ng-class="{ \'form-table--error\' : newEvent.evnt.$invalid && !newEvent.evnt.$pristine }"></td></tr><tr><td>Event Type</td><td><input ng-model=eventType class=form-table name=eventType ng-class="{ \'form-table--error\' : newEvent.eventType.$invalid && !newEvent.eventType.$pristine }"></td></tr><tr class=table-subheading><td colspan=2>Data</td></tr><tr><td colspan=2><div ui-ace=aceConfig ng-model=eventData></div></td></tr><tr class=table-subheading><td colspan=2>Metadata</td></tr><tr><td colspan=2><div ui-ace=aceConfig ng-model=eventMetadata></div></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><button type=submit ng-disabled=newEvent.$invalid>Create</button></li></ul></form>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('es-ui.streams.templates');
+} catch (e) {
+  module = angular.module('es-ui.streams.templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.event.tpl.html',
     '<header class=page-header><h2 class=page-title>{{ evt.title }} <small ng-if=isNotTheSame>Link from {{ evt.positionEventNumber + \'@\' + evt.positionStreamId }}</small></h2><ul class=page-nav><li class=page-nav__item><a ui-sref=^.events>Back</a></li></ul></header><ul class=page-nav style="padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-if=next><a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber + 1})">next</a></li><li class=page-nav__item ng-if=prev><a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber - 1})">prev</a></li></ul><br><table><thead><tr><th>No</th><th>Stream</th><th>Type</th><th>Timestamp</th></tr></thead><tbody><tr><td>{{ evt.eventNumber }}</td><td><a ui-sref="^.events({streamId: evt.streamId})">{{ evt.streamId }}</a></td><td>{{ evt.eventType }}</td><td>{{ evt.updated | date:\'yyyy-MM-dd HH:mm:ss\'}}</td></tr><tr ng-if="evt.isJson || evt.isMetaData || evt.isLinkMetaData"><td colspan=4><div ng-if=evt.isJson><strong>Data</strong><pre>\n' +
     '{{ evt.data }}\n' +
@@ -54,7 +66,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('streams.item.tpl.html',
-    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ng-class="{highlight: isPolling == false}" ng-click=togglePause() ng-show=headOfStream>{{ isPolling == true ? \'Pause\' : \'Resume\' }}</a></li><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\' && isAdmin">Edit ACL</a></li><li class=page-nav__item><a ng-click=deleteStream()>Delete</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
+    '<header class=page-header><h2 class=page-title>Event Stream \'{{ streamId }}\'</h2><ul class=page-nav><li class=page-nav__item><a ng-class="{highlight: isPolling == false}" ng-click=togglePause() ng-show=headOfStream>{{ isPolling == true ? \'Pause\' : \'Resume\' }}</a></li><li class=page-nav__item><a ui-sref=.acl ng-show="streamId !== \'$all\' && isAdmin">Edit ACL</a></li><li class=page-nav__item><a ui-sref=.addStreamEvent ng-show="streamId.indexOf(\'$\') !== 0">Add Event</a></li><li class=page-nav__item><a ng-click=deleteStream()>Delete</a></li><li class=page-nav__item><a ui-sref=^.list>Back</a></li></ul></header><ul style="list-style-type: none; padding:0 0 0.75rem 0 !important"><li class=page-nav__item ng-repeat="link in links"><a ng-href={{link.uri}}>{{ link.relation }}</a></li></ul><br><div ui-view es-link-header></div>');
 }]);
 })();
 
