@@ -33,7 +33,7 @@
 			</div>
 			<div ng-hide="maximized" class="container-right">
 				<h3 class="block-title">State</h3>
-		<pre>
+		<pre ng-if="state !== undefined && isStopped">
 {{state | json}}
 		</pre>
 			</div>
