@@ -92,7 +92,7 @@ define(['./_index'], function (app) {
 
             // ========================================QUERY============
             .state('query', {
-                url: 'query?location',
+                url: 'query?location&initStreamId',
                 parent: 'app',
                 templateUrl: 'query.tpl.html',
                 controller: 'QueryCtrl',

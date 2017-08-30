@@ -15,7 +15,9 @@ define(['./_module'], function (app) {
                 projectionsService.query(location).then(function (result) {
 	                $scope.query = result.data.query
                 });
-			}
+			} else if ($stateParams.initStreamId) {
+                          $scope.query = "fromStream('" + $stateParams.initStreamId + "')\n  .when({\n  })";
+                        }
 
 			function create () {
 				var param = {
@@ -38,6 +40,8 @@ define(['./_module'], function (app) {
 
 
 			function monitorState () {
+
+				$scope.state = undefined;
 
 				monitor.stop();
 				monitor.start(location, {
@@ -72,6 +76,7 @@ define(['./_module'], function (app) {
 			}
 
 			function run () {
+				$scope.maximized = false;
 				var updated = queryService.update(location, $scope.query);
 				
 				updated.success(function () {
