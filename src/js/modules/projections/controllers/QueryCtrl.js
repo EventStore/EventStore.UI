@@ -17,6 +17,8 @@ define(['./_module'], function (app) {
                 });
 			} else if ($stateParams.initStreamId) {
                           $scope.query = "fromStream('" + $stateParams.initStreamId + "')\n  .when({\n  })";
+                        } else {
+                          $scope.query = queryService.retrieveQuery();
                         }
 
 			function create () {
@@ -108,7 +110,10 @@ define(['./_module'], function (app) {
 				mode: 'javascript',
 				useWrapMode: false,
 				showGutter: true,
-				theme: 'monokai'
+				theme: 'monokai',
+                                onChange: function () {
+                                  queryService.rememberQuery($scope.query);
+                                }
 			};
 
 			$scope.disableStop = function () {
