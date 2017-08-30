@@ -2,11 +2,14 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('StreamsItemAddEventCtrl', [
-		'$scope', '$state', '$stateParams', 'StreamsService', 'MessageService',
-		function ($scope, $state, $stateParams, streams, msg) {
+		'$scope', '$state', '$q', '$stateParams', 'StreamsService', 'MessageService',
+		function ($scope, $state, $q, $stateParams, streams, msg) {
 
                         $scope.streamId = $stateParams.streamId;
-                        initializeEventState();
+                        $scope.eventData = '{\n}';
+                        $scope.eventMetadata = '{\n}';
+                        $scope.eventId = generateArbitraryEventId();
+
                         $scope.aceConfig = {
                           mode: 'json',
                           useWrapMode: false,
@@ -14,22 +17,28 @@ define(['./_module'], function (app) {
                           theme: 'monokai'
                         };
 
-
                         $scope.addEvent = function () {
-                          streams
-                            .addEvent(
-                                $scope.streamId,
-                                {
-                                  eventId: $scope.eventId,
-                                  eventType: $scope.eventType,
-                                  data: parseJsonOrUndefined($scope.eventData),
-                                  metadata: parseJsonOrUndefined($scope.eventMetadata)
-                                }
-                            )
+                          $q
+                            .all([
+                                nothingOrValidJson('Event Data', $scope.eventData),
+                                nothingOrValidJson('Event Metadata', $scope.eventMetadata)
+                            ])
+                            .then(function (jsons) {
+                              return streams
+                                .addEvent(
+                                    $scope.streamId,
+                                    {
+                                      eventId: $scope.eventId,
+                                      eventType: $scope.eventType,
+                                      data: jsons[0],
+                                      metadata: jsons[1]
+                                    }
+                                );
+                            })
                             .then(
                                 function () {
                                   msg.success('Event ' + $scope.eventId + '(' + $scope.eventType + ') created');
-                                  initializeEventState();
+                                  $scope.eventId = generateArbitraryEventId();
                                 },
                                 function (response) {
                                   msg.failure('Could not create event. ' + response.statusText);
@@ -37,19 +46,19 @@ define(['./_module'], function (app) {
                             );
                         };
 
-                        function parseJsonOrUndefined(raw) {
-                          try {
-                            return JSON.parse(raw);
-                          } catch (e) {
-                            return undefined;
-                          }
-                        }
+                        function nothingOrValidJson(description, value) {
+                          return $q(function (resolve, reject) {
+                            if (/^\s*$/.test(value)) {
+                              return resolve(undefined);
+                            }
 
-                        function initializeEventState() {
-                          $scope.eventId = generateArbitraryEventId();
-
-                          $scope.eventData = '{\n}';
-                          $scope.eventMetadata = '{\n}';
+                            try
+                            {
+                              return resolve(JSON.parse(value));
+                            } catch (e) {
+                              return reject({ statusText: description + ' is not valid JSON.' });
+                            }
+                          });
                         }
 		}
 	]);
