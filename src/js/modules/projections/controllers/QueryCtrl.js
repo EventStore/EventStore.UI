@@ -39,6 +39,8 @@ define(['./_module'], function (app) {
 
 			function monitorState () {
 
+				$scope.state = undefined;
+
 				monitor.stop();
 				monitor.start(location, {
 					ignoreQuery: true,
