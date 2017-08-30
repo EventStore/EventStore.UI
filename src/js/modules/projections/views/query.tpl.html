@@ -11,6 +11,12 @@
 				<li class="page-nav__item">
 					<button ng-click="debug()" ng-disabled="!isCreated">Debug</button>
 				</li>
+				<li class="page-nav__item" ng-hide="maximized">
+					<button ng-click="maximized = true">Maximize</button>
+				</li>
+				<li class="page-nav__item" ng-show="maximized">
+					<button ng-click="maximized = false">Minimize</button>
+				</li>
 			</ul>
 		</header>
 
@@ -20,12 +26,12 @@
 		<i>{{stateReason}}</i>
 
 		<div class="container">
-			<div class="container-left">
+			<div class="edit-projection" ng-class=" { 'container-left': !maximized, maximized: maximized }">
 				<h3 class="block-title">Source</h3>
 				<div ui-ace="aceConfig" ng-model="query"></div>
 				
 			</div>
-			<div class="container-right">
+			<div ng-hide="maximized" class="container-right">
 				<h3 class="block-title">State</h3>
 		<pre ng-if="state !== undefined && isStopped">
 {{state | json}}
