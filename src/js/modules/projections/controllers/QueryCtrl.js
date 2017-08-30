@@ -72,6 +72,7 @@ define(['./_module'], function (app) {
 			}
 
 			function run () {
+				$scope.maximized = false;
 				var updated = queryService.update(location, $scope.query);
 				
 				updated.success(function () {
