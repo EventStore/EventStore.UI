@@ -4,19 +4,16 @@ define(['./_module'], function (app) {
     return app.controller('StreamsItemAddEventCtrl', [
 		'$scope', '$state', '$stateParams', 'StreamsService', 'MessageService',
 		function ($scope, $state, $stateParams, streams, msg) {
-			$scope.streamId = $stateParams.streamId;
 
-                        $scope.eventId = generateArbitraryEventId();
+                        $scope.streamId = $stateParams.streamId;
+                        initializeEventState();
+                        $scope.aceConfig = {
+                          mode: 'json',
+                          useWrapMode: false,
+                          showGutter: true,
+                          theme: 'monokai'
+                        };
 
-                        $scope.eventData = '{\n}';
-                        $scope.eventMetadata = '{\n}';
-
-			$scope.aceConfig = {
-				mode: 'json',
-				useWrapMode: false,
-				showGutter: true,
-				theme: 'monokai'
-			};
 
                         $scope.addEvent = function () {
                           streams
@@ -25,11 +22,35 @@ define(['./_module'], function (app) {
                                 {
                                   eventId: $scope.eventId,
                                   eventType: $scope.eventType,
-                                  data: JSON.parse($scope.eventData),
-                                  metadata: JSON.parse($scope.eventMetadata)
+                                  data: parseJsonOrUndefined($scope.eventData),
+                                  metadata: parseJsonOrUndefined($scope.eventMetadata)
+                                }
+                            )
+                            .then(
+                                function () {
+                                  msg.success('Event ' + $scope.eventId + '(' + $scope.eventType + ') created');
+                                  initializeEventState();
+                                },
+                                function (response) {
+                                  msg.failure('Could not create event. ' + response.statusText);
                                 }
                             );
                         };
+
+                        function parseJsonOrUndefined(raw) {
+                          try {
+                            return JSON.parse(raw);
+                          } catch (e) {
+                            return undefined;
+                          }
+                        }
+
+                        function initializeEventState() {
+                          $scope.eventId = generateArbitraryEventId();
+
+                          $scope.eventData = '{\n}';
+                          $scope.eventMetadata = '{\n}';
+                        }
 		}
 	]);
 
