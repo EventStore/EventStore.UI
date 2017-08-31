@@ -9,6 +9,16 @@ define(['./_module'], function (app) {
 			function ($http, $q, urls, urlBuilder, uriProvider) {
 
 				return {
+                                        rememberQuery: function (query) {
+						if (!localStorage) { return; }
+
+						localStorage.setItem('latest-query', query);
+                                        },
+                                        retrieveQuery: function () {
+						if (!localStorage) { return ''; }
+
+						return localStorage.getItem('latest-query') || '';
+                                        },
 					create: function (source, params) {
 						var qp = uriProvider.getQuery(params),
 							url = urlBuilder.build(urls.query.create) + qp;
