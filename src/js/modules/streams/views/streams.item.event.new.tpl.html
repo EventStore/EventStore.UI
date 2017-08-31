@@ -1,0 +1,55 @@
+<header class="page-header">
+	<h2 class="page-title">New Event</h2>
+</header>
+
+<form novalidate name="newEvent" ng-submit="save()" class="new-subscription-form">
+<table>
+	<tbody>
+		<tr>
+			<td>Stream</td>
+			<td>
+				<input type="text" ng-model="streamId" class="form-table" name="stream"
+					   ng-class="{ 'form-table--error' : newEvent.stream.$invalid && !newEvent.stream.$pristine }" disabled />
+			</td>
+		</tr>
+		<tr>
+			<td>ID</td>
+			<td>
+				<input type="text" ng-model="eventId" class="form-table" name="evnt"
+					   ng-class="{ 'form-table--error' : newEvent.evnt.$invalid && !newEvent.evnt.$pristine }" />
+			</td>
+		</tr>
+		<tr>
+			<td>Event Type</td>
+			<td>
+				<input type="text" ng-model="eventType" class="form-table" name="eventType"
+					   ng-class="{ 'form-table--error' : newEvent.eventType.$invalid && !newEvent.eventType.$pristine }" />
+			</td>
+		</tr>
+        <tr class="table-subheading">
+            <td colspan="2">Data</td>
+        </tr>
+		<tr>
+			<td colspan="2">
+                          <div ui-ace="aceConfig" style="min-height: 350px; max-height: 350px" ng-model="eventData">
+			</td>
+		</tr>
+        <tr class="table-subheading">
+            <td colspan="2">Metadata</td>
+        </tr>
+		<tr>
+			<td colspan="2">
+                          <div ui-ace="aceConfig" style="min-height: 150px; max-height: 150px" ng-model="eventMetadata">
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	<ul class="page-nav">
+		<li class="page-nav__item">
+			<button type="submit" ng-click="addEvent()" ng-disabled="newEvent.$invalid">Add</button>
+		</li>
+	</ul>
+
+</form>

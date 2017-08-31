@@ -8,6 +8,9 @@
 			<a ui-sref=".acl" ng-show="streamId !== '$all' && isAdmin">Edit ACL</a>
 		</li>
 		<li class="page-nav__item">
+			<a ui-sref=".addStreamEvent" ng-show="streamId.indexOf('$') !== 0">Add Event</a>
+		</li>
+		<li class="page-nav__item">
 			<a ng-click="deleteStream()">Delete</a>
 		</li>
 		<li ng-if="projectionsAllowed" class="page-nav__item">

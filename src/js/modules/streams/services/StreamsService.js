@@ -33,6 +33,20 @@ define(['./_module'], function(app) {
 
                         return deferred.promise;
                     },
+                    addEvent: function (streamId, eventData) {
+                        var url = urlBuilder.build(urls.streams.events, streamId);
+
+                        console.log(eventData);
+
+                        return $http.post(
+                            url,
+                            JSON.stringify([eventData]),
+                            {
+                              headers: {
+                                  'Content-Type':'application/vnd.eventstore.events+json'
+                            }
+                        });
+                    },
                     validateFullUrl: function(check) {
                         var url = urlBuilder.simpleBuild(urls.streams.base, check);
 
