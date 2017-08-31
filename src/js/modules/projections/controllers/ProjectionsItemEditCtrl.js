@@ -43,6 +43,7 @@ define(['./_module'], function (app) {
 			});
 
 			monitor.start($scope.location, {
+				partitionProvider: $scope,
 				ignoreQuery: true
 			})
 			.then(null, null, function (data) {
@@ -58,7 +59,7 @@ define(['./_module'], function (app) {
 				}
 
 				if(data.state) {
-					$scope.sate = data.state;
+					$scope.state = data.state;
 				}
 			});
 
