@@ -57,19 +57,43 @@
 		<label><input type="checkbox" ng-model="emit">Emit enabled</label>
 	</div>
 	<div ng-hide="maximized" class="container-right">
-		<h3 class="block-title">
-		Results
-		<span ng-show="stream">
-			(<a ui-sref="streams.item.events({streamId: stream})">{{ stream }}</a>)
-		</span>
-		</h3>
-		<pre>
-{{result | json}}
-		</pre>
-
-		<h3 class="block-title">State</h3>
-		<pre>
-{{state | json}}
-		</pre>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2">
+						Results
+						<span ng-show="stream">
+										(<a ui-sref="streams.item.events({streamId: stream})">{{ stream }}</a>)
+						</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="2">
+						<pre>{{result | json}}</pre>
+					</td>
+				</tr>
+			</tbody>
+			<thead>
+				<tr>
+					<th colspan="2">
+						State
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="2">
+						<input type="text" ng-model="partition" ng-change="clearState()" placeholder="partition"></input>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<pre>{{state | json}}</pre>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
