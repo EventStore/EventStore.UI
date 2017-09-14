@@ -1,11 +1,12 @@
 define(['./_module'], function (app) {
     'use strict';
 
-    return app.controller('StreamsItemAddEventCtrl', [
+    return app.controller('StreamsAddEventCtrl', [
 		'$scope', '$state', '$q', '$stateParams', 'StreamsService', 'MessageService',
 		function ($scope, $state, $q, $stateParams, streams, msg) {
 
                         $scope.streamId = $stateParams.streamId;
+                        $scope.addingToSpecificStream = Boolean($scope.streamId);
                         $scope.eventData = '{\n}';
                         $scope.eventMetadata = '{\n}';
                         $scope.eventId = generateArbitraryEventId();

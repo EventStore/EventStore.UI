@@ -8,6 +8,9 @@
 				<input type="text" ui-keypress="{'enter': 'gotoStream($event)'}" ng-model="search" placeholder="Search for stream"/>
 			</form>
 		</li>
+		<li class="page-nav__item">
+			<a ui-sref=".addStreamEvent">Add Event</a>
+		</li>
 	</ul>
 </header>
 <div ng-if="isAdmin" class="container">

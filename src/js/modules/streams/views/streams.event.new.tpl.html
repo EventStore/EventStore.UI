@@ -9,7 +9,7 @@
 			<td>Stream ID</td>
 			<td>
 				<input type="text" ng-model="streamId" class="form-table" name="stream"
-					   ng-class="{ 'form-table--error' : newEvent.stream.$invalid && !newEvent.stream.$pristine }" disabled />
+					   ng-class="{ 'form-table--error' : newEvent.stream.$invalid && !newEvent.stream.$pristine }" ng-disabled="addingToSpecificStream" />
 			</td>
 		</tr>
 		<tr>
