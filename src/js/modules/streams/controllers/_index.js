@@ -1,7 +1,7 @@
 define([
     './StreamsItemEventCtrl',
 	'./StreamsItemEventsCtrl',
-	'./StreamsItemAddEventCtrl',
+	'./StreamsAddEventCtrl',
 	'./StreamsItemAclCtrl',
 	'./StreamsListCtrl'
 ], function () {});

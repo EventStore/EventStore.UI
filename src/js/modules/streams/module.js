@@ -90,12 +90,25 @@ define(['./_index'], function (app) {
                 }
 
             })
+            .state('streams.list.addStreamEvent', {
+                url: '/addEvent',
+                views: {
+                    '@streams': {
+                        templateUrl: 'streams.event.new.tpl.html',
+                        controller: 'StreamsAddEventCtrl'
+                    }
+                },
+                data: {
+                    title: 'Add Event To Stream'
+                }
+
+            })
             .state('streams.item.addStreamEvent', {
                 url: '/addEvent',
                 views: {
                     '@streams': {
-                        templateUrl: 'streams.item.event.new.tpl.html',
-                        controller: 'StreamsItemAddEventCtrl'
+                        templateUrl: 'streams.event.new.tpl.html',
+                        controller: 'StreamsAddEventCtrl'
                     }
                 },
                 data: {
