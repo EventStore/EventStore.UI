@@ -51,6 +51,10 @@ define(['./_module'], function (app) {
 				if(data.statistics && data.statistics.projections.length) {
 					$scope.stats = data.statistics.projections[0];
 
+					if ($scope.stats.name === '$by_category' || $scope.stats.name === '$stream_by_category') {
+						$scope.aceConfig.mode = 'text';
+					}
+
 					setButtons();
 				}
 
