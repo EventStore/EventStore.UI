@@ -5,6 +5,9 @@
 	</h2>
 	<ul class="page-nav">
 		<li class="page-nav__item">
+			<a ng-if="evt" ui-sref="^.addStreamEvent({ fromEvent: evt })">Add New Like This</a>
+		</li>
+		<li class="page-nav__item">
 			<a ui-sref="^.events">Back</a>
 		</li>
 	</ul>
