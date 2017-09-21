@@ -113,7 +113,8 @@ define(['./_index'], function (app) {
                 },
                 data: {
                     title: 'Add Event To Stream'
-                }
+                },
+                params: { fromEvent: null, streamId: '' }
 
             });
     }]);

@@ -11,6 +11,15 @@ define(['./_module'], function (app) {
                         $scope.eventMetadata = '{\n}';
                         $scope.eventId = generateArbitraryEventId();
 
+                        if ($stateParams.fromEvent) {
+                          var e = $stateParams.fromEvent;
+
+                          $scope.eventType = e.eventType;
+                          $scope.addingToSpecificStream = false;
+                          $scope.eventData = e.data;
+                          $scope.eventMetadata = e.metaData;
+                        }
+
                         $scope.aceConfig = {
                           mode: 'json',
                           useWrapMode: false,
