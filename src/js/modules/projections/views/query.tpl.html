@@ -21,7 +21,7 @@
 		</header>
 
 		<h3 ng-visible="status">
-			{{status}}<br/>
+			{{status}} <span ng-if="isStopped === false && progress > 0">({{ progress | number:2 }}%)</span><br/>
 		</h3>
 		<i>{{stateReason}}</i>
 
@@ -33,7 +33,7 @@
 			</div>
 			<div ng-hide="maximized" class="container-right">
 				<h3 class="block-title">State</h3>
-		<pre ng-if="state !== undefined && isStopped">
+		<pre ng-if="state !== undefined">
 {{state | json}}
 		</pre>
 			</div>

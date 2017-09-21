@@ -68,6 +68,7 @@ define(['./_module'], function (app) {
 						$scope.stateReason = lines !== null && lines.length > 0 ? lines[0] : stateReason;
 						stopped = (!!~status.indexOf('Stopped') && !~status.indexOf('Preparing')) || !!~status.indexOf('Faulted') ||!!~status.indexOf('Completed');
 						$scope.isStopped = stopped;
+						$scope.progress = projection.progress;
 					}
 				});
 			}
