@@ -6,7 +6,7 @@
 
 <td>{{ esQueue.avgItemsPerSecond }}</td>
 <td>{{ esQueue.avgProcessingTime.toFixed(3)}} </td>
-<td>{{ esQueue.busy }} </td>
+<td>{{ esQueue.busy | number: 1 }}% </td>
 
 <td>{{ esQueue.totalItemsProcessed }}</td>
 
