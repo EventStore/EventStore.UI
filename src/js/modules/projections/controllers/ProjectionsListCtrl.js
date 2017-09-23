@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('ProjectionsListCtrl', [
-		'$rootScope', '$scope', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService', '$state',
-		function ($rootScope, $scope, projectionsService, projectionsMapper, pollerProvider, msg, $state) {
+		'$rootScope', '$scope', '$timeout', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService', '$state',
+		function ($rootScope, $scope, $timeout, projectionsService, projectionsMapper, pollerProvider, msg, $state) {
 
             if($rootScope.projectionsMode == 'None') {
                 msg.failure('Projections are not enabled on the node');
@@ -66,6 +66,17 @@ define(['./_module'], function (app) {
 			$scope.toggleIncludeQueries = function(){
 				$scope.includeQueries = !$scope.includeQueries;
 			}
+
+                        $scope.showCopiedMessage = function (projection) {
+                          projection.copied = true;
+
+                          msg.success('Copied "' + projection.name + '" to clipboard');
+
+                          $timeout(function () {
+                            projection.copied = false;
+                          }, 4000);
+                        };
+
 			var unbindHandler = $scope.$watch('includeQueries', function (newVal, oldVal) {
 				if(newVal !== oldVal) {
 					all.update({params: [newVal]});

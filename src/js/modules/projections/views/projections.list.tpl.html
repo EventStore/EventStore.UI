@@ -46,7 +46,14 @@
 			</thead>
 			<tbody ng-repeat="projection in projections">
 				<tr>
-					<td><a ui-sref="^.item.details({location: projection.location})">{{ projection.name }}</a></td>
+					<td>
+                                          <a ui-sref="^.item.details({location: projection.location})">{{ projection.name }}</a>
+                                          <li class="page-nav__item copy-icon-right">
+                                            <a ui-sref="#" clipboard ng-class="{ copied: projection.copied }" text="projection.name" on-copied="showCopiedMessage(projection)">
+                                              ⎘
+                                            </a>
+                                          </li>
+                                        </td>
 					<td>{{ projection.status }}</td>
 					<td>{{ projection.checkpointStatus == '' ? '-' : projection.checkpointStatus }}</td>
 					<td>{{ projection.mode }}</td>

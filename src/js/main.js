@@ -14,6 +14,7 @@ require.config({
 		'es-ui': './app',
 		'zeroclipboard': '../bower_components/zeroclipboard/dist/ZeroClipboard',
 		'ngClip': '../bower_components/ng-clip/dest/ng-clip.min',
+                'angular-clipboard': '../bower_components/angular-clipboard/angular-clipboard'
 	},
 	shim: {
 		'angular': {
@@ -42,6 +43,10 @@ require.config({
 		'ngClip': {
 			deps: ['zeroclipboard', 'angular'],
 			exports: 'ngClip'
+		},
+		'angular-clipboard': {
+			deps: ['angular'],
+			exports: 'angular-clipboard'
 		},
 	},
 	priority: [

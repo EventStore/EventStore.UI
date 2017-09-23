@@ -13,6 +13,7 @@
     "requirejs-domready": "~2.0.1",
     "jQuery": "~2.1.1",
     "sprintf": "~1.0.0",
-    "sizzle": "~2.0.0"
+    "sizzle": "~2.0.0",
+    "angular-clipboard": "^1.6.1"
   }
 }
