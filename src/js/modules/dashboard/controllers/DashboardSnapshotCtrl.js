@@ -24,7 +24,7 @@ define(['./_module'], function (app) {
 						item.lengthLifetimePeak,
 						item.avgItemsPerSecond,
 						item.avgProcessingTime.toFixed(3),
-						Math.max(0, Math.min(100, 100 - item.idleTimePercent)).toFixed(1),
+						item.busy,
 						item.totalItemsProcessed,
 						item.inProgressMessage + ' / ' + item.lastProcessedMessage
 					);

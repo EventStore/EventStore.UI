@@ -16,7 +16,6 @@ define(['./_module'], function (app) {
                 lengthLifetimePeak: 0,
                 totalItemsProcessed: 0,
                 groupQueues: 0,
-                busy: 0,
                 queues: []
 			};
 		}
@@ -31,9 +30,7 @@ define(['./_module'], function (app) {
 
 	        for(prop in data.es.queue) {
 	            current = data.es.queue[prop];
-
-                    current.busy = Math.max(0, Math.min(100, 100 - current.idleTimePercent));
-
+	            
 	            if(current.groupName) {
 	                
 	                if(!result[current.groupName]) {
