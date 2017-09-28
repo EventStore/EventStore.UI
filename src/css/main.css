@@ -498,6 +498,21 @@ kbd {
   position: relative;
   bottom: 35px; }
 
+li.page-nav__item.copy-icon-right {
+  float: right;
+  list-style: none;
+  font-size: 1.2rem;
+  cursor: pointer; }
+
+li.page-nav__item.copy-icon-right a {
+  padding: .2rem;
+  padding-top: 0;
+  padding-bottom: 0; }
+
+li.page-nav__item.copy-icon-right a.copied {
+  color: white;
+  background-color: #5AB552; }
+
 .site-footer {
   padding: 1.5rem 3rem 3rem;
   text-align: center; }
