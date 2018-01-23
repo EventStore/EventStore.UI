@@ -86,6 +86,7 @@ var rjsOpts = {
         'sprintf': '../bower_components/sprintf/src/sprintf',
         'uiAce': '../bower_components/angular-ui-ace/ui-ace',
         'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
+        'angular-clipboard': '../bower_components/angular-clipboard/angular-clipboard',
         'es-ui': './app'
     }
 };

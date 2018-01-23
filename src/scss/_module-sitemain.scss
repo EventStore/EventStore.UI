@@ -233,6 +233,7 @@
 }
 
 .new-projection-form tr td:first-child { width: 15em; }
+.edit-projection.maximized { width: 100%; }
 .ace_editor { min-height: 400px; height: 100%; font-size: 14px !important; }
 .login-height { height: 100%}
 
@@ -271,4 +272,22 @@
 #toast-container.toast-bottom-full-width > div {
     position:relative;
     bottom:35px;
+}
+
+li.page-nav__item.copy-icon-right {
+	float: right;
+	list-style: none;
+	font-size: 1.2rem;
+	cursor: pointer;
+}
+
+li.page-nav__item.copy-icon-right a {
+padding: .2rem;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+li.page-nav__item.copy-icon-right a.copied {
+color: white;
+background-color: #5AB552;
 }
