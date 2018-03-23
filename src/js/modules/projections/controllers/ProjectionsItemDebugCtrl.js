@@ -232,7 +232,9 @@ define(['./_module'], function (app) {
                     currentEvent.isJson ? JSON.stringify(currentEvent.metadata) : currentEvent.metadata,
                     partition);
 
-		        cachedStates[partition] = state;
+				cachedStates[partition] = state;
+				stateLoaded(cachedStates[partition]);
+
 		        currentPosition = currentEvent.readerPosition;
 		        loadEvents();
 		    };
