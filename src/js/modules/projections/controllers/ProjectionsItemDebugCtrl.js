@@ -230,6 +230,7 @@ define(['./_module'], function (app) {
                     currentEvent.category,
                     currentEvent.eventNumber,
                     currentEvent.isJson ? JSON.stringify(currentEvent.metadata) : currentEvent.metadata,
+                    currentEvent.isJson ? JSON.stringify(currentEvent.linkMetadata) : currentEvent.linkMetadata,
                     partition);
 
 				cachedStates[partition] = state;
