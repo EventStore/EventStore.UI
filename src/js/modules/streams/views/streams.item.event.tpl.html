@@ -13,13 +13,13 @@
 	</ul>
 </header>
 
-<ul class="page-nav" style="padding:0 0 0.75rem 0 !important">
-	<li class="page-nav__item" ng-if="next">
-		<a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber + 1})">next</a>
+<ul class="page-nav" style="padding:0rem 0rem 2rem 0rem !important">
+	<li class="page-nav__item">
+		<button ng-click="prev" ng-disabled="!prev" ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber - 1})">prev</button>
 	</li>
-	<li class="page-nav__item" ng-if="prev">
-		<a ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber - 1})">prev</a>
-	</li>
+	<li class="page-nav__item">
+		<button ng-click="next" ng-disabled="!next" ui-sref=".({streamId: evt.streamId, eventNumber: evt.positionEventNumber + 1})">next</button>
+   </li>
 </ul>
 <br/>
 <table>
