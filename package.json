@@ -2,7 +2,7 @@
   "name": "EventStore-UI",
   "description": "The new user interface for Event Store",
   "homepage": "http://eventstore.org",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "contributors": [
     {
       "name": "Jakub Gutkowski",
