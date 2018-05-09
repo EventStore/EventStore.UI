@@ -1,0 +1,125 @@
+<style>
+
+	.node {
+	  cursor: pointer;
+	}
+
+	.node circle {
+	  fill: #fff;
+	  stroke: #2E9625;
+	  stroke-width: 1.5px;
+	}
+
+	.node text {
+	  font: 14px sans-serif;
+	}
+
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 1.5px;
+	}
+
+	.arrow{
+		stroke-width:8;
+		stroke:#000;
+	}
+
+	.tree_path{
+		font-size: 20px;
+		font-weight: bold;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		padding: 6px 20px 6px 20px;
+	}
+
+	.tree_path_separator{
+		width: 40px;
+		float: left;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	#canvas{
+		width: 100%;
+		height: 600px;
+	}
+
+	.input_control{
+		width: 150px;
+	}
+
+	.input_controls div{
+		margin-bottom: 10px;
+	}
+
+	.input_controls label{
+		display:inline-block;
+		width: 140px;
+	}
+
+	.tips{
+		position: absolute;
+		top: 70px;
+		right: 10px;
+		width: 400px;
+	}
+
+	.tips ul{
+		margin: 0;
+		padding: 0;
+	}
+</style>
+<header class="page-header">
+	<h2 class="page-title">Event Flow Visualization</h2>
+	<ul class="page-nav">
+		<li class="page-nav__item">
+		</li>
+	</ul>
+	<div class="tips">
+			<h2>Some tips to get started</h2>
+			<ul>
+				<li>Make sure that the <strong>$by_correlation_id</strong> projection is running.<br/><strong>Current status: </strong></li>
+				<li>Enter the <strong>Correlation ID</strong> of the event flow you want to visualize</li>
+				<li>Click on green events <svg height="12" width="12"><circle cx="6" cy="6" r="5" fill="#2E9625" /></svg> to expand</li>
+				<li>Hold your click on any event for 2 seconds make it the root node</li>
+			</ul>
+	</div>
+</header>
+
+<div class="input_controls">
+	<form>
+		<div>
+			<label for="correlation_id_prop">Correlation ID property:&nbsp;</label>
+			<input class="input_control" id="correlation_id_property" type="text" value="$correlationId" disabled="true">
+		</div>
+		<div>
+			<label for="caused_by_prop">Caused By property:&nbsp;</label>
+			<input class="input_control" id="caused_by_property" type="text" ng-model="causedByProperty">
+		</div>
+		<div>
+			<label for="correlation_id">Correlation ID:&nbsp;</label>
+			<input class="input_control" id="correlation_id" type="text" ng-model="correlationId">
+			<input type="submit" ng-click="go()" value="Let's go!">
+		</div>
+	</form>
+</div>
+<div style="clear:both"></div>
+
+<div class="tree_path">
+	<span ng-repeat="node in tree.path">
+		<div class="tree_path_separator" ng-if="$index > 0"> > </div>
+		<div style="float: left;" ng-click="tree.makeRootNode(node)"><a href="javascript:;">{{ node.name }}</a></div>
+	</span>
+	<div style="clear:both"></div>
+</div>
+
+<div class="tree_controls">
+	<button ng-click="tree.collapseAll()">Collapse all</button>
+	<button ng-click="tree.expandAll()">Expand all</button>
+	<button ng-click="tree.collapseReset()">Reset</button>
+</div>
+
+
+
+<div id="canvas"></div>

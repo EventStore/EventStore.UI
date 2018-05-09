@@ -7,5 +7,6 @@ define([
     './AuthService',
     './InfoService',
     './MessageService',
-    './ScavengeNotificationService'
+    './ScavengeNotificationService',
+    './d3'
 ], function () {});
