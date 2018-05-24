@@ -41,6 +41,14 @@ define(['./_module'], function (app) {
 				adminService.scavenge().then(null, function () {
 					msg.failure('Scavenge failed');
 				});
+            };
+            
+            $scope.stopScavenge = function ($event, $history) {
+				stop($event);
+
+				adminService.stopScavenge($history.scavengeId).then(null, function () {
+					msg.failure('Stopping scavenge ' + $history.scavengeId + ' failed');
+				});
 			};
 
             $scope.scavengeHistory = function() {
