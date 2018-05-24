@@ -17,6 +17,9 @@ define(['./_module'], function (app) {
 								if(eventData.error) {
 									scavengeNotifyMsg += ' failed';
 									msg.failure(scavengeNotifyMsg);
+								} else if(eventData.result === 'Stopped') {
+									scavengeNotifyMsg += ' stopped';
+									msg.success(scavengeNotifyMsg);
 								} else {
 									scavengeNotifyMsg += ' completed';
 									msg.success(scavengeNotifyMsg);
