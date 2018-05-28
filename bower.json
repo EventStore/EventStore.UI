@@ -17,6 +17,7 @@
     "angular-clipboard": "^1.6.1",
     "d3": "~3.5.17",
     "moment": "^2.22.1",
-    "moment-timezone": "^0.5.17"
+    "moment-timezone": "^0.5.17",
+    "components-font-awesome": "^5.0.6"
   }
 }

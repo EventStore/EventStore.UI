@@ -1,0 +1,49 @@
+{
+  "name": "components-font-awesome",
+  "description": "Font Awesome, the iconic SVG, font, and CSS framework.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/components/font-awesome.git"
+  },
+  "main": [
+    "css/fontawesome-all.css",
+    "scss/fontawesome.scss",
+    "webfonts/fa-brands-400.eot",
+    "webfonts/fa-brands-400.woff2",
+    "webfonts/fa-brands-400.woff",
+    "webfonts/fa-brands-400.ttf",
+    "webfonts/fa-brands-400.svg",
+    "webfonts/fa-regular-400.eot",
+    "webfonts/fa-regular-400.woff2",
+    "webfonts/fa-regular-400.woff",
+    "webfonts/fa-regular-400.ttf",
+    "webfonts/fa-regular-400.svg",
+    "webfonts/fa-solid-900.eot",
+    "webfonts/fa-solid-900.woff2",
+    "webfonts/fa-solid-900.woff",
+    "webfonts/fa-solid-900.ttf",
+    "webfonts/fa-solid-900.svg"
+  ],
+  "license": [
+    "CC-BY-4.0",
+    "MIT",
+    "OFL-1.1"
+  ],
+  "ignore": [
+    "Makefile",
+    "component.json",
+    "composer.json"
+  ],
+  "homepage": "https://github.com/components/font-awesome",
+  "version": "5.0.6",
+  "_release": "5.0.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "5.0.6",
+    "commit": "18619364d77677cec103934b1aee6d4f45407d1a"
+  },
+  "_source": "https://github.com/components/font-awesome.git",
+  "_target": "^5.0.6",
+  "_originalSource": "components-font-awesome",
+  "_direct": true
+}

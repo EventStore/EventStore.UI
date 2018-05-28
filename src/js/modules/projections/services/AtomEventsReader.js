@@ -105,6 +105,15 @@ define(['./_module'], function (app) {
 						if(currentEntries[item.title]) {
 							item.showJson = true;
 						}
+						
+						if(item.metaData){
+							try{
+								item.metaDataParsed = JSON.parse(item.metaData);
+							}
+							catch(err){
+								item.metaDataParsed = null;							
+							}
+						}
 
 						entries[i] = item;
 					}

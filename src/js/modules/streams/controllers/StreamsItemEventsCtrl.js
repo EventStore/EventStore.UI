@@ -59,6 +59,10 @@ define(['./_module'], function (app) {
 				showJson[evt.title] = evt.showJson;
 			};
 
+			$scope.visualize = function (event) {
+				console.log(event);
+			};			
+
 			function deleteStream(streamId){
 				if (streamId === undefined) {
 					msg.info('You cannot delete this stream as the stream id is empty of undefined');
