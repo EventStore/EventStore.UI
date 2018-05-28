@@ -41,7 +41,7 @@ function CollapsibleTree(d3, moment,div_id, scope){
     var margin = {top: 20, right: 120, bottom: 120, left: 120};
     var canvasWidth = document.getElementById(canvas_id).clientWidth;
     var canvasHeight = document.getElementById(canvas_id).clientHeight;
-
+    var timeScale
     var width = canvasWidth - margin.right - margin.left;
     var height = canvasHeight - margin.top - margin.bottom;
 
@@ -197,7 +197,7 @@ function CollapsibleTree(d3, moment,div_id, scope){
             }
         });
         
-        var timeScale = d3.scale.linear().domain([minMoment, maxMoment]).range([0,width]);
+        timeScale = d3.scale.linear().domain([minMoment, maxMoment]).range([0,width]);
        
         // Update the nodes…
         var node = svg.selectAll("g.node")
@@ -282,9 +282,7 @@ function CollapsibleTree(d3, moment,div_id, scope){
         var nodeUpdate = node.transition()
             .duration(duration)
             .attr("transform", function(d) { 
-                
                 return "translate(" + timeScale(moment(d.event.updated)) + "," + d.x + ")"; 
-                // return "translate(" + d.y + "," + d.x + ")"; 
             });
 
         nodeUpdate.select("circle")
@@ -320,6 +318,15 @@ function CollapsibleTree(d3, moment,div_id, scope){
                 return [timeScale(moment(d.event.updated)), d.x];
             }
         });
+
+        var smartDiagonal = function(d){
+            sy = timeScale(moment(d.source.event.updated));
+            ty = timeScale(moment(d.target.event.updated));
+            return "M" + sy + "," + d.source.x
+            + "C" + sy +  "," + (d.source.x + d.target.x) / 2
+            + " " + ty + "," + (d.source.x + d.target.x) / 2
+            + " " + ty + "," + d.target.x;
+        };
         
         // Enter any new links at the parent's previous position.
          
@@ -328,33 +335,7 @@ function CollapsibleTree(d3, moment,div_id, scope){
             .attr("id", function(d){
                 return d.source.id+":"+d.target.id;
             })
-            .attr("d",function(d){
-                sy = timeScale(moment(d.source.event.updated));
-                ty = timeScale(moment(d.target.event.updated));
-                return "M" + sy + "," + d.source.x
-                + "C" + sy +  "," + (d.source.x + d.target.x) / 2
-                + " " + ty + "," + (d.source.x + d.target.x) / 2
-                + " " + ty + "," + d.target.x;
-            }
-            // .attr("d", function(d) {
-            //     // var o = {x: source.x0, y: source.y0};
-            //     // var o = {x: source.x0, y: timeScale(moment(source.event.updated))};
-                
-            //     // return diagonal(
-            //     //         {
-            //     //             source: {x: d.source.x0, y: timeScale(moment(d.source.y0))}, 
-            //     //             target: {x: d.target.x0, y: timeScale(moment(d.target.y0))}
-            //     //         }
-            //     //     );
-            //     // return diagonal(
-            //     //     {
-            //     //         source: {x: source.x0, y: source.y0}, 
-            //     //         target: {x: source.x0, y: source.y0}
-            //     //     }
-            //     // );
-            //     return diagonal(d);
-            // }
-        );
+            .attr("d",smartDiagonal);
         
         d3.selectAll(".edge-label").remove();
         links.forEach(function (d){
@@ -373,55 +354,19 @@ function CollapsibleTree(d3, moment,div_id, scope){
             .text("+ "+diffMoment+ " ms");
         });
 
-        // Transition links to their new position.
-        // link.transition()
-        //     .duration(duration)
-        //     .attr("d", diagonal);
         link.transition()
             .duration(duration)
-            .attr("d", function(d){
-                // console.log(d);
-                // return diagonal(
-                //     {
-                //         source: {x: d.source.x0, y: timeScale(moment(d.source.event.updated))}, 
-                //         target: {x: d.target.x0, y: timeScale(moment(d.target.event.updated))}
-                //     }
-                // );
-                // return diagonal(
-                //     {
-                //         source: {x: d.source.x0, y: d.source.y0}, 
-                //         target: {x: d.target.x0, y: d.target.y0}
-                //     }
-                // );
-                // return diagonal(d);
-                sy = timeScale(moment(d.source.event.updated));
-                ty = timeScale(moment(d.target.event.updated));
-                return "M" + sy + "," + d.source.x
-                + "C" + sy +  "," + (d.source.x + d.target.x) / 2
-                + " " + ty + "," + (d.source.x + d.target.x) / 2
-                + " " + ty + "," + d.target.x;
-            }
-        );
+            .attr("d",smartDiagonal);
 
         // Transition exiting nodes to the parent's new position.
         link.exit().transition()
             .duration(duration)
             .attr("d", function(d) {
-            var o = {x: source.x, y: source.y};
-            // return diagonal({source: o, target: o});
-                // return diagonal(d);
-                sy = timeScale(moment(d.source.event.updated));
-                ty = timeScale(moment(d.target.event.updated));
-                return "M" + sy + "," + d.source.x
-                + "C" + sy +  "," + (d.source.x + d.target.x) / 2
-                + " " + ty + "," + (d.source.x + d.target.x) / 2
-                + " " + ty + "," + d.target.x;
+                return smartDiagonal(d);
             })
             .remove();
         
-        // 
         link.on("mouseover", function(d){
-            // console.log(d); 
             })
         
         // Stash the old positions for transition.
@@ -430,6 +375,8 @@ function CollapsibleTree(d3, moment,div_id, scope){
         d.y0 = d.y;
         });
 
+        //TODO: change time from long to formatted
+        d3.selectAll(".xaxis").remove();
         var xAxis = d3.svg.axis()
             .orient("bottom")
             .scale(timeScale)
@@ -439,7 +386,6 @@ function CollapsibleTree(d3, moment,div_id, scope){
             .attr("transform", "translate(0," + (height+25) + ")")
             .attr("fill", "none")
             .call(xAxis);
-        
     }
 
   return this;
