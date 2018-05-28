@@ -15,7 +15,8 @@ require.config({
 		'zeroclipboard': '../bower_components/zeroclipboard/dist/ZeroClipboard',
 		'ngClip': '../bower_components/ng-clip/dest/ng-clip.min',
 		'angular-clipboard': '../bower_components/angular-clipboard/angular-clipboard',
-		'd3': '../bower_components/d3/d3.min'
+		'd3': '../bower_components/d3/d3.min',
+		'moment': '../bower_components/moment/moment'
 	},
 	shim: {
 		'angular': {

@@ -69,6 +69,32 @@
 		margin: 0;
 		padding: 0;
 	}
+	.event-detail{
+		position: absolute;
+		top: 70px;
+		right: 450px;
+		width: 250px;
+	}
+	.edge-label{
+		font-size: 10px;
+	}
+	.node-timestamp{
+		font-size: 10px !important;
+		color: red; 
+	}
+	.xaxis line{
+	stroke: #2E9625;
+	stroke-width: 1px;
+	}
+
+	.xaxis path{
+	stroke: #2E9625;
+	stroke-width: 1px;
+	}
+
+	.xaxis text{
+	fill:black;
+}
 </style>
 <header class="page-header">
 	<h2 class="page-title">Event Flow Visualization</h2>
@@ -84,6 +110,14 @@
 				<li>Click on green events <svg height="12" width="12"><circle cx="6" cy="6" r="5" fill="#2E9625" /></svg> to expand</li>
 				<li>Hold your click on any event for 2 seconds make it the root node</li>
 			</ul>
+	</div>
+	<div class = "event-detail">
+		<h2>Event Detail</h2>
+		<div>Name: {{selectedEventName}}</div>
+		<div>Event ID: {{selectedEventID}}</div>
+		<div>Timestamp: {{selectedEventTimestamp}}</div>
+		<div>id: <a  target="_blank" href="{{selectedEventLink}}">{{selectedEventLink}}</a></div>
+		
 	</div>
 </header>
 

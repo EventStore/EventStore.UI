@@ -1,10 +1,12 @@
-define(['./_module'], function (app) {
+define(['./_module', 'moment'], 
+function (app, moment) {
     'use strict';
-
+    
     return app.controller('VisualizeEventFlowCtrl', ['$scope','d3','StreamsService','MessageService',
 		function VisualizeEventFlowCtrl($scope,d3,streamsService,msg) {
+            
             $scope.causedByProperty = "$causedBy";
-            $scope.tree = new CollapsibleTree(d3, "canvas", $scope);
+            $scope.tree = new CollapsibleTree(d3, moment, "canvas", $scope);
             
             $scope.go = function(){
                 $scope.tree.clearEvents();
@@ -28,7 +30,7 @@ define(['./_module'], function (app) {
 		}]);
 });
 
-function CollapsibleTree(d3, div_id, scope){
+function CollapsibleTree(d3, moment,div_id, scope){
     //Based on d3 collapsible tree: https://bl.ocks.org/mbostock/4339083
     var svg, root, tree;
     var collapsibleTree = this;
@@ -36,7 +38,7 @@ function CollapsibleTree(d3, div_id, scope){
     var id = 0;
     var duration = 750;
     var canvas_id = div_id;
-    var margin = {top: 20, right: 120, bottom: 20, left: 120};
+    var margin = {top: 20, right: 120, bottom: 120, left: 120};
     var canvasWidth = document.getElementById(canvas_id).clientWidth;
     var canvasHeight = document.getElementById(canvas_id).clientHeight;
 
@@ -177,13 +179,26 @@ function CollapsibleTree(d3, div_id, scope){
     }
 
     function update(source) {
+     
         // Compute the new tree layout.
         var nodes = tree.nodes(root).reverse(),
             links = tree.links(nodes);
 
+        var minMoment = moment(source.event.updated);
+        var maxMoment = moment(source.event.updated);
         // Normalize for fixed-depth.
-        nodes.forEach(function(d) { d.y = d.depth * 180; });
-
+        nodes.forEach(function(d) { 
+            d.y = d.depth * 180; 
+            if(moment(d.event.updated).isBefore(minMoment)){
+                minMoment = moment(d.event.updated)
+            }
+            if(moment(d.event.updated).isAfter(maxMoment)){
+                maxMoment = moment(d.event.updated)
+            }
+        });
+        
+        var timeScale = d3.scale.linear().domain([minMoment, maxMoment]).range([0,width]);
+       
         // Update the nodes…
         var node = svg.selectAll("g.node")
             .data(nodes, function(d) { return d.id || (d.id = ++id); });
@@ -191,7 +206,9 @@ function CollapsibleTree(d3, div_id, scope){
         // Enter any new nodes at the parent's previous position.
         var nodeEnter = node.enter().append("g")
             .attr("class", "node")
-            .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+            .attr("transform", function(d) {
+                return "translate(" + source.y0 + "," + source.x0 + ")"; 
+            })
             .on("mousedown", function(d){
                 d.clickInProcess = true;
                 setTimeout(function(){
@@ -208,7 +225,10 @@ function CollapsibleTree(d3, div_id, scope){
                 }
             })
             .on("mouseover", function(d){
-
+                scope.selectedEventName = d.name;
+                scope.selectedEventID = d.event.eventId;
+                scope.selectedEventLink = d.event.id;
+                scope.selectedEventTimestamp = d.event.updated;
             })
             .on("mouseout", function(d){
                 
@@ -232,23 +252,49 @@ function CollapsibleTree(d3, div_id, scope){
             .attr("r", 1e-6)
             .style("fill", function(d) { return d._children ? "#2E9625" : "#fff"; });
 
-        nodeEnter.append("text")
+        nodeEnter.append("text") //node name
             .attr("x", function(d) { return d._children ? -12 : 12; })
             .attr("dy", ".35em")
             .attr("text-anchor", function(d) { return d._children ? "end" : "start"; })
             .text(function(d) { return d.name; })
             .style("fill-opacity", 1e-6);
 
+        nodeEnter.append("text") //timestamp
+            .attr("x", function(d) { return d._children ? 30 : -30; })
+            .attr("dy", ".35em")
+            .attr("class","node-timestamp")
+            .attr("text-anchor", "middle")
+            .text(function(d) {
+                if(d.event.eventId == root.event.eventId){ //is root
+                    return "[0 ms]";
+                }else{
+                    var rootMoment = moment(root.event.updated)
+                    var currentMoment = moment(d.event.updated)
+                    var diffMoment = currentMoment.diff(rootMoment);
+                    return "["+diffMoment+" ms]";
+                }
+                 
+            })
+            .style("fill-opacity", 1e-6);
+
+
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
-            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+            .attr("transform", function(d) { 
+                
+                return "translate(" + timeScale(moment(d.event.updated)) + "," + d.x + ")"; 
+                // return "translate(" + d.y + "," + d.x + ")"; 
+            });
 
         nodeUpdate.select("circle")
             .attr("r", 7)
             .style("fill", function(d) { return (d._children && d._children.length>0) ? "#2E9625" : "#fff"; });
 
         nodeUpdate.select("text")
+            .style("fill-opacity", 1);
+
+        nodeUpdate.selectAll(".node-timestamp")
             .style("fill-opacity", 1);
 
         // Transition exiting nodes to the parent's new position.
@@ -267,35 +313,133 @@ function CollapsibleTree(d3, div_id, scope){
         var link = svg.selectAll("path.link")
             .data(links, function(d) { return d.target.id; });
 
-        var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
-
+        var diagonal = d3.svg.diagonal().projection(function(d) { 
+            if(d.event == undefined){
+                return [d.y, d.x]; 
+            }else{
+                return [timeScale(moment(d.event.updated)), d.x];
+            }
+        });
+        
         // Enter any new links at the parent's previous position.
+         
         link.enter().insert("path", "g")
             .attr("class", "link")
-            .attr("d", function(d) {
-            var o = {x: source.x0, y: source.y0};
-            return diagonal({source: o, target: o});
-            });
+            .attr("id", function(d){
+                return d.source.id+":"+d.target.id;
+            })
+            .attr("d",function(d){
+                sy = timeScale(moment(d.source.event.updated));
+                ty = timeScale(moment(d.target.event.updated));
+                return "M" + sy + "," + d.source.x
+                + "C" + sy +  "," + (d.source.x + d.target.x) / 2
+                + " " + ty + "," + (d.source.x + d.target.x) / 2
+                + " " + ty + "," + d.target.x;
+            }
+            // .attr("d", function(d) {
+            //     // var o = {x: source.x0, y: source.y0};
+            //     // var o = {x: source.x0, y: timeScale(moment(source.event.updated))};
+                
+            //     // return diagonal(
+            //     //         {
+            //     //             source: {x: d.source.x0, y: timeScale(moment(d.source.y0))}, 
+            //     //             target: {x: d.target.x0, y: timeScale(moment(d.target.y0))}
+            //     //         }
+            //     //     );
+            //     // return diagonal(
+            //     //     {
+            //     //         source: {x: source.x0, y: source.y0}, 
+            //     //         target: {x: source.x0, y: source.y0}
+            //     //     }
+            //     // );
+            //     return diagonal(d);
+            // }
+        );
+        
+        d3.selectAll(".edge-label").remove();
+        links.forEach(function (d){
+            var sourceMoment = moment(d.source.event.updated)
+            var targetMoment = moment(d.target.event.updated)
+            var diffMoment = targetMoment.diff(sourceMoment);
+            svg.append("text").attr("class","edge-label")
+            .append("textPath")
+            .attr("startOffset","40%")
+            .attr("href", "#"+d.source.id+":"+d.target.id)
+            .append("tspan")
+            .attr("dy", function(){
+                if(d.target.x > d.source.x) return "10";
+                return "-3";
+            })
+            .text("+ "+diffMoment+ " ms");
+        });
 
         // Transition links to their new position.
+        // link.transition()
+        //     .duration(duration)
+        //     .attr("d", diagonal);
         link.transition()
             .duration(duration)
-            .attr("d", diagonal);
+            .attr("d", function(d){
+                // console.log(d);
+                // return diagonal(
+                //     {
+                //         source: {x: d.source.x0, y: timeScale(moment(d.source.event.updated))}, 
+                //         target: {x: d.target.x0, y: timeScale(moment(d.target.event.updated))}
+                //     }
+                // );
+                // return diagonal(
+                //     {
+                //         source: {x: d.source.x0, y: d.source.y0}, 
+                //         target: {x: d.target.x0, y: d.target.y0}
+                //     }
+                // );
+                // return diagonal(d);
+                sy = timeScale(moment(d.source.event.updated));
+                ty = timeScale(moment(d.target.event.updated));
+                return "M" + sy + "," + d.source.x
+                + "C" + sy +  "," + (d.source.x + d.target.x) / 2
+                + " " + ty + "," + (d.source.x + d.target.x) / 2
+                + " " + ty + "," + d.target.x;
+            }
+        );
 
         // Transition exiting nodes to the parent's new position.
         link.exit().transition()
             .duration(duration)
             .attr("d", function(d) {
             var o = {x: source.x, y: source.y};
-            return diagonal({source: o, target: o});
+            // return diagonal({source: o, target: o});
+                // return diagonal(d);
+                sy = timeScale(moment(d.source.event.updated));
+                ty = timeScale(moment(d.target.event.updated));
+                return "M" + sy + "," + d.source.x
+                + "C" + sy +  "," + (d.source.x + d.target.x) / 2
+                + " " + ty + "," + (d.source.x + d.target.x) / 2
+                + " " + ty + "," + d.target.x;
             })
             .remove();
-
+        
+        // 
+        link.on("mouseover", function(d){
+            // console.log(d); 
+            })
+        
         // Stash the old positions for transition.
         nodes.forEach(function(d) {
         d.x0 = d.x;
         d.y0 = d.y;
         });
+
+        var xAxis = d3.svg.axis()
+            .orient("bottom")
+            .scale(timeScale)
+            .ticks(5);
+        svg.append("g")
+            .attr("class", "xaxis")   // give it a class so it can be used to select only xaxis labels  below
+            .attr("transform", "translate(0," + (height+25) + ")")
+            .attr("fill", "none")
+            .call(xAxis);
+        
     }
 
   return this;
