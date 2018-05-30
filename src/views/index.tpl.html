@@ -21,6 +21,9 @@
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }" title="{{!projectionsAllowed ? projectionsNotRunningMessage : ''}}">
 				<a ng-class="{'disabled':!projectionsAllowed}" ui-sref="query">Query</a>
 			</li>
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('visualize') }" title="{{!projectionsAllowed ? projectionsNotRunningMessage : ''}}">
+				<a ng-class="{'disabled':!projectionsAllowed}" ui-sref="visualize.eventflow">Visualize</a>
+			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }" title="{{!isAdmin ? notAdminMessage : ''}}">
 				<a ng-class="{'disabled': !isAdmin}" ui-sref="subscriptions.list">Persistent Subscriptions</a>
 			</li>

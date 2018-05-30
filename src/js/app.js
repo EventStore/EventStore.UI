@@ -4,7 +4,7 @@ define([
 	'uiUtils',
 	'uiAce',
 	'ngToastr',
-        'angular-clipboard',
+	'angular-clipboard',
 	'./modules/projections/module',
 	'./modules/admin/module',
 	'./modules/dashboard/module',
@@ -13,6 +13,7 @@ define([
 	'./modules/security/module',
 	'./modules/users/module',
 	'./modules/competing/module',
+	'./modules/visualize/module',
 	'./services/_index',
 	'./directives/_index',
 	'./templates/_index'
@@ -33,10 +34,11 @@ define([
 		'es-ui.directives',
 		'es-ui.services',
 		'es-ui.templates',
+		'es-ui.visualize',
 		'ui.router',
 		'ui.utils',
 		'ui.ace',
 		'toastr',
-                'angular-clipboard'
+		'angular-clipboard',
 	]);
 });

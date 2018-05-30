@@ -218,6 +218,9 @@ gulp.task('html', function () {
     templateForModule('./src/js/modules/competing/views/*.tpl.html',
         './src/js/modules/competing/templates',
         'es-ui.competing.templates');
+    templateForModule('./src/js/modules/visualize/views/*.tpl.html',
+        './src/js/modules/visualize/templates',
+        'es-ui.visualize.templates');
 });
 
 /**
