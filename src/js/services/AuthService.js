@@ -49,12 +49,12 @@ define(['./_module'], function (app) {
 				if(!escreds){
 					escreds = {
 						servers : {}
-					}
+					};
 				}
 				escreds.servers[server] = {
 					credentials : Base64.encode(username + ':' + password),
 					groups : groups
-				}
+				};
 				$cookieStore.put('es-creds', escreds);
 			}
 
@@ -127,7 +127,7 @@ define(['./_module'], function (app) {
 		        	var deferred = $q.defer();
 		        	var credentials = getCredentialsFromCookie(server);
 		        	var storedUsername = Base64.decode(credentials).split(':')[0];
-		        	if(storedUsername == username){
+					if(storedUsername === username){
 		        		this.validate(username, newPassword, server)
 		        		.success(function() {
 		        			deferred.resolve();

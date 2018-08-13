@@ -10,11 +10,13 @@ define(['./_module'], function (app) {
 			$scope.subscription = $state.params.groupName;
 
 			$scope.delete = function () {
-				var confirmation = msg.confirm("Are you sure you wish to delete the subscription?");
-				if(!confirmation) return;
+				var confirmation = msg.confirm('Are you sure you wish to delete the subscription?');
+				if(!confirmation){
+					return;
+				}
 				competingService.delete($scope.stream, $scope.subscription)
 					.success(function(data){
-						msg.success("Subscription has been deleted");
+						msg.success('Subscription has been deleted');
 						$state.go('subscriptions.list');
 				});
 			};

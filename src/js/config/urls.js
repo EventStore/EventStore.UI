@@ -54,7 +54,7 @@ define(['es-ui'], function (app) {
 				enable: '%s/command/enable',
 				disable: '%s/command/disable'
 			},
-			configuration: "%s/config"
+			configuration: '%s/config'
 		},
 		streams: {
 			base: '%s',

@@ -31,7 +31,9 @@ define(['./_module'], function (app) {
 					
 					(function tick () {
 						var arr = self.opts.params.slice();
-						if(!self.canceller) return;
+						if(!self.canceller){
+							return;
+						}
 						arr.push({timeout: self.canceller.promise});		
 		
 						self.opts.action.apply(null, arr)
@@ -44,8 +46,6 @@ define(['./_module'], function (app) {
 					})();
 				},
 				start: function () {
-					var self = this;
-
 					this.resume();
 
 					this.promise = this.deferred.promise;

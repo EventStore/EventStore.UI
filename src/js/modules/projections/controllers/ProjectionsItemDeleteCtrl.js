@@ -48,7 +48,7 @@ define(['./_module'], function (app) {
 					removeProjection($scope.location);
 				})
 				.error(function (message) {
-					if(message.indexOf('Not enabled') != -1){
+					if(message.indexOf('Not enabled') !== -1){
 						removeProjection($scope.location);
 					}else{
 						msg.failure('Projection could not be stopped');
