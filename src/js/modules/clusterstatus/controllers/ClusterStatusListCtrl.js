@@ -11,14 +11,15 @@ define(['./_module'], function (app) {
 			function(response){
 				var options = response.data;
 				for (var index in options) {
-					if(options[index].name == "ClusterSize" && options[index].value > 1){
+					if(options[index].name === 'ClusterSize' && options[index].value > 1){
 						setupGossipPoller();
 					}
 				}
-			}, 
+			},
 			function(){
 
-			});
+            });
+            var replicaStatsQuery;
 			function setupGossipPoller(){
 				var gossipQuery = poller.create({
 			        interval: 1000,
@@ -29,7 +30,7 @@ define(['./_module'], function (app) {
 			    gossipQuery.promise.then(null, null, function (response) {
 			        $scope.lastUpdatedTime = new Date();
 			        if (response.error) {
-			            $scope.errorMessage = "couldn't connect to manager";
+			            $scope.errorMessage = 'couldn\'t connect to manager';
 			        } else {
 			            $scope.errorMessage = '';
 			            $scope.nodes = response.members;
@@ -45,7 +46,6 @@ define(['./_module'], function (app) {
 			    });
 			}
 
-            var replicaStatsQuery;
             function setupReplicaStatsPoller() {
                 replicaStatsQuery = poller.create({
                     interval: constants.clusterStatus.replicaPollInterval,

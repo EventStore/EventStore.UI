@@ -44,7 +44,7 @@ define(['./_module'], function (app) {
 
 				competingService.create($scope.stream, $scope.subscription, param)
 					.then(function (data, status) {
-						msg.success("Subscription has been created");
+						msg.success('Subscription has been created');
 						$state.go('^.list');
 					}, function(response){
 						var error = response.statusText;

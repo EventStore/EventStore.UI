@@ -108,7 +108,7 @@ define(['./_module'], function (app) {
 						url = urlBuilder.simpleBuild(urls.projections.state, url) + qp;
 
 						return $http.get(url, opt);
-					}},
+					};},
 					state: function (url, params, opt) {
 						var qp;
 

@@ -6,7 +6,7 @@ define(['./_module'], function (app) {
 		'$rootScope', '$scope', '$timeout', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService', '$state',
 		function ($rootScope, $scope, $timeout, projectionsService, projectionsMapper, pollerProvider, msg, $state) {
 
-            if($rootScope.projectionsMode == 'None') {
+            if($rootScope.projectionsMode === 'None') {
                 msg.failure('Projections are not enabled on the node');
                 $state.go('dashboard.list');
                 return;
@@ -65,7 +65,7 @@ define(['./_module'], function (app) {
 			$scope.includeQueries = false;
 			$scope.toggleIncludeQueries = function(){
 				$scope.includeQueries = !$scope.includeQueries;
-			}
+			};
 
                         $scope.showCopiedMessage = function (projection) {
                           projection.copied = true;

@@ -19,7 +19,7 @@ define(['./_module'], function (app) {
 					.then(function(){
 						$state.go('^.details');
 					}, function(){
-						msg.failure("We tried to reset the credentials in the cookie and failed. Please log in again.");
+						msg.failure('We tried to reset the credentials in the cookie and failed. Please log in again.');
 						$state.go('signin');
 					});
 				})

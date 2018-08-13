@@ -72,6 +72,7 @@ define(['./_module'], function (app) {
                 var info = [];
                 for(var i = 0; i < entries.length; i++) {
                     var entry = entries[i];
+                    var result;
                     switch (entry.eventType) {
                         case '$scavengeStarted': {
                             info.push({
@@ -81,7 +82,7 @@ define(['./_module'], function (app) {
                             break;
                         } case '$scavengeChunksCompleted': {
                             var chunkData = JSON.parse(entry.data);
-                            var result = 'No chunks scavenged';
+                            result = 'No chunks scavenged';
                             if(chunkData.wasScavenged) {
                                 var chunksScavenged = chunkData.chunkEndNumber - chunkData.chunkStartNumber + 1;
                                 result = chunksScavenged + ' chunk(s) scavenged';
@@ -100,7 +101,7 @@ define(['./_module'], function (app) {
                             break;
                         } case '$scavengeCompleted': {
                             var data = JSON.parse(entry.data);
-                            var result = data.result;
+                            result = data.result;
                             if(data.result === 'Failed') {
                                 result += ': ' + data.error;
                             }

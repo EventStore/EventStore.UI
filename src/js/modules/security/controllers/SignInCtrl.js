@@ -9,7 +9,7 @@ define(['./_module'], function (app) {
 			$scope.log = {
 				username: '',
 				password: '',
-				server: $location.protocol() + "://" + $location.host() + ':' + $location.port()
+				server: $location.protocol() + '://' + $location.host() + ':' + $location.port()
 			};
 
 			if(!$location.host()) {
@@ -26,8 +26,8 @@ define(['./_module'], function (app) {
 				.success(function (info) {
 					$rootScope.singleNode = true;
 					$rootScope.esVersion = info.esVersion || '0.0.0.0';
-                    $rootScope.esVersion = $rootScope.esVersion  == '0.0.0.0' ? 'development build' : $rootScope.esVersion;
-                    $rootScope.projectionsAllowed = info.projectionsMode != 'None';
+                    $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
+                    $rootScope.projectionsAllowed = info.projectionsMode !== 'None';
                     $rootScope.projectionsMode = info.projectionsMode;
 
                     authService.getUserGroups($scope.log.username).then(function(groups) {
@@ -37,7 +37,7 @@ define(['./_module'], function (app) {
 		                    infoService.getOptions().then(function onGetOptions(response){
 		                        var options = response.data;
 		                        for (var index in options) {
-		                            if(options[index].name == "ClusterSize" && options[index].value > 1){
+		                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
 		                                $rootScope.singleNode = false;
 		                            }
 		                        }
@@ -55,7 +55,7 @@ define(['./_module'], function (app) {
 
 
 			function redirectAfterLoggingIn() {
-				if($rootScope.previousUrl && $rootScope.previousUrl != '/'){
+				if($rootScope.previousUrl && $rootScope.previousUrl !== '/'){
 					var urltoNavigateTo = $rootScope.previousUrl;
 					$rootScope.previousUrl = null;
 					$location.path(urltoNavigateTo);
