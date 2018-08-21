@@ -128,7 +128,7 @@ gulp.task('dist-min-images', function () {
 });
 
 gulp.task('dist-copy-fonts', function () {
-    return gulp.src('./src/fonts/*')
+    return gulp.src('./src/fonts/**/*')
     .pipe(gulp.dest('./es-dist/fonts'));
 });
 
