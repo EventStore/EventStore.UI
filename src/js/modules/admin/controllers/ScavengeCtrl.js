@@ -72,6 +72,7 @@ define(['./_module'], function (app) {
                 var info = [];
                 for(var i = 0; i < entries.length; i++) {
                     var entry = entries[i];
+                    var result;
                     switch (entry.eventType) {
                         case '$scavengeStarted': {
                             info.push({
@@ -82,7 +83,7 @@ define(['./_module'], function (app) {
                         } 
                         case '$scavengeChunksCompleted': {
                             var indexData = JSON.parse(entry.data);
-                            var result = 'No chunks scavenged';
+                            result = 'No chunks scavenged';
                             if(indexData.wasScavenged) {
                                 var chunksScavenged = indexData.chunkEndNumber - indexData.chunkStartNumber + 1;
                                 result = chunksScavenged + ' chunk(s) scavenged';
@@ -102,7 +103,7 @@ define(['./_module'], function (app) {
                         } 
                         case '$scavengeMergeCompleted': {
                             var indexData = JSON.parse(entry.data);
-                            var result = 'No chunks merged';
+                            result = 'No chunks merged';
                             if(indexData.wasMerged) {
                                 var chunksScavenged = indexData.chunkEndNumber - indexData.chunkStartNumber + 1;
                                 result = chunksScavenged + ' chunk(s) merged';
@@ -122,7 +123,7 @@ define(['./_module'], function (app) {
                         } 
                         case '$scavengeIndexCompleted': {
                             var indexData = JSON.parse(entry.data);
-                            var result = 'Index table not scavenged';
+                            result = 'Index table not scavenged';
                             if(indexData.wasScavenged) {
                                 result = indexData.entriesDeleted + ' index entries scavenged';
                             }
@@ -141,7 +142,7 @@ define(['./_module'], function (app) {
                         } 
                         case '$scavengeCompleted': {
                             var data = JSON.parse(entry.data);
-                            var result = data.result;
+                            result = data.result;
                             if(data.result === 'Failed') {
                                 result += ': ' + data.error;
                             }

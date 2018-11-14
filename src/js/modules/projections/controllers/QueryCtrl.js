@@ -13,10 +13,10 @@ define(['./_module'], function (app) {
 			if ($stateParams.location) {
 				location = $stateParams.location;
                 projectionsService.query(location).then(function (result) {
-	                $scope.query = result.data.query
+	                $scope.query = result.data.query;
                 });
 			} else if ($stateParams.initStreamId) {
-                          $scope.query = "fromStream('" + $stateParams.initStreamId + "')\n  .when({\n  })";
+                          $scope.query = 'fromStream(\'' + $stateParams.initStreamId + '\')\n  .when({\n  })';
                         } else {
                           $scope.query = queryService.retrieveQuery();
                         }
@@ -99,8 +99,8 @@ define(['./_module'], function (app) {
 					//});
 				})
 				.error(function (response, statusCode) {
-					if(statusCode == 404){
-						msg.failure("The query was not updated because it was not found. The query probably expired and was deleted.");
+					if(statusCode === 404){
+						msg.failure('The query was not updated because it was not found. The query probably expired and was deleted.');
 					}else{
 						msg.failure('Query not updated');
 					}
@@ -159,12 +159,12 @@ define(['./_module'], function (app) {
                         }, { 
                             inherit: false 
                         });
-                    })
+                    });
                 });
 			};
 
 			var unbindHandler = $scope.$watch('query', function(scope, newValue, oldValue) {
-				if(newValue != oldValue) {
+				if(newValue !== oldValue) {
 					//$scope.isCreated = false;
 				}
 			});

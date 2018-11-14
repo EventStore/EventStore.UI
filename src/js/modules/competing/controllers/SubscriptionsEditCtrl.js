@@ -53,7 +53,7 @@ define(['./_module'], function (app) {
 				competingService.update($scope.stream, $scope.subscription, param)
 					.success(function (data, status, headers) {
 						var location = headers()['location'];
-						msg.success("Subscription has been updated");
+						msg.success('Subscription has been updated');
 						$state.go('subscriptions.list', {
 							location: encodeURIComponent(location)
 						});

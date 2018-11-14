@@ -71,6 +71,6 @@ define(['./_index'], function (app) {
                 data: {
                     title: 'Delete Subscription'
                 }
-            })
+            });
     }]);
 });

@@ -22,7 +22,7 @@ define(['./_module'], function (app) {
 
 		    function queryChanged(){
 		    	$scope.queryUpdated = true;
-		    };
+		    }
 
 		    $scope.aceConfig = {
 		        mode: 'javascript',
@@ -52,7 +52,7 @@ define(['./_module'], function (app) {
             function loadProjection(){
                 //clear the cache
                 cachedStates = {};
-                
+
                 var requests = [];
                 var stats = projectionsService.statistics($scope.location);
                 var state = projectionsService.state($scope.location, {timeout: 2000});
@@ -97,7 +97,7 @@ define(['./_module'], function (app) {
 					msg.failure('Projection has failed because of ' + stats.data.projections[0].stateReason, stats.data.projections[0].status);
 				});
             }
-            msg.info("The projection will be stopped for debugging");
+            msg.info('The projection will be stopped for debugging');
             projectionsService.disable($scope.location)
             .then(function onProjectionEnabled(){
 	            loadProjection();
@@ -119,7 +119,7 @@ define(['./_module'], function (app) {
 
 				})
 				.error(function (data, status) {
-                    msg.failure("We failed reading the events for the projection.");
+                    msg.failure('We failed reading the events for the projection.');
 				});
 		    }
 
@@ -186,11 +186,11 @@ define(['./_module'], function (app) {
 		        var cached;
 		        updateStatusInfo('Ready for debugging!');
 		        $scope.isRunning = false;
-		        if (data === "") {
+		        if (data === '') {
 		            processor.initialize();
 		            cachedStates[partition] = processor.debugging_get_state();
 		        } else {
-		        	data = tryParseJSON(data) ? data : angular.toJson(data)
+					data = tryParseJSON(data) ? data : angular.toJson(data);
 		        	cachedStates[partition] = data;
 		            processor.set_state(data);
 		        }
@@ -205,14 +205,14 @@ define(['./_module'], function (app) {
 			function tryParseJSON (jsonString){
 			    try {
 			        var o = JSON.parse(jsonString);
-			        if (o && typeof o === "object" && o !== null) {
+			        if (o && typeof o === 'object' && o !== null) {
 			            return o;
 			        }
 			    }
 			    catch (e) { }
 
 			    return false;
-			};
+			}
 
 		    function cancelLoadingEvents(){
 		    	if(currentLoadEventsTimeout){
@@ -271,7 +271,7 @@ define(['./_module'], function (app) {
 		    	} else {
 		    		$state.go('^.details');
 		    	}
-		    }
+		    };
 		}
     ]);
 });

@@ -14,7 +14,9 @@ var gulp = require('gulp'),
     rjs = require('gulp-requirejs'),
     htmlreplace = require('gulp-html-replace'),
     webserver = require('gulp-webserver'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    runSequence = require('run-sequence'),
+    merge = require('merge-stream');
 
 var paths = {
     app: {
@@ -53,7 +55,7 @@ var rjsOpts = {
         },
         'ngCookies': {
             deps: ['angular'],
-            exports: 'ngCookies'            
+            exports: 'ngCookies'
         },
         'uiRouter': {
             deps: ['angular']
@@ -92,7 +94,7 @@ var rjsOpts = {
 };
 
 gulp.task('compile-sass', function () {
-  gulp.src('./src/scss/*.scss')
+  return gulp.src('./src/scss/*.scss')
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(gulp.dest('./src/css'));
 });
@@ -126,7 +128,7 @@ gulp.task('dist-min-images', function () {
 });
 
 gulp.task('dist-copy-fonts', function () {
-    return gulp.src('./src/fonts/*')
+    return gulp.src('./src/fonts/**/*')
     .pipe(gulp.dest('./es-dist/fonts'));
 });
 
@@ -159,18 +161,24 @@ gulp.task('dist-js', function () {
 
 });
 
-gulp.task('dist', ['html', 'compile-sass', 'dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'], function() {
-    return gulp.src('./src/index.html') 
-        .pipe(htmlreplace({
-          css: paths.dist.css,
-          js: {
-            src: [paths.dist.js],
-            tpl: '<script data-main="%s" src="%s"></script>'
-          }
-        }))
-        .pipe(htmlmin(htmlMinOpts))
-        .pipe(gulp.dest('./es-dist/'));
+gulp.task('dist', function() {
+    runSequence(
+        ['html', 'compile-sass'],
+        ['dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'],
+        function(){
+            return gulp.src('./src/index.html')
+            .pipe(htmlreplace({
+              css: paths.dist.css,
+              js: {
+                src: [paths.dist.js],
+                tpl: '<script data-main="%s" src="%s"></script>'
+              }
+            }))
+            .pipe(htmlmin(htmlMinOpts))
+            .pipe(gulp.dest('./es-dist/'));
+        });
 });
+
 
 /**
  * Creates JS version of HTML tpl files used
@@ -178,7 +186,7 @@ gulp.task('dist', ['html', 'compile-sass', 'dist-min-css', 'dist-min-images', 'd
  **/
 
 function templateForModule (moduleSource, moduleDest, moduleName) {
-    gulp.src(moduleSource)
+    return gulp.src(moduleSource)
         .pipe(cache('html'))
         .pipe(htmlmin(htmlMinOpts))
         .pipe(ngHtml2Js({
@@ -191,33 +199,35 @@ function templateForModule (moduleSource, moduleDest, moduleName) {
 }
 
 gulp.task('html', function () {
-	templateForModule('./src/views/*.tpl.html', 
-        './src/js/templates', 
-        'es-ui.templates');
+    return merge(
+	templateForModule('./src/views/*.tpl.html',
+        './src/js/templates',
+        'es-ui.templates'),
     templateForModule('./src/js/modules/projections/views/*.tpl.html',
         './src/js/modules/projections/templates',
-        'es-ui.projections.templates');
+        'es-ui.projections.templates'),
     templateForModule('./src/js/modules/security/views/*.tpl.html',
         './src/js/modules/security/templates',
-        'es-ui.security.templates');
+        'es-ui.security.templates'),
     templateForModule('./src/js/modules/dashboard/views/*.tpl.html',
         './src/js/modules/dashboard/templates',
-        'es-ui.dashboard.templates');
+        'es-ui.dashboard.templates'),
     templateForModule('./src/js/modules/clusterstatus/views/*.tpl.html',
         './src/js/modules/clusterstatus/templates',
-        'es-ui.clusterstatus.templates');
+        'es-ui.clusterstatus.templates'),
     templateForModule('./src/js/modules/streams/views/*.tpl.html',
         './src/js/modules/streams/templates',
-        'es-ui.streams.templates');
+        'es-ui.streams.templates'),
     templateForModule('./src/js/modules/users/views/*.tpl.html',
         './src/js/modules/users/templates',
-        'es-ui.users.templates');
+        'es-ui.users.templates'),
     templateForModule('./src/js/modules/admin/views/*.tpl.html',
         './src/js/modules/admin/templates',
-        'es-ui.admin.templates');
+        'es-ui.admin.templates'),
     templateForModule('./src/js/modules/competing/views/*.tpl.html',
         './src/js/modules/competing/templates',
-        'es-ui.competing.templates');
+        'es-ui.competing.templates')
+    );
 });
 
 /**
@@ -245,7 +255,7 @@ gulp.task('dev', function () {
     gulp.watch(paths.app.templatesSource, ['html']);
     // whenever code changes, re-run js-hint
     gulp.watch(paths.all, ['lint']);
-    
+
     gulp.run('lint');
     //gulp.run('connect');
 });

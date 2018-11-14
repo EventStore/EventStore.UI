@@ -1,3 +1,5 @@
+/*jshint bitwise: false*/
+
 define(['./_module'], function (app) {
 
     'use strict';
@@ -11,9 +13,9 @@ define(['./_module'], function (app) {
     }
 
     // http://stackoverflow.com/questions/6248666/how-to-generate-short-uid-like-ax4j9z-in-js
-	function generateUIDNotMoreThan1million() {
+	/*function generateUIDNotMoreThan1million() {
 		return ('0000' + (Math.random()*Math.pow(36,4) << 0).toString(36)).substr(-4);
-	}
+	}*/
 
     return app.directive('esProjDebugFrame', ['$rootScope', function ($rootScope) {
 		return {

@@ -18,7 +18,7 @@ define(['./_module'], function (app) {
 				}, function (err) {
 					msg.failure('Failed to initiate replaying of parked messages because ' + err);
 				});
-			}
+			};
 
 			$scope.subscriptions = {};
 

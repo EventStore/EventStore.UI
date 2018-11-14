@@ -27,7 +27,7 @@ define(['./_module'], function (app) {
 
 		function findGroup(group, groupName){
 			for(var index in group){
-				if(group[index].groupName == groupName){
+				if(group[index].groupName === groupName){
 					return group[index];
 				}
 			}
@@ -64,9 +64,9 @@ define(['./_module'], function (app) {
 	        for(prop in groups) {
 	            current = groups[prop];
 				var key = current.eventStreamId;
-				if(key.startsWith("$"))
+				if(key.startsWith('$'))
 				{
-					key = "_" + key
+					key = '_' + key;
 				}
 				
 	            var previous = findGroup(source[key] ? source[key].groups : [], current.groupName);

@@ -23,7 +23,7 @@ define(['./_module'], function (app) {
 				elem.bind('click', toggle);
 				scope.$on('$destroy', function () {
 					elem.unbind('click', toggle);
-				})
+				});
 			}
 		};
 	}]);

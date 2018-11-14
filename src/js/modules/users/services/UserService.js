@@ -24,7 +24,7 @@ define(['./_module'], function (app) {
 
 						user.groups = [];
 						if(user.role){
-							user.groups.push(user.role)
+							user.groups.push(user.role);
 						}
 						delete user.confirmPassword;
 
