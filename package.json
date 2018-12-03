@@ -30,12 +30,7 @@
   "bugs": {
     "url": "https://github.com/EventStore/EventStore.UI/issues"
   },
-  "licence": [
-    {
-      "type": "?",
-      "url": "https://github.com/EventStore/EventStore.UI/blob/master/LICENSE"
-    }
-  ],
+  "license": "BSD-3-Clause",
   "engines": {
     "node": ">= 0.10.0"
   },
