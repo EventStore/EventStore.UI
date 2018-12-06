@@ -80,26 +80,67 @@ define(['./_module'], function (app) {
                                 type: entry.EventType
                             });
                             break;
-                        } case '$scavengeChunksCompleted': {
-                            var chunkData = JSON.parse(entry.data);
+                        } 
+                        case '$scavengeChunksCompleted': {
+                            var indexData = JSON.parse(entry.data);
                             result = 'No chunks scavenged';
-                            if(chunkData.wasScavenged) {
-                                var chunksScavenged = chunkData.chunkEndNumber - chunkData.chunkStartNumber + 1;
+                            if(indexData.wasScavenged) {
+                                var chunksScavenged = indexData.chunkEndNumber - indexData.chunkStartNumber + 1;
                                 result = chunksScavenged + ' chunk(s) scavenged';
                             }
-                            if (chunkData.errorMessage) {
-                                result = 'Error: ' + chunkData.errorMessage;
+                            if (indexData.errorMessage) {
+                                result = 'Error: ' + indexData.errorMessage;
                             }
                             info.push({
-                                status: 'Scavenging chunks ' + chunkData.chunkStartNumber + ' - ' +
-                                            chunkData.chunkEndNumber + ' complete',
-                                timeTaken: chunkData.timeTaken,
-                                spaceSaved: chunkData.spaceSaved,
+                                status: 'Scavenging chunks ' + indexData.chunkStartNumber + ' - ' +
+                                            indexData.chunkEndNumber + ' complete',
+                                timeTaken: indexData.timeTaken,
+                                spaceSaved: indexData.spaceSaved,
                                 type: entry.eventType,
                                 result: result
                             });
                             break;
-                        } case '$scavengeCompleted': {
+                        } 
+                        case '$scavengeMergeCompleted': {
+                            var indexData = JSON.parse(entry.data);
+                            result = 'No chunks merged';
+                            if(indexData.wasMerged) {
+                                var chunksScavenged = indexData.chunkEndNumber - indexData.chunkStartNumber + 1;
+                                result = chunksScavenged + ' chunk(s) merged';
+                            }
+                            if (indexData.errorMessage) {
+                                result = 'Error: ' + indexData.errorMessage;
+                            }
+                            info.push({
+                                status: 'Merging chunks ' + indexData.chunkStartNumber + ' - ' +
+                                            indexData.chunkEndNumber + ' complete',
+                                timeTaken: indexData.timeTaken,
+                                spaceSaved: indexData.spaceSaved,
+                                type: entry.eventType,
+                                result: result
+                            });
+                            break;
+                        } 
+                        case '$scavengeIndexCompleted': {
+                            var indexData = JSON.parse(entry.data);
+                            result = 'Index table not scavenged';
+                            if(indexData.wasScavenged) {
+                                result = indexData.entriesDeleted + ' index entries scavenged';
+                            }
+                            if (indexData.errorMessage) {
+                                result = 'Error: ' + indexData.errorMessage;
+                            }
+                            var tableIndexId = '(' + indexData.level + ',' + indexData.index + ')';
+                            info.push({
+                                status: 'Scavenging index table ' + tableIndexId + ' complete',
+                                timeTaken: indexData.timeTaken,
+                                spaceSaved: indexData.spaceSaved,
+                                type: entry.eventType,
+                                result: result
+                            });
+                            break;
+                        } 
+                        case '$scavengeCompleted': {
                             var data = JSON.parse(entry.data);
                             result = data.result;
                             if(data.result === 'Failed') {

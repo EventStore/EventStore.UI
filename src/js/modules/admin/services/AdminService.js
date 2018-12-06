@@ -20,6 +20,10 @@ define(['./_module'], function (app) {
 						var url = urlBuilder.build(urls.admin.scavenge);
 						return $http.post(url);
 					},
+					stopScavenge: function($scavengeId){
+						var url = urlBuilder.build(urls.admin.scavenge + '/' + $scavengeId);
+						return $http.delete(url);
+					},
 					getSubsystems: function() {
                         var url = urlBuilder.build(urls.system.subsystems);
                         return $http.get(url);
