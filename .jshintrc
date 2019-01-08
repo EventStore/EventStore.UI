@@ -9,7 +9,7 @@
   "immed": true,
   "latedef": "nofunc",
   "plusplus": false,
-  "newcap": true,
+  "newcap": false,
   "noarg": true,
   "quotmark": "single",
   "regexp": true,
@@ -22,6 +22,7 @@
     "angular": false,
     "define": false,
     "alert": false,
-    "confirm": false
+    "confirm": false,
+    "self": false
   }
 }

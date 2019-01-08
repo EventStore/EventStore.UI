@@ -242,7 +242,7 @@ define(['./_module'], function (app) {
 
 		    $scope.update = function () {
                 $scope.isUpdating = true;
-		        projectionsService.updateQuery($scope.location, $scope.query)
+		        projectionsService.updateQuery($scope.location, null, $scope.query)
 				.success(function () {
 				    msg.info('Projection Updated');
                     $window.location.reload();

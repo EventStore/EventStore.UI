@@ -186,10 +186,9 @@ define(['./_module'], function (app) {
 					},
 					updateQuery: function (url, emit, source) {
 
-						if(source) {
+						if(emit) {
 							url = urlBuilder.simpleBuild(urls.projections.updateQuery, url) + emit;
 						} else {
-							source = emit;
 							url = urlBuilder.simpleBuild(urls.projections.updatePlainQuery, url);
 						}
 
