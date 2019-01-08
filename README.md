@@ -26,15 +26,15 @@ npm install -g gulp
 npm install
 ```
 
-#### 4. (optional) you may want to install [bower](http://bower.io/)
+#### 4. install [bower](http://bower.io/)
 
 ```
 npm install -g bower
 ```
 
-to update packages
+to install bower components
 ```
-bower update
+bower install
 ```
 
 #### 5. gulp commands avaliable
