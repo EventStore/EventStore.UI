@@ -27,3 +27,4 @@ test_results
 
 *.codekit
 *.sass-cache
+src/bower_components
