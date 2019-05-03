@@ -6,8 +6,8 @@ define(['./_module'], function (app) {
         '$scope', '$state', 'AdminService', 'MessageService', 'poller', 'constants',
         function ($scope, $state, adminService, msg, poller, constants) {
             $scope.pagination = {
-                pageNumber: $state.params.page,
-                fromEventNumber: $state.params.from,
+                pageNumber: parseInt($state.params.page),
+                fromEventNumber: parseInt($state.params.from),
                 pageSize: 20,
                 canGoForward: function() {
                     return $scope.pagination.lastEventPos > 0;
