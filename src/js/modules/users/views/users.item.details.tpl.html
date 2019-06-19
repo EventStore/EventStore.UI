@@ -23,9 +23,37 @@
 			</li>
 		</ul>
 	</header>
-
-	
-<pre>
-{{ user | json }}
-</pre>
+</div>
+<div>
+<table>
+	<tr>
+		<th>Fields</th>
+		<th>Values</th>
+	</tr>
+	<tr>
+		<td>Login Name</td>
+		<td>{{ user.loginName }}</td>
+	</tr>
+	<tr>
+		<td>Full Name</td>
+		<td>{{ user.fullName }}</td>
+	</tr>
+	<tr>
+		<td>Groups</td>
+		<td><ul ng-repeat="group in user.groups"><li>{{ group }}</li></ul></td>
+	</tr>
+	<tr>
+		<td>Disabled</td>
+		<td>{{ user.disabled }}</td>
+	</tr>
+	<tr>
+		<td>API Links</td>
+		<td>
+			<ul ng-repeat="userData in user.links">
+				<li> <b>Link</b> - <a href="{{userData.href}}" target="_blank">{{ userData.href }}</a>  </li>
+				<li> <b>Rel</b> - {{userData.rel}}</li>
+			</ul>
+		</td>
+	</tr>
+</table>
 </div>
