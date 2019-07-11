@@ -62,12 +62,15 @@ define(['./_module'], function (app) {
 				$rootScope.baseUrl = url;
 			}
 
-			function setUserAdmin(groups) {
+			function setUserRole(groups) {
 				$rootScope.isAdmin = false;
+				$rootScope.isOps = false;
 				if(groups && groups.length > 0)
 				{
-            		$rootScope.isAdmin = groups.indexOf('$admins') > -1;
-            	}
+					$rootScope.isAdmin = groups.indexOf('$admins') > -1;
+					$rootScope.isOps = groups.indexOf('$ops') > -1;
+				}
+				$rootScope.isAdminOrOps = $rootScope.isAdmin || $rootScope.isOps;
 			}
 
 			var escreds = getCredentialsFromCookie(currentUrl);
@@ -97,7 +100,7 @@ define(['./_module'], function (app) {
 
 		            server = prepareUrl(server);
 		            setBaseUrl(server);
-		            setUserAdmin(groups);
+					setUserRole(groups);
 
 		            addCredentialsToCookie(server, username, password, groups);
 		        },
@@ -113,7 +116,7 @@ define(['./_module'], function (app) {
 		        		this.validate(credentials, server)
 		        		.success(function() {
 		        			var groups = getGroupsFromCookie(server);
-		        			setUserAdmin(groups);
+							setUserRole(groups);
 		        			deferred.resolve();
 		        		})
 		        		.error(function (){
@@ -161,7 +164,7 @@ define(['./_module'], function (app) {
 		        },
 		        getUserGroups: function(username) {
 		        	var deferred = $q.defer();
-	        		$http.get(urlBuilder.build(urls.users.get, username)).success(function(userInfo) {
+					$http.get(urlBuilder.build(urls.users.current, username)).success(function(userInfo) {
 		            	var groups = userInfo.data.groups;
 		            	deferred.resolve(groups);
 	            	});

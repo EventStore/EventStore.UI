@@ -32,7 +32,7 @@ define(['./_module'], function (app) {
 
                     authService.getUserGroups($scope.log.username).then(function(groups) {
 						authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server, groups);
-						if($rootScope.isAdmin) {
+						if($rootScope.isAdminOrOps) {
 	                    	scavengeNotificationService.start();
 		                    infoService.getOptions().then(function onGetOptions(response){
 		                        var options = response.data;

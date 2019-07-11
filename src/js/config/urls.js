@@ -16,6 +16,7 @@ define(['es-ui'], function (app) {
 		users: {
 			list: '/users/',
 			get: '/users/%s',		// %s - user name
+			current: '/users/$current',
 			create: '/users/',
 			update: '/users/%s',	// %s - user name
 			remove: '/users/%s',	// %s - user name
