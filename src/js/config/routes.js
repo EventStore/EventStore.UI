@@ -19,6 +19,7 @@ define(['es-ui'], function (app) {
                 abstract: true,
                 controller: ['$scope', function($scope) {
                     $scope.notAdminMessage = 'You must be an admin to view this item';
+                    $scope.notAdminOrOpsMessage = 'You must be in the $admins or $ops group to view this item';
                     $scope.projectionsNotRunningMessage = 'Projections are not running on Event Store';
                 }]
             });

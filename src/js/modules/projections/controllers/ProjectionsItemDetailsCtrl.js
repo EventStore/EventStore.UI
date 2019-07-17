@@ -39,6 +39,7 @@ define(['./_module'], function (app) {
 			.then(null, null, function (data) {
 				if(data.statistics && data.statistics.projections.length) {
 					$scope.stats = data.statistics.projections[0];
+					$scope.isTransientProjection = $scope.stats.mode == "Transient";
 
 					if ($scope.stats.name === '$by_category' || $scope.stats.name === '$stream_by_category') {
 						$scope.aceConfig.mode = 'text';

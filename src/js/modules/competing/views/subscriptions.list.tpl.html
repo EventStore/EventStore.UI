@@ -1,7 +1,10 @@
 <header class="page-header">
     <h2 class="page-title">Dashboard</h2>
     <ul class="page-nav">
-        <li class="page-nav__item">
+        <li ng-show="!isAdminOrOps" class="page-nav__item">
+            <em>You must be in the $admins or $ops group to manage persistent subscriptions and replay parked messages.</em>
+        </li>
+        <li ng-show="isAdminOrOps" class="page-nav__item">
             <a ui-sref="^.new">New Subscription</a>
         </li>
     </ul>

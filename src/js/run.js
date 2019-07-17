@@ -30,7 +30,7 @@ define(['es-ui'], function (app) {
                         $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                         $rootScope.projectionsAllowed = info.projectionsMode !== 'None';
                         $rootScope.projectionsMode = info.projectionsMode;
-                        if($rootScope.isAdmin) {
+                        if($rootScope.isAdminOrOps) {
                             scavengeNotificationService.start();
                             infoService.getOptions().then(function onGetOptions(response){
                                 var options = response.data;
