@@ -23,6 +23,13 @@ define(['./_module', 'angular'], function (app, angular) {
 
 					url = print.format.apply(null, params);
 
+					//Double encode if '#' present in URL
+					if(url.indexOf("%23")>-1){
+
+						url=url.replace(/%23/g,'%2523');
+
+					}
+
 					return $rootScope.baseUrl + url;
 				}
 			};
