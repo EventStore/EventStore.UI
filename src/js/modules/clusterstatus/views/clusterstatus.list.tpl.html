@@ -13,8 +13,8 @@
             <tr>
                 <th>State</th>
                 <th>Status</th>
-                <th>Maintenance</th>
                 <th>Timestamp (UTC)</th>
+                <th>Maintenance</th>
                 <th>Checkpoints</th>
                 <th>Tcp</th>
                 <th>Http</th>
@@ -44,8 +44,8 @@
                 </td>
                 <td>{{ node.timeStamp | date : 'yyyy-MM-d HH:mm:ss' }}</td>
                 <td>
-                    <text ng-if="node.priority == '-2147483648'">On</text>
-                    <text ng-if="node.priority != '-2147483648'">Off</text>
+                    <text ng-if="node.nodePriority == '-2147483648'">On</text>                    
+                    <text ng-if="node.nodePriority != '-2147483648'">Off</text>
                 </td>
                 <td>
                     <text ng-if="node.state == 'Manager'">n/a</text>
