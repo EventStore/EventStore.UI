@@ -35,6 +35,15 @@ define(['./_module'], function (app) {
 				});
 			};
 
+            $scope.maintenance = function ($event) {
+                adminService.maintenance().then(function () {
+				   msg.success('Server Maintenance initiated');
+				}, function () {
+					msg.failure('maintenance mode failed');
+				});
+
+			};
+
 			$scope.scavenge = function ($event) {
 				stop($event);
 
@@ -42,7 +51,7 @@ define(['./_module'], function (app) {
 					msg.failure('Scavenge failed');
 				});
             };
-            
+
             $scope.stopScavenge = function ($event, $history) {
 				stop($event);
 
