@@ -44,6 +44,15 @@ define(['./_module'], function (app) {
 
 			};
 
+            $scope.disablemaintenance = function ($event) {
+                adminService.disablemaintenance().then(function () {
+				   msg.success('Server maintenance sucessfully disabled');
+				}, function () {
+					msg.failure('Maintenance disable failed');
+				});
+
+            };
+            
 			$scope.scavenge = function ($event) {
 				stop($event);
 

@@ -11,7 +11,8 @@ define(['es-ui'], function (app) {
 		admin: {
 			shutdown: '/admin/shutdown',
 			scavenge: '/admin/scavenge',
-			maintenance: '/admin/maintenance/enable'
+			maintenance: '/admin/maintenance/enable',
+			disablemaintenance: '/admin/maintenance/disable'
 		},
 		gossip: '/gossip',
 		users: {
