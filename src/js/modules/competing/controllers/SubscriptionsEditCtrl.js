@@ -17,6 +17,9 @@ define(['./_module'], function (app) {
 			}, {
 				value: 'Pinned',
 				name: 'Pinned'
+			}, {
+				value: 'PinnedByCorrelation',
+				name: 'Pinned By Correlation'
 			}];
 
 			competingService.subscriptionDetail($scope.stream, $scope.subscription)
