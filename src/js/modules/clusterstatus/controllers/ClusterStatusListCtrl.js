@@ -19,7 +19,7 @@ define(['./_module'], function (app) {
 			function(){
 
             });
-            var replicaStatsQuery;
+            var replicaStatsQuery = setupReplicaStatsPoller();
 			function setupGossipPoller(){
 				var gossipQuery = poller.create({
 			        interval: 1000,
@@ -39,7 +39,9 @@ define(['./_module'], function (app) {
                             var masterUrl = master.externalHttpIp + ':' + master.externalHttpPort;
                             if(!replicaStatsQuery || masterUrl !== masterNodeUrl) {
                                 masterNodeUrl = masterUrl;
-                                setupReplicaStatsPoller();
+                                replicaStatsQuery.update({
+                                    params: [masterNodeUrl]
+                                })
                             }
                         }
 			        }
@@ -47,13 +49,14 @@ define(['./_module'], function (app) {
 			}
 
             function setupReplicaStatsPoller() {
-                replicaStatsQuery = poller.create({
+                var replicaStatsQuery = poller.create({
                     interval: constants.clusterStatus.replicaPollInterval,
                     action: clusterStatusService.replicaStats,
                     params: [masterNodeUrl]
                 });
                 replicaStatsQuery.start();
                 replicaStatsQuery.promise.then(null, null, function(response) {
+                    if(!response) return;
                     var master = getMasterNode();
                     for(var i = 0; i < response.length; i++)
                     {
@@ -64,6 +67,7 @@ define(['./_module'], function (app) {
                     }
                     $scope.replicas = response;
                 });
+                return replicaStatsQuery;
             }
 
             function calculateReplicaStats(replica, master, node, prevStats) {
@@ -121,6 +125,7 @@ define(['./_module'], function (app) {
             }
 
             function getMasterNode() {
+                if(!$scope.nodes) return;
                 for(var i = 0; i < $scope.nodes.length; i++) {
                     if($scope.nodes[i].state === 'Master') {
                         return $scope.nodes[i];
