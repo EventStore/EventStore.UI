@@ -20,6 +20,11 @@ define(['./_module'], function (app) {
 				});
 			};
 
+            $scope.viewParkedMessages = function (streamId, groupName) {
+                // Build up the url for the parked queue here
+                return '$persistentsubscription-' + streamId + '::' + groupName + '-parked';
+            };
+
 			$scope.subscriptions = {};
 
 			subscriptionsPoll.start();
