@@ -6,8 +6,8 @@ define(['./_module'], function (app) {
 		'$scope', '$state', '$stateParams', 'StreamsService',
 		function ($scope, $state, $stateParams, streamsService) {
 			
-			$scope.streamId = $stateParams.streamId;
-			$scope.isMetadata = $state.current.data.metadata;
+            $scope.streamId = $stateParams.streamId;
+            $scope.isMetadata = $state.current.data.metadata;
 			$scope.eventNumber = $scope.isMetadata ? 'metadata' : $stateParams.eventNumber;
 
 			streamsService.eventContent($scope.streamId, $scope.eventNumber)
