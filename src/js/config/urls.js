@@ -79,7 +79,8 @@ define(['es-ui'], function (app) {
 			create: '/subscriptions/%s/%s',
 			update: '/subscriptions/%s/%s',
 			delete: '/subscriptions/%s/%s',
-			replayParked: '/subscriptions/%s/%s/replayParked'
+            replayParked: '/subscriptions/%s/%s/replayParked',
+            parkedQueue: '$persistentsubscription-%s::%s-parked'
 		}
 	});
 });

@@ -13,6 +13,7 @@ define(['./_module'], function (app) {
 			$scope.$parent.links = [];
 
 			$scope.streamId = $stateParams.streamId;
+			$scope.source = $stateParams.source;
 
 			atom.start($stateParams)
 			.then(null, function () {
