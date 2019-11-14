@@ -7,13 +7,13 @@ define(['./_module'], function (app) {
 		'$scope', '$stateParams', 'AtomEventsReader', 'MessageService', 'StreamsService',
 		function ($scope, $stateParams, atom, msg, streamsService) {
 
-            var showJson = {};
+			var showJson = {};
 
 			$scope.$parent.streams = [];
 			$scope.$parent.links = [];
 
-            $scope.streamId = $stateParams.streamId;
-            $scope.source = $stateParams.source;
+			$scope.streamId = $stateParams.streamId;
+			$scope.source = $stateParams.source;
 
 			atom.start($stateParams)
 			.then(null, function () {

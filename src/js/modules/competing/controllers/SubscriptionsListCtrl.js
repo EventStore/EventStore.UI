@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SubscriptionsListCtrl', [
-		'$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService',
-		function ($scope, competingService, subscriptionsMapper, pollerProvider, msg) {
+        '$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService', 'urls', 'UrlBuilder',
+		function ($scope, competingService, subscriptionsMapper, pollerProvider, msg, urls, urlBuilder) {
 
 			var subscriptionsPoll  = pollerProvider.create({
 				interval: 1000,
@@ -22,7 +22,8 @@ define(['./_module'], function (app) {
 
             $scope.viewParkedMessages = function (streamId, groupName) {
                 // Build up the url for the parked queue here
-                return '$persistentsubscription-' + streamId + '::' + groupName + '-parked';
+                var url = urlBuilder.buildWithoutBaseUrl(urls.competing.parkedQueue, streamId, groupName);
+                return url;
             };
 
 			$scope.subscriptions = {};
