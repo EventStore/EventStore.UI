@@ -30,6 +30,8 @@ define(['./_module'], function (app) {
 			$scope.checkpointsDisabled = false;
 			$scope.checkpoints = false;
 			$scope.trackEmittedStreams = false;
+			$scope.subscribeFromEnd = false;
+			$scope.subscribeFromEndDisabled = true;
 
 			$scope.save = function () {
 
@@ -44,6 +46,7 @@ define(['./_module'], function (app) {
 					checkpoints: yesOrNo($scope.checkpoints),
 					enabled: yesOrNo($scope.enabled),
 					trackemittedstreams: yesOrNo($scope.trackemittedstreams),
+					subscribefromend: yesOrNo($scope.subscribeFromEnd)
 				};
 
 				projectionsService.create($scope.mode, $scope.source, param)
@@ -66,9 +69,11 @@ define(['./_module'], function (app) {
 					if(isContinuous) {
 						$scope.checkpoints = true;
 						$scope.checkpointsDisabled = true;
+						$scope.subscribeFromEndDisabled = false;
 					} else {
 						$scope.checkpointsDisabled = false;
 						$scope.checkpoints = true;
+						$scope.subscribeFromEndDisabled = true;
 					}
 				}
 			});
