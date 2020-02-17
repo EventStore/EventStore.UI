@@ -85,7 +85,7 @@ define(['./_module'], function (app) {
 	            }
 
 	            if(str.indexOf('http') === -1) {
-	            	str = 'http://' + str;
+	            	str = 'https://' + str;
 	            }
 
 	            return str;

@@ -19,7 +19,7 @@ define(['es-ui'], function (app) {
             };
 
             if(!$location.host()) {
-                log.server = 'http://127.0.0.1:2113';
+                log.server = 'https://127.0.0.1:2113';
             }
 
             authService.existsAndValid(log.server)

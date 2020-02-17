@@ -1,7 +1,7 @@
 {
   "name": "EventStore-UI",
   "description": "The new user interface for Event Store",
-  "homepage": "http://eventstore.org",
+  "homepage": "https://eventstore.com",
   "version": "4.1.1",
   "contributors": [
     {

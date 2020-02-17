@@ -20,7 +20,7 @@ define(['./_module'], function (app) {
 							deferred.resolve({});
 							return deferred.promise;
 						}
-						var url = 'http://' + leaderUrl + urls.replicationStats;
+						var url = 'https://' + leaderUrl + urls.replicationStats;
 						return $http.get(url);
 					}
 				};

@@ -4,7 +4,7 @@ define(['es-ui'], function (app) {
 	app.value('baseUrl', '');
 
 	return app.constant('urls', {
-		base: 'http://127.0.0.1:2113',
+		base: 'https://127.0.0.1:2113',
 		stats: '/stats',
 		tcpStats: '/stats/tcp',
 		replicationStats: '/stats/replication',
