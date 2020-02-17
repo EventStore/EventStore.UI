@@ -14,13 +14,13 @@ define(['./_module'], function (app) {
 
 						return $http.get(url);
 					},
-					replicaStats: function(masterUrl) {
-						if(!masterUrl) {
+					replicaStats: function(leaderUrl) {
+						if(!leaderUrl) {
 							var deferred = $q.defer();
 							deferred.resolve({});
 							return deferred.promise;
 						}
-						var url = 'http://' + masterUrl + urls.replicationStats;
+						var url = 'http://' + leaderUrl + urls.replicationStats;
 						return $http.get(url);
 					}
 				};

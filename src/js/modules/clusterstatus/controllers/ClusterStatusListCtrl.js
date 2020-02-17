@@ -5,7 +5,7 @@ define(['./_module'], function (app) {
     return app.controller('ClusterStatusListCtrl', ['$scope', 'poller', 'ClusterStatusService', 'InfoService', 'constants',
 		function ClusterStatusListCtrl($scope, poller, clusterStatusService, infoService, constants) {
             $scope.replicas = [];
-            var masterNodeUrl = '';
+            var leaderNodeUrl = '';
 
 			infoService.getOptions().then(
 			function(response){
@@ -34,11 +34,11 @@ define(['./_module'], function (app) {
 			        } else {
 			            $scope.errorMessage = '';
 			            $scope.nodes = response.members;
-                        var master = getMasterNode();
-                        if(master) {
-                            var masterUrl = master.externalHttpIp + ':' + master.externalHttpPort;
-                            if(!replicaStatsQuery || masterUrl !== masterNodeUrl) {
-                                masterNodeUrl = masterUrl;
+                        var leader = getLeaderNode();
+                        if(leader) {
+                            var leaderUrl = leader.externalHttpIp + ':' + leader.externalHttpPort;
+                            if(!replicaStatsQuery || leaderUrl !== leaderNodeUrl) {
+                                leaderNodeUrl = leaderUrl;
                                 setupReplicaStatsPoller();
                             }
                         }
@@ -50,25 +50,25 @@ define(['./_module'], function (app) {
                 replicaStatsQuery = poller.create({
                     interval: constants.clusterStatus.replicaPollInterval,
                     action: clusterStatusService.replicaStats,
-                    params: [masterNodeUrl]
+                    params: [leaderNodeUrl]
                 });
                 replicaStatsQuery.start();
                 replicaStatsQuery.promise.then(null, null, function(response) {
-                    var master = getMasterNode();
+                    var leader = getLeaderNode();
                     for(var i = 0; i < response.length; i++)
                     {
                         var replica = response[i];
                         var prevStats = getPrevStatsForReplica(replica.connectionId, $scope.replicas);
                         var node = getNodeForReplica(replica.subscriptionEndpoint, $scope.nodes);
-                        calculateReplicaStats(replica, master, node, prevStats);
+                        calculateReplicaStats(replica, leader, node, prevStats);
                     }
                     $scope.replicas = response;
                 });
             }
 
-            function calculateReplicaStats(replica, master, node, prevStats) {
+            function calculateReplicaStats(replica, leader, node, prevStats) {
                 replica.isCatchingUp = node.state === 'CatchingUp';
-                replica.bytesToCatchUp = master.writerCheckpoint - node.writerCheckpoint;
+                replica.bytesToCatchUp = leader.writerCheckpoint - node.writerCheckpoint;
 
                 replica.catchupStartTime = new Date().getTime();
                 replica.catchupStartBytesSent = replica.totalBytesSent;
@@ -120,9 +120,9 @@ define(['./_module'], function (app) {
                 }
             }
 
-            function getMasterNode() {
+            function getLeaderNode() {
                 for(var i = 0; i < $scope.nodes.length; i++) {
-                    if($scope.nodes[i].state === 'Master') {
+                    if($scope.nodes[i].state === 'Leader') {
                         return $scope.nodes[i];
                     }
                 }
