@@ -32,9 +32,9 @@
         <tbody>
             <tr ng-repeat="node in nodes" ng-class="{dead: !node.isAlive}">
                 <td>
-                    <text ng-if="node.state == 'Master'"><b>{{ node.state }}</b></text>
+                    <text ng-if="node.state == 'Leader'"><b>{{ node.state }}</b></text>
                     <text ng-if="node.state == 'Manager'" style="color:lightgray">{{ node.state }}</text>
-                    <text ng-if="node.state != 'Master' && node.state != 'Manager'">{{ node.state }}</text>
+                    <text ng-if="node.state != 'Leader' && node.state != 'Manager'">{{ node.state }}</text>
                 </td>
                 <td ng-class="{dead: !node.isAlive}">
                     <text ng-if="node.isAlive">Alive</text>
