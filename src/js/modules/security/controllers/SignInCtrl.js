@@ -13,7 +13,7 @@ define(['./_module'], function (app) {
 			};
 
 			if(!$location.host()) {
-				$scope.log.server = 'http://127.0.0.1:2113';
+				$scope.log.server = 'https://127.0.0.1:2113';
 			}
 
 			$scope.signIn = function () {
