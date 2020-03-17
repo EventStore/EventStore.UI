@@ -33,7 +33,7 @@ define(['./_module'], function (app) {
                     	return $http.get(url);
                     },
                     scavengeInfo: function(scavengeId, fromEvent, pageSize) {
-                    	var url = urlBuilder.build(urls.streams.scavenges + '-' + scavengeId + '/' + fromEvent + '/' + pageSize + '?embed=tryharder');
+                    	var url = urlBuilder.build(urls.streams.scavenges + '/' + scavengeId + '/' + fromEvent + '/' + pageSize + '?embed=tryharder');
                     	return $http.get(url);
                     },
                     lastScavengeStatus: function() {
