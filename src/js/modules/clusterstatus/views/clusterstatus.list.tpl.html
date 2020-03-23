@@ -59,13 +59,13 @@
                 <td style="text-align:center;">
                     <ul class="page-nav">
                         <li class="page-nav__item">
-                            <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}/ping" target="_blank">ping</a>
+                            <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}/ping?format=json" target="_blank">ping</a>
                         </li>
                         <li class="page-nav__item">
                             <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}" target="_blank">show website</a>
                         </li>
                         <li class="page-nav__item">
-                            <a ng-href="//{{node.internalHttpIp}}:{{node.internalHttpPort}}/gossip" target="_blank">show gossip</a>
+                            <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}/gossip?format=json" target="_blank">show gossip</a>
                         </li>
                     </ul>
                 </td>
