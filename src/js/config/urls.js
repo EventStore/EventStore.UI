@@ -80,7 +80,8 @@ define(['es-ui'], function (app) {
 			update: '/subscriptions/%s/%s',
 			delete: '/subscriptions/%s/%s',
             replayParked: '/subscriptions/%s/%s/replayParked',
-            parkedQueue: '$persistentsubscription-%s::%s-parked'
+			parkedQueue: '$persistentsubscription-%s::%s-parked',
+			viewParkedMessages: '/subscriptions/viewparkedmessages/%s/%s'
 		}
 	});
 });

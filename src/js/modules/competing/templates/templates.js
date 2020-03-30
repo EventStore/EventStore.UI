@@ -32,7 +32,7 @@ module.run(['$templateCache', function($templateCache) {
         <li ng-show=$root.isAdminOrOps class=page-nav__item><a ui-sref="^.item.delete({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Delete</a></li> \
         <li class=page-nav__item><a ui-sref="^.item.detail({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Detail</a></li> \
         <li ng-show=$root.isAdminOrOps class=page-nav__item><a ng-click="$parent.replayParkedMessages(esSubscription.eventStreamId, esSubscription.groupName)">Replay Parked Messages</a></li> \
-        <li ng-show=$root.isAdminOrOps class=page-nav__item><a ui-sref="streams.item.events({ streamId: $parent.viewParkedMessages(esSubscription.eventStreamId, esSubscription.groupName), source: \'persistentSubscriptions\' })">View Parked Messages</a></li> \
+        <li ng-show=$root.isAdminOrOps class=page-nav__item><a ui-sref="^.item.viewparkedmessages({ streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">View Parked Messages</a></li> \
       </ul> \
     </td>');
 }]);
@@ -49,6 +49,25 @@ module.run(['$templateCache', function($templateCache) {
     '<form novalidate name=deleteSubscription ng-submit=delete() class=delete-subscription-form><table><tbody><tr><td>Group</td><td><input ng-model=subscription required readonly=true class=form-table name=subscription ng-class="{ \'form-table--error\' : deleteSubscription.subscription.$invalid && !deleteSubscription.subscription.$pristine }"></td></tr><tr><td>Stream</td><td><input ng-model=stream required readonly=true class=form-table name=stream ng-class="{ \'form-table--error\' : deleteSubscription.stream.$invalid && !deleteSubscription.stream.$pristine }"></td></tr></tbody></table><ul class=page-nav><li class=page-nav__item><button type=submit ng-disabled=deleteSubscription.$invalid>Delete</button></li></ul></form>');
 }]);
 })();
+(function(module) {
+  try {
+    module = angular.module('es-ui.competing.templates');
+  } catch (e) {
+    module = angular.module('es-ui.competing.templates', []);
+  }
+  module.run(['$templateCache', function($templateCache) {
+    $templateCache.put(
+      'subscriptions.item.viewparkedmessages.tpl.html',
+    '<table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in entries track by event.title"><tr ng-class="{ \'invalid\': !event.streamId }"><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.positionEventNumber }}</a><text ng-if=!event.streamId>{{ event.positionEventNumber }}</text></td><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.title }}</a><text ng-if=!event.streamId>{{ event.title }}</text></td><td>{{ event.eventType }}</td><td>{{ event.updated | date:\'yyyy-MM-dd HH:mm:ss\'}}</td><td><a ng-click="toggleJson($event, event)" style="cursor: pointer;" ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a></td></tr><tr ng-show=event.showJson><td colspan=5><div ng-if=event.isJson><strong>Data</strong><pre>\n' +
+    '{{ event.data }}					\n' +
+    '					</pre></div><div ng-if=event.metaData><strong>Metadata</strong><pre>\n' +
+    '{{ event.metaData }}					\n' +
+    '					</pre></div><div ng-if=event.isLinkMetaData><strong>Link metadata</strong><pre>\n' +
+    '{{ event.linkMetaData }}					\n' +
+    '					</pre></div></td></tr></tbody><tbody ng-hide=streams><tr><td colspan=5><em>No events for current path: {{ $stateParams | json }}</em></td></tr></tbody></table>'
+    );
+  }]);
+  })();
 
 (function(module) {
 try {

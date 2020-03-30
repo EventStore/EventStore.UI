@@ -71,6 +71,13 @@ define(['./_index'], function (app) {
                 data: {
                     title: 'Delete Subscription'
                 }
+            }).state('subscriptions.item.viewparkedmessages', {
+                url: '/viewparkedmessages',
+                templateUrl: 'subscriptions.item.viewparkedmessages.tpl.html',
+                controller: 'SubscriptionsViewParkedMessagesCtrl',
+                data: {
+                    title: 'View Parked Messages Subscription'
+                }
             });
     }]);
 });

@@ -49,6 +49,14 @@ define(['./_module'], function (app) {
                             }
 						});
 					},
+					viewParkedMessages: function(streamId, groupName){
+						var url = urlBuilder.build(urls.competing.viewParkedMessages, streamId, groupName);
+						return $http.get(url, {
+							headers : {
+								'Accept':'application/vnd.eventstore.competingatom+json'
+							}
+						});	
+					}
 				};
 			}
 		];
