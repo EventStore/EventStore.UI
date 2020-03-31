@@ -20,12 +20,6 @@ define(['./_module'], function (app) {
 				});
 			};
 
-            // $scope.viewParkedMessages = function (streamId, groupName) {
-            //     // Build up the url for the parked queue here
-			// 	var url = urlBuilder.build(urls.competing.viewParkedMessages, streamId, groupName);
-            //     return url;
-            // };
-
 			$scope.subscriptions = {};
 
 			subscriptionsPoll.start();

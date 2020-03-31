@@ -58,13 +58,20 @@ module.run(['$templateCache', function($templateCache) {
   module.run(['$templateCache', function($templateCache) {
     $templateCache.put(
       'subscriptions.item.viewparkedmessages.tpl.html',
-    '<table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in entries track by event.title"><tr ng-class="{ \'invalid\': !event.streamId }"><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.positionEventNumber }}</a><text ng-if=!event.streamId>{{ event.positionEventNumber }}</text></td><td><a ng-if=event.streamId ui-sref="^.event({streamId: event.streamId, eventNumber: event.eventNumber})">{{ event.title }}</a><text ng-if=!event.streamId>{{ event.title }}</text></td><td>{{ event.eventType }}</td><td>{{ event.updated | date:\'yyyy-MM-dd HH:mm:ss\'}}</td><td><a ng-click="toggleJson($event, event)" style="cursor: pointer;" ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a></td></tr><tr ng-show=event.showJson><td colspan=5><div ng-if=event.isJson><strong>Data</strong><pre>\n' +
+    '<table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in entries track by event.title"> \
+    <tr ng-class="{ \'invalid\': !event.streamId }"> \
+    <td>{{ event.positionEventNumber }}</td> \
+    <td>{{ event.title }}</td><td>{{ event.eventType }}</td> \
+    <td>{{ event.updated | date:\'yyyy-MM-dd HH:mm:ss\'}}</td> \
+    <td><a ng-click="toggleJson($event, event)" style="cursor: pointer;" ng-if="event.isJson || event.isLinkMetaData || event.isMetaData">JSON</a></td> \
+    </tr><tr ng-show=event.showJson> \
+    <td colspan=5><div ng-if=event.isJson><strong>Data</strong><pre>\n' +
     '{{ event.data }}					\n' +
     '					</pre></div><div ng-if=event.metaData><strong>Metadata</strong><pre>\n' +
     '{{ event.metaData }}					\n' +
     '					</pre></div><div ng-if=event.isLinkMetaData><strong>Link metadata</strong><pre>\n' +
     '{{ event.linkMetaData }}					\n' +
-    '					</pre></div></td></tr></tbody><tbody ng-hide=streams><tr><td colspan=5><em>No events for current path: {{ $stateParams | json }}</em></td></tr></tbody></table>'
+    '					</pre></div></td></tr></tbody></table>'
     );
   }]);
   })();

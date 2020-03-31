@@ -13,6 +13,13 @@ define(['./_module'], function (app) {
 					$scope.entries = data["entries"];
 					console.log($scope.entries["entries"]);
 				});
+			$scope.toggleJson = function ($event, evt) {
+				$event.preventDefault();
+				$event.stopPropagation();
+
+				evt.showJson = !evt.showJson;
+				showJson[evt.title] = evt.showJson;
+			};
 		}
 	]);
 });
