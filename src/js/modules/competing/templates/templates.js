@@ -57,8 +57,15 @@ module.run(['$templateCache', function($templateCache) {
   }
   module.run(['$templateCache', function($templateCache) {
     $templateCache.put(
-      'subscriptions.item.viewparkedmessages.tpl.html',
-    '<table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in entries track by event.title"> \
+    'subscriptions.item.viewparkedmessages.tpl.html',
+    '<ul style="list-style-type: none; padding:0 0 0.75rem 0 !important">\
+      <li class="page-nav__item"> \
+          <a ng-click="pageForward(entries)" ng-disabled="!canGoForward()">Next</a> \
+          <a ng-click="pageBackward(entries)" ng-disabled="!canGoForward()">Previous</a> \
+      </li> \
+    </ul> \
+    </br> \
+    <table><thead><tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr></thead><tbody ng-repeat="event in entries track by event.title"> \
     <tr ng-class="{ \'invalid\': !event.streamId }"> \
     <td>{{ event.positionEventNumber }}</td> \
     <td>{{ event.title }}</td><td>{{ event.eventType }}</td> \

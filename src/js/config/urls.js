@@ -81,7 +81,8 @@ define(['es-ui'], function (app) {
 			delete: '/subscriptions/%s/%s',
             replayParked: '/subscriptions/%s/%s/replayParked',
 			parkedQueue: '$persistentsubscription-%s::%s-parked',
-			viewParkedMessages: '/subscriptions/viewparkedmessages/%s/%s?embed=tryharder'
+			viewParkedMessages: '/subscriptions/viewparkedmessages/%s/%s?embed=tryharder',
+			viewParkedMessagesFromTo: '/subscriptions/viewparkedmessages/%s/%s/%s/%s?embed=tryharder'
 		}
 	});
 });

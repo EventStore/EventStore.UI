@@ -56,6 +56,14 @@ define(['./_module'], function (app) {
 								'Accept':'application/vnd.eventstore.competingatom+json'
 							}
 						});	
+					},
+					viewParkedMessagesFromCount: function(streamId, groupName, fromEvent, count){
+						var url = urlBuilder.build(urls.competing.viewParkedMessagesFromTo, streamId, groupName,fromEvent, count);
+						return $http.get(url, {
+							headers : {
+								'Accept':'application/vnd.eventstore.competingatom+json'
+							}
+						});	
 					}
 				};
 			}
