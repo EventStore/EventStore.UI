@@ -1,0 +1,40 @@
+name: Nightly release
+on:
+  schedule:
+    - cron: '0 2 * * *' # Every day at 2am UTC.
+jobs:
+  package:
+    name: Package UI
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - name: Lookup or create release
+        uses: EventStore/Automations/lookup-or-create-release@master
+        id: release
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          build-type: nightly
+      - name: Packaging
+        run: |
+          sudo npm install bower@~1.8.4 -g
+          sudo bower install --allow-root
+          sudo npm install gulp@~3.8.8 -g
+          npm install
+          gulp dist
+          mv es-dist clusternode-web
+          zip -r EventStore.UI-v${{ steps.release.outputs.version}}.zip clusternode-web
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        with:
+           upload_url: ${{ steps.release.outputs.upload_url }}
+           asset_path: ./EventStore.UI-v${{ steps.release.outputs.version}}.zip
+           asset_name: EventStore.UI-v${{ steps.release.outputs.version}}.zip
+           asset_content_type: application/zip
