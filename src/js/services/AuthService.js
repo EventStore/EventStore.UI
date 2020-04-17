@@ -164,7 +164,7 @@ define(['./_module'], function (app) {
 		        },
 		        getUserGroups: function(username) {
 		        	var deferred = $q.defer();
-					$http.get(urlBuilder.build(urls.users.current, username)).success(function(userInfo) {
+					$http.get(urlBuilder.build(urls.admin.login, username)).success(function(userInfo) {
 		            	var groups = userInfo.data.groups;
 		            	deferred.resolve(groups);
 	            	});
