@@ -15,11 +15,11 @@
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('streams') }">
 				<a ui-sref="streams.list">Stream Browser</a>
 			</li>
-			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }" title="{{!isAdminOrOps ? notAdminOrOpsMessage : !projectionsAllowed ? projectionsNotRunningMessage : ''}}">
-				<a ng-class="{'disabled': !projectionsAllowed}" ui-sref="projections.list">Projections</a>
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }" title="{{!isAdminOrOps ? notAdminOrOpsMessage : !projectionsEnabled ? projectionsNotRunningMessage : ''}}">
+				<a ng-class="{'disabled': !projectionsEnabled}" ui-sref="projections.list">Projections</a>
 			</li>
-			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }" title="{{!projectionsAllowed ? projectionsNotRunningMessage : ''}}">
-				<a ng-class="{'disabled':!projectionsAllowed}" ui-sref="query">Query</a>
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }" title="{{!projectionsEnabled ? projectionsNotRunningMessage : ''}}">
+				<a ng-class="{'disabled':!projectionsEnabled}" ui-sref="query">Query</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }" title="{{!isAdminOrOps ? notAdminOrOpsMessage : ''}}">
 				<a ui-sref="subscriptions.list">Persistent Subscriptions</a>
@@ -28,7 +28,7 @@
 				<a ng-class="{'disabled': !isAdminOrOps}" ui-sref="admin">Admin</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('users') }" title="{{!isAdmin ? notAdminMessage : ''}}">
-				<a ng-class="{'disabled': !isAdmin}" ui-sref="users.list">Users</a>
+				<a ng-class="{'disabled': !isAdmin || !userManagementEnabled}" ui-sref="users.list">Users</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('signout') }">
 				<a ui-sref="signout">Log Out</a>

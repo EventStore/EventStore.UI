@@ -10,7 +10,8 @@ define(['es-ui'], function (app) {
 	return app.run([
         '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'ScavengeNotificationService',
         function ($rootScope, $location, $state, $stateParams, authService, infoService, scavengeNotificationService) {
-            $rootScope.projectionsAllowed = false;
+            $rootScope.projectionsEnabled = false;
+            $rootScope.userManagementEnabled = false;
             $rootScope.singleNode = true;
             var log = {
                 username: '',
@@ -28,8 +29,9 @@ define(['es-ui'], function (app) {
                     .success(function(info){
                         $rootScope.esVersion = info.esVersion || '0.0.0.0';
                         $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
-                        $rootScope.projectionsAllowed = info.projectionsMode !== 'None';
-                        $rootScope.projectionsMode = info.projectionsMode;
+                        $rootScope.projectionsEnabled = info.features.projections === true;
+                        $rootScope.userManagementEnabled = info.features.userManagement === true;
+
                         if($rootScope.isAdminOrOps) {
                             scavengeNotificationService.start();
                             infoService.getOptions().then(function onGetOptions(response){
