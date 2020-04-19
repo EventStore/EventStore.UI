@@ -8,7 +8,9 @@ define(['./_module'], function (app) {
 			var defaultPageSize = 20;
 			$scope.streamId = $stateParams.streamId;
 			$scope.groupName = $stateParams.groupName;
-			competingService.viewParkedMessages($scope.streamId, $scope.groupName)
+			$scope.$parent.showHeader = false;
+
+			competingService.viewParkedMessagesBackward($scope.streamId, $scope.groupName, "head", defaultPageSize)
 				.success(function(data){
 					if (data.entries!=undefined){
 						$scope.entries = data["entries"];
@@ -22,16 +24,10 @@ define(['./_module'], function (app) {
 				evt.showJson = !evt.showJson;
 				showJson[evt.title] = evt.showJson;
 			};
-			$scope.canGoForward = function(){
-				return true;
-			};
-			$scope.canGoBackward = function(){
-				return true;
-			};
 			$scope.pageForward = function(entries){
 				if (entries!=undefined && entries.length > 0){
-					var fromEvent = entries[0]["positionEventNumber"]+defaultPageSize+1;
-					competingService.viewParkedMessagesFromCount($scope.streamId, $scope.groupName,entries[0]["eventNumber"],defaultPageSize)
+					var fromEvent = entries[0]["positionEventNumber"]+1;
+					competingService.viewParkedMessagesForward($scope.streamId, $scope.groupName,fromEvent,defaultPageSize)
 					.success(function(data){
 						if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0)
 							$scope.entries = data["entries"];
@@ -41,7 +37,7 @@ define(['./_module'], function (app) {
 			$scope.pageBackward = function(entries){
 				if (entries!=undefined && entries.length > 0){
 					var fromEvent = entries[entries.length-1]["positionEventNumber"]-1;
-					competingService.viewParkedMessagesFromCount($scope.streamId, $scope.groupName,fromEvent,defaultPageSize)
+					competingService.viewParkedMessagesBackward($scope.streamId, $scope.groupName,fromEvent,defaultPageSize)
 					.success(function(data){
 						if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0) {
 							$scope.entries = data["entries"];
@@ -49,6 +45,23 @@ define(['./_module'], function (app) {
 					});
 				}
 			};
+			$scope.pageFirst = function(entries){
+				competingService.viewParkedMessagesBackward($scope.streamId, $scope.groupName,"head",defaultPageSize)
+				.success(function(data){
+					if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0) {
+						$scope.entries = data["entries"];
+					}
+				});
+			};
+			$scope.pageLast = function(entries){
+				competingService.viewParkedMessagesForward($scope.streamId, $scope.groupName,0,defaultPageSize)
+				.success(function(data){
+					if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0) {
+						$scope.entries = data["entries"];
+					}
+				});
+			};
+
 		}
 	]);
 });

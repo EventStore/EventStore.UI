@@ -49,16 +49,16 @@ define(['./_module'], function (app) {
                             }
 						});
 					},
-					viewParkedMessages: function(streamId, groupName){
-						var url = urlBuilder.build(urls.competing.viewParkedMessages, streamId, groupName);
+					viewParkedMessagesBackward: function(streamId, groupName, fromEvent, count){
+						var url = urlBuilder.build(urls.competing.viewParkedMessagesBackward, streamId, groupName,fromEvent, count);
 						return $http.get(url, {
 							headers : {
 								'Accept':'application/vnd.eventstore.competingatom+json'
 							}
 						});	
 					},
-					viewParkedMessagesFromCount: function(streamId, groupName, fromEvent, count){
-						var url = urlBuilder.build(urls.competing.viewParkedMessagesFromTo, streamId, groupName,fromEvent, count);
+					viewParkedMessagesForward: function(streamId, groupName, fromEvent, count){
+						var url = urlBuilder.build(urls.competing.viewParkedMessagesForward, streamId, groupName,fromEvent, count);
 						return $http.get(url, {
 							headers : {
 								'Accept':'application/vnd.eventstore.competingatom+json'
