@@ -9,7 +9,7 @@
 </header>
 <ul style="list-style-type: none; padding:0 0 0.75rem 0 !important">
 	<li class="page-nav__item"> 
-		<a ng-click="pageFirst(entries)" >First</a> 
+		<a ng-click="pageFirst(entries)" >Poll</a> 
 		<a ng-click="pageBackward(entries)">Previous</a> 
 		<a ng-click="pageForward(entries)">Next</a> 
 	</li> 
@@ -19,7 +19,7 @@
 	<thead>
 		<tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr>
 	</thead>
-	<tbody ng-repeat="event in entries track by event.title"> 
+	<tbody ng-repeat="event in entries track by event.positionEventNumber"> 
 		<tr ng-class="{ 'invalid': !event.streamId }"> 
 			<td>{{ event.positionEventNumber }}</td> 
 			<td>{{ event.title }}</td><td>{{ event.eventType }}</td> 

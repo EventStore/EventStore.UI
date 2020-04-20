@@ -81,7 +81,6 @@ define(['es-ui'], function (app) {
 			delete: '/subscriptions/%s/%s',
             replayParked: '/subscriptions/%s/%s/replayParked',
 			parkedQueue: '$persistentsubscription-%s::%s-parked',
-			viewParkedMessages: '/subscriptions/viewparkedmessages/%s/%s?embed=tryharder',
 			viewParkedMessagesBackward: '/subscriptions/viewparkedmessages/%s/%s/%s/backward/%s?embed=tryharder',
 			viewParkedMessagesForward: '/subscriptions/viewparkedmessages/%s/%s/%s/forward/%s?embed=tryharder'
 		}
