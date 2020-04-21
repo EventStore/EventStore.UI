@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SubscriptionsViewParkedMessagesCtrl', [
-		'$scope', '$stateParams', 'CompetingService', 'MessageService', 'poller',
-		function ($scope, $stateParams, competingService, msg, pollerProvider) {
+		'$scope', '$stateParams', 'CompetingService', 'poller',
+		function ($scope, $stateParams, competingService, pollerProvider) {
 			var defaultPageSize = 20;
 			$scope.streamId = $stateParams.streamId;
 			$scope.groupName = $stateParams.groupName;
@@ -57,7 +57,6 @@ define(['./_module'], function (app) {
 					
 			});
 			firstPagePoll.promise.catch(function () {
-				msg.failure('An error occured.');
 				firstPagePoll.stop(); 
 			});
 
