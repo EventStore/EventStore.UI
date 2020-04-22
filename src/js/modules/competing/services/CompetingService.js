@@ -49,6 +49,22 @@ define(['./_module'], function (app) {
                             }
 						});
 					},
+					viewParkedMessagesBackward: function(streamId, groupName, fromEvent, count){
+						var url = urlBuilder.build(urls.competing.viewParkedMessagesBackward, streamId, groupName,fromEvent, count);
+						return $http.get(url, {
+							headers : {
+								'Accept':'application/vnd.eventstore.competingatom+json'
+							}
+						});	
+					},
+					viewParkedMessagesForward: function(streamId, groupName, fromEvent, count){
+						var url = urlBuilder.build(urls.competing.viewParkedMessagesForward, streamId, groupName,fromEvent, count);
+						return $http.get(url, {
+							headers : {
+								'Accept':'application/vnd.eventstore.competingatom+json'
+							}
+						});	
+					}
 				};
 			}
 		];

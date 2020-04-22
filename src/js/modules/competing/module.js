@@ -23,7 +23,6 @@ define(['./_index'], function (app) {
                 url: '',
                 templateUrl: 'subscriptions.list.tpl.html',
                 controller: 'SubscriptionsListCtrl',
-                
                 data: {
                     title: 'Subscriptions'
                 }
@@ -43,6 +42,7 @@ define(['./_index'], function (app) {
                 controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
                     $scope.streamId = $stateParams.streamId;
                     $scope.groupName = $stateParams.groupName;
+                    $scope.showHeader = true;
                 }],
                 data: {
                     title: 'Subscriptions'
@@ -70,6 +70,13 @@ define(['./_index'], function (app) {
                 controller: 'SubscriptionsDeleteCtrl',
                 data: {
                     title: 'Delete Subscription'
+                }
+            }).state('subscriptions.item.viewparkedmessages', {
+                url: '/viewparkedmessages/',
+                templateUrl: 'subscriptions.item.viewparkedmessages.tpl.html',
+                controller: 'SubscriptionsViewParkedMessagesCtrl',
+                data: {
+                    title: 'View Parked Messages Subscription'
                 }
             });
     }]);

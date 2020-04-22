@@ -23,7 +23,7 @@
             <a ng-click="$parent.replayParkedMessages(esSubscription.eventStreamId, esSubscription.groupName)">Replay Parked Messages</a>
         </li>
         <li ng-show="$root.isAdminOrOps" class="page-nav__item">
-            <a ui-sref="streams.item.events({ streamId: $parent.viewParkedMessages(esSubscription.eventStreamId, esSubscription.groupName), source: 'persistentSubscriptions' })">View Parked Messages</a>
+            <a ui-sref="^.item.viewparkedmessages({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">View Parked Messages</a>
         </li>
     </ul>
 </td>

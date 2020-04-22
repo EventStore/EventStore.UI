@@ -4,4 +4,5 @@ define([
     './SubscriptionsNewCtrl',
     './SubscriptionsEditCtrl',
     './SubscriptionsDeleteCtrl',
+    './SubscriptionsViewParkedMessagesCtrl'
 ], function () {});
