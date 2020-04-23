@@ -5,6 +5,11 @@ define(['./_module'], function (app) {
     return app.controller('UsersListCtrl', [
 		'$scope', 'UserService', 'poller', 'MessageService',
 		function ($scope, userService, poller, msg) {
+            if(!$rootScope.userManagementEnabled) {
+                msg.failure('User Management is not available');
+                $state.go('dashboard.list');
+                return;
+            }
 
 			var all = poller.create({
 				interval: 1000,

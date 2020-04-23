@@ -10,7 +10,8 @@ define(['es-ui'], function (app) {
 		replicationStats: '/stats/replication',
 		admin: {
 			shutdown: '/admin/shutdown',
-			scavenge: '/admin/scavenge'
+			scavenge: '/admin/scavenge',
+			login: '/admin/login'
 		},
 		gossip: '/gossip',
 		users: {

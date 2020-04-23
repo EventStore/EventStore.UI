@@ -6,7 +6,7 @@ define(['./_module'], function (app) {
 		'$rootScope', '$scope', '$timeout', 'ProjectionsService', 'ProjectionsMapper', 'poller', 'MessageService', '$state',
 		function ($rootScope, $scope, $timeout, projectionsService, projectionsMapper, pollerProvider, msg, $state) {
 
-            if($rootScope.projectionsMode === 'None') {
+            if(!$rootScope.projectionsEnabled) {
                 msg.failure('Projections are not enabled on the node');
                 $state.go('dashboard.list');
                 return;

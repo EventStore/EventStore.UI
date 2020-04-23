@@ -15,10 +15,10 @@
 		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('streams') }">
 			<a ui-sref="streams.list">Stream Browser</a>
 		</li>
-		<li ng-if="projectionsAllowed" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }">
+		<li ng-if="projectionsEnabled" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }">
 			<a ui-sref="projections.list">Projections</a>
 		</li>
-		<li ng-if="projectionsAllowed" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }">
+		<li ng-if="projectionsEnabled" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }">
 			<a ui-sref="query">Query</a>
 		</li>
 		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }">
@@ -27,7 +27,7 @@
 		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('admin') }">
 			<a ui-sref="admin">Admin</a>
 		</li>
-		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('users') }">
+		<li ng-if="userManagementEnabled" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('users') }">
 			<a ui-sref="users.list">Users</a>
 		</li>
 		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('log-out') }">
