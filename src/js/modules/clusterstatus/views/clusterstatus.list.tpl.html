@@ -49,23 +49,22 @@
                     </text>
                 </td>
                 <td>
-                    Internal : {{ node.internalTcpIp }}:{{ node.internalTcpPort }}<br />
-                    External : {{ node.externalTcpIp }}:{{ node.externalTcpPort }}
+                    Internal : {{ node.internalTcpIp }}:{{ node.internalSecureTcpPort || node.internalTcpPort }}<br />
+                    External : {{ node.externalTcpIp }}:{{ node.externalSecureTcpPort || node.externalTcpPort }}
                 </td>
                 <td>
-                    Internal : {{ node.internalHttpIp }}:{{ node.internalHttpPort }}<br />
-                    External : {{ node.externalHttpIp }}:{{ node.externalHttpPort }}
+                    {{ node.httpEndPointIp }}:{{ node.httpEndPointPort }}
                 </td>
                 <td style="text-align:center;">
                     <ul class="page-nav">
                         <li class="page-nav__item">
-                            <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}/ping?format=json" target="_blank">ping</a>
+                            <a ng-href="//{{node.httpEndPointIp}}:{{node.httpEndPointPort}}/ping?format=json" target="_blank">ping</a>
                         </li>
                         <li class="page-nav__item">
-                            <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}" target="_blank">show website</a>
+                            <a ng-href="//{{node.httpEndPointIp}}:{{node.httpEndPointPort}}" target="_blank">show website</a>
                         </li>
                         <li class="page-nav__item">
-                            <a ng-href="//{{node.externalHttpIp}}:{{node.externalHttpPort}}/gossip?format=json" target="_blank">show gossip</a>
+                            <a ng-href="//{{node.httpEndPointIp}}:{{node.httpEndPointPort}}/gossip?format=json" target="_blank">show gossip</a>
                         </li>
                     </ul>
                 </td>

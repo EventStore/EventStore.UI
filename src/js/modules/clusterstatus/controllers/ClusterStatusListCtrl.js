@@ -36,7 +36,7 @@ define(['./_module'], function (app) {
 			            $scope.nodes = response.members;
                         var leader = getLeaderNode();
                         if(leader) {
-                            var leaderUrl = leader.externalHttpIp + ':' + leader.externalHttpPort;
+                            var leaderUrl = leader.httpEndPointIp + ':' + leader.httpEndPointPort;
                             if(!replicaStatsQuery || leaderUrl !== leaderNodeUrl) {
                                 leaderNodeUrl = leaderUrl;
                                 setupReplicaStatsPoller();
