@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('UsersListCtrl', [
-		'$scope', 'UserService', 'poller', 'MessageService',
-		function ($scope, userService, poller, msg) {
+		'$rootScope', '$scope', 'UserService', 'poller', 'MessageService',
+		function ($rootScope, $scope, userService, poller, msg) {
             if(!$rootScope.userManagementEnabled) {
                 msg.failure('User Management is not available');
                 $state.go('dashboard.list');
