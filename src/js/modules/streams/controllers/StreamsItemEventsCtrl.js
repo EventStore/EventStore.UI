@@ -69,10 +69,8 @@ define(['./_module'], function (app) {
 				if(!confirmation) {
 					return;
 				}
-				streamsService.deleteStream(streamId)
-				.success(function () {
-					$scope.prev = true;
-				});
+				 streamsService.deleteStream(streamId);
+				 msg.info('Stream' + streamId + 'deleted');
 			}
 
 			$scope.deleteStream = function ($event, evt) {
