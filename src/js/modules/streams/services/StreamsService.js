@@ -35,9 +35,6 @@ define(['./_module'], function(app) {
                     },
                     addEvent: function (streamId, eventData) {
                         var url = urlBuilder.build(urls.streams.events, streamId);
-
-                        console.log(eventData);
-
                         return $http.post(
                             url,
                             JSON.stringify([eventData]),
