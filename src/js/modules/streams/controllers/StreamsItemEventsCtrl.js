@@ -4,8 +4,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('StreamsItemEventsCtrl', [
-		'$scope', '$stateParams', 'AtomEventsReader', 'MessageService', 'StreamsService',
-		function ($scope, $stateParams, atom, msg, streamsService) {
+		'$scope', '$state' ,'$stateParams', 'AtomEventsReader', 'MessageService', 'StreamsService',
+		function ($scope, $state ,$stateParams, atom, msg, streamsService) {
 
 			var showJson = {};
 
@@ -69,8 +69,14 @@ define(['./_module'], function (app) {
 				if(!confirmation) {
 					return;
 				}
-				 streamsService.deleteStream(streamId);
-				 msg.info('Stream' + streamId + 'deleted');
+				streamsService.deleteStream(streamId).then(function(success){
+					if(success)
+					{
+						msg.info('Stream ' + streamId + ' deleted');
+					}else{
+						msg.warn('Could not delete stream ' + streamId);
+					}
+				});
 			}
 
 			$scope.deleteStream = function ($event, evt) {
