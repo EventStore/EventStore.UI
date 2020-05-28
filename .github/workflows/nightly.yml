@@ -27,7 +27,7 @@ jobs:
           npm install
           gulp dist
           mv es-dist clusternode-web
-          zip -r EventStore.UI-v${{ steps.release.outputs.version}}.zip clusternode-web
+          zip -r EventStore.OSS.UI-v${{ steps.release.outputs.version}}.zip clusternode-web
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
@@ -35,6 +35,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
            upload_url: ${{ steps.release.outputs.upload_url }}
-           asset_path: ./EventStore.UI-v${{ steps.release.outputs.version}}.zip
-           asset_name: EventStore.UI-v${{ steps.release.outputs.version}}.zip
+           asset_path: ./EventStore.OSS.UI-v${{ steps.release.outputs.version}}.zip
+           asset_name: EventStore.OSS.UI-v${{ steps.release.outputs.version}}.zip
            asset_content_type: application/zip
