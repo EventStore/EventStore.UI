@@ -5,7 +5,6 @@ define(['./_module'], function (app) {
     return app.controller('StreamsListCtrl', [
 		'$rootScope', '$scope', '$state', 'StreamsService', 'MessageService',
 		function ($rootScope, $scope, $state, streamsService, msg) {
-			
 			function filter (entries) {
 				var filtered = {}, i = 0, length = entries.length, item, result = [];
 

@@ -27,8 +27,9 @@ define(['./_module'], function (app) {
 					$rootScope.singleNode = true;
 					$rootScope.esVersion = info.esVersion || '0.0.0.0';
                     $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
-                        $rootScope.projectionsEnabled = info.features.projections === true;
-                        $rootScope.userManagementEnabled = info.features.userManagement === true;
+                    $rootScope.projectionsEnabled = info.features.projections === true;
+                    $rootScope.userManagementEnabled = info.features.userManagement === true;
+                    $rootScope.streamsBrowserEnabled = info.features.atomPub === true;
 
                     authService.getUserGroups($scope.log.username).then(function(groups) {
 						authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server, groups);
