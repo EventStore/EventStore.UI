@@ -12,7 +12,7 @@
 		<li ng-if="!singleNode" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('clusterstatus') }">
 			<a ui-sref="clusterstatus.list">Cluster Status</a>
 		</li>
-		<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('streams') }">
+		<li ng-if="streamsBrowserEnabled" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('streams') }">
 			<a ui-sref="streams.list">Stream Browser</a>
 		</li>
 		<li ng-if="projectionsEnabled" class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }">

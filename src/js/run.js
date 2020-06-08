@@ -31,6 +31,7 @@ define(['es-ui'], function (app) {
                         $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                         $rootScope.projectionsEnabled = info.features.projections === true;
                         $rootScope.userManagementEnabled = info.features.userManagement === true;
+                        $rootScope.streamsBrowserEnabled = info.features.atomPub === true;
 
                         if($rootScope.isAdminOrOps) {
                             scavengeNotificationService.start();
