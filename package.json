@@ -32,7 +32,8 @@
   },
   "license": "BSD-3-Clause",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.10.0",
+    "yarn": ">= 1.0.0"
   },
   "devDependencies": {
     "gulp": "~3.9.1",
@@ -55,5 +56,8 @@
     "jshint": "^2.11.0",
     "merge-stream": "^1.0.1",
     "run-sequence": "^2.2.1"
+  },
+  "dependencies": {
+    "has-yarn": "^2.1.0"
   }
 }

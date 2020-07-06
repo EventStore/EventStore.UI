@@ -77,20 +77,7 @@ var rjsOpts = {
     priority: [
         'angular'
     ],
-    paths: {
-        'domReady': '../bower_components/requirejs-domready/domReady',
-        'angular': '../bower_components/angular/angular',
-        'ngCookies': '../bower_components/angular-cookies/angular-cookies',
-        'uiRouter': '../bower_components/angular-ui-router/release/angular-ui-router',
-        'ngToastr': '../bower_components/angular-toastr/dist/angular-toastr',
-        'uiUtils': '../bower_components/angular-ui-utils/ui-utils',
-        'jQuery': '../bower_components/jQuery/dist/jquery',
-        'sprintf': '../bower_components/sprintf/src/sprintf',
-        'uiAce': '../bower_components/angular-ui-ace/ui-ace',
-        'ace': '../bower_components/ace-builds/src-min-noconflict/ace',
-        'angular-clipboard': '../bower_components/angular-clipboard/angular-clipboard',
-        'es-ui': './app'
-    }
+   
 };
 
 gulp.task('compile-sass', function () {
@@ -134,7 +121,7 @@ gulp.task('dist-copy-fonts', function () {
 
 gulp.task('dist-js', function () {
 
-    gulp.src('./src/bower_components/requirejs/*.js')
+    gulp.src('scripts/**.js')
     .pipe(concat('requirejs.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/'));
