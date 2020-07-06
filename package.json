@@ -32,7 +32,8 @@
   },
   "license": "BSD-3-Clause",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.10.0",
+    "yarn": ">= 1.0.0"
   },
   "devDependencies": {
     "gulp": "~3.9.1",
@@ -55,5 +56,23 @@
     "jshint": "^2.11.0",
     "merge-stream": "^1.0.1",
     "run-sequence": "^2.2.1"
+  },
+  "dependencies": {
+    "@bower_components/ace-builds": "ajaxorg/ace-builds#0d62c26de7b2e1922d8dd95ba587c9845c018c51",
+    "@bower_components/angular": "angular/bower-angular#0cd10f27471310fe07167b00f8a4242c6bba4df2",
+    "@bower_components/angular-clipboard": "omichelsen/angular-clipboard#e177ca41726d50028acacd05e3fd1f7e28ab4ef9",
+    "@bower_components/angular-cookies": "angular/bower-angular-cookies#fe6acf196d30f65b2d75438c9f7d9eb283da0d6f",
+    "@bower_components/angular-toastr": "Foxandxss/angular-toastr#4cfc4121693f576fe57d8408f6754ac6716c62f0",
+    "@bower_components/angular-ui-ace": "angular-ui/ui-ace#0732ea769c99a2225e97d1d1dd27f46a19593950",
+    "@bower_components/angular-ui-router": "angular-ui/angular-ui-router-bower#2b8d5241b4c631ca2aef079bb96690b213eff449",
+    "@bower_components/angular-ui-utils": "angular-ui/ui-utils#e25586548ff0a61df63bd4eb8fdc0715b1a87e72",
+    "@bower_components/jQuery": "jquery/jquery#7751e69b615c6eca6f783a81e292a55725af6b85",
+    "@bower_components/requirejs": "jrburke/requirejs-bower#9cd0b99417eac61e890d11c5119f2e45e752c999",
+    "@bower_components/requirejs-domready": "requirejs/domReady#c74caaa6dac64f2f47093f4952b991390406adfb",
+    "@bower_components/sizzle": "jquery/sizzle#f0ce95aa468c57b1799a498d1ed90f4b9564c5fb",
+    "@bower_components/sprintf": "alexei/sprintf.js#38433b4073d14a7b1537a72292071b1e70f35bee"
+  },
+  "scripts": {
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'src/bower_components', 'junction') } catch (e) { }\""
   }
 }
