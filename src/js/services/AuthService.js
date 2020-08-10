@@ -108,21 +108,27 @@ define(['./_module'], function (app) {
 		            clearCredentials($rootScope.baseUrl);
 		        },
 		        existsAndValid: function (server) {
-		        	var deferred = $q.defer();
-		        	var credentials = getCredentialsFromCookie(server);
-		        	if(!credentials) {
-		        		deferred.reject('Data does not exists');
-		        	} else {
-		        		this.validate(credentials, server)
-		        		.success(function() {
-		        			var groups = getGroupsFromCookie(server);
-							setUserRole(groups);
-		        			deferred.resolve();
-		        		})
-		        		.error(function (){
-		        			deferred.reject('Wrong credentials or server not exists');
-		        		});
-		        	}
+					var deferred = $q.defer();
+					
+					if($rootScope.authentication.type === 'insecure'){
+						setUserRole(['$admins']);
+						deferred.resolve();
+					} else {
+						var credentials = getCredentialsFromCookie();
+						if(!credentials) {
+							deferred.reject('Data does not exists');
+						} else {
+							this.validate(credentials, server)
+							.success(function() {
+								var groups = getGroupsFromCookie(server);
+								setUserRole(groups);
+								deferred.resolve();
+							})
+							.error(function (){
+								deferred.reject('Wrong credentials or server not exists');
+							});
+						}
+					}
 
 		        	return deferred.promise;
 		        },

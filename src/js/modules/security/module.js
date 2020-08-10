@@ -11,7 +11,7 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================SECURITY============
             .state('signin', {
-                url: '/',
+                url: 'signin',
                 templateUrl: 'signin.tpl.html',
                 controller: 'SignInCtrl',
                 data: {

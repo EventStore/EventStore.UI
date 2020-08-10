@@ -23,37 +23,31 @@ define(['./_module'], function (app) {
 				}
 
 				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
-				.success(function (info) {
-					$rootScope.singleNode = true;
-					$rootScope.esVersion = info.esVersion || '0.0.0.0';
-                    $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
-                    $rootScope.projectionsEnabled = info.features.projections === true;
-                    $rootScope.userManagementEnabled = info.features.userManagement === true;
-                    $rootScope.streamsBrowserEnabled = info.features.atomPub === true;
-
+				.success(function () {
                     authService.getUserGroups($scope.log.username).then(function(groups) {
 						authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server, groups);
-						if($rootScope.isAdminOrOps) {
-	                    	scavengeNotificationService.start();
-		                    infoService.getOptions().then(function onGetOptions(response){
-		                        var options = response.data;
-		                        for (var index in options) {
-		                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
-		                                $rootScope.singleNode = false;
-		                            }
-		                        }
-								redirectAfterLoggingIn();
-		                    });
-	                	} else {
-	                		redirectAfterLoggingIn();
-	                	}
+						setSingleNodeOrCluster();
+	                	redirectAfterLoggingIn();
                     });
 				})
 				.error(function () {
-					msg.warn('Server does not exist or incorrect user credentials supplied.');
+					msg.warn('Incorrect user credentials supplied.');
 				});
 			};
 
+			function setSingleNodeOrCluster(){
+                if($rootScope.isAdminOrOps) {
+                    scavengeNotificationService.start();
+                    infoService.getOptions().then(function onGetOptions(response){
+                        var options = response.data;
+                        for (var index in options) {
+                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
+                                $rootScope.singleNode = false;
+                            }
+                        }
+                    });
+                }
+            }
 
 			function redirectAfterLoggingIn() {
 				if($rootScope.previousUrl && $rootScope.previousUrl !== '/'){
