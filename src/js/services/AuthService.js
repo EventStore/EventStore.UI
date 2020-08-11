@@ -3,7 +3,6 @@ define(['./_module'], function (app) {
 
 	'use strict';
 
-	// http://wemadeyoulook.at/en/blog/implementing-basic-http-authentication-http-requests-angular/
 	return app.factory('AuthService', [
 		'Base64', 
 		'$q',
@@ -14,52 +13,42 @@ define(['./_module'], function (app) {
 		'urls',
 		'UrlBuilder',
 		function (Base64, $q, $cookieStore, $http, $rootScope, $location, urls, urlBuilder) {
-			// initialize to whatever is in the cookie, if anything
-			// i know, hoising, but i don't like jshint warnings
-			var currentUrl = $location.host() + ':' + $location.port();
-
-			function getCredentialsFromCookie(server){
+			function getCredentialsFromCookie(){
 				var escreds = $cookieStore.get('es-creds');
-				if(!escreds || !escreds.servers[server]){
+				if(!escreds){
 					return null;
 				}
-				return escreds.servers[server].credentials;
+				return escreds.credentials;
 			}
 
-			function getGroupsFromCookie(server){
+			function getGroupsFromCookie(){
 				var escreds = $cookieStore.get('es-creds');
-				if(!escreds || !escreds.servers[server]){
+				if(!escreds){
 					return null;
 				}
-				return escreds.servers[server].groups;
+				return escreds.groups;
 			}
 
-			function clearCredentials(server){
+			function clearCredentials(){
 	            document.execCommand('ClearAuthenticationCache');
 		        $http.defaults.headers.common.Authorization = 'Basic ';
 	            var escreds = $cookieStore.get('es-creds');
 	            if(escreds){
-	            	escreds.servers[server] = {};
+	            	escreds = {};
 	            	$cookieStore.put('es-creds', escreds);
 	            }
 			}
 
-			function addCredentialsToCookie(server, username, password, groups){
+			function addCredentialsToCookie(username, password, groups){
 				var escreds = $cookieStore.get('es-creds');
 				if(!escreds){
-					escreds = {
-						servers : {}
-					};
+					escreds = {};
 				}
-				escreds.servers[server] = {
+				escreds = {
 					credentials : Base64.encode(username + ':' + password),
 					groups : groups
 				};
 				$cookieStore.put('es-creds', escreds);
-			}
-
-			function setBaseUrl (url) {
-				$rootScope.baseUrl = url;
 			}
 
 			function setUserRole(groups) {
@@ -73,41 +62,24 @@ define(['./_module'], function (app) {
 				$rootScope.isAdminOrOps = $rootScope.isAdmin || $rootScope.isOps;
 			}
 
-			var escreds = getCredentialsFromCookie(currentUrl);
+			var escreds = getCredentialsFromCookie();
 			if(escreds) {
-				setBaseUrl(currentUrl);
 				escreds = escreds.credentials;
 			}
- 
- 			function prepareUrl (str) {
-				if(str.indexOf('/', str.length - '/'.length) !== -1) {
-	            	str = str.substring(0, str.length - 1);
-	            }
-
-	            if(str.indexOf('http') === -1) {
-	            	str = 'https://' + str;
-	            }
-
-	            return str;
-			}
-
 
 		    return {
-		        setCredentials: function (username, password, server, groups) {
+		        setCredentials: function (username, password, groups) {
 		            var credentials = Base64.encode(username + ':' + password);
 		            
 		            $http.defaults.headers.common.Authorization = 'Basic ' + credentials;
 
-		            server = prepareUrl(server);
-		            setBaseUrl(server);
 					setUserRole(groups);
-
-		            addCredentialsToCookie(server, username, password, groups);
+		            addCredentialsToCookie(username, password, groups);
 		        },
 		        clearCredentials: function () {
-		            clearCredentials($rootScope.baseUrl);
+		            clearCredentials();
 		        },
-		        existsAndValid: function (server) {
+		        existsAndValid: function () {
 					var deferred = $q.defer();
 					
 					if($rootScope.authentication.type === 'insecure'){
@@ -118,50 +90,42 @@ define(['./_module'], function (app) {
 						if(!credentials) {
 							deferred.reject('Data does not exists');
 						} else {
-							this.validate(credentials, server)
+							var parts = Base64.decode(credentials).split(':');
+							this.validate(parts[0], parts[1])
 							.success(function() {
-								var groups = getGroupsFromCookie(server);
+								var groups = getGroupsFromCookie();
 								setUserRole(groups);
 								deferred.resolve();
 							})
 							.error(function (){
-								deferred.reject('Wrong credentials or server not exists');
+								deferred.reject('Wrong credentials');
 							});
 						}
 					}
 
 		        	return deferred.promise;
 		        },
-		        resetCredentials: function(username, newPassword, server){
+		        resetCredentials: function(username, newPassword){
 		        	var deferred = $q.defer();
-		        	var credentials = getCredentialsFromCookie(server);
+		        	var credentials = getCredentialsFromCookie();
 		        	var storedUsername = Base64.decode(credentials).split(':')[0];
 					if(storedUsername === username){
-		        		this.validate(username, newPassword, server)
+		        		this.validate(username, newPassword)
 		        		.success(function() {
 		        			deferred.resolve();
 		        		})
 		        		.error(function (){
-		        			deferred.reject('Wrong credentials or server not exists');
+		        			deferred.reject('Wrong credentials');
 		        		});
 		        	}else{
 		        		deferred.resolve();
 		        	}
 	        		return deferred.promise;
 		        },
-		        validate: function (username, password, server) {
-		        	var credentials;
-		        	if(!server) {
-		        		server = password;
-		        		credentials = username;
-		        	} else {
-		        		credentials = Base64.encode(username + ':' + password);
-		        	}
-
-		            server = prepareUrl(server);
-		            setBaseUrl(server);
+		        validate: function (username, password) {
+		        	var credentials = Base64.encode(username + ':' + password);
 					$http.defaults.headers.common['Authorization'] = 'Basic ' + (credentials || '');
-		        	return $http.get(server + urls.system.info, {
+		        	return $http.get($rootScope.baseUrl + urls.system.info, {
 		        		headers: {
 		        			'Accept': '*/*',
 		        			Authorization: 'Basic ' + credentials

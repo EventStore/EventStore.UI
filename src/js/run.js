@@ -11,19 +11,11 @@ define(['es-ui'], function (app) {
         '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'ScavengeNotificationService', 'MessageService',
         function ($rootScope, $location, $state, $stateParams, authService, infoService, scavengeNotificationService, msg) {
             $rootScope.baseUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+            /*$rootScope.baseUrl = 'https://127.0.0.1:2113'; //uncomment during development*/
             $rootScope.projectionsEnabled = false;
             $rootScope.userManagementEnabled = false;
             $rootScope.streamsBrowserEnabled = false;
             $rootScope.singleNode = true;
-            var log = {
-                username: '',
-                password: '',
-                server: $location.protocol() + '://' + $location.host() + ':' + $location.port()
-            };
-
-            if(!$location.host()) {
-                log.server = 'https://127.0.0.1:2113';
-            }
 
             infoService.getInfo()
             .success(function(info){
@@ -36,7 +28,7 @@ define(['es-ui'], function (app) {
                 $rootScope.logoutEnabled = info.authentication.type !== 'insecure';
                 $rootScope.previousUrl = $location.$$path;
 
-                authService.existsAndValid(log.server)
+                authService.existsAndValid()
                 .then(function () {
                     setSingleNodeOrCluster();
                     redirectAfterLoggingIn();

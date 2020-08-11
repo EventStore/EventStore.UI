@@ -8,13 +8,9 @@ define(['./_module'], function (app) {
 
 			$scope.log = {
 				username: '',
-				password: '',
-				server: $location.protocol() + '://' + $location.host() + ':' + $location.port()
+				password: ''
 			};
 
-			if(!$location.host()) {
-				$scope.log.server = 'https://127.0.0.1:2113';
-			}
 
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
@@ -22,10 +18,10 @@ define(['./_module'], function (app) {
 					return;
 				}
 
-				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
+				authService.validate($scope.log.username, $scope.log.password)
 				.success(function () {
                     authService.getUserGroups($scope.log.username).then(function(groups) {
-						authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server, groups);
+						authService.setCredentials($scope.log.username, $scope.log.password, groups);
 						setSingleNodeOrCluster();
 	                	redirectAfterLoggingIn();
                     });
@@ -60,7 +56,7 @@ define(['./_module'], function (app) {
 			}
 
 			function checkCookie () {
-				authService.existsAndValid($scope.log.server)
+				authService.existsAndValid()
 				.then(function () {
 					redirectAfterLoggingIn();
 				});
