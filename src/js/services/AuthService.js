@@ -31,12 +31,8 @@ define(['./_module'], function (app) {
 
 			function clearCredentials(){
 	            document.execCommand('ClearAuthenticationCache');
-		        $http.defaults.headers.common.Authorization = 'Basic ';
-	            var escreds = $cookieStore.get('es-creds');
-	            if(escreds){
-	            	escreds = {};
-	            	$cookieStore.put('es-creds', escreds);
-	            }
+		        $http.defaults.headers.common.Authorization = undefined;
+	            $cookieStore.remove('es-creds');
 			}
 
 			function addCredentialsToCookie(username, password, groups){
@@ -75,7 +71,14 @@ define(['./_module'], function (app) {
 
 					setUserRole(groups);
 		            addCredentialsToCookie(username, password, groups);
-		        },
+				},
+				loadCredentials: function(){
+					var credentials = getCredentialsFromCookie();
+					if (!credentials){
+						return;
+					}
+					$http.defaults.headers.common.Authorization = 'Basic ' + credentials;
+				},
 		        clearCredentials: function () {
 		            clearCredentials();
 		        },

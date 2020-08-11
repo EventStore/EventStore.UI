@@ -18,6 +18,8 @@ define(['es-ui'], function (app) {
             $rootScope.logoutEnabled = true;
             $rootScope.singleNode = true;
 
+            authService.loadCredentials();
+
             infoService.getInfo()
             .success(function(info){
                 $rootScope.esVersion = info.esVersion || '0.0.0.0';
@@ -38,7 +40,8 @@ define(['es-ui'], function (app) {
                 });
             })
 			.error(function(){
-				msg.failure('Could not load /info endpoint');
+                msg.failure('Could not load /info endpoint');
+                authService.clearCredentials();
             });
             
             function setSingleNodeOrCluster(){
