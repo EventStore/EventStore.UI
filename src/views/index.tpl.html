@@ -31,7 +31,7 @@
 				<a ng-class="{'disabled': !isAdmin || !userManagementEnabled}" ui-sref="users.list">Users</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('signout') }">
-				<a ui-sref="signout">Log Out</a>
+				<a ng-class="{'disabled': !logoutEnabled}" ui-sref="signout">Log Out</a>
 			</li>
 		</ul>
 	</header>

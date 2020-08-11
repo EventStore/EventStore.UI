@@ -15,6 +15,7 @@ define(['es-ui'], function (app) {
             $rootScope.projectionsEnabled = false;
             $rootScope.userManagementEnabled = false;
             $rootScope.streamsBrowserEnabled = false;
+            $rootScope.logoutEnabled = true;
             $rootScope.singleNode = true;
 
             infoService.getInfo()
