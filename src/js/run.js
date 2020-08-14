@@ -36,7 +36,19 @@ define(['es-ui'], function (app) {
                     setSingleNodeOrCluster();
                     redirectAfterLoggingIn();
                 }, function () {
-                    $state.go('signin');
+                    if($rootScope.authentication.type === 'oauth'){
+                        var authorizationEndpoint = $rootScope.authentication.properties.authorization_endpoint;
+                        var clientId = encodeURIComponent($rootScope.authentication.properties.client_id);
+                        var redirectUri = encodeURIComponent($rootScope.baseUrl + $rootScope.authentication.properties.redirect_uri);
+                        var responseType = encodeURIComponent($rootScope.authentication.properties.response_type);
+                        var scope = encodeURIComponent($rootScope.authentication.properties.scope);
+
+                        var authorizationUri = authorizationEndpoint + '?response_type=' + responseType + '&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scope;
+                        window.location.href = authorizationUri;
+                    } else{
+                        //default behaviour is to sign-in with username/password
+                        $state.go('signin');
+                    }
                 });
             })
 			.error(function(){

@@ -6,13 +6,14 @@ define(['./_module'], function (app) {
 	return app.factory('AuthService', [
 		'Base64', 
 		'$q',
+		'$cookies',
 		'$cookieStore', 
 		'$http', 
 		'$rootScope',
 		'$location',
 		'urls',
 		'UrlBuilder',
-		function (Base64, $q, $cookieStore, $http, $rootScope, $location, urls, urlBuilder) {
+		function (Base64, $q, $cookies, $cookieStore, $http, $rootScope, $location, urls, urlBuilder) {
 			function getCredentialsFromCookie(){
 				var escreds = $cookieStore.get('es-creds');
 				if(!escreds){
@@ -27,6 +28,16 @@ define(['./_module'], function (app) {
 					return null;
 				}
 				return escreds.groups;
+			}
+
+			function trySetIdTokenFromCookie(){
+				var oauthIdToken = $cookies['oauth_id_token'];
+				if(!oauthIdToken){
+					return;
+				}
+
+				document.cookie='oauth_id_token=;path=/;max-age=-1';
+				$http.defaults.headers.common.Authorization = 'Bearer ' + oauthIdToken;
 			}
 
 			function clearCredentials(){
@@ -88,7 +99,17 @@ define(['./_module'], function (app) {
 					if($rootScope.authentication.type === 'insecure'){
 						setUserRole(['$admins']);
 						deferred.resolve();
-					} else {
+					}
+					else if($rootScope.authentication.type === 'oauth'){
+						trySetIdTokenFromCookie();
+						var authHeader = $http.defaults.headers.common.Authorization;
+						if(authHeader !== undefined && authHeader.startsWith('Bearer ')){
+							deferred.resolve();
+						} else{
+							deferred.reject('Not authenticated');
+						}
+					}
+					else {
 						var credentials = getCredentialsFromCookie();
 						if(!credentials) {
 							deferred.reject('Data does not exists');
