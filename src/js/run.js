@@ -8,8 +8,8 @@ define(['es-ui'], function (app) {
         });
     }]);
 	return app.run([
-        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'ScavengeNotificationService', 'MessageService',
-        function ($rootScope, $location, $state, $stateParams, authService, infoService, scavengeNotificationService, msg) {
+        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'ScavengeNotificationService', 'MessageService','$http',
+        function ($rootScope, $location, $state, $stateParams, authService, infoService, scavengeNotificationService, msg, $http) {
             $rootScope.baseUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port();
             /*$rootScope.baseUrl = 'https://127.0.0.1:2113'; //uncomment during development*/
             $rootScope.projectionsEnabled = false;
@@ -39,12 +39,22 @@ define(['es-ui'], function (app) {
                     if($rootScope.authentication.type === 'oauth'){
                         var authorizationEndpoint = $rootScope.authentication.properties.authorization_endpoint;
                         var clientId = encodeURIComponent($rootScope.authentication.properties.client_id);
-                        var redirectUri = encodeURIComponent($rootScope.baseUrl + $rootScope.authentication.properties.redirect_uri);
                         var responseType = encodeURIComponent($rootScope.authentication.properties.response_type);
                         var scope = encodeURIComponent($rootScope.authentication.properties.scope);
+                        var codeChallengeUri = $rootScope.baseUrl + $rootScope.authentication.properties.code_challenge_uri;
 
-                        var authorizationUri = authorizationEndpoint + '?response_type=' + responseType + '&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scope;
-                        window.location.href = authorizationUri;
+                        $http.get(codeChallengeUri)
+                        .then(function(res){
+                            var codeChallenge = res.data.code_challenge;
+                            var codeChallengeMethod = res.data.code_challenge_method;
+                            var codeChallengeCorrelationId = res.data.code_challenge_correlation_id;
+                            var redirectUri = encodeURIComponent($rootScope.baseUrl + $rootScope.authentication.properties.redirect_uri + '?code_challenge_correlation_id=' + codeChallengeCorrelationId);
+                            var authorizationUri = authorizationEndpoint + '?response_type=' + responseType + '&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scope + '&code_challenge=' + codeChallenge + '&code_challenge_method=' + codeChallengeMethod;
+                            window.location.href = authorizationUri;
+                        },
+                        function(){
+                            msg.failure('Could not fetch OAuth code challenge');
+                        });
                     } else{
                         //default behaviour is to sign-in with username/password
                         $state.go('signin');
