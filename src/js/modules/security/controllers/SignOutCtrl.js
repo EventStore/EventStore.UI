@@ -3,10 +3,15 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SignOutCtrl', [
-		'$scope', '$state', 'AuthService',
-		function ($scope, $state, authService) {
+		'$scope', '$state', 'AuthService', '$rootScope',
+		function ($scope, $state, authService, $rootScope) {
 			authService.clearCredentials();
-			$state.go('signin');
+
+			if($rootScope.authentication.type === 'oauth'){
+				$rootScope.hideMenuOptions = true;
+			} else{
+				$state.go('signin');
+			}
 		}
 	]);
 
