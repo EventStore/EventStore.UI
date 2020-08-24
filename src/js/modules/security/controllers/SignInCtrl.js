@@ -20,11 +20,9 @@ define(['./_module'], function (app) {
 
 				authService.validate($scope.log.username, $scope.log.password)
 				.success(function () {
-                    authService.getUserGroups($scope.log.username).then(function(groups) {
-						authService.setCredentials($scope.log.username, $scope.log.password, groups);
-						setSingleNodeOrCluster();
-	                	redirectAfterLoggingIn();
-                    });
+					authService.setCredentials($scope.log.username, $scope.log.password);
+					setSingleNodeOrCluster();
+					redirectAfterLoggingIn();
 				})
 				.error(function () {
 					msg.warn('Incorrect user credentials supplied.');
