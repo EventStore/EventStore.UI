@@ -35,19 +35,17 @@ define(['./_module'], function (app) {
 				});
 			};
 
-			if($rootScope.isAdmin !== false) {
-				$scope.search = '$all';
-			
-				streamsService.recentlyChangedStreams()
-				.success(function (data) {
-					$scope.changedStreams = filter(data.entries);
-				});
+			$scope.search = '$all';
+		
+			streamsService.recentlyChangedStreams()
+			.success(function (data) {
+				$scope.changedStreams = filter(data.entries);
+			});
 
-				streamsService.recentlyCreatedStreams()
-				.success(function (data) {
-					$scope.createdStreams = filter(data.entries);
-				});
-			}
+			streamsService.recentlyCreatedStreams()
+			.success(function (data) {
+				$scope.createdStreams = filter(data.entries);
+			});
 		}
 	]);
 });

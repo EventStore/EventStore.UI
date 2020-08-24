@@ -71,17 +71,15 @@ define(['es-ui'], function (app) {
             });
             
             function setSingleNodeOrCluster(){
-                if($rootScope.isAdminOrOps) {
-                    scavengeNotificationService.start();
-                    infoService.getOptions().then(function onGetOptions(response){
-                        var options = response.data;
-                        for (var index in options) {
-                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
-                                $rootScope.singleNode = false;
-                            }
+                scavengeNotificationService.start();
+                infoService.getOptions().then(function onGetOptions(response){
+                    var options = response.data;
+                    for (var index in options) {
+                        if(options[index].name === 'ClusterSize' && options[index].value > 1){
+                            $rootScope.singleNode = false;
                         }
-                    });
-                }
+                    }
+                });
             }
 
 			function redirectAfterLoggingIn() {
