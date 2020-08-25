@@ -34,15 +34,20 @@ define(['./_module'], function (app) {
 
 			function setSingleNodeOrCluster(){
 				scavengeNotificationService.start();
-				infoService.getOptions().then(function onGetOptions(response){
-					var options = response.data;
+				infoService.getOptions().then(function(res){
+					var options = res.data;
 					for (var index in options) {
 						if(options[index].name === 'ClusterSize' && options[index].value > 1){
 							$rootScope.singleNode = false;
 						}
 					}
+				},function(error){
+					if(error.statusCode === 401){
+						return;
+					}
+					msg.failure('Failed to load options: ' + error.message);
 				});
-            }
+      }
 
 			function redirectAfterLoggingIn() {
 				if($rootScope.previousUrl && $rootScope.previousUrl !== '/'){

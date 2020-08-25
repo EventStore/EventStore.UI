@@ -23,7 +23,8 @@ define(['es-ui'], function (app) {
             authService.loadCredentials();
 
             infoService.getInfo()
-            .success(function(info){
+            .then(function(res){
+                var info = res.data;
                 $rootScope.esVersion = info.esVersion || '0.0.0.0';
                 $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                 $rootScope.projectionsEnabled = info.features.projections === true;
@@ -64,9 +65,8 @@ define(['es-ui'], function (app) {
                         $state.go('signin');
                     }
                 });
-            })
-			.error(function(){
-                msg.failure('Could not load /info endpoint');
+            }, function(error){
+                msg.failure('Failed to load /info endpoint: ' + error.message);
                 authService.clearCredentials();
             });
             
@@ -79,6 +79,11 @@ define(['es-ui'], function (app) {
                             $rootScope.singleNode = false;
                         }
                     }
+                }, function(error){
+                    if(error.statusCode === 401){
+                        return;
+                    }
+                    msg.failure('Failed to load options: ' + error.message);
                 });
             }
 

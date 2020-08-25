@@ -16,9 +16,10 @@ define(['./_module'], function (app) {
 					}
 				}
 			},
-			function(){
-
+			function(error){
+                msg.failure('Failed to load options: ' + error.message);
             });
+
             var replicaStatsQuery;
 			function setupGossipPoller(){
 				var gossipQuery = poller.create({
