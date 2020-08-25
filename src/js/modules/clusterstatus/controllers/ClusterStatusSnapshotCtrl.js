@@ -2,8 +2,8 @@ define(['./_module'], function (app) {
 
     'use strict';
 
-    return app.controller('ClusterStatusSnapshotCtrl', ['$scope', 'dateFilter', 'poller', 'SprintfService', 'ClusterStatusService',
-		function ClusterStatusSnapshotCtrl($scope, dateFilter, poller, sprintf, clusterStatusService) {
+    return app.controller('ClusterStatusSnapshotCtrl', ['$scope', 'dateFilter', 'poller', 'SprintfService', 'ClusterStatusService', 'MessageService',
+		function ClusterStatusSnapshotCtrl($scope, dateFilter, poller, sprintf, clusterStatusService, msg) {
 		    function format(data) {
 		    	var nodes = data.members;
 		        var snapshotLines = sprintf.format('%s\n', 'Snapshot taken at ' + dateFilter(new Date(), 'yyyy-MM-d HH:mm:ss'));
@@ -26,6 +26,10 @@ define(['./_module'], function (app) {
 		    $scope.$on('$destroy', function () {
 				poller.clear();
 			});
-			clusterStatusService.gossip().success(format);
+			clusterStatusService.gossip().then(function(res){
+				format(res.data);
+			}, function(error){
+				msg.failure('Failed to retrieve gossip info: ' + error.message);
+			});
 		}]);
 });
