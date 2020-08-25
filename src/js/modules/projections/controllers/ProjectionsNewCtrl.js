@@ -47,14 +47,14 @@ define(['./_module'], function (app) {
 				};
 
 				projectionsService.create($scope.mode, $scope.source, param)
-					.success(function (data, status, headers) {
+					.then(function (res) {
+						var headers = res.headers;
 						var location = headers()['location'];
 						$state.go('^.item.details', {
 							location: encodeURIComponent(location)
 						});
-					})
-					.error(function () {
-						msg.failure('Coudn\'t create new projection');
+					}, function (error) {
+						msg.failure('Failed to create new projection: ' + error.message);
 					});
 			};
 

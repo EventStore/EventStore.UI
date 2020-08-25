@@ -14,7 +14,9 @@ define(['./_module'], function (app) {
 				location = $stateParams.location;
                 projectionsService.query(location).then(function (result) {
 	                $scope.query = result.data.query;
-                });
+                }, function(error){
+									msg.failure('Failed to load query source: ' + error.message);
+								});
 			} else if ($stateParams.initStreamId) {
                           $scope.query = 'fromStream(\'' + $stateParams.initStreamId + '\')\n  .when({\n  })';
                         } else {

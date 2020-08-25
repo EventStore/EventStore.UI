@@ -14,14 +14,18 @@ define(['./_module'], function (app) {
 			};
 
 			projectionsService.state($scope.location)
-			.success(function (data) {
-				$scope.projection.state = data;
+			.then(function (res) {
+				$scope.projection.state = res.data;
+			}, function (error) {
+				msg.failure('Failed to load the projection state: ' + error.message);
 			});
 
 			projectionsService.query($scope.location)
-			.success(function (data) {
-				$scope.projection.source = data.query;
-				$scope.projection.name = data.name;
+			.then(function (res) {
+				$scope.projection.source = res.data.query;
+				$scope.projection.name = res.data.name;
+			}, function (error) {
+				msg.failure('Failed to load projection source: ' + error.message);
 			});
 
 			function removeProjection(location){
@@ -30,12 +34,11 @@ define(['./_module'], function (app) {
 					deleteStateStream: $scope.deleteState ? 'yes' : 'no',
 					deleteEmittedStreams: $scope.deleteEmittedStreams ? 'yes' : 'no'
 				})
-				.success(function () {
+				.then(function () {
 					msg.success('Projection has been removed');
 					$state.go('projections.list');
-				})
-				.error(function () {
-					msg.failure('Projection not removed');
+				}, function (error) {
+					msg.failure('Failed to remove projection: ' + error.message);
 				});
 			}
 
@@ -44,14 +47,13 @@ define(['./_module'], function (app) {
 				$event.stopPropagation();
 
 				projectionsService.disable($scope.location)
-				.success(function () {
+				.then(function () {
 					removeProjection($scope.location);
-				})
-				.error(function (message) {
-					if(message.indexOf('Not enabled') !== -1){
+				}, function (error) {
+					if(error.message.indexOf('Not enabled') !== -1) {
 						removeProjection($scope.location);
-					}else{
-						msg.failure('Projection could not be stopped');
+					} else{
+						msg.failure('Failed to stop projection: ' + error.message);
 					}
 				});
 			};
