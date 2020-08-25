@@ -19,13 +19,16 @@ define(['./_module'], function (app) {
 				}
 
 				authService.validate($scope.log.username, $scope.log.password)
-				.success(function () {
+				.then(function () {
 					authService.setCredentials($scope.log.username, $scope.log.password);
 					setSingleNodeOrCluster();
 					redirectAfterLoggingIn();
-				})
-				.error(function () {
-					msg.warn('Incorrect user credentials supplied.');
+				}, function (error) {
+					if(error.statusCode === 401){
+						msg.warn('Incorrect user credentials supplied.');
+					} else{
+						msg.failure('Failed to validate user: ' + error.message);
+					}
 				});
 			};
 
