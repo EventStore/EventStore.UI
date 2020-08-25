@@ -23,8 +23,10 @@ define(['./_module'], function (app) {
 			}];
 
 			competingService.subscriptionDetail($scope.stream, $scope.subscription)
-				.success(function(data){
-					$scope.config = data.config;
+			.then(function(res){
+					$scope.config = res.data.config;
+			}, function(error){
+					msg.failure('Failed to retrieve subscription details: ' + error.message);
 			});
 
 			$scope.namedConsumerStrategy = 'RoundRobin';
@@ -54,15 +56,19 @@ define(['./_module'], function (app) {
 				};
 
 				competingService.update($scope.stream, $scope.subscription, param)
-					.success(function (data, status, headers) {
+					.then(function (res) {
+						var headers = res.headers;
 						var location = headers()['location'];
 						msg.success('Subscription has been updated');
 						$state.go('subscriptions.list', {
 							location: encodeURIComponent(location)
 						});
-					})
-					.error(function (response) {
-						msg.failure('Coudn\'t update subscription because ' + response.reason);
+					}, function (error) {
+						var errorMsg = error.message;
+						if(error.errorData && error.errorData.reason){
+							errorMsg = error.errorData.reason;
+						}
+						msg.failure('Failed to update subscription: ' + errorMsg);
 					});
 			};
 		}

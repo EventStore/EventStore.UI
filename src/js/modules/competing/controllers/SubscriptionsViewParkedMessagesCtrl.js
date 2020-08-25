@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SubscriptionsViewParkedMessagesCtrl', [
-		'$scope', '$stateParams', 'CompetingService', 'poller',
-		function ($scope, $stateParams, competingService, pollerProvider) {
+		'$scope', '$stateParams', 'CompetingService', 'poller', 'MessageService',
+		function ($scope, $stateParams, competingService, pollerProvider, msg) {
 			var defaultPageSize = 20;
 			$scope.streamId = $stateParams.streamId;
 			$scope.groupName = $stateParams.groupName;
@@ -12,21 +12,27 @@ define(['./_module'], function (app) {
 			var showJson = {};
 			
 			competingService.viewParkedMessagesBackward($scope.streamId, $scope.groupName, "head", defaultPageSize)
-				.success(function(data){
+				.then(function(res){
+					var data = res.data;
 					if (data.entries!=undefined){
 						$scope.entries = data["entries"];
 					}else{
 						$scope.entries = []
 					}
+				}, function(error){
+					msg.failure('Failed to read parked messages: ' + error.message);
 				});
 			
 			$scope.pageForward = function(entries){
 				if (entries!=undefined && entries.length > 0){
 					var fromEvent = entries[0]["positionEventNumber"]+1;
 					competingService.viewParkedMessagesForward($scope.streamId, $scope.groupName,fromEvent,defaultPageSize)
-					.success(function(data){
+					.then(function(res){
+						var data = res.data;
 						if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0)
 							$scope.entries = data["entries"];
+					}, function(error){
+						msg.failure('Failed to read parked messages: ' + error.message);
 					});
 				}
 			};
@@ -56,7 +62,8 @@ define(['./_module'], function (app) {
 				}
 					
 			});
-			firstPagePoll.promise.catch(function () {
+			firstPagePoll.promise.catch(function (error) {
+				msg.failure('Failed to read parked messages: ' + error.message);
 				firstPagePoll.stop(); 
 			});
 
@@ -65,28 +72,34 @@ define(['./_module'], function (app) {
 				if (entries!=undefined && entries.length > 0){
 					var fromEvent = entries[entries.length-1]["positionEventNumber"]-1;
 					competingService.viewParkedMessagesBackward($scope.streamId, $scope.groupName,fromEvent,defaultPageSize)
-					.success(function(data){
+					.then(function(res){
+						var data = res.data;
 						firstPagePoll.stop();
 						if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0) {
 							$scope.entries = data["entries"];
 						}
+					}, function(error){
+						msg.failure('Failed to read parked messages: ' + error.message);
 					});
 				}
-				
 			};
 			
 			$scope.pageFirst = function(){
 				competingService.viewParkedMessagesBackward($scope.streamId, $scope.groupName,"head",defaultPageSize)
-				.success(function(data){
+				.then(function(res){
+					var data = res.data;
 					if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0) {
 						$scope.entries = data["entries"];
 					}
+				}, function(error){
+					msg.failure('Failed to read parked messages: ' + error.message);
 				});
+
 				firstPagePoll.start();
 			};
 
 			$scope.$on('$destroy', function () {
-				firstPagePoll.clear();
+				firstPagePoll.stop();
 			});
 			
 			$scope.toggleJson = function ($event, evt) {

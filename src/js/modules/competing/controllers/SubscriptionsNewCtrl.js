@@ -46,15 +46,15 @@ define(['./_module'], function (app) {
 				};
 
 				competingService.create($scope.stream, $scope.subscription, param)
-					.then(function (data, status) {
+					.then(function () {
 						msg.success('Subscription has been created');
 						$state.go('^.list');
-					}, function(response){
-						var error = response.statusText;
-						if(response.data && response.data.reason) {
-							error = response.data.reason;
+					}, function(error){
+						var errorMsg = error.message;
+						if(error.errorData && error.errorData.reason){
+							errorMsg = error.errorData.reason;
 						}
-						msg.failure('Coudn\'t create new subscription because ' + error);
+						msg.failure('Failed to create new subscription: ' + errorMsg);
 					});
 			};
 
