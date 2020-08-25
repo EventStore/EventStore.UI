@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('DashboardSnaphostCtrl', [
-		'$scope', 'DashboardService', 'SprintfService',
-		function ($scope, dashboardService, print) {
+		'$scope', 'DashboardService', 'SprintfService', 'MessageService',
+		function ($scope, dashboardService, print, msg) {
 
 			function format (data) {
 				var snapshot = 'Snapshot taken at: ' + (new Date()).toString();
@@ -31,7 +31,11 @@ define(['./_module'], function (app) {
 
 				$scope.snapshot = snapshot;
 			}
-			dashboardService.stats().success(format);
+			dashboardService.stats().then(function(res){
+				 format(res.data);
+			}, function(error){
+				msg.failure('Failed to retrieve dashboard stats: ' + error.message);
+			});
 		}
 	]);
 });

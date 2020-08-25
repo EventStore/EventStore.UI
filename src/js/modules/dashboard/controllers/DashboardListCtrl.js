@@ -19,10 +19,10 @@ define(['./_module'], function (app) {
 			statsPoll.promise.then(null, null, function (data) { 
 				$scope.queues = dashboardMapper.map(data, $scope.queues);
 			});
-			statsPoll.promise.catch(function () {
-				msg.failure('An error occured.');
+			statsPoll.promise.catch(function (error) {
+				msg.failure('Failed to fetch dashboard stats: ' + error.message);
 				$scope.queues = null;
-				statsPoll.stop(); // if error we do not want to continue...
+				statsPoll.stop();
 			});
 
             // TCP Stats
@@ -42,6 +42,12 @@ define(['./_module'], function (app) {
                     stat.averageBytesReceivedPerSecond = previous ? stat.totalBytesReceived - previous.totalBytesReceived : 0;
                 }
                 $scope.tcpStats = data;
+            });
+
+            tcpStatsPoll.promise.catch(function (error) {
+                msg.failure('Failed to fetch TCP connection stats: ' + error.message);
+                $scope.tcpStats = null;
+                tcpStatsPoll.stop();
             });
 
             function getPreviousTcpStat(connectionId, previousTcpStats) {
