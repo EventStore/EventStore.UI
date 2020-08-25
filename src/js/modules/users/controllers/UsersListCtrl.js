@@ -23,9 +23,9 @@ define(['./_module'], function (app) {
 				$scope.users = data.data;
 			});
 
-			all.promise.catch(function () {
+			all.promise.catch(function (error) {
 				all.stop();
-				msg.failure('Cannot get list of users');
+				msg.failure('Failed to retrieve list of users: ' + error.message);
 			});
 
 

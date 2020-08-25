@@ -13,7 +13,7 @@ define(['./_module'], function (app) {
 				}
 
 				userService.resetPassword($scope.user.loginName, $scope.password)
-				.success(function () {
+				.then(function () {
 					msg.success('Password has been reset');
 					authService.resetCredentials($scope.user.loginName, $scope.password)
 					.then(function(){
@@ -22,18 +22,21 @@ define(['./_module'], function (app) {
 						msg.failure('We tried to reset the credentials in the cookie and failed. Please log in again.');
 						$state.go('signin');
 					});
-				})
-				.error(function () {
-					msg.failure('Password not reset');
+				}, function (error) {
+					msg.failure('Failed to reset password: ' + error.message);
 				});
 			};
 
 			userService.get($scope.$stateParams.username)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.user = data.data;
-			})
-			.error(function () {
-				msg.failure('User does not exist or you do not have permission');
+			}, function (error) {
+				if(error.statusCode === 404){
+					msg.failure('User does not exist');
+				} else{
+					msg.failure('Failed to get user: ' + error.message);
+				}
 				$state.go('users');
 			});
 		}

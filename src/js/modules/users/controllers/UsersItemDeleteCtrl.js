@@ -14,18 +14,22 @@ define(['./_module'], function (app) {
 				userService.remove($scope.user.loginName).then(function () {
 					msg.success('User deleted');
 					$state.go('users.list');
-				}, function () {
-					msg.failure('User was not deleted');
+				}, function (error) {
+					msg.failure('Failed to delete user: ' + error.message);
 				});
 			};
 
 			userService.get($stateParams.username)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.user = data.data;
 				$scope.disable = false;
-			})
-			.error(function () {
-				msg.failure('User does not exists or you do not have permissions');
+			}, function (error) {
+				if(error.statusCode === 404){
+					msg.failure('User does not exist');
+				} else{
+					msg.failure('Failed to get user: ' + error.message);
+				}
 				$state.go('users');
 			});
 		}

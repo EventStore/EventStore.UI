@@ -13,12 +13,11 @@ define(['./_module'], function (app) {
 					return;
 				}
 				userService.create($scope.newUser)
-				.success(function () {
+				.then(function () {
 					msg.success('User created');
 					$state.go('^.list');
-				})
-				.error(function (response) {
-					msg.failure('Failed to create user, reason : ' + response.error);
+				}, function (error) {
+					msg.failure('Failed to create user: ' + error.message);
 				});
 			};
 		}

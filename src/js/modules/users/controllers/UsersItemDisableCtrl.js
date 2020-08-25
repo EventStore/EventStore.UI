@@ -12,26 +12,29 @@ define(['./_module'], function (app) {
 				$event.stopPropagation();
 
 				userService.disable($scope.user.loginName)
-				.success(function () {
+				.then(function () {
 					msg.success('User disabled');
 					$scope.$state.go('^.details');
-				})
-				.error(function (response) {
-					msg.failure('Failed to disable user, reason : ' + response.error);
+				}, function (error) {
+					msg.failure('Failed to disable user: ' + error.message);
 				});
 			};
 
 			userService.get($stateParams.username)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.user = data.data;
 				$scope.disable = false;
 				if($scope.user.disabled) {
 					msg.warn('User already disabled');
 					$state.go('^.details');
 				}
-			})
-			.error(function () {
-				msg.failure('User does not exist or you do not have permissions');
+			}, function (error) {
+				if(error.statusCode === 404){
+					msg.failure('User does not exist');
+				} else{
+					msg.failure('Failed to get user: ' + error.message);
+				}
 				$state.go('users');
 			});
 		}

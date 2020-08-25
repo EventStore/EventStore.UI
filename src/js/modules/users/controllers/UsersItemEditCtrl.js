@@ -13,23 +13,26 @@ define(['./_module'], function (app) {
 				}
 				userService.update($scope.user.loginName, 
 					$scope.fullName, $scope.user.role)
-				.success(function () {
+				.then(function () {
 					msg.success('user updated');
 					$state.go('^.details');
-				})
-				.error(function () {
-					msg.failure('user not updated');
+				}, function (error) {
+					msg.failure('Failed to update user: ' + error.message);
 				});
 			};
 
 			userService.get($stateParams.username)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.user = data.data;
 				$scope.user.role = data.data.groups[0];
 				$scope.fullName = $scope.user.fullName;
-			})
-			.error(function () {
-				msg.failure('user does not exists or you do not have perms');
+			}, function (error) {
+				if(error.statusCode === 404){
+					msg.failure('User does not exist');
+				} else{
+					msg.failure('Failed to get user: ' + error.message);
+				}
 				$state.go('users');
 			});
 		}

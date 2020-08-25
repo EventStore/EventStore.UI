@@ -3,17 +3,17 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('UsersItemDetailsCtrl', [
-		'$scope', '$state', '$stateParams', 'UserService',
-		function ($scope, $state, $stateParams, userService) {
+		'$scope', '$state', '$stateParams', 'UserService', 'MessageService',
+		function ($scope, $state, $stateParams, userService, msg) {
 			
 			userService.get($stateParams.username)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.user = data.data;
-			})
-			.error(function () { 
+			}, function (error) {
+				msg.failure('Failed to get user: ' + error.message);
 				$state.go('users');
 			});
-
 		}
 	]);
 });
