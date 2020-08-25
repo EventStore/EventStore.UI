@@ -31,14 +31,14 @@ define(['./_module'], function (app) {
 				};
 
 				queryService.create($scope.query, param)
-				.success(function (data, status, headers) {
+				.then(function (res) {
+					var headers = res.headers;
 					location = headers()['location'];
 					$scope.isCreated = true;
 					run();
-				})
-				.error(function () {
+				}, function (error) {
 					$scope.isCreated = false;
-					msg.failure('Couldn\'t create new query');
+					msg.failure('Failed to create new query: ' + error.message);
 				});
 			}
 
@@ -82,29 +82,22 @@ define(['./_module'], function (app) {
 
 			function run () {
 				$scope.maximized = false;
-				var updated = queryService.update(location, $scope.query);
-				
-				updated.success(function () {
+				var updated = queryService.update(location, $scope.query)
+				.then(function () {
 
 					var enabled = queryService.enable(location);
 					// start monitoring ms before query will be enabled
 					monitorState();
 
-					enabled.error(function () {
-						msg.failure('Could not start query');
+					enabled.catch(function (error) {
+						msg.failure('Failed to start query: ' + error.message);
 						monitor.stop();
 					});
-
-					//var disable = queryService.disable(location);
-					//disable.success(function () {
-						
-					//});
-				})
-				.error(function (response, statusCode) {
-					if(statusCode === 404){
+				}, function (error) {
+					if(error.statusCode === 404){
 						msg.failure('The query was not updated because it was not found. The query probably expired and was deleted.');
 					}else{
-						msg.failure('Query not updated');
+						msg.failure('Failed to update the query: ' + error.message);
 					}
 				});
 			}
@@ -141,11 +134,8 @@ define(['./_module'], function (app) {
 			};
 
 			$scope.stop = function () {
-
-				var disable = stopAndDisable();
-				
-				disable.error(function () {
-					msg.failure('Could not break query');
+				stopAndDisable().catch(function (error) {
+					msg.failure('Failed to stop query: ' + error.message);
 				});
 			};
 
@@ -161,8 +151,12 @@ define(['./_module'], function (app) {
                         }, { 
                             inherit: false 
                         });
-                    });
-                });
+                    }, function(error){
+											msg.failure('Failed to reset query: ' + error.message);
+										});
+                }, function(error){
+										msg.failure('Failed to stop query: ' + error.message);
+								});
 			};
 
 			var unbindHandler = $scope.$watch('query', function(scope, newValue, oldValue) {
