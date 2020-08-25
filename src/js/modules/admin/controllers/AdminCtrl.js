@@ -5,17 +5,25 @@ define(['./_module'], function (app) {
     return app.controller('AdminCtrl', [
         '$scope', 'AdminService', 'MessageService', 'poller', '$state', 'ScavengeNotificationService', 'constants', '$timeout',
         function ($scope, adminService, msg, poller, $state, scavengeNotificationService, constants, $timeout) {
-			$scope.subSystems = [];
-            $scope.scavengeHistory = [];
+            $scope.subSystems = null;
+            $scope.scavengeHistory = null;
+
+            $scope.noSubSystemsText = 'No sub systems are running.';
+            $scope.noScavengeHistoryText = 'No scavenges have been run.';
+
 			adminService.getSubsystems()
-			.success(function(data){
+			.then(function(res){
+                var data = res.data;
 				if(!data){
 					return;
 				}
 				$scope.subSystems = data;
-			})
-			.error(function(){
-				msg.failure('Could not retrieve sub systems');
+			}, function(error){
+                if(error.statusCode === 401){
+                    $scope.noSubSystemsText = 'You are not authorized to view enabled sub systems.';
+                } else{
+                    msg.failure('Failed to retrieve sub systems: ' + error.message);
+                }
 			});
 			var stop = function ($event) {
 					$event.preventDefault();
@@ -30,28 +38,28 @@ define(['./_module'], function (app) {
 				}
 				adminService.shutdown().then(function () {
 					msg.success('Server shutdown initiated');
-				}, function () {
-					msg.failure('Shutdown failed');
+				}, function (error) {
+					msg.failure('Shutdown failed: ' + error.message);
 				});
 			};
 
 			$scope.scavenge = function ($event) {
 				stop($event);
 
-				adminService.scavenge().then(null, function () {
-					msg.failure('Scavenge failed');
+				adminService.scavenge().then(null, function (error) {
+					msg.failure('Scavenge failed: ' + error.message);
 				});
             };
             
             $scope.stopScavenge = function ($event, $history) {
 				stop($event);
 
-				adminService.stopScavenge($history.scavengeId).then(null, function () {
-					msg.failure('Stopping scavenge ' + $history.scavengeId + ' failed');
+				adminService.stopScavenge($history.scavengeId).then(null, function (error) {
+					msg.failure('Stopping scavenge ' + $history.scavengeId + ' failed: ' + error.message);
 				});
 			};
 
-            $scope.scavengeHistory = function() {
+            $scope.scavengeHistoryButton = function() {
                 $state.go('streams.item.events', {streamId: '$scavenges'});
             };
 
@@ -102,7 +110,11 @@ define(['./_module'], function (app) {
                 scavengeQuery.start();
 
                 scavengeQuery.promise.then(null,
-                    function() {
+                    function(error) {
+                        if(error.statusCode === 401){
+                            $scope.noScavengeHistoryText = 'You are not authorized to view the scavenge history';
+                            return;
+                        }
                         if(timeout){
                             $timeout.cancel(timeout);
                             timeout = null;
