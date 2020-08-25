@@ -50,8 +50,8 @@ define(['./_module'], function (app) {
                                   msg.success('Event ' + $scope.eventId + '(' + $scope.eventType + ') created');
                                   $scope.eventId = generateArbitraryEventId();
                                 },
-                                function (response) {
-                                  msg.failure('Could not create event. ' + response.statusText);
+                                function (error) {
+                                  msg.failure('Failed to create event: ' + error.message);
                                 }
                             );
                         };

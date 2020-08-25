@@ -16,8 +16,8 @@ define(['./_module'], function (app) {
 			$scope.source = $stateParams.source;
 
 			atom.start($stateParams)
-			.then(null, function () {
-				msg.failure('stream does not exist');
+			.then(null, function (error) {
+				msg.failure('Failed to read events for stream \''+$scope.streamId+'\': ' + error.message);
 			}, function (data) {
 				$scope.$parent.headOfStream = data.headOfStream;	
 				$scope.$broadcast('add-link-header', findSelf(data.links));
@@ -62,20 +62,18 @@ define(['./_module'], function (app) {
 
 			function deleteStream(streamId){
 				if (streamId === undefined) {
-					msg.info('You cannot delete this stream as the stream id is empty of undefined');
+					msg.info('You cannot delete this stream as the stream ID is empty or undefined');
 					return;
 				}
 				var confirmation = msg.confirm('Are you sure you want to delete the stream: ' + streamId + '?');
 				if(!confirmation) {
 					return;
 				}
-				streamsService.deleteStream(streamId).then(function(success){
-					if(success)
-					{
-						msg.info('Stream ' + streamId + ' deleted');
-					}else{
-						msg.warn('Could not delete stream ' + streamId);
-					}
+				streamsService.deleteStream(streamId).then(function(){
+					msg.info('Stream \'' + streamId + '\' deleted');
+				},
+				function(error){
+					msg.failure('Failed to delete stream \''+streamId+'\': ' + error.message)
 				});
 			}
 

@@ -50,8 +50,10 @@ define(['./_module'], function (app) {
 					onContinuePollCallback();
 				}
 				streams.validateFullUrl(previous.uri)
-				.success(function (data) {
+				.then(function () {
 					onContinuePollCallback();
+				}, function (error) {
+					console.error('Failed to validate URL: ' + previous.uri + '. Error: ' + error.message);
 				});
 			}
 
@@ -89,9 +91,9 @@ define(['./_module'], function (app) {
 						});
 					});
 
-					polling.promise.catch(function () {
+					polling.promise.catch(function (error) {
 						poller.clear();
-						deferredGlobal.reject();
+						deferredGlobal.reject(error);
 					});
 					
 					return deferredGlobal.promise;
