@@ -51,9 +51,12 @@ define(['es-ui'], function (app) {
                         .then(function(res){
                             var codeChallenge = res.data.code_challenge;
                             var codeChallengeMethod = res.data.code_challenge_method;
-                            var codeChallengeCorrelationId = res.data.code_challenge_correlation_id;
-                            var redirectUri = encodeURIComponent($rootScope.baseUrl + $rootScope.authentication.properties.redirect_uri + '?code_challenge_correlation_id=' + codeChallengeCorrelationId);
-                            var authorizationUri = authorizationEndpoint + '?response_type=' + responseType + '&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scope + '&code_challenge=' + codeChallenge + '&code_challenge_method=' + codeChallengeMethod;
+                            var state = {
+                                'code_challenge_correlation_id': res.data.code_challenge_correlation_id
+                            };
+                            state = btoa(JSON.stringify(state));
+                            var redirectUri = encodeURIComponent($rootScope.baseUrl + $rootScope.authentication.properties.redirect_uri);
+                            var authorizationUri = authorizationEndpoint + '?response_type=' + responseType + '&client_id=' + clientId + '&redirect_uri=' + redirectUri + '&scope=' + scope + '&code_challenge=' + codeChallenge + '&code_challenge_method=' + codeChallengeMethod + '&state=' + state;
                             window.location.href = authorizationUri;
                         },
                         function(){
