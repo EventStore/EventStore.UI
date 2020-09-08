@@ -8,13 +8,9 @@ define(['./_module'], function (app) {
 
 			$scope.log = {
 				username: '',
-				password: '',
-				server: $location.protocol() + '://' + $location.host() + ':' + $location.port()
+				password: ''
 			};
 
-			if(!$location.host()) {
-				$scope.log.server = 'https://127.0.0.1:2113';
-			}
 
 			$scope.signIn = function () {
 				if ($scope.login.$invalid) {
@@ -22,38 +18,32 @@ define(['./_module'], function (app) {
 					return;
 				}
 
-				authService.validate($scope.log.username, $scope.log.password, $scope.log.server)
-				.success(function (info) {
-					$rootScope.singleNode = true;
-					$rootScope.esVersion = info.esVersion || '0.0.0.0';
-                    $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
-                    $rootScope.projectionsEnabled = info.features.projections === true;
-                    $rootScope.userManagementEnabled = info.features.userManagement === true;
-                    $rootScope.streamsBrowserEnabled = info.features.atomPub === true;
-
+				authService.validate($scope.log.username, $scope.log.password)
+				.success(function () {
                     authService.getUserGroups($scope.log.username).then(function(groups) {
-						authService.setCredentials($scope.log.username, $scope.log.password, $scope.log.server, groups);
-						if($rootScope.isAdminOrOps) {
-	                    	scavengeNotificationService.start();
-		                    infoService.getOptions().then(function onGetOptions(response){
-		                        var options = response.data;
-		                        for (var index in options) {
-		                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
-		                                $rootScope.singleNode = false;
-		                            }
-		                        }
-								redirectAfterLoggingIn();
-		                    });
-	                	} else {
-	                		redirectAfterLoggingIn();
-	                	}
+						authService.setCredentials($scope.log.username, $scope.log.password, groups);
+						setSingleNodeOrCluster();
+	                	redirectAfterLoggingIn();
                     });
 				})
 				.error(function () {
-					msg.warn('Server does not exist or incorrect user credentials supplied.');
+					msg.warn('Incorrect user credentials supplied.');
 				});
 			};
 
+			function setSingleNodeOrCluster(){
+                if($rootScope.isAdminOrOps) {
+                    scavengeNotificationService.start();
+                    infoService.getOptions().then(function onGetOptions(response){
+                        var options = response.data;
+                        for (var index in options) {
+                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
+                                $rootScope.singleNode = false;
+                            }
+                        }
+                    });
+                }
+            }
 
 			function redirectAfterLoggingIn() {
 				if($rootScope.previousUrl && $rootScope.previousUrl !== '/'){
@@ -66,7 +56,7 @@ define(['./_module'], function (app) {
 			}
 
 			function checkCookie () {
-				authService.existsAndValid($scope.log.server)
+				authService.existsAndValid()
 				.then(function () {
 					redirectAfterLoggingIn();
 				});

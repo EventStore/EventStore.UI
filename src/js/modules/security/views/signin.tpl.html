@@ -6,15 +6,6 @@
 			</a>
 		</h1>
 		<form novalidate name="login" ng-submit="signIn()" class="login-form">
-			<label for="server">Server</label>
-			<input type="text" 
-				   placeholder="127.0.0.1:2113"
-				   autofocus 
-				   required 
-				   name="server"
-				   ng-class="{ 'form-table--error' : login.server.$invalid && !login.server.$pristine }"
-				   ng-model="log.server" />
-
 			<label for="username">Username</label>
 			<input type="text" 
 				   placeholder="Username"

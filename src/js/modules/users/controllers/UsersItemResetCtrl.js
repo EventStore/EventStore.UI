@@ -15,7 +15,7 @@ define(['./_module'], function (app) {
 				userService.resetPassword($scope.user.loginName, $scope.password)
 				.success(function () {
 					msg.success('Password has been reset');
-					authService.resetCredentials($scope.user.loginName, $scope.password, $rootScope.baseUrl)
+					authService.resetCredentials($scope.user.loginName, $scope.password)
 					.then(function(){
 						$state.go('^.details');
 					}, function(){

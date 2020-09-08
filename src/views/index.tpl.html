@@ -5,7 +5,7 @@
 				<img src="images/logo.svg" height="29" width="119" alt="Event Store">
 			</a>
 		</h1>
-		<ul class="site-nav">
+		<ul class="site-nav" ng-hide="hideMenuOptions">
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('dashboard') }">
 				<a ui-sref="dashboard.list">Dashboard</a>
 			</li>
@@ -31,7 +31,7 @@
 				<a ng-class="{'disabled': !isAdmin || !userManagementEnabled}" ui-sref="users.list">Users</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('signout') }">
-				<a ui-sref="signout">Log Out</a>
+				<a ng-class="{'disabled': !logoutEnabled}" ui-sref="signout">{{ logoutButtonText }}</a>
 			</li>
 		</ul>
 	</header>

@@ -11,7 +11,7 @@ define(['./_index'], function (app) {
         $stateProvider
             // ========================================SECURITY============
             .state('signin', {
-                url: '/',
+                url: 'signin',
                 templateUrl: 'signin.tpl.html',
                 controller: 'SignInCtrl',
                 data: {
@@ -21,7 +21,7 @@ define(['./_index'], function (app) {
             .state('signout', {
                 url: 'signout',
                 parent: 'app',
-                template: '<div ui-view></div>',
+                template: '<div ui-view>{{logoutText}}</div>',
                 controller: 'SignOutCtrl',
                 data: {
                     title: 'Sign out'

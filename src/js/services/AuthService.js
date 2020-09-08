@@ -3,63 +3,59 @@ define(['./_module'], function (app) {
 
 	'use strict';
 
-	// http://wemadeyoulook.at/en/blog/implementing-basic-http-authentication-http-requests-angular/
 	return app.factory('AuthService', [
 		'Base64', 
 		'$q',
+		'$cookies',
 		'$cookieStore', 
 		'$http', 
 		'$rootScope',
 		'$location',
 		'urls',
 		'UrlBuilder',
-		function (Base64, $q, $cookieStore, $http, $rootScope, $location, urls, urlBuilder) {
-			// initialize to whatever is in the cookie, if anything
-			// i know, hoising, but i don't like jshint warnings
-			var currentUrl = $location.host() + ':' + $location.port();
-
-			function getCredentialsFromCookie(server){
-				var escreds = $cookieStore.get('es-creds');
-				if(!escreds || !escreds.servers[server]){
-					return null;
-				}
-				return escreds.servers[server].credentials;
-			}
-
-			function getGroupsFromCookie(server){
-				var escreds = $cookieStore.get('es-creds');
-				if(!escreds || !escreds.servers[server]){
-					return null;
-				}
-				return escreds.servers[server].groups;
-			}
-
-			function clearCredentials(server){
-	            document.execCommand('ClearAuthenticationCache');
-		        $http.defaults.headers.common.Authorization = 'Basic ';
-	            var escreds = $cookieStore.get('es-creds');
-	            if(escreds){
-	            	escreds.servers[server] = {};
-	            	$cookieStore.put('es-creds', escreds);
-	            }
-			}
-
-			function addCredentialsToCookie(server, username, password, groups){
+		function (Base64, $q, $cookies, $cookieStore, $http, $rootScope, $location, urls, urlBuilder) {
+			function getCredentialsFromCookie(){
 				var escreds = $cookieStore.get('es-creds');
 				if(!escreds){
-					escreds = {
-						servers : {}
-					};
+					return null;
 				}
-				escreds.servers[server] = {
+				return escreds.credentials;
+			}
+
+			function getGroupsFromCookie(){
+				var escreds = $cookieStore.get('es-creds');
+				if(!escreds){
+					return null;
+				}
+				return escreds.groups;
+			}
+
+			function trySetIdTokenFromCookie(){
+				var oauthIdToken = $cookies['oauth_id_token'];
+				if(!oauthIdToken){
+					return;
+				}
+
+				document.cookie='oauth_id_token=;path=/;max-age=-1';
+				$http.defaults.headers.common.Authorization = 'Bearer ' + oauthIdToken;
+			}
+
+			function clearCredentials(){
+	            document.execCommand('ClearAuthenticationCache');
+		        $http.defaults.headers.common.Authorization = undefined;
+	            $cookieStore.remove('es-creds');
+			}
+
+			function addCredentialsToCookie(username, password, groups){
+				var escreds = $cookieStore.get('es-creds');
+				if(!escreds){
+					escreds = {};
+				}
+				escreds = {
 					credentials : Base64.encode(username + ':' + password),
 					groups : groups
 				};
 				$cookieStore.put('es-creds', escreds);
-			}
-
-			function setBaseUrl (url) {
-				$rootScope.baseUrl = url;
 			}
 
 			function setUserRole(groups) {
@@ -73,89 +69,87 @@ define(['./_module'], function (app) {
 				$rootScope.isAdminOrOps = $rootScope.isAdmin || $rootScope.isOps;
 			}
 
-			var escreds = getCredentialsFromCookie(currentUrl);
+			var escreds = getCredentialsFromCookie();
 			if(escreds) {
-				setBaseUrl(currentUrl);
 				escreds = escreds.credentials;
 			}
- 
- 			function prepareUrl (str) {
-				if(str.indexOf('/', str.length - '/'.length) !== -1) {
-	            	str = str.substring(0, str.length - 1);
-	            }
-
-	            if(str.indexOf('http') === -1) {
-	            	str = 'https://' + str;
-	            }
-
-	            return str;
-			}
-
 
 		    return {
-		        setCredentials: function (username, password, server, groups) {
+		        setCredentials: function (username, password, groups) {
 		            var credentials = Base64.encode(username + ':' + password);
 		            
 		            $http.defaults.headers.common.Authorization = 'Basic ' + credentials;
 
-		            server = prepareUrl(server);
-		            setBaseUrl(server);
 					setUserRole(groups);
-
-		            addCredentialsToCookie(server, username, password, groups);
-		        },
+		            addCredentialsToCookie(username, password, groups);
+				},
+				loadCredentials: function(){
+					var credentials = getCredentialsFromCookie();
+					if (!credentials){
+						return;
+					}
+					$http.defaults.headers.common.Authorization = 'Basic ' + credentials;
+				},
 		        clearCredentials: function () {
-		            clearCredentials($rootScope.baseUrl);
+		            clearCredentials();
 		        },
-		        existsAndValid: function (server) {
-		        	var deferred = $q.defer();
-		        	var credentials = getCredentialsFromCookie(server);
-		        	if(!credentials) {
-		        		deferred.reject('Data does not exists');
-		        	} else {
-		        		this.validate(credentials, server)
-		        		.success(function() {
-		        			var groups = getGroupsFromCookie(server);
-							setUserRole(groups);
-		        			deferred.resolve();
-		        		})
-		        		.error(function (){
-		        			deferred.reject('Wrong credentials or server not exists');
-		        		});
-		        	}
+		        existsAndValid: function () {
+					var deferred = $q.defer();
+					
+					if($rootScope.authentication.type === 'insecure'){
+						setUserRole(['$admins']);
+						deferred.resolve();
+					}
+					else if($rootScope.authentication.type === 'oauth'){
+						trySetIdTokenFromCookie();
+						var authHeader = $http.defaults.headers.common.Authorization;
+						if(authHeader !== undefined && authHeader.startsWith('Bearer ')){
+							deferred.resolve();
+						} else{
+							deferred.reject('Not authenticated');
+						}
+					}
+					else {
+						var credentials = getCredentialsFromCookie();
+						if(!credentials) {
+							deferred.reject('Data does not exists');
+						} else {
+							var parts = Base64.decode(credentials).split(':');
+							this.validate(parts[0], parts[1])
+							.success(function() {
+								var groups = getGroupsFromCookie();
+								setUserRole(groups);
+								deferred.resolve();
+							})
+							.error(function (){
+								deferred.reject('Wrong credentials');
+							});
+						}
+					}
 
 		        	return deferred.promise;
 		        },
-		        resetCredentials: function(username, newPassword, server){
+		        resetCredentials: function(username, newPassword){
 		        	var deferred = $q.defer();
-		        	var credentials = getCredentialsFromCookie(server);
+		        	var credentials = getCredentialsFromCookie();
 		        	var storedUsername = Base64.decode(credentials).split(':')[0];
 					if(storedUsername === username){
-		        		this.validate(username, newPassword, server)
+		        		this.validate(username, newPassword)
 		        		.success(function() {
 		        			deferred.resolve();
 		        		})
 		        		.error(function (){
-		        			deferred.reject('Wrong credentials or server not exists');
+		        			deferred.reject('Wrong credentials');
 		        		});
 		        	}else{
 		        		deferred.resolve();
 		        	}
 	        		return deferred.promise;
 		        },
-		        validate: function (username, password, server) {
-		        	var credentials;
-		        	if(!server) {
-		        		server = password;
-		        		credentials = username;
-		        	} else {
-		        		credentials = Base64.encode(username + ':' + password);
-		        	}
-
-		            server = prepareUrl(server);
-		            setBaseUrl(server);
+		        validate: function (username, password) {
+		        	var credentials = Base64.encode(username + ':' + password);
 					$http.defaults.headers.common['Authorization'] = 'Basic ' + (credentials || '');
-		        	return $http.get(server + urls.system.info, {
+		        	return $http.get($rootScope.baseUrl + urls.system.info, {
 		        		headers: {
 		        			'Accept': '*/*',
 		        			Authorization: 'Basic ' + credentials
