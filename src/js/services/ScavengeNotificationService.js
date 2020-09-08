@@ -39,13 +39,25 @@ define(['./_module'], function (app) {
 								$timeout(function() {
 									tick();
 								}, constants.scavengeStatus.pollInterval);
+							}, function(error){
+								if(error.statusCode === 401){
+									return;
+								} else{
+									msg.failure('Failed to retrieve last scavenge status: ' + error.message);
+								}
 							});
 						};
 						tick();
-					}, function() {
-						$timeout(function() {
-						start();
-					}, constants.scavengeStatus.pollInterval);
+					}, function(error) {
+						if(error.statusCode === 401){
+							return;
+						} else if(error.statusCode === 404){
+							$timeout(function() {
+								start();
+							}, constants.scavengeStatus.pollInterval);
+						} else {
+							msg.failure('Failed to retrieve last scavenge status: ' + error.message);
+						}
 				});
 			}
 			return {

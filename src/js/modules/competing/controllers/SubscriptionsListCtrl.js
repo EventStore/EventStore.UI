@@ -15,8 +15,8 @@ define(['./_module'], function (app) {
 			$scope.replayParkedMessages = function(streamId, groupName){
 				competingService.replayParked(streamId, groupName).then(function () {
 					msg.success('Replaying Parked Messages');
-				}, function (err) {
-					msg.failure('Failed to initiate replaying of parked messages because ' + err);
+				}, function (error) {
+					msg.failure('Failed to initiate replaying of parked messages: ' + error.message);
 				});
 			};
 
@@ -26,8 +26,8 @@ define(['./_module'], function (app) {
 			subscriptionsPoll.promise.then(null, null, function (data) { 
 				$scope.subscriptions = subscriptionsMapper.map(data, $scope.subscriptions);
 			});
-			subscriptionsPoll.promise.catch(function () {
-				msg.failure('An error occured.');
+			subscriptionsPoll.promise.catch(function (error) {
+				msg.failure('Failed to retrieve list of subscriptions: ' + error.message);
 				$scope.subscriptions = null;
 				subscriptionsPoll.stop(); 
 			});

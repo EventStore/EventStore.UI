@@ -2,8 +2,8 @@ define(['./_module'], function (app) {
 
     'use strict';
 
-    return app.controller('ClusterStatusListCtrl', ['$scope', 'poller', 'ClusterStatusService', 'InfoService', 'constants',
-		function ClusterStatusListCtrl($scope, poller, clusterStatusService, infoService, constants) {
+    return app.controller('ClusterStatusListCtrl', ['$scope', 'poller', 'ClusterStatusService', 'InfoService', 'constants', 'MessageService',
+		function ClusterStatusListCtrl($scope, poller, clusterStatusService, infoService, constants, msg) {
             $scope.replicas = [];
             var leaderNodeUrl = '';
 
@@ -16,9 +16,10 @@ define(['./_module'], function (app) {
 					}
 				}
 			},
-			function(){
-
+			function(error){
+                msg.failure('Failed to load options: ' + error.message);
             });
+
             var replicaStatsQuery;
 			function setupGossipPoller(){
 				var gossipQuery = poller.create({
@@ -27,7 +28,9 @@ define(['./_module'], function (app) {
 			        params: []
 			    });
 			    gossipQuery.start();
-			    gossipQuery.promise.then(null, null, function (response) {
+			    gossipQuery.promise.then(null, function(error){
+                    msg.failure('Failed to retrieve gossip info: ' + error.message);
+                }, function (response) {
 			        $scope.lastUpdatedTime = new Date();
 			        if (response.error) {
 			            $scope.errorMessage = 'couldn\'t connect to manager';
@@ -53,7 +56,9 @@ define(['./_module'], function (app) {
                     params: [leaderNodeUrl]
                 });
                 replicaStatsQuery.start();
-                replicaStatsQuery.promise.then(null, null, function(response) {
+                replicaStatsQuery.promise.then(null, function(error){
+                    msg.failure('Failed to retrieve replica stats: ' + error.message);
+                }, function(response) {
                     var leader = getLeaderNode();
                     for(var i = 0; i < response.length; i++)
                     {

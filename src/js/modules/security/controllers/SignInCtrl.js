@@ -19,31 +19,35 @@ define(['./_module'], function (app) {
 				}
 
 				authService.validate($scope.log.username, $scope.log.password)
-				.success(function () {
-                    authService.getUserGroups($scope.log.username).then(function(groups) {
-						authService.setCredentials($scope.log.username, $scope.log.password, groups);
-						setSingleNodeOrCluster();
-	                	redirectAfterLoggingIn();
-                    });
-				})
-				.error(function () {
-					msg.warn('Incorrect user credentials supplied.');
+				.then(function () {
+					authService.setCredentials($scope.log.username, $scope.log.password);
+					setSingleNodeOrCluster();
+					redirectAfterLoggingIn();
+				}, function (error) {
+					if(error.statusCode === 401){
+						msg.warn('Incorrect user credentials supplied.');
+					} else{
+						msg.failure('Failed to validate user: ' + error.message);
+					}
 				});
 			};
 
 			function setSingleNodeOrCluster(){
-                if($rootScope.isAdminOrOps) {
-                    scavengeNotificationService.start();
-                    infoService.getOptions().then(function onGetOptions(response){
-                        var options = response.data;
-                        for (var index in options) {
-                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
-                                $rootScope.singleNode = false;
-                            }
-                        }
-                    });
-                }
-            }
+				scavengeNotificationService.start();
+				infoService.getOptions().then(function(res){
+					var options = res.data;
+					for (var index in options) {
+						if(options[index].name === 'ClusterSize' && options[index].value > 1){
+							$rootScope.singleNode = false;
+						}
+					}
+				},function(error){
+					if(error.statusCode === 401){
+						return;
+					}
+					msg.failure('Failed to load options: ' + error.message);
+				});
+      }
 
 			function redirectAfterLoggingIn() {
 				if($rootScope.previousUrl && $rootScope.previousUrl !== '/'){

@@ -12,17 +12,17 @@ define(['./_module'], function (app) {
 				$event.stopPropagation();
 
 				userService.enable($scope.user.loginName)
-				.success(function () {
+				.then(function () {
 					msg.success('user enabled');
 					$state.go('^.details');
-				})
-				.error(function () {
-					msg.failure('user not enabled');
+				}, function (error) {
+					msg.failure('Failed to enable user: ' + error.message);
 				});
 			};
 
 			userService.get($stateParams.username)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.user = data.data;
 				$scope.disable = false;
 
@@ -30,9 +30,12 @@ define(['./_module'], function (app) {
 					msg.warn('user already enabled');
 					$state.go('^.details');
 				}
-			})
-			.error(function () {
-				msg.failure('user does not exists or you do not have perms');
+			}, function (error) {
+				if(error.statusCode === 404){
+					msg.failure('User does not exist');
+				} else{
+					msg.failure('Failed to get user: ' + error.message);
+				}
 				$state.go('users');
 			});
 		}

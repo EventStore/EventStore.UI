@@ -91,21 +91,37 @@ define(['./_module'], function (app) {
                     updateStatusInfo('');
                     loadEvents();
                 }, function (data){
-                    var stats = data[0],
-                    	query = data[2];
-                    $scope.query = query.data.query;
-					msg.failure('Projection has failed because of ' + stats.data.projections[0].stateReason, stats.data.projections[0].status);
+					var stats = data[0],
+						state = data[1],
+						query = data[2];
+						
+					if(stats && !stats.data){
+						msg.failure('Failed to retrieve projection stats: ' + stats.message);
+					}
+
+					if(state && !state.data){
+						msg.failure('Failed to retrieve projection state: ' + state.message);
+					}
+
+					if(query && !query.data){
+						msg.failure('Failed to retrieve projection query: ' + query.message);
+					} else{
+						$scope.query = query.data.query;
+					}
 				});
             }
             msg.info('The projection will be stopped for debugging');
             projectionsService.disable($scope.location)
             .then(function onProjectionEnabled(){
 	            loadProjection();
-	        });
+	        }, function(error){
+				msg.failure('Failed to stop projection: ' + error.message);
+			});
            	var currentLoadEventsTimeout;
 		    function loadEvents() {
 		        projectionsService.readEvents(definition, currentPosition)
-				.success(function (data) {
+				.then(function (res) {
+					var data = res.data;
 				    $scope.events = JSON.stringify(data, undefined, 4);
 				    rawEvents = data.events;
 
@@ -117,9 +133,8 @@ define(['./_module'], function (app) {
 				        currentLoadEventsTimeout = $timeout(loadEvents, 1000);
 				    }
 
-				})
-				.error(function (data, status) {
-                    msg.failure('We failed reading the events for the projection.');
+				}, function (error) {
+                    msg.failure('Failed to read projection events: ' + error.message);
 				});
 		    }
 
@@ -173,11 +188,10 @@ define(['./_module'], function (app) {
 		            projectionsService.state($scope.location, {
 		                partition: partition
 		            })
-					.success(function (data) {
-					    stateLoaded(data);
-					})
-					.error(function () {
-					    updateStatusInfo('Error loading the projection state');
+					.then(function (res) {
+					    stateLoaded(res.data);
+					}, function (error) {
+					    updateStatusInfo('Failed to load the projection state: ' + error.message);
 					});
 		        }
 		    }
@@ -243,25 +257,23 @@ define(['./_module'], function (app) {
 		    $scope.update = function () {
                 $scope.isUpdating = true;
 		        projectionsService.updateQuery($scope.location, null, $scope.query)
-				.success(function () {
+				.then(function () {
 				    msg.info('Projection Updated');
                     $window.location.reload();
-				})
-				.error(function () {
+				}, function (error) {
                     $scope.isUpdating = false;
-				    msg.failure('Projection not updated');
+				    msg.failure('Failed to update projection: ' + error.message);
 				});
 		    };
 
 		    $scope.stop = function () {
 		    	cancelLoadingEvents();
 		        projectionsService.disable($scope.location)
-				.success(function () {
+				.then(function () {
 				    msg.info('Projection Stopped');
 				    $scope.isRunning = false;
-				})
-				.error(function () {
-				    msg.failure('projection could not be stopped');
+				}, function (error) {
+				    msg.failure('Failed to stop projection: ' + error.message);
 				});
 		    };
 

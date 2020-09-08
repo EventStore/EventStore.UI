@@ -8,8 +8,10 @@ define(['./_module'], function (app) {
 			$scope.streamId = $stateParams.streamId;
 			$scope.groupName = $stateParams.groupName;
 			competingService.subscriptionDetail($scope.streamId, $scope.groupName)
-				.success(function(data){
-					$scope.detail = data;
+				.then(function(res){
+					$scope.detail = res.data;
+				}, function(error){
+					msg.failure('Failed to retrieve subscription details: ' + error.message);
 				});
 		}
 	]);

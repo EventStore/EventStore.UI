@@ -7,45 +7,49 @@ define(['./_module'], function (app) {
 			'$http', '$q', 'urls', 'constants', 'UrlBuilder', 'uri',
 
 			function ($http, $q, urls, constants, urlBuilder, uriProvider) {
-
-				var errors = '';
-				function formatMultipleErrors (err, name) {
-					errors += name + ': ' + err;
-					errors += '\n\r';
-				}
-
-				function clearErrors () {
-					errors = '';
-				}
-
 				function executeCommand (forItems, command, expectedStatus) {
 					var all = forItems(),
 						deferred = $q.defer();
-					clearErrors();
-					all.success(function (data) {
+
+					all.then(function (res) {
+						var data = res.data;
 						var calls = [], url;
+						var filteredProjections = [];
 
 						angular.forEach(data.projections, function (value) {
 							url = value.statusUrl + command;
 							if (value.status === expectedStatus) {
 								return;
 							}
-							calls.push($http.post(url).error(function (err) {
-								formatMultipleErrors(err, value.name);
-							}));
+							calls.push($http.post(url));
+							filteredProjections.push(value);
 						});
+
+						if(calls.length === 0){
+							deferred.resolve([]);
+							return;
+						}
 
 						$q.allSettled(calls).then(function (values) {
-
 							deferred.resolve(values);
+						}, function (res) {
+							var errorMessage = '';
+							var errorCount = 0;
+							for(var i=0;i<res.length;i++){
+								if(res[i].data){
+									continue;
+								}
 
-						}, function () {
-							deferred.reject(errors);
+								if(errorCount > 0){
+									errorMessage += ', ';
+								}
+								errorMessage += filteredProjections[i].name + ': ' + res[i].message;
+								errorCount = errorCount + 1;
+							}
+							deferred.reject(errorMessage);
 						});
-					});
-
-					all.error(function () {
-						deferred.reject('Could\'t get projections list');
+					}, function (error) {
+						deferred.reject('Failed to retrieve projections list: ' + error.message);
 					});
 
 					return deferred.promise;
@@ -87,7 +91,6 @@ define(['./_module'], function (app) {
 					},
 					partitionedState: function (partitionProvider) {
                                           return function (url, params, opt) {
-						console.log(partitionProvider, url, params, opt);
 						var qp;
 
 						if(params && !params.timeout) {

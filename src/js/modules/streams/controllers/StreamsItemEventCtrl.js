@@ -3,15 +3,16 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('StreamsItemEventCtrl', [
-		'$scope', '$state', '$stateParams', 'StreamsService',
-		function ($scope, $state, $stateParams, streamsService) {
+		'$scope', '$state', '$stateParams', 'StreamsService', 'MessageService',
+		function ($scope, $state, $stateParams, streamsService, msg) {
 			
             $scope.streamId = $stateParams.streamId;
             $scope.isMetadata = $state.current.data.metadata;
 			$scope.eventNumber = $scope.isMetadata ? 'metadata' : $stateParams.eventNumber;
 
 			streamsService.eventContent($scope.streamId, $scope.eventNumber)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				$scope.evt = data;
 				$scope.isNotTheSame = data.positionStreamId !== data.streamId || data.positionEventNumber !== data.eventNumber;
 				$scope.links = data.links;
@@ -22,14 +23,26 @@ define(['./_module'], function (app) {
 				}
 
 				streamsService.eventContent($scope.streamId, data.positionEventNumber + 1)
-				.success(function () {
+				.then(function () {
 					$scope.next = true;
+				}, function(error){
+					if(error.statusCode !== 404){
+						msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
+					}
 				});
 
-				streamsService.eventContent($scope.streamId, data.positionEventNumber - 1)
-				.success(function () {
-					$scope.prev = true;
-				});
+				if(data.positionEventNumber - 1 >= 0){
+					streamsService.eventContent($scope.streamId, data.positionEventNumber - 1)
+					.then(function () {
+						$scope.prev = true;
+					}, function(error){
+						if(error.statusCode !== 404){
+							msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
+						}
+					});
+				}
+			}, function(error){
+				msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
 			});
 		}
 	]);

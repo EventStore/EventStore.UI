@@ -47,12 +47,17 @@ define(['./_module'], function (app) {
     			        params: [$scope.scavengeId, $scope.pagination.fromEventNumber, $scope.pagination.pageSize]
     			    });
     			    scavengeInfoPoller.start();
-        			scavengeInfoPoller.promise.then(null, null, function(res) {
+                    scavengeInfoPoller.promise.then(null,
+                    function(error){
+                        msg.failure('Failed to retrieve scavenge info: ' + error.message);
+                    }, function(res) {
                         getScavengeInfo(res.entries);
                     });
                 } else {
                     adminService.scavengeInfo($scope.scavengeId, $scope.pagination.fromEventNumber, $scope.pagination.pageSize).then(function(res) {
                         getScavengeInfo(res.data.entries);
+                    }, function(error){
+                        msg.failure('Failed to retrieve scavenge info: ' + error.message);
                     });
                 }
             }

@@ -15,20 +15,20 @@
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('streams') }" title="{{!streamsBrowserEnabled ? atomDisabledMessage : ''}}">
 				<a ng-class="{'disabled':!streamsBrowserEnabled}" ui-sref="streams.list">Stream Browser</a>
 			</li>
-			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }" title="{{!isAdminOrOps ? notAdminOrOpsMessage : !projectionsEnabled ? projectionsNotRunningMessage : ''}}">
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('projections') }" title="{{!projectionsEnabled ? projectionsNotRunningMessage : ''}}">
 				<a ng-class="{'disabled': !projectionsEnabled}" ui-sref="projections.list">Projections</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('query') }" title="{{!projectionsEnabled ? projectionsNotRunningMessage : ''}}">
 				<a ng-class="{'disabled':!projectionsEnabled}" ui-sref="query">Query</a>
 			</li>
-			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }" title="{{!isAdminOrOps ? notAdminOrOpsMessage : ''}}">
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('competing') }">
 				<a ui-sref="subscriptions.list">Persistent Subscriptions</a>
 			</li>
-			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('admin') }" title="{{!isAdminOrOps ? notAdminOrOpsMessage : ''}}">
-				<a ng-class="{'disabled': !isAdminOrOps}" ui-sref="admin">Admin</a>
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('admin') }">
+				<a ui-sref="admin">Admin</a>
 			</li>
-			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('users') }" title="{{!isAdmin ? notAdminMessage : ''}}">
-				<a ng-class="{'disabled': !isAdmin || !userManagementEnabled}" ui-sref="users.list">Users</a>
+			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('users') }">
+				<a ng-class="{'disabled': !userManagementEnabled}" ui-sref="users.list">Users</a>
 			</li>
 			<li class="site-nav__item" ng-class="{'site-nav__item--active': $state.includes('signout') }">
 				<a ng-class="{'disabled': !logoutEnabled}" ui-sref="signout">{{ logoutButtonText }}</a>

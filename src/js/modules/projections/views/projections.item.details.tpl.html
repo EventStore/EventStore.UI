@@ -3,33 +3,30 @@
 <header class="page-header">
 		<h2 class="page-title">Projection Details</h2>
 		<ul class="page-nav">
-			<li ng-show="!isAdminOrOps && !isTransientProjection" class="page-nav__item">
-				<em>You must be in the $admins or $ops group to manage non-transient projections</em>
-			</li>
-			<li ng-show="isAdminOrOps" class="page-nav__item">
+			<li class="page-nav__item">
 				<button ng-click="start()" 
 					ng-disabled="isRunning"
 					href="#">Start</button>
 				
 			</li>
-			<li ng-show="isAdminOrOps || isTransientProjection" class="page-nav__item">
+			<li class="page-nav__item">
 				<button ng-click="stop()" 
 				   ng-disabled="isStopped"
 				   >Stop</button>
 				
 			</li>
-			<li ng-show="isAdminOrOps" class="page-nav__item">
+			<li class="page-nav__item">
 				<a ui-sref="^.edit">Edit</a>
-			<li ng-show="isAdminOrOps" class="page-nav__item">
+			<li class="page-nav__item">
 				<a ui-sref="^.config">Config</a>
-			<li ng-show="isAdminOrOps && !isTransientProjection" class="page-nav__item">
+			<li ng-show="!isTransientProjection" class="page-nav__item">
 				<a ui-sref="^.debug">Debug</a>
 			</li>
-			<li ng-show="isAdminOrOps" class="page-nav__item">
+			<li class="page-nav__item">
 				<a ui-sref="^.delete" ng-if="!isRunning">Delete</a>
 				<a title="a Projection must be stopped before it may be deleted." ng-if="isRunning" ng-disabled="isRunning">Delete</a>
 			</li>
-			<li ng-show="isAdminOrOps && !isTransientProjection" class="page-nav__item">
+			<li ng-show="!isTransientProjection" class="page-nav__item">
 				<button ng-click="reset($event)">Reset</button>
 			</li>
 			<li class="page-nav__item">

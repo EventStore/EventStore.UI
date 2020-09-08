@@ -23,7 +23,8 @@ define(['es-ui'], function (app) {
             authService.loadCredentials();
 
             infoService.getInfo()
-            .success(function(info){
+            .then(function(res){
+                var info = res.data;
                 $rootScope.esVersion = info.esVersion || '0.0.0.0';
                 $rootScope.esVersion = $rootScope.esVersion  === '0.0.0.0' ? 'development build' : $rootScope.esVersion;
                 $rootScope.projectionsEnabled = info.features.projections === true;
@@ -67,24 +68,26 @@ define(['es-ui'], function (app) {
                         $state.go('signin');
                     }
                 });
-            })
-			.error(function(){
-                msg.failure('Could not load /info endpoint');
+            }, function(error){
+                msg.failure('Failed to load /info endpoint: ' + error.message);
                 authService.clearCredentials();
             });
             
             function setSingleNodeOrCluster(){
-                if($rootScope.isAdminOrOps) {
-                    scavengeNotificationService.start();
-                    infoService.getOptions().then(function onGetOptions(response){
-                        var options = response.data;
-                        for (var index in options) {
-                            if(options[index].name === 'ClusterSize' && options[index].value > 1){
-                                $rootScope.singleNode = false;
-                            }
+                scavengeNotificationService.start();
+                infoService.getOptions().then(function onGetOptions(response){
+                    var options = response.data;
+                    for (var index in options) {
+                        if(options[index].name === 'ClusterSize' && options[index].value > 1){
+                            $rootScope.singleNode = false;
                         }
-                    });
-                }
+                    }
+                }, function(error){
+                    if(error.statusCode === 401){
+                        return;
+                    }
+                    msg.failure('Failed to load options: ' + error.message);
+                });
             }
 
 			function redirectAfterLoggingIn() {

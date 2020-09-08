@@ -82,31 +82,28 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.reset($scope.location)
-				.success(function () {
+				.then(function () {
 					msg.success('Projection has been reset');
-				})
-				.error(function () {
-					msg.failure('Reset failed');
+				}, function (error) {
+					msg.failure('Failed to reset projection: ' + error.message);
 				});
 			};
 
 			$scope.start = function () {
 				projectionsService.enable($scope.location)
-				.success(function () {
+				.then(function () {
 					msg.success('Projection started');
-				})
-				.error(function () {
-					msg.failure('projection could not be started');
+				}, function (error) {
+					msg.failure('Failed to start projection: ' + error.message);
 				});
 			};
 
 			$scope.stop = function () {
 				projectionsService.disable($scope.location)
-				.success(function () {
+				.then(function () {
 					msg.success('Projection has been stopped');
-				})
-				.error(function () {
-					msg.failure('Projection could not be stopped');
+				}, function (error) {
+					msg.failure('Failed to stop projection: ' + error.message);
 				});
 			};
 

@@ -10,19 +10,19 @@
 </td>
 <td>
     <ul class="page-nav">
-        <li ng-show="$root.isAdminOrOps" class="page-nav__item">
+        <li class="page-nav__item">
             <a ui-sref="^.item.edit({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Edit</a>
         </li>
-        <li ng-show="$root.isAdminOrOps" class="page-nav__item">
+        <li class="page-nav__item">
             <a ui-sref="^.item.delete({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Delete</a>
         </li>
         <li class="page-nav__item">
             <a ui-sref="^.item.detail({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">Detail</a>
         </li>
-        <li ng-show="$root.isAdminOrOps" class="page-nav__item">
+        <li class="page-nav__item">
             <a ng-click="$parent.replayParkedMessages(esSubscription.eventStreamId, esSubscription.groupName)">Replay Parked Messages</a>
         </li>
-        <li ng-show="$root.isAdminOrOps" class="page-nav__item">
+        <li class="page-nav__item">
             <a ui-sref="^.item.viewparkedmessages({streamId: esSubscription.eventStreamId, groupName: esSubscription.groupName})">View Parked Messages</a>
         </li>
     </ul>

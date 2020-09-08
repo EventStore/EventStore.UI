@@ -13,7 +13,8 @@ define(['./_module'], function (app) {
 			$scope.streamId = $stateParams.streamId;
 			
 			streamsService.getAcl($scope.streamId)
-			.success(function (data) {
+			.then(function (res) {
+				var data = res.data;
 				if(!data) {
 					return;
 				}
@@ -26,9 +27,8 @@ define(['./_module'], function (app) {
 					$scope.metareader = data.$acl.$mr;
 					$scope.metawriter = data.$acl.$mw;
 				}
-			})
-			.error(function () {
-				msg.failure('could not load metadata for stream: ' + $scope.streamId);
+			}, function (error) {
+				msg.failure('Failed to load metadata for stream \'' + $scope.streamId + '\': ' + error.message);
 
 				$state.go('^.events');
 			});
@@ -47,7 +47,9 @@ define(['./_module'], function (app) {
 					.then(function () {
 						msg.info('acl updated');
 						$state.go('^.events');
-					}, err);
+					}, function(error){
+						msg.failure('Failed to update metadata for stream \'' + $scope.streamId + '\': ' + error.message);
+					});
 			};
 		}
 	]);

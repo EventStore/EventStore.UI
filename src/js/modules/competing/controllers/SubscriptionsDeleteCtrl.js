@@ -15,9 +15,11 @@ define(['./_module'], function (app) {
 					return;
 				}
 				competingService.delete($scope.stream, $scope.subscription)
-					.success(function(data){
+				.then(function(){
 						msg.success('Subscription has been deleted');
 						$state.go('subscriptions.list');
+				},function(error){
+						msg.failure('Failed to delete subscription: ' + error.message);
 				});
 			};
 		}

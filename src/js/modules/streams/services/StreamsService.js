@@ -14,24 +14,14 @@ define(['./_module'], function(app) {
                         return $http.get(url);
                     },
                     updateAcl: function(streamId, post) {
-                        var deferred = $q.defer();
-
                         var url = urlBuilder.build(urls.streams.updateAcl, streamId);
                         
-                        $http.post(url, JSON.stringify(post), {
+                        return $http.post(url, JSON.stringify(post), {
                             headers: {
                                 'ES-EventType':'$metadata',
                                 'Content-Type':'application/json'
                             }
-                        })
-                        .success(function() {
-                            deferred.resolve();
-                        })
-                        .error(function() {
-                            deferred.reject();
                         });
-
-                        return deferred.promise;
                     },
                     addEvent: function (streamId, eventData) {
                         var url = urlBuilder.build(urls.streams.events, streamId);
@@ -88,24 +78,12 @@ define(['./_module'], function(app) {
                         return $http.get(url, header);
                     },
                     checkStreamExists: function(streamId) {
-                        var deferred = $q.defer();
                         var url = urlBuilder.build(urls.streams.events, streamId);
-                        $http.get(url).success(function() {
-                            deferred.resolve(true);
-                        }).error(function() {
-                            deferred.resolve(false);
-                        });
-                        return deferred.promise;
+                        return $http.get(url);
                     },
                     deleteStream: function(streamId) {
-                        var deferred = $q.defer();
                         var url = urlBuilder.build(urls.streams.events, streamId);
-                        $http.delete(url).success(function() {
-                            deferred.resolve(true);
-                        }).error(function() {
-                            deferred.resolve(false);
-                        });
-                        return deferred.promise;
+                        return $http.delete(url);
                     }
                 };
             }

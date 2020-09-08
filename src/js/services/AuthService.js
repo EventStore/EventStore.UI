@@ -46,27 +46,15 @@ define(['./_module'], function (app) {
 	            $cookieStore.remove('es-creds');
 			}
 
-			function addCredentialsToCookie(username, password, groups){
+			function addCredentialsToCookie(username, password){
 				var escreds = $cookieStore.get('es-creds');
 				if(!escreds){
 					escreds = {};
 				}
 				escreds = {
-					credentials : Base64.encode(username + ':' + password),
-					groups : groups
+					credentials : Base64.encode(username + ':' + password)
 				};
 				$cookieStore.put('es-creds', escreds);
-			}
-
-			function setUserRole(groups) {
-				$rootScope.isAdmin = false;
-				$rootScope.isOps = false;
-				if(groups && groups.length > 0)
-				{
-					$rootScope.isAdmin = groups.indexOf('$admins') > -1;
-					$rootScope.isOps = groups.indexOf('$ops') > -1;
-				}
-				$rootScope.isAdminOrOps = $rootScope.isAdmin || $rootScope.isOps;
 			}
 
 			var escreds = getCredentialsFromCookie();
@@ -75,13 +63,12 @@ define(['./_module'], function (app) {
 			}
 
 		    return {
-		        setCredentials: function (username, password, groups) {
+		        setCredentials: function (username, password) {
 		            var credentials = Base64.encode(username + ':' + password);
 		            
 		            $http.defaults.headers.common.Authorization = 'Basic ' + credentials;
 
-					setUserRole(groups);
-		            addCredentialsToCookie(username, password, groups);
+		            addCredentialsToCookie(username, password);
 				},
 				loadCredentials: function(){
 					var credentials = getCredentialsFromCookie();
@@ -97,7 +84,6 @@ define(['./_module'], function (app) {
 					var deferred = $q.defer();
 					
 					if($rootScope.authentication.type === 'insecure'){
-						setUserRole(['$admins']);
 						deferred.resolve();
 					}
 					else if($rootScope.authentication.type === 'oauth'){
@@ -117,8 +103,6 @@ define(['./_module'], function (app) {
 							var parts = Base64.decode(credentials).split(':');
 							this.validate(parts[0], parts[1])
 							.success(function() {
-								var groups = getGroupsFromCookie();
-								setUserRole(groups);
 								deferred.resolve();
 							})
 							.error(function (){
@@ -155,14 +139,6 @@ define(['./_module'], function (app) {
 		        			Authorization: 'Basic ' + credentials
 		        		}
 		        	});
-		        },
-		        getUserGroups: function(username) {
-		        	var deferred = $q.defer();
-					$http.get(urlBuilder.build(urls.admin.login, username)).success(function(userInfo) {
-		            	var groups = userInfo.data.groups;
-		            	deferred.resolve(groups);
-	            	});
-	            	return deferred.promise;
 		        }
 		    };
 		}

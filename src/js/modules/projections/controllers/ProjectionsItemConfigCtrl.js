@@ -9,11 +9,11 @@ define(['./_module'], function (app) {
 
 			$scope.location = $stateParams.location;
 			projectionsService.configuration($scope.location)
-			.success(function (data) {
-				$scope.config = data;
-			})
-			.error(function () {
-				msg.failure('Projection does not exist or is inaccessible');
+			.then(function (res) {
+				$scope.config = res.data;
+			}, function (error) {
+				$scope.config = {};
+				msg.failure('Failed to load projection configuration: ' + error.message);
 			});
 
 			monitor.start($scope.location, {
@@ -30,7 +30,7 @@ define(['./_module'], function (app) {
 				}
 
 				if(data.state) {
-					$scope.sate = data.state;
+					$scope.state = data.state;
 				}
 			});
 
@@ -46,11 +46,10 @@ define(['./_module'], function (app) {
 					maxAllowedWritesInFlight: $scope.config.maxAllowedWritesInFlight,
 				};
 				projectionsService.updateConfiguration($scope.location, param)
-				.success(function () {
+				.then(function () {
 					msg.success('Projection configuration saved');
-				})
-				.error(function (failureMessage) {
-					msg.failure(failureMessage, 'Projection configuration not saved');
+				}, function (error) {
+					msg.failure('Failed to save projection configuration: ' + error.message);
 				});
 
 			};

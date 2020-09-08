@@ -26,28 +26,48 @@ define(['./_module'], function (app) {
 				$event.preventDefault();
 				$event.stopPropagation();
 
-				streamsService.checkStreamExists($scope.search).then(function(exists) {
-					if(exists) {
+				streamsService.checkStreamExists($scope.search).then(function() {
 						$state.go('^.item.events', { streamId: $scope.search });
+				}, function(error){
+					if(error.statusCode === 404){
+						msg.warn('The stream \'' + $scope.search +'\' does not exist.');
 					} else {
-						msg.warn('Could not open stream ' + $scope.search +'. This usually means the stream does not exist or you do not have permission to view it');
+						msg.failure('Failed to read stream \''+$scope.search+'\': ' + error.message);
 					}
 				});
 			};
 
-			if($rootScope.isAdmin !== false) {
-				$scope.search = '$all';
-			
-				streamsService.recentlyChangedStreams()
-				.success(function (data) {
-					$scope.changedStreams = filter(data.entries);
-				});
+			$scope.search = '$all';
+			$scope.noChangedStreamsText = 'No recently changed streams';
+			$scope.noCreatedStreamsText = 'No recently created streams';
+		
+			streamsService.recentlyChangedStreams().then(
+			function (res) {
+				$scope.changedStreams = filter(res.data.entries);
+			},
+			function(error){
+				if(error.statusCode === 401){
+					$scope.noChangedStreamsText = 'You are not authorized to view recently changed streams';
+				} else if(error.statusCode === 404){
+					$scope.noChangedStreamsText = 'No recently changed streams';
+				} else{
+					msg.failure('Failed to load recently changed streams: ' + error.message);
+				}
+			});
 
-				streamsService.recentlyCreatedStreams()
-				.success(function (data) {
-					$scope.createdStreams = filter(data.entries);
-				});
-			}
+			streamsService.recentlyCreatedStreams().then(
+			function (res) {
+				$scope.createdStreams = filter(res.data.entries);
+			},
+			function(error){
+				if(error.statusCode === 401){
+					$scope.noCreatedStreamsText = 'You are not authorized to view recently created streams';
+				} else if(error.statusCode === 404){
+					$scope.noCreatedStreamsText = 'No recently created streams';
+				} else{
+					msg.failure('Failed to load recently created streams: ' + error.message);
+				}
+			});
 		}
 	]);
 });

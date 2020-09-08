@@ -40,14 +40,14 @@ define(['./_module'], function (app) {
 				}
 
 				projectionsService.createStandard($scope.name, $scope.type, $scope.source)
-					.success(function (data, status, headers) {
+					.then(function (res) {
+						var headers = res.headers;
 						var location = headers()['location'];
 						$state.go('^.item.details', {
 							location: encodeURIComponent(location)
 						});
-					})
-					.error(function () {
-						msg.failure('Coudn\'t create new standard projection');
+					}, function (error) {
+						msg.failure('Failed to create new standard projection: ' + error.message);
 					});
 			};
 		}
