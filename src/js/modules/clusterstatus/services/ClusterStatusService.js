@@ -5,8 +5,8 @@ define(['./_module'], function (app) {
 	return app.provider('ClusterStatusService', function () {
 
 		this.$get = [
-			'$http', 'urls', 'UrlBuilder', '$q',
-			function ($http, urls, urlBuilder, $q) {
+			'$http', 'urls', 'UrlBuilder', '$q', '$location',
+			function ($http, urls, urlBuilder, $q, $location) {
 
 				return {
 					gossip: function () {
@@ -20,7 +20,7 @@ define(['./_module'], function (app) {
 							deferred.resolve({});
 							return deferred.promise;
 						}
-						var url = 'https://' + leaderUrl + urls.replicationStats;
+						var url = $location.protocol() + '://' + leaderUrl + urls.replicationStats;
 						return $http.get(url);
 					}
 				};
