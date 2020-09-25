@@ -36,15 +36,16 @@ define(['./_module'], function (app) {
 			            $scope.errorMessage = 'couldn\'t connect to manager';
 			        } else {
 			            $scope.errorMessage = '';
-			            $scope.nodes = response.members;
-                        var leader = getLeaderNode();
-                        if(leader) {
-                            var leaderUrl = leader.httpEndPointIp + ':' + leader.httpEndPointPort;
-                            if(!replicaStatsQuery || leaderUrl !== leaderNodeUrl) {
-                                leaderNodeUrl = leaderUrl;
-                                setupReplicaStatsPoller();
-                            }
-                        }
+                        $scope.nodes = response.members;
+                        // TODO: Fix the response from the server
+                        // var leader = getLeaderNode();
+                        // if(leader) {
+                        //     var leaderUrl = leader.httpEndPointIp + ':' + leader.httpEndPointPort;
+                        //     if(!replicaStatsQuery || leaderUrl !== leaderNodeUrl) {
+                        //         leaderNodeUrl = leaderUrl;
+                        //         setupReplicaStatsPoller();
+                        //     }
+                        // }
 			        }
 			    });
 			}
