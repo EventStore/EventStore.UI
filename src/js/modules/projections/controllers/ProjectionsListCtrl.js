@@ -93,7 +93,7 @@ define(['./_module'], function (app) {
 			if ($rootScope.initialized) {
 				initialize();
 			} else {
-				const unregister = $rootScope.$on("initialized", function() {
+				var unregister = $rootScope.$on("initialized", function() {
 					initialize();
 					unregister();
 				});
