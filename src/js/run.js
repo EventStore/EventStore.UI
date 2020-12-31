@@ -15,7 +15,7 @@ define(['es-ui'], function (app) {
             $rootScope.projectionsEnabled = false;
             $rootScope.userManagementEnabled = false;
             $rootScope.streamsBrowserEnabled = false;
-            $rootScope.initializing = true;
+            $rootScope.initialized = false;
             $rootScope.logoutEnabled = true;
             $rootScope.logoutButtonText = 'Log Out';
             $rootScope.logoutText = 'You have been logged out.';
@@ -36,7 +36,7 @@ define(['es-ui'], function (app) {
                 $rootScope.logoutButtonText = info.authentication.type === 'oauth' ? 'Disconnect' : $rootScope.logoutButtonText;
                 $rootScope.logoutText = info.authentication.type === 'oauth' ? 'You have been disconnected.' : $rootScope.logoutText;
                 $rootScope.previousUrl = $location.$$path;
-                $rootScope.initializing = false;
+                $rootScope.initialized = true;
                 $rootScope.$broadcast('initialized'); 
 
                 authService.existsAndValid()
