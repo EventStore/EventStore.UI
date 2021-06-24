@@ -34,7 +34,7 @@ define(['./_module'], function (app) {
 		}
 
 		function determineStatus(subscription){
-			if(subscription.behindByMessages > 0){
+			if(subscription.behindByMessages !== 0) {
 				if(subscription.averageItemsPerSecond > 0){
 					return 'subscription-active';
 				}else{
@@ -70,14 +70,24 @@ define(['./_module'], function (app) {
 				}
 				
 	            var previous = findGroup(source[key] ? source[key].groups : [], current.groupName);
-	            current.averageItemsPerSecond = previous ? current.totalItemsProcessed - previous.totalItemsProcessed : 0;
-	            current.knownMessages = current.lastKnownEventNumber + 1;
-	            current.currentMessages = current.lastProcessedEventNumber + 1;
-	            current.inFlightMessages = current.totalInFlightMessages;
-	            current.behindByMessages = (current.knownMessages - current.currentMessages);
-	            current.behindByTime = Math.round((current.behindByMessages / current.averageItemsPerSecond) * 100)/100;
-	            current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
-	            current.status = determineStatus(current);
+				if (current.eventStreamId === '$all'){
+					current.knownMessages = current.lastKnownEventPosition === undefined ? '-' : current.lastKnownEventPosition;
+					current.currentMessages = current.lastProcessedEventPosition === undefined ? '-' : current.lastProcessedEventPosition;
+					current.behindByMessages = (current.knownMessages === current.currentMessages) ? 0 : undefined;
+					current.behindByTime = undefined;
+					current.behindStatus = '';
+				} else {
+					current.knownMessages = current.lastKnownEventPosition === undefined ? 0 : parseInt(current.lastKnownEventPosition) + 1;
+					current.currentMessages = current.lastProcessedEventPosition === undefined ? 0 : parseInt(current.lastProcessedEventPosition) + 1;
+					current.behindByMessages = (current.knownMessages - current.currentMessages);
+					current.behindByTime = Math.round((current.behindByMessages / current.averageItemsPerSecond) * 100)/100;
+					current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
+					current.behindStatus = current.behindByMessages + ' / ' + current.behindByTime;
+				}
+				current.averageItemsPerSecond = previous ? current.totalItemsProcessed - previous.totalItemsProcessed : 0;
+				current.inFlightMessages = current.totalInFlightMessages;
+				current.status = determineStatus(current);
+
 	            if(key) {
 	                if(!result[key]) {
 	                    group = createEmptyGroup(current.eventStreamId);
@@ -90,16 +100,28 @@ define(['./_module'], function (app) {
 	                group.show = exists ? exists.show : false;
 	                group.groups.push(current);
 
-	                group.knownMessages += current.knownMessages;
-                    group.currentMessages += current.currentMessages;
-                    group.inFlightMessages += current.totalInFlightMessages;
-                    group.averageItemsPerSecond += current.averageItemsPerSecond;
-                    group.connectionCount += current.connectionCount;
-                    group.behindByMessages += current.behindByMessages;
-                    group.behindByTime += current.behindByTime;
-                    group.behindByTime = Math.round(current.behindByTime * 100)/100;
-                    group.status = determineGroupStatus(group);
-                    
+					if (current.eventStreamId === '$all') {
+						group.knownMessages = '';
+						group.currentMessages = '';
+						group.inFlightMessages += current.totalInFlightMessages;
+						group.averageItemsPerSecond += current.averageItemsPerSecond;
+						group.connectionCount += current.connectionCount;
+						group.behindByMessages = undefined;
+						group.behindByTime = undefined;
+						group.behindStatus = '';
+					} else {
+						group.knownMessages += current.knownMessages;
+						group.currentMessages += current.currentMessages;
+						group.inFlightMessages += current.totalInFlightMessages;
+						group.averageItemsPerSecond += current.averageItemsPerSecond;
+						group.connectionCount += current.connectionCount;
+						group.behindByMessages += current.behindByMessages;
+						group.behindByTime += current.behindByTime;
+						group.behindByTime = Math.round(current.behindByTime * 100)/100;
+						group.behindStatus = group.behindByMessages + ' / ' + group.behindByTime;
+					}
+					group.status = determineGroupStatus(group);
+
 	                result[key] = group;
 	            } else {
 	                result[key] = current;
