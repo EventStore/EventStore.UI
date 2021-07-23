@@ -15,8 +15,8 @@ define(['./_module'], function (app) {
                 averageItemsPerSecond: 0,
                 totalItemsProcessed: 0,
                 connectionCount: 0,
-                knownMessages: 0,
-                currentMessages: 0,
+                lastKnownEventPosition: null,
+                lastCheckpointedEventPosition: null,
                 inFlightMessages: 0,
                 status: 'Idle',
                 behindByMessages: 0.0,
@@ -71,15 +71,11 @@ define(['./_module'], function (app) {
 				
 	            var previous = findGroup(source[key] ? source[key].groups : [], current.groupName);
 				if (current.eventStreamId === '$all'){
-					current.knownMessages = current.lastKnownEventPosition === undefined ? '-' : current.lastKnownEventPosition;
-					current.currentMessages = current.lastProcessedEventPosition === undefined ? '-' : current.lastProcessedEventPosition;
-					current.behindByMessages = (current.knownMessages === current.currentMessages) ? 0 : undefined;
+					current.behindByMessages = (current.lastKnownEventPosition === current.lastCheckpointedEventPosition) ? 0 : undefined;
 					current.behindByTime = undefined;
 					current.behindStatus = '';
 				} else {
-					current.knownMessages = current.lastKnownEventPosition === undefined ? 0 : parseInt(current.lastKnownEventPosition) + 1;
-					current.currentMessages = current.lastProcessedEventPosition === undefined ? 0 : parseInt(current.lastProcessedEventPosition) + 1;
-					current.behindByMessages = (current.knownMessages - current.currentMessages);
+					current.behindByMessages = (current.lastKnownEventPosition - current.lastCheckpointedEventPosition);
 					current.behindByTime = Math.round((current.behindByMessages / current.averageItemsPerSecond) * 100)/100;
 					current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
 					current.behindStatus = current.behindByMessages + ' / ' + current.behindByTime;
@@ -101,8 +97,8 @@ define(['./_module'], function (app) {
 	                group.groups.push(current);
 
 					if (current.eventStreamId === '$all') {
-						group.knownMessages = '';
-						group.currentMessages = '';
+						group.lastKnownEventPosition = '';
+						group.lastCheckpointedEventPosition = '';
 						group.inFlightMessages += current.totalInFlightMessages;
 						group.averageItemsPerSecond += current.averageItemsPerSecond;
 						group.connectionCount += current.connectionCount;
@@ -110,8 +106,8 @@ define(['./_module'], function (app) {
 						group.behindByTime = undefined;
 						group.behindStatus = '';
 					} else {
-						group.knownMessages += current.knownMessages;
-						group.currentMessages += current.currentMessages;
+						group.lastKnownEventPosition = '';
+						group.lastCheckpointedEventPosition = '';
 						group.inFlightMessages += current.totalInFlightMessages;
 						group.averageItemsPerSecond += current.averageItemsPerSecond;
 						group.connectionCount += current.connectionCount;
