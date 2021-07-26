@@ -15,8 +15,8 @@ define(['./_module'], function (app) {
                 averageItemsPerSecond: 0,
                 totalItemsProcessed: 0,
                 connectionCount: 0,
-                lastKnownEventPosition: null,
-                lastCheckpointedEventPosition: null,
+                lastKnownEventPosition: undefined,
+                lastCheckpointedEventPosition: undefined,
                 inFlightMessages: 0,
                 status: 'Idle',
                 behindByMessages: 0.0,
@@ -51,6 +51,50 @@ define(['./_module'], function (app) {
 				}
 			}
 			return group.groups[0].status;
+		}
+
+		function parsePrepareCommitPos(pos){
+			return {
+				commit: parseInt(pos.split('/')[0].split('C:')[1]),
+				prepare: parseInt(pos.split('/')[1].split('P:')[1])
+			};
+		}
+
+		function minPosition(pos1, pos2, isPrepareCommitPos){
+			if(pos1 === undefined){
+				return pos2;
+			}
+
+			if(pos2 === undefined){
+				return pos1;
+			}
+
+			if(pos1 === null){
+				return pos1;
+			}
+
+			if(pos2 === null){
+				return pos2;
+			}
+
+			if(isPrepareCommitPos){
+				var pcPos1 = parsePrepareCommitPos(pos1);
+				var pcPos2 = parsePrepareCommitPos(pos2);
+
+				var chkPos1 = Math.max(pcPos1.commit, pcPos1.prepare);
+				var chkPos2 = Math.max(pcPos2.commit, pcPos2.prepare);
+				if(chkPos1 <= chkPos2){
+					return pos1;
+				}
+				return pos2;
+			} else{
+				var pos1Int = parseInt(pos1);
+				var pos2Int = parseInt(pos2);
+				if(pos1Int <= pos2Int){
+					return pos1;
+				}
+				return pos2;
+			}
 		}
 
 		function map (data, source) {
@@ -96,21 +140,18 @@ define(['./_module'], function (app) {
 	                group.show = exists ? exists.show : false;
 	                group.groups.push(current);
 
+					group.inFlightMessages += current.totalInFlightMessages;
+					group.averageItemsPerSecond += current.averageItemsPerSecond;
+					group.connectionCount += current.connectionCount;
+
+					group.lastKnownEventPosition = minPosition(group.lastKnownEventPosition, current.lastKnownEventPosition, current.eventStreamId === '$all');
+					group.lastCheckpointedEventPosition = minPosition(group.lastCheckpointedEventPosition, current.lastCheckpointedEventPosition, current.eventStreamId === '$all');
+
 					if (current.eventStreamId === '$all') {
-						group.lastKnownEventPosition = '';
-						group.lastCheckpointedEventPosition = '';
-						group.inFlightMessages += current.totalInFlightMessages;
-						group.averageItemsPerSecond += current.averageItemsPerSecond;
-						group.connectionCount += current.connectionCount;
 						group.behindByMessages = undefined;
 						group.behindByTime = undefined;
 						group.behindStatus = '';
 					} else {
-						group.lastKnownEventPosition = '';
-						group.lastCheckpointedEventPosition = '';
-						group.inFlightMessages += current.totalInFlightMessages;
-						group.averageItemsPerSecond += current.averageItemsPerSecond;
-						group.connectionCount += current.connectionCount;
 						group.behindByMessages += current.behindByMessages;
 						group.behindByTime += current.behindByTime;
 						group.behindByTime = Math.round(current.behindByTime * 100)/100;
