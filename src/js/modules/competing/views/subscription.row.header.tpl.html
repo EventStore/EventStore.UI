@@ -5,8 +5,8 @@
 	{{ esSubscription.streamName }} <a class="table-collapsetoggle">&plus;</a>
 </td>
 <td>{{ esSubscription.averageItemsPerSecond }}</td>
-<td>{{ esSubscription.knownMessages }}</td>
-<td>{{ esSubscription.currentMessages }}</td>
+<td>{{ esSubscription.lastKnownEventPosition }}</td>
+<td>{{ esSubscription.lastCheckpointedEventPosition }}</td>
 <td>{{ esSubscription.inFlightMessages }}</td>
 <td>{{ esSubscription.connectionCount }}</td>
 <td>
