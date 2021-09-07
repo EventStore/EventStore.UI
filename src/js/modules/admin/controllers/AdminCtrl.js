@@ -10,6 +10,7 @@ define(['./_module'], function (app) {
 
             $scope.noSubSystemsText = 'No sub systems are running.';
             $scope.noScavengeHistoryText = 'No scavenges have been run.';
+            $scope.polling = false;
 
 			adminService.getSubsystems()
 			.then(function(res){
@@ -46,7 +47,9 @@ define(['./_module'], function (app) {
 			$scope.scavenge = function ($event) {
 				stop($event);
 
-				adminService.scavenge().then(null, function (error) {
+				adminService.scavenge().then(function() {
+                                        setupScavengeStatusPoller();
+                                }, function (error) {
 					msg.failure('Scavenge failed: ' + error.message);
 				});
             };
@@ -102,6 +105,10 @@ define(['./_module'], function (app) {
             var scavengeQuery = {};
             var timeout;
             function setupScavengeStatusPoller() {
+                if ($scope.polling === true) {
+                    return;
+                }
+                $scope.polling = true;
                 scavengeQuery = poller.create({
                     interval: constants.scavengeStatus.pollInterval,
                     action: adminService.scavengeStatus,
@@ -113,6 +120,12 @@ define(['./_module'], function (app) {
                     function(error) {
                         if(error.statusCode === 401){
                             $scope.noScavengeHistoryText = 'You are not authorized to view the scavenge history';
+                            $scope.polling = false;
+                            return;
+                        }
+                        if (error.statusCode === 404) {
+                            $scope.noScavengeHistoryText = "No scavenges have been run.";
+                            $scope.polling = false;
                             return;
                         }
                         if(timeout){
