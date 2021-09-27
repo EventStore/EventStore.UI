@@ -1,5 +1,4 @@
 define([
-    './ProjectionsItemDebugCtrl',
 	'./ProjectionsItemDeleteCtrl',
 	'./ProjectionsItemDetailsCtrl',
 	'./ProjectionsItemEditCtrl',
