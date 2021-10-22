@@ -119,7 +119,9 @@ define(['./_module'], function (app) {
 
             function getNodeForReplica(endpoint, nodes) {
                 for(var i = 0; i < nodes.length; i++) {
-                    var internalTcpIp = nodes[i].internalTcpIp + ':' + nodes[i].internalTcpPort;
+                    var tcpPort = nodes[i].internalSecureTcpPort ? nodes[i].internalSecureTcpPort : nodes[i].internalTcpPort;
+                    var internalTcpIp = nodes[i].internalTcpIp + ':' + tcpPort;
+                    endpoint = endpoint.replace('Unspecified/', '')
                     if(internalTcpIp === endpoint) {
                         return nodes[i];
                     }
