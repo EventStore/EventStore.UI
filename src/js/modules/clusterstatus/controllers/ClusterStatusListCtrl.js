@@ -37,18 +37,17 @@ define(['./_module'], function (app) {
 			        } else {
 			            $scope.errorMessage = '';
                         $scope.nodes = response.members;
-                        // TODO: Fix the response from the server
-                        // var leader = getLeaderNode();
-                        // if(leader) {
-                        //     var leaderUrl = leader.httpEndPointIp + ':' + leader.httpEndPointPort;
-                        //     if(!replicaStatsQuery || leaderUrl !== leaderNodeUrl) {
-                        //         leaderNodeUrl = leaderUrl;
-                        //         setupReplicaStatsPoller();
-                        //     }
-                        // }
-			        }
-			    });
-			}
+                        var leader = getLeaderNode();
+                        if(leader) {
+                            var leaderUrl = leader.httpEndPointIp + ':' + leader.httpEndPointPort;
+                            if(!replicaStatsQuery || leaderUrl !== leaderNodeUrl) {
+                                leaderNodeUrl = leaderUrl;
+                                setupReplicaStatsPoller();
+                            }
+                        }
+                    }
+                });
+            }
 
             function setupReplicaStatsPoller() {
                 replicaStatsQuery = poller.create({
@@ -73,6 +72,7 @@ define(['./_module'], function (app) {
             }
 
             function calculateReplicaStats(replica, leader, node, prevStats) {
+                if (!node) return;
                 replica.isCatchingUp = node.state === 'CatchingUp';
                 replica.bytesToCatchUp = leader.writerCheckpoint - node.writerCheckpoint;
 
@@ -119,7 +119,9 @@ define(['./_module'], function (app) {
 
             function getNodeForReplica(endpoint, nodes) {
                 for(var i = 0; i < nodes.length; i++) {
-                    var internalTcpIp = nodes[i].internalTcpIp + ':' + nodes[i].internalTcpPort;
+                    var tcpPort = nodes[i].internalSecureTcpPort ? nodes[i].internalSecureTcpPort : nodes[i].internalTcpPort;
+                    var internalTcpIp = nodes[i].internalTcpIp + ':' + tcpPort;
+                    endpoint = endpoint.replace('Unspecified/', '')
                     if(internalTcpIp === endpoint) {
                         return nodes[i];
                     }

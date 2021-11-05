@@ -8,8 +8,8 @@ define(['es-ui'], function (app) {
         });
     }]);
 	return app.run([
-        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'ScavengeNotificationService', 'MessageService','$http',
-        function ($rootScope, $location, $state, $stateParams, authService, infoService, scavengeNotificationService, msg, $http) {
+        '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'MessageService','$http',
+        function ($rootScope, $location, $state, $stateParams, authService, infoService, msg, $http) {
             $rootScope.baseUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port();
             /*$rootScope.baseUrl = 'https://127.0.0.1:2113'; //uncomment during development*/
             $rootScope.projectionsEnabled = false;
@@ -77,7 +77,6 @@ define(['es-ui'], function (app) {
             });
             
             function setSingleNodeOrCluster(){
-                scavengeNotificationService.start();
                 infoService.getOptions().then(function onGetOptions(response){
                     var options = response.data;
                     for (var index in options) {

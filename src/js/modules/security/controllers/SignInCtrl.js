@@ -3,8 +3,8 @@ define(['./_module'], function (app) {
     'use strict';
 
     return app.controller('SignInCtrl', [
-		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService', 'InfoService', 'ScavengeNotificationService',
-		function ($scope, $rootScope, $state, $location, authService, msg, infoService, scavengeNotificationService) {
+		'$scope', '$rootScope', '$state', '$location', 'AuthService', 'MessageService', 'InfoService',
+		function ($scope, $rootScope, $state, $location, authService, msg, infoService) {
 
 			$scope.log = {
 				username: '',
@@ -33,7 +33,6 @@ define(['./_module'], function (app) {
 			};
 
 			function setSingleNodeOrCluster(){
-				scavengeNotificationService.start();
 				infoService.getOptions().then(function(res){
 					var options = res.data;
 					for (var index in options) {
