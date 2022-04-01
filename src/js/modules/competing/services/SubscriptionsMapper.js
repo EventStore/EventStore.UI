@@ -33,17 +33,6 @@ define(['./_module'], function (app) {
 			}
 		}
 
-		function determineStatus(subscription){
-			if(subscription.behindByMessages !== 0) {
-				if(subscription.averageItemsPerSecond > 0){
-					return 'subscription-active';
-				}else{
-					return 'behind-notcatchingup';
-				}
-			}
-			return 'subscription-active';
-		}
-
 		function determineGroupStatus(group){
 			for(var index in group.groups){
 				if(group.groups[index].status.indexOf('behind') >= 0){
@@ -126,7 +115,6 @@ define(['./_module'], function (app) {
 				}
 				current.averageItemsPerSecond = previous ? current.totalItemsProcessed - previous.totalItemsProcessed : 0;
 				current.inFlightMessages = current.totalInFlightMessages;
-				current.status = determineStatus(current);
 
 	            if(key) {
 	                if(!result[key]) {
