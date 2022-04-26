@@ -52,7 +52,12 @@
 	<tbody ng-if="streams.length < 1">
 		<tr>
 			<td colspan="5">
-				<em>No events for stream: {{ streamId }}
+				<div ng-if="$stateParams.hasOwnProperty('position')">
+					<em>No events for stream: {{ $stateParams.streamId }} at position {{ $stateParams.position }}
+				</div>
+				<div ng-if="!$stateParams.hasOwnProperty('position')">
+					<em>No events for stream: {{ $stateParams.streamId }}
+				</div>
 			</td>
 		</tr>
 	</tbody>

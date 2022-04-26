@@ -40,10 +40,6 @@ define(['./_module'], function (app) {
 			}
 
 			function checkIfPoll (previous, headOfStream, onContinuePollCallback, doNotPollCallback) {
-
-				if (typeof result.previous.uri === "undefined") {
-					return;
-				}
 				if(!headOfStream){
 					doNotPollCallback();
 					return;
