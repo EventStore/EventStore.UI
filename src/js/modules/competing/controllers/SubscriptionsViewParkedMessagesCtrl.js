@@ -1,6 +1,15 @@
 define(['./_module'], function (app) {
 
     'use strict';
+	
+	function checkErrorStatus(error, $scope, msg) {
+		if (error.statusCode === 404 || error.statusCode === 410) {
+			// Setting the entries array to empty because the stream does not exist 
+			$scope.entries = [];
+		} else {
+			msg.failure('Failed to read parked messages: ' + error.message);
+		}
+	}
 
     return app.controller('SubscriptionsViewParkedMessagesCtrl', [
 		'$scope', '$stateParams', 'CompetingService', 'poller', 'MessageService',
@@ -20,7 +29,7 @@ define(['./_module'], function (app) {
 						$scope.entries = []
 					}
 				}, function(error){
-					msg.failure('Failed to read parked messages: ' + error.message);
+					checkErrorStatus(error, $scope, msg);
 				});
 			
 			$scope.pageForward = function(entries){
@@ -32,7 +41,7 @@ define(['./_module'], function (app) {
 						if(data!==undefined && data["entries"]!==undefined && data["entries"].length > 0)
 							$scope.entries = data["entries"];
 					}, function(error){
-						msg.failure('Failed to read parked messages: ' + error.message);
+						checkErrorStatus(error, $scope, msg);
 					});
 				}
 			};
@@ -63,7 +72,7 @@ define(['./_module'], function (app) {
 					
 			});
 			firstPagePoll.promise.catch(function (error) {
-				msg.failure('Failed to read parked messages: ' + error.message);
+				checkErrorStatus(error, $scope, msg);
 				firstPagePoll.stop(); 
 			});
 
@@ -79,7 +88,7 @@ define(['./_module'], function (app) {
 							$scope.entries = data["entries"];
 						}
 					}, function(error){
-						msg.failure('Failed to read parked messages: ' + error.message);
+						checkErrorStatus(error, $scope, msg);
 					});
 				}
 			};
@@ -92,7 +101,7 @@ define(['./_module'], function (app) {
 						$scope.entries = data["entries"];
 					}
 				}, function(error){
-					msg.failure('Failed to read parked messages: ' + error.message);
+					checkErrorStatus(error, $scope, msg);
 				});
 
 				firstPagePoll.start();

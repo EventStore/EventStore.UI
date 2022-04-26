@@ -54,7 +54,7 @@ module.run(['$templateCache', function($templateCache) {
     '{{ event.metaData }}					\n' +
     '					</pre></div><div ng-if=event.isLinkMetaData><strong>Link metadata</strong><pre>\n' +
     '{{ event.linkMetaData }}					\n' +
-    '					</pre></div></td></tr></tbody><tbody ng-hide=streams><tr><td colspan=5><em>No events for current path: {{ $stateParams | json }}</em></td></tr></tbody></table>');
+    '					</pre></div></td></tr></tbody><tbody ng-if="streams.length < 1"><tr><td colspan=5><em>No events for current path: {{ $stateParams | json }}</em></td></tr></tbody></table>');
 }]);
 })();
 

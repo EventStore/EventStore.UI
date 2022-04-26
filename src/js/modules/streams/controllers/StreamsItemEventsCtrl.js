@@ -17,7 +17,11 @@ define(['./_module'], function (app) {
 
 			atom.start($stateParams)
 			.then(null, function (error) {
-				msg.failure('Failed to read events for stream \''+$scope.streamId+'\': ' + error.message);
+				if (error.statusCode === 404 || error.statusCode === 410) {
+					$scope.entries = []
+				} else {
+					msg.failure('Failed to read events for stream \''+$scope.streamId+'\': ' + error.message);
+				}
 			}, function (data) {
 				$scope.$parent.headOfStream = data.headOfStream;	
 				$scope.$broadcast('add-link-header', findSelf(data.links));
