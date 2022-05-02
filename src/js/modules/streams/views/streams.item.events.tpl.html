@@ -49,10 +49,10 @@
 			</td>
 		</tr>
 	</tbody>
-	<tbody ng-hide="streams">
+	<tbody ng-if="streams.length < 1">
 		<tr>
 			<td colspan="5">
-				<em>No events for current path: {{ $stateParams | json }}
+				<em>No events for stream: {{ streamId }}
 			</td>
 		</tr>
 	</tbody>

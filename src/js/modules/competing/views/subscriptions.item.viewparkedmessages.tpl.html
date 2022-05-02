@@ -19,7 +19,7 @@
 	<thead>
 		<tr><th>Event #</th><th>Name</th><th>Type</th><th>Created Date</th><th></th></tr>
 	</thead>
-	<tbody ng-repeat="event in entries track by event.positionEventNumber"> 
+	<tbody ng-repeat="event in entries track by event.positionEventNumber">
 		<tr ng-class="{ 'invalid': !event.streamId }"> 
 			<td>{{ event.positionEventNumber }}</td> 
 			<td>{{ event.title }}</td><td>{{ event.eventType }}</td> 
@@ -39,5 +39,13 @@
 				</div>
 			</td>
 		</tr>
+	</tbody>
+
+	<tbody ng-if="entries.length < 1">
+	<tr>
+		<td colspan="5">
+			<em>No parked events for subscription {{streamId}}::{{groupName}}
+		</td>
+	</tr>
 	</tbody>
 </table>

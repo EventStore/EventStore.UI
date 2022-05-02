@@ -477,12 +477,6 @@ kbd {
   border-radius: 12px;
   border: 1px solid black; }
 
-.subscription-active {
-  background: lime; }
-
-.behind-notcatchingup {
-  background: red; }
-
 .toast-container-modal {
   width: 100%;
   height: 100%;
