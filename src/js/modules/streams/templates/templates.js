@@ -54,7 +54,7 @@ module.run(['$templateCache', function($templateCache) {
     '{{ event.metaData }}					\n' +
     '					</pre></div><div ng-if=event.isLinkMetaData><strong>Link metadata</strong><pre>\n' +
     '{{ event.linkMetaData }}					\n' +
-    '					</pre></div></td></tr></tbody><tbody ng-if="streams.length < 1"><tr><td colspan=5><em>No events for stream: {{ streamId }}</em></td></tr></tbody></table>');
+    '					</pre></div></td></tr></tbody><tbody ng-if="streams.length < 1"><tr><td colspan=5><div ng-if="$stateParams.hasOwnProperty(\'position\')"><em>No events for stream: {{ $stateParams.streamId }} at position {{ $stateParams.position }}</em></div><div ng-if="!$stateParams.hasOwnProperty(\'position\')"><em>No events for stream: {{ $stateParams.streamId }}</em></div></td></tr></tbody></table>');
 }]);
 })();
 
