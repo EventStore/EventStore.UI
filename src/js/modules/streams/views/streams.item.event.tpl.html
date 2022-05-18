@@ -31,7 +31,15 @@
 			<th>Timestamp</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody ng-hide="evt.eventNumber">
+		<tr>
+			<td colspan="5">
+				<em>Event does not exist for stream: {{streamId}}
+			</td>
+		</tr>
+	</tbody>
+	
+	<tbody ng-show="evt.eventNumber">
 		<tr>
 			<td>{{ evt.eventNumber }}</td>
 			<td><a ui-sref="^.events({streamId: evt.streamId})">{{ evt.streamId }}</a></td>
@@ -58,12 +66,12 @@
 			</td>
 		</tr>
 	</tbody>
-	<thead>
+	<thead ng-show="evt.eventNumber">
 		<tr>
 			<th colspan="4">Internal data</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody ng-show="evt.eventNumber">
 		<tr>
 			<td>EventId</td>
 			<td colspan="3">{{ evt.eventId }}</td>

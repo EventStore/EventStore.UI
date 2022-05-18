@@ -10,8 +10,8 @@ define(['es-ui'], function (app) {
 	return app.run([
         '$rootScope', '$location', '$state', '$stateParams', 'AuthService', 'InfoService', 'MessageService','$http',
         function ($rootScope, $location, $state, $stateParams, authService, infoService, msg, $http) {
-            $rootScope.baseUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port();
-            /*$rootScope.baseUrl = 'https://127.0.0.1:2113'; //uncomment during development*/
+            /*$rootScope.baseUrl = $location.protocol() + '://' + $location.host() + ':' + $location.port();*/
+            $rootScope.baseUrl = 'https://127.0.0.1:2113'; //uncomment during development*/
             $rootScope.projectionsEnabled = false;
             $rootScope.userManagementEnabled = false;
             $rootScope.streamsBrowserEnabled = false;
