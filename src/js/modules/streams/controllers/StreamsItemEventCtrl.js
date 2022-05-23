@@ -2,6 +2,15 @@ define(['./_module'], function (app) {
 
     'use strict';
 
+	function checkErrorStatus(error, $scope, msg) {
+		if (error.statusCode === 404 || error.statusCode === 410) {
+			// Event does not exist so we don't have to show the notification error
+			
+		} else {
+			msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
+		}
+	}
+	
     return app.controller('StreamsItemEventCtrl', [
 		'$scope', '$state', '$stateParams', 'StreamsService', 'MessageService',
 		function ($scope, $state, $stateParams, streamsService, msg) {
@@ -21,28 +30,27 @@ define(['./_module'], function (app) {
 					// if this was a metadata, we do not need to update anything
 					return;
 				}
+				
+				if(data.hasOwnProperty('positionEventNumber') && data.hasOwnProperty('positionStreamId')) {
+					streamsService.eventContent($scope.streamId, data.positionEventNumber + 1)
+						.then(function () {
+							$scope.next = true;
+						}, function(error){
+							checkErrorStatus(error, $scope, msg);
+						});
 
-				streamsService.eventContent($scope.streamId, data.positionEventNumber + 1)
-				.then(function () {
-					$scope.next = true;
-				}, function(error){
-					if(error.statusCode !== 404){
-						msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
+					if(data.positionEventNumber - 1 >= 0){
+						streamsService.eventContent($scope.streamId, data.positionEventNumber - 1)
+							.then(function () {
+								$scope.prev = true;
+							}, function(error){
+								checkErrorStatus(error, $scope, msg);
+							});
 					}
-				});
-
-				if(data.positionEventNumber - 1 >= 0){
-					streamsService.eventContent($scope.streamId, data.positionEventNumber - 1)
-					.then(function () {
-						$scope.prev = true;
-					}, function(error){
-						if(error.statusCode !== 404){
-							msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
-						}
-					});
 				}
+				
 			}, function(error){
-				msg.failure('Failed to load event content for stream \'' + $scope.streamId + '\': ' + error.message);
+				checkErrorStatus(error, $scope, msg);
 			});
 		}
 	]);
