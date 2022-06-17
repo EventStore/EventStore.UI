@@ -23,6 +23,7 @@ define(['./_module'], function (app) {
 			.then(function (res) {
 				var data = res.data;
 				$scope.evt = data;
+				$scope.hasEvent = data.eventNumber !== null && data.eventNumber !== undefined;
 				$scope.isNotTheSame = data.positionStreamId !== data.streamId || data.positionEventNumber !== data.eventNumber;
 				$scope.links = data.links;
 
