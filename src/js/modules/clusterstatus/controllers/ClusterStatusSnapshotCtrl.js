@@ -14,7 +14,7 @@ define(['./_module'], function (app) {
                                node.internalTcpIp + ':' + (node.internalSecureTcpPort || node.internalTcpPort),
                                node.externalTcpIp + ':' + (node.externalSecureTcpPort || node.externalTcpPort),
                                node.httpEndPointIp + ':' + node.httpEndPointPort,
-                               node.isAlive ? 'Alive' : 'Dead',
+                               node.isAlive ? 'Alive' : 'Unreachable',
                                node.state,
                                dateFilter(node.timeStamp, 'yyyy-MM-d HH:mm:ss'),
                                node.state === 'Manager' ? 'n/a'
