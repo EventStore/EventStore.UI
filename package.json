@@ -35,7 +35,7 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "gulp": "~3.9.1",
+    "gulp": "~4.0.2",
     "gulp-cached": "~1.1.1",
     "gulp-concat": "~2.6.1",
     "gulp-html-replace": "~1.6.2",
