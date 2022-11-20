@@ -6,58 +6,59 @@ The user interface for Event Store. This is included as a submodule in the main 
 
 Currently there are two ways to run the UI:
 
-* Open `index.html` located int `src` folder in browser.
-* Execute `gulp connect` - this command [gulp-connect](https://github.com/avevlad/gulp-connect) run webserver with LiveReload (see dev section for info how to set up gulp if you are new to it) - `gulp connect` needs `gulp` to run, please see Dev information on how to install it.
+1. Open `index.html` located in the `src` folder in your browser.
+2. Execute `gulp connect`. The command [gulp-connect](https://github.com/avevlad/gulp-connect) runs a webserver with LiveReload (see dev section for info how to set up gulp if you are new to it). `gulp connect` needs `gulp-cli` to run, please see Dev information on how to install it properly.
 
 ## Dev
 
 To start developing, make sure you have the following requirements:
 
-#### 1. Install [node.js v10.20.1](https://nodejs.org/en/blog/release/v10.20.1/) **and** (Python 2.7)[https://www.python.org/download/releases/2.7/] if you haven't done that already.
+#### 1. Install [Node.js v18.12.1](https://nodejs.org/en/blog/release/v18.12.1/)
 
-If you already have another version of node.js installed, `nvm` can be used to set node v10.20.1 as the active one:
-
-```
-nvm use 10.20.1
-```
-
-nvm for Windows can be downloaded [here](https://github.com/coreybutler/nvm-windows/releases)
-nvm for Linux can be downloaded here [here](https://github.com/nvm-sh/nvm/releases)
-
-After installing Python 2.7, make a copy of the executable `python.exe` found in `C:\Python27` with the name `python2.exe` so that there are 2 executables: `python.exe` and `python2.exe`. This is required otherwise the build script when running `npm install` in the steps below fails when it looks for these executables.
-
-If you don't want to make copies of the python executable, there's a workaround. The commands below will configure `npm` to use the same `python.exe` executable when it looks for `python` and `python2`:
+If you already have another version of Node.js installed, `nvm` can be used to both install and set Node.js v18.12.1 as the active one:
 
 ```
-npm config set python "C:\python27\python.exe"
-npm config set python2 "C:\python27\python.exe"
+nvm install 18.12.1
+nvm use 18.12.1
 ```
 
-Furthermore, make sure the path `C:\Python27\` has been added to the `PATH` variable. In Windows, this can be tested as follows from the **PowerShell**:
-````
-Get-Command python
-Get-Command python2
-````
+nvm for Windows can be downloaded [here](https://github.com/coreybutler/nvm-windows/releases).
 
-On Linux, this can be checked as follows:
-````
-which python
-which python2
-````
+nvm for Linux can be installed using the following [instructions](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-#### 2. Install [gulp.js](http://gulpjs.com/)
+#### 2. Ensure the minimum version of npm is v9.2.0
+
+First, check your version of npm using `npm --version`. Install npm v9.2.0 only if your current version is below 9.2.0:
 
 ```
-npm install -g gulp
+npm install -g npm@9.2.0
 ```
 
-#### 3. Install all node packages in the project
+#### 3. Install [gulp-cli](https://github.com/gulpjs/gulp-cli) globally
+
+Any global installation of `gulp` **should** be removed before installing `gulp-cli` to avoid conflicts. The latter will run the local installation of `gulp v4.0.0` which is already a devDependency in the project.
 
 ```
+npm rm -g gulp
+npm install -g gulp-cli
+```
+
+#### 4. Install [bower v1.8.14](http://bower.io/) globally
+
+```
+npm install -g bower@1.8.14
+```
+
+#### 5. Install all node packages in the project
+
+```
+cd EventStore.UI
 npm install
 ```
 
-If you get MSBUILD, VS2017, or VC++ related errors, follow the steps below to install the missing dependencies:
+If `npm install` succeeds, go to **Step 6**.
+
+If you get errors related to MSBUILD, VS2017, or VC++ on Windows, follow the steps below to install the missing dependencies:
 
 1. Download Visual Studio Professional 2017 (version 15.9) (Trial) setup from [here](https://my.visualstudio.com/Downloads).
 2. When you run the setup, go to the **Individual components** tab, then use the search box at the top to select these components:
@@ -68,25 +69,20 @@ If you get MSBUILD, VS2017, or VC++ related errors, follow the steps below to in
 Note that other components might get added automatically; do not remove them.
 3. Click "Install", and then click on "Continue".
 4. Wait for setup to finish installing all the components and dependencies.
-5. Now run these commands in the EventStore.UI directory:
+5. Now run these commands in the `EventStore.UI` directory:
 
 ```
 npm clean-install
 npm install
 ```
 
-#### 4. Install [bower](http://bower.io/)
+#### 6. Install all bower packages in the project
 
-```
-npm install -g bower
-```
-
-to install bower components:
 ```
 bower install
 ```
 
-If you get the error message *"bower.ps1 cannot be loaded because running scripts is disabled on this system"*, run the command below in **PowerShell**:
+If you get the error message *"bower.ps1 cannot be loaded because running scripts is disabled on this system"* on Windows, run the command below in **PowerShell**:
 
 ```
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -94,18 +90,18 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Then, run `bower install` again.
 
-#### 5. gulp commands available
+#### 7. Available gulp commands
 
 ```
-// starts webserver with live reload
+// Starts webserver with live reload
 gulp connect 
 
-// execute jshint
+// Executes jshint
 gulp lint
 
-// transforming html file tamples into anguler.js module
+// Transforms HTML file templates into Angular.js module
 gulp html
 
-// building project - creating minified version of css, js etc.
+// Builds the project: Creates minified version of CSS, JS, etc.
 gulp dist
 ```

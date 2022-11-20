@@ -35,7 +35,7 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "gulp": "~3.9.1",
+    "gulp": "^4.0.0",
     "gulp-cached": "~1.1.1",
     "gulp-concat": "~2.6.1",
     "gulp-html-replace": "~1.6.2",
@@ -46,14 +46,15 @@
     "gulp-minify-css": "~1.2.4",
     "gulp-ng-html2js": "^0.2.3",
     "gulp-requirejs": "~1.1.1",
-    "gulp-sass": "~4.0.2",
+    "gulp-sass": "^5.1.0",
     "gulp-uglify": "~3.0.1",
     "gulp-webserver": "~0.9.1",
     "gulp-wrap": "~0.14.0",
     "imagemin-pngcrush": "~6.0.0",
-    "jshint-stylish": "~2.2.1",
     "jshint": "^2.11.0",
+    "jshint-stylish": "~2.2.1",
     "merge-stream": "^1.0.1",
-    "run-sequence": "^2.2.1"
+    "gulp4-run-sequence": "^1.0.0",
+    "sass": "^1.56.1"
   }
 }
