@@ -36,7 +36,7 @@
 		<tr>
 			<td>Message Timeout (ms)</td>
 			<td>
-				<input type="text" ng-model="config.messageTimeoutMilliseconds" class="form-table" name="messageTimeoutMilliseconds" />
+				<input type="number" min="0" ng-model="config.messageTimeoutMilliseconds" class="form-table" name="messageTimeoutMilliseconds" />
 			</td>
 		</tr>
 		<tr>
@@ -50,49 +50,49 @@
 		<tr>
 			<td>Max Retry Count</td>
 			<td>
-				<input type="text" ng-model="config.maxRetryCount" class="form-table" name="maxRetryCount" />
+				<input type="number" min="0" ng-model="config.maxRetryCount" class="form-table" name="maxRetryCount" />
 			</td>
 		</tr>
 		<tr>
 			<td>Live Buffer Size</td>
 			<td>
-				<input type="text" ng-model="config.liveBufferSize" class="form-table" name="liveBufferSize" />
+				<input type="number" min="0" ng-model="config.liveBufferSize" class="form-table" name="liveBufferSize" />
 			</td>
 		</tr>
 		<tr>
 			<td>Buffer Size</td>
 			<td>
-				<input type="text" ng-model="config.bufferSize" class="form-table" name="bufferSize" />
+				<input type="number" min="0" ng-model="config.bufferSize" class="form-table" name="bufferSize" />
 			</td>
 		</tr>
 		<tr>
 			<td>Read Batch Size</td>
 			<td>
-				<input type="text" ng-model="config.readBatchSize" class="form-table" name="readBatchSize" />
+				<input type="number" min="0" ng-model="config.readBatchSize" class="form-table" name="readBatchSize" />
 			</td>
 		</tr>
 		<tr>
 			<td>CheckPoint After (ms)</td>
 			<td>
-				<input type="text" ng-model="config.checkPointAfterMilliseconds" class="form-table" name="checkPointAfterMilliseconds" />
+				<input type="number" min="0" ng-model="config.checkPointAfterMilliseconds" class="form-table" name="checkPointAfterMilliseconds" />
 			</td>
 		</tr>
 		<tr>
 			<td>Min CheckPoint Count</td>
 			<td>
-				<input type="text" ng-model="config.minCheckPointCount" class="form-table" name="minCheckPointCount" />
+				<input type="number" min="0" ng-model="config.minCheckPointCount" class="form-table" name="minCheckPointCount" />
 			</td>
 		</tr>
 		<tr>
 			<td>Max CheckPoint Count</td>
 			<td>
-				<input type="text" ng-model="config.maxCheckPointCount" class="form-table" name="maxCheckPointCount" />
+				<input type="number" min="0" ng-model="config.maxCheckPointCount" class="form-table" name="maxCheckPointCount" />
 			</td>
 		</tr>
 		<tr>
 			<td>Max Subscriber Count</td>
 			<td>
-				<input type="text" ng-model="config.maxSubscriberCount" class="form-table" name="maxSubscriberCount" />
+				<input type="number" min="0" ng-model="config.maxSubscriberCount" class="form-table" name="maxSubscriberCount" />
 			</td>
 		</tr>
 		<tr>
