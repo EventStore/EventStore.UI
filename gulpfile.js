@@ -14,8 +14,8 @@ var gulp = require('gulp'),
     rjs = require('gulp-requirejs'),
     htmlreplace = require('gulp-html-replace'),
     webserver = require('gulp-webserver'),
-    sass = require('gulp-sass'),
-    runSequence = require('run-sequence'),
+    sass = require('gulp-sass')(require('sass')),
+    runSequence = require('gulp4-run-sequence'),
     merge = require('merge-stream');
 
 var paths = {
@@ -106,7 +106,7 @@ gulp.task('dist-min-css', function () {
         .pipe(gulp.dest('./es-dist/css/'));
 });
 
-gulp.task('dist-min-images', function () {
+gulp.task('dist-min-images', async function () {
 
     // minify images and copy
     gulp.src('./src/images/*')
@@ -124,7 +124,6 @@ gulp.task('dist-min-images', function () {
         use: [pngcrush()]
     }))
     .pipe(gulp.dest('./es-dist/'));
-
 });
 
 gulp.task('dist-copy-fonts', function () {
@@ -132,7 +131,7 @@ gulp.task('dist-copy-fonts', function () {
     .pipe(gulp.dest('./es-dist/fonts'));
 });
 
-gulp.task('dist-js', function () {
+gulp.task('dist-js', async function () {
 
     gulp.src('./src/bower_components/requirejs/*.js')
     .pipe(concat('requirejs.min.js'))
@@ -158,10 +157,9 @@ gulp.task('dist-js', function () {
     .pipe(wrap({ src: './config/ace_workaround.txt'}))
     .pipe(uglify())
     .pipe(gulp.dest('./es-dist/js/'));
-
 });
 
-gulp.task('dist', function() {
+gulp.task('dist', async function() {
     runSequence(
         ['html', 'compile-sass'],
         ['dist-min-css', 'dist-min-images', 'dist-js', 'dist-copy-fonts'],
@@ -252,17 +250,13 @@ gulp.task('lint', function() {
 gulp.task('dev', function () {
 
     // whenever templates changes, re-run templates
-    gulp.watch(paths.app.templatesSource, ['html']);
+    gulp.watch(paths.app.templatesSource, gulp.series('html'));
     // whenever code changes, re-run js-hint
-    gulp.watch(paths.all, ['lint']);
-
-    gulp.run('lint');
-    //gulp.run('connect');
+    gulp.watch(paths.all, gulp.series('lint'));
 });
 
 gulp.task('watch-lint', function () {
-    gulp.watch(paths.all, ['lint']);
-    gulp.run('lint');
+    gulp.watch(paths.all, gulp.series('lint'));
 });
 
 
@@ -286,4 +280,4 @@ gulp.task('connectDist', function() {
     }));
 });
 
-gulp.task('default', ['dev']);
+gulp.task('default', gulp.series('dev'));
