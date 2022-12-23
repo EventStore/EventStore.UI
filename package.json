@@ -51,7 +51,7 @@
     "gulp-webserver": "~0.9.1",
     "gulp-wrap": "~0.14.0",
     "imagemin-pngcrush": "~6.0.0",
-    "jshint": "^2.11.0",
+    "jshint": "^2.13.6",
     "jshint-stylish": "~2.2.1",
     "merge-stream": "^1.0.1",
     "gulp4-run-sequence": "^1.0.0",
