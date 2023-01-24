@@ -3,6 +3,7 @@
   "description": "The new user interface for Event Store",
   "homepage": "https://eventstore.com",
   "version": "4.1.1",
+  "type": "module",
   "contributors": [
     {
       "name": "Jakub Gutkowski",
@@ -50,11 +51,11 @@
     "gulp-uglify": "~3.0.1",
     "gulp-webserver": "~0.9.1",
     "gulp-wrap": "~0.14.0",
+    "gulp4-run-sequence": "^1.0.0",
     "imagemin-pngcrush": "~6.0.0",
     "jshint": "^2.13.6",
     "jshint-stylish": "~2.2.1",
     "merge-stream": "^1.0.1",
-    "gulp4-run-sequence": "^1.0.0",
     "sass": "^1.56.1"
   }
 }

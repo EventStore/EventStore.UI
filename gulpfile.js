@@ -1,22 +1,24 @@
 'use strict';
 
-var gulp = require('gulp'),
-    concat = require('gulp-concat'),
-    htmlmin = require('gulp-htmlmin'),
-    ngHtml2Js = require('gulp-ng-html2js'),
-    wrap = require('gulp-wrap'),
-    jshint = require('gulp-jshint'),
-    cache = require('gulp-cached'),
-    uglify = require('gulp-uglify'),
-    minifyCSS = require('gulp-minify-css'),
-    imagemin = require('gulp-imagemin'),
-    pngcrush = require('imagemin-pngcrush'),
-    rjs = require('gulp-requirejs'),
-    htmlreplace = require('gulp-html-replace'),
-    webserver = require('gulp-webserver'),
-    sass = require('gulp-sass')(require('sass')),
-    runSequence = require('gulp4-run-sequence'),
-    merge = require('merge-stream');
+import gulp from 'gulp';
+import concat from 'gulp-concat';
+import htmlmin from 'gulp-htmlmin';
+import ngHtml2Js from 'gulp-ng-html2js';
+import wrap from 'gulp-wrap';
+import jshint from 'gulp-jshint';
+import cache from 'gulp-cached';
+import uglify from 'gulp-uglify';
+import minifyCSS from 'gulp-minify-css';
+import imagemin from 'gulp-imagemin';
+import pngcrush from 'imagemin-pngcrush';
+import rjs from 'gulp-requirejs';
+import htmlreplace from 'gulp-html-replace';
+import webserver from 'gulp-webserver';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+import runSequence from 'gulp4-run-sequence';
+import merge from 'merge-stream';
+const sass = gulpSass(dartSass);
 
 var paths = {
     app: {
@@ -279,5 +281,6 @@ gulp.task('connectDist', function() {
       port: 8001
     }));
 });
+
 
 gulp.task('default', gulp.series('dev'));
