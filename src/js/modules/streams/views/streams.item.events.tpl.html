@@ -30,9 +30,12 @@
 			<td colspan="5">
 				<div ng-if="event.isJson">
 					<strong>Data</strong>
-					<pre>
+					<pre ng-if="!event.isRedacted">
 {{ event.data }}					
 					</pre>
+					<span class="note--warning" ng-if="event.isRedacted">
+						This event's data was redacted
+					</span>
 				</div>
 				<div ng-if="event.metaData">
 					<strong>Metadata</strong>
