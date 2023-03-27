@@ -49,9 +49,13 @@
 		<tr ng-if="evt.isJson || evt.isMetaData || evt.isLinkMetaData">
 			<td colspan="4">
 				<div ng-if="evt.isJson">
-				<strong>Data</strong><pre>
+				<strong>Data</strong>
+				<pre ng-if="!evt.isRedacted">
 {{ evt.data }}
 				</pre>
+				<span class="note--warning" ng-if="evt.isRedacted">
+This event's data was redacted
+				</span>
 				</div>
 				<div ng-if="evt.isMetaData">
 				<strong>Metadata</strong><pre>
