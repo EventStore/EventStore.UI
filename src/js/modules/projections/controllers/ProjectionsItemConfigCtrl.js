@@ -44,6 +44,7 @@ define(['./_module'], function (app) {
 					pendingEventsThreshold: $scope.config.pendingEventsThreshold,
 					maxWriteBatchLength: $scope.config.maxWriteBatchLength,
 					maxAllowedWritesInFlight: $scope.config.maxAllowedWritesInFlight,
+					projectionExecutionTimeout: $scope.config.projectionExecutionTimeout,
 				};
 				projectionsService.updateConfiguration($scope.location, param)
 				.then(function () {
