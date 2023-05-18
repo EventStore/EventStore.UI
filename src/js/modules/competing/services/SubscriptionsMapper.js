@@ -108,7 +108,11 @@ define(['./_module'], function (app) {
 					current.behindByTime = undefined;
 					current.behindStatus = '';
 				} else {
-					current.behindByMessages = (current.lastKnownEventPosition - current.lastCheckpointedEventPosition) + 1;
+					if (current.lastKnownEventPosition == null) {
+						current.behindByMessages = 0;
+					} else {
+						current.behindByMessages = (current.lastKnownEventPosition - current.lastCheckpointedEventPosition) + 1;
+					}
 					current.behindByTime = Math.round((current.behindByMessages / current.averageItemsPerSecond) * 100)/100;
 					current.behindByTime = isFinite(current.behindByTime) ? current.behindByTime : 0;
 					current.behindStatus = current.behindByMessages + ' / ' + current.behindByTime;
