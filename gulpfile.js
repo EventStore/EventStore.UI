@@ -7,7 +7,7 @@ import ngHtml2Js from 'gulp-ng-html2js';
 import wrap from 'gulp-wrap';
 import jshint from 'gulp-jshint';
 import cache from 'gulp-cached';
-import uglify from 'gulp-uglify';
+import terser from 'gulp-terser';
 import minifyCSS from 'gulp-minify-css';
 import imagemin from 'gulp-imagemin';
 import pngcrush from 'imagemin-pngcrush';
@@ -137,7 +137,7 @@ gulp.task('dist-js', async function () {
 
     gulp.src('./src/bower_components/requirejs/*.js')
     .pipe(concat('requirejs.min.js'))
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(gulp.dest('./es-dist/js/'));
 
     // copy ace, do not try to minify it :/
@@ -157,7 +157,7 @@ gulp.task('dist-js', async function () {
     // can't figure out better option of doing it :(
     rjs(rjsOpts)
     .pipe(wrap({ src: './config/ace_workaround.txt'}))
-    .pipe(uglify())
+    .pipe(terser())
     .pipe(gulp.dest('./es-dist/js/'));
 });
 
