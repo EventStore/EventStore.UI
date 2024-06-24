@@ -16,6 +16,34 @@
 	font-weight: 700;
 }
 
+.navigator-banner-header {
+	display: -webkit-flex;
+	display:     -ms-flex;
+	display:         flex;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	align-items: center;
+	-webkit-justify-content: space-between;
+	-ms-justify-content: space-between;
+	justify-content: space-between;
+	padding: 0 3rem;
+	background: $dark-pale-yellow;
+
+	a {
+		margin: 1rem 0.5rem;
+		font-size: 1rem;
+		line-height: 1rem;
+		color: $grey-dark;
+
+		b {
+			font-weight: 700;
+		}
+	}
+}
+
 .site-title {
 	margin: 0 0 0 0.5rem;
 	font-size: 1rem;
