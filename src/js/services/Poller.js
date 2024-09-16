@@ -40,6 +40,7 @@ define(['./_module'], function (app) {
 						.then(function (data) {
 							self.intervalId = $timeout(tick, self.opts.interval);
 							self.deferred.notify(data.data);
+							self.deferred.resolve();
 						}, function (error) {
 							self.deferred.reject(error);
 						});
