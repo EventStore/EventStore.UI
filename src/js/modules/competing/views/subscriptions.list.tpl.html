@@ -6,6 +6,22 @@
         </li>
     </ul>
 </header>
+
+<ul class="page-nav" style="list-style-type: none; padding:0 0 0.75rem 0 !important">
+    <li class="page-nav__item">
+        <button ng-click="paging.firstPage()" ng-disabled="!paging.canPagePrevious()">First</button>
+    </li>
+    <li class="page-nav__item">
+        <button ng-click="paging.previousPage()" ng-disabled="!paging.canPagePrevious()">Previous</button>
+    </li>
+    <li class="page-nav__item">
+        <button ng-click="paging.nextPage()" ng-disabled="!paging.canPageNext()">Next</button>
+    </li>
+    <li class="page-nav__item">
+        <p>Showing {{ paging.firstEntry}} - {{ paging.lastEntry }} of {{ paging.total }}</p>
+    </li>
+</ul>
+<br />
 <table class="table-subscriptions">
     <thead>
         <tr>
@@ -51,3 +67,5 @@
         </tr>
     </tbody>
 </table>
+<br />
+Show <input type="number" style="width: 60px;" ng-model="paging.pageSizeInput" min="1" ng-model-options="{debounce:500}" ng-change="paging.onPageSizeChanged()" name="pageSize"/> entries per page.

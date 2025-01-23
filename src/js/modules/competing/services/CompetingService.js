@@ -5,12 +5,12 @@ define(['./_module'], function (app) {
     return app.provider('CompetingService', function () {
 
         this.$get = [
-            '$http', 'urls', 'UrlBuilder',
-            function ($http, urls, urlBuilder) {
+            '$http', '$cookieStore', 'urls', 'UrlBuilder',
+            function ($http, $cookieStore, urls, urlBuilder) {
 
                 return {
-                    subscriptions: function () {
-                        var url = urlBuilder.build(urls.competing.subscriptions);
+                    subscriptions: function (pageSize, offset) {
+                        var url = urlBuilder.build(urls.competing.subscriptions, pageSize, offset);
                         return $http.get(url);
                     },
                     subscriptionDetail: function (subscriptionId, groupName) {
@@ -64,6 +64,23 @@ define(['./_module'], function (app) {
                                 'Accept': 'application/vnd.eventstore.competingatom+json'
                             }
                         });
+                    },
+                    getPageSizeFromCookie: function() {
+                        var psubOpts = $cookieStore.get('es-subscription-options');
+                        if(!psubOpts){
+                            return null;
+                        }
+                        return psubOpts.pageSize;
+                    },
+                    savePageSizeToCookie: function(pageSize) {
+                        var psubOpts = $cookieStore.get('es-subscription-options');
+                        if(!psubOpts){
+                            psubOpts = {};
+                        }
+                        psubOpts = {
+                            pageSize : pageSize
+                        };
+                        $cookieStore.put('es-subscription-options', psubOpts);
                     }
                 };
             }
