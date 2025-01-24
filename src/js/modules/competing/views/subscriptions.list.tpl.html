@@ -68,4 +68,5 @@
     </tbody>
 </table>
 <br />
-Show <input type="number" style="width: 60px;" ng-model="paging.pageSizeInput" min="1" ng-model-options="{debounce:500}" ng-change="paging.onPageSizeChanged()" name="pageSize"/> entries per page.
+Show <input type="number" class="inline-input" ng-model="paging.pageSizeInput" min="1" ng-model-options="{debounce:500}" ng-change="paging.onPageSizeChanged()" name="pageSize"/> entries per page. 
+Refresh every <input type="number" class="inline-input" ng-model="paging.pageRefreshIntervalInput" min="1" ng-model-options="{debounce:500}" ng-change="paging.onPageRefreshIntervalChanged()" name="pageRefreshInterval"/> second(s).

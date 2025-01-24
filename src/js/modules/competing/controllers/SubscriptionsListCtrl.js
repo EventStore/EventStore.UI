@@ -5,10 +5,10 @@ define(['./_module'], function (app) {
     return app.controller('SubscriptionsListCtrl', [
         '$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService', 'urls', 'UrlBuilder',
         function ($scope, competingService, subscriptionsMapper, pollerProvider, msg, urls, urlBuilder) {
-            function startPolling(count, offset) {
+            function startPolling(count, offset, intervalSeconds) {
                 pollerProvider.clear();
                 var subscriptionsPoll = pollerProvider.create({
-                    interval: 1000,
+                    interval: intervalSeconds * 1000,
                     action: competingService.subscriptions,
                     params: [count, offset]
                 });
@@ -34,10 +34,13 @@ define(['./_module'], function (app) {
             }
 
             let initialPageSize = competingService.getPageSizeFromCookie() || 100;
+            let initialRefreshIntervalSeconds = competingService.getPageRefreshIntervalSecondsFromCookie() || 1;
             $scope.paging = {
                 currentOffset : 0,
                 pageSize : initialPageSize,
                 pageSizeInput : initialPageSize,
+                pageRefreshInterval: initialRefreshIntervalSeconds,
+                pageRefreshIntervalInput: initialRefreshIntervalSeconds,
                 firstEntry: 0,
                 lastEntry: 0,
                 total: 0,
@@ -52,19 +55,26 @@ define(['./_module'], function (app) {
                 },
                 nextPage: function() {
                     if($scope.paging.canPageNext()) {
-                        startPolling($scope.paging.pageSize, $scope.paging.currentOffset + $scope.paging.pageSize);
+                        startPolling($scope.paging.pageSize, $scope.paging.currentOffset + $scope.paging.pageSize, $scope.paging.pageRefreshInterval);
                     }
                 },
                 previousPage: function() {
                     if($scope.paging.canPagePrevious()) {
-                        startPolling($scope.paging.pageSize, Math.max(0, $scope.paging.currentOffset - $scope.paging.pageSize));
+                        startPolling($scope.paging.pageSize, Math.max(0, $scope.paging.currentOffset - $scope.paging.pageSize), $scope.paging.pageRefreshInterval);
                     }
                 },
                 onPageSizeChanged: function() {
-                    if ($scope.paging.pageSizeInput >= 1) {
+                    if ($scope.paging.pageSizeInput >= 1 && $scope.paging.pageSizeInput !== $scope.paging.pageSize) {
                         $scope.paging.pageSize = $scope.paging.pageSizeInput;
                         competingService.savePageSizeToCookie($scope.paging.pageSize);
                         startPolling($scope.paging.pageSize, $scope.paging.offset);
+                    }
+                },
+                onPageRefreshIntervalChanged: function() {
+                    if ($scope.paging.pageRefreshIntervalInput >= 1 && $scope.paging.pageRefreshIntervalInput !== $scope.paging.pageRefreshInterval) {
+                        $scope.paging.pageRefreshInterval = $scope.paging.pageRefreshIntervalInput;
+                        competingService.savePageRefreshIntervalSecondsToCookie($scope.paging.pageRefreshInterval);
+                        startPolling($scope.paging.pageSize, $scope.paging.offset, $scope.paging.pageRefreshInterval);
                     }
                 }
             };

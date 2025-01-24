@@ -287,3 +287,10 @@ li.page-nav__item.copy-icon-right a.copied {
 color: white;
 background-color: #5AB552;
 }
+
+input.inline-input {
+	width: 60px;
+	&.ng-invalid {
+		background-color: $red-light;
+	}
+}

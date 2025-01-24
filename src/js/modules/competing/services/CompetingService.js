@@ -77,9 +77,22 @@ define(['./_module'], function (app) {
                         if(!psubOpts){
                             psubOpts = {};
                         }
-                        psubOpts = {
-                            pageSize : pageSize
-                        };
+                        psubOpts.pageSize = pageSize;
+                        $cookieStore.put('es-subscription-options', psubOpts);
+                    },
+                    getPageRefreshIntervalSecondsFromCookie: function() {
+                        var psubOpts = $cookieStore.get('es-subscription-options');
+                        if(!psubOpts){
+                            return null;
+                        }
+                        return psubOpts.pageRefreshIntervalSeconds;
+                    },
+                    savePageRefreshIntervalSecondsToCookie: function(pageRefreshIntervalSeconds) {
+                        var psubOpts = $cookieStore.get('es-subscription-options');
+                        if(!psubOpts){
+                            psubOpts = {};
+                        }
+                        psubOpts.pageRefreshIntervalSeconds = pageRefreshIntervalSeconds;
                         $cookieStore.put('es-subscription-options', psubOpts);
                     }
                 };
