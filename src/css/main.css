@@ -605,6 +605,13 @@ li.page-nav__item.copy-icon-right a.copied {
   background-color: #5AB552;
 }
 
+input.inline-input {
+  width: 60px;
+}
+input.inline-input.ng-invalid {
+  background-color: #fdeff0;
+}
+
 .site-footer {
   padding: 1.5rem 3rem 3rem;
   text-align: center;
