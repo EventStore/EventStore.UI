@@ -9,9 +9,11 @@ define(['./_module'], function (app) {
             function ($http, $cookieStore, urls, urlBuilder) {
 
                 return {
-                    subscriptions: function (pageSize, offset) {
-                        var url = urlBuilder.build(urls.competing.subscriptions, pageSize, offset);
+                    subscriptions: function (url) {
                         return $http.get(url);
+                    },
+                    getSubscriptionsFirstUrl: function(pageSize) {
+                        return urlBuilder.build(urls.competing.subscriptions, 0, pageSize);
                     },
                     subscriptionDetail: function (subscriptionId, groupName) {
                         var url = urlBuilder.build(urls.competing.subscriptionDetails, subscriptionId, groupName);

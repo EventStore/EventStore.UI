@@ -5,25 +5,30 @@ define(['./_module'], function (app) {
     return app.controller('SubscriptionsListCtrl', [
         '$scope', 'CompetingService', 'SubscriptionsMapper', 'poller', 'MessageService', 'urls', 'UrlBuilder',
         function ($scope, competingService, subscriptionsMapper, pollerProvider, msg, urls, urlBuilder) {
-            function startPolling(count, offset, intervalSeconds) {
+            function startPolling(url, intervalSeconds) {
+                var interval = !intervalSeconds ? 1 : intervalSeconds;
                 pollerProvider.clear();
                 var subscriptionsPoll = pollerProvider.create({
-                    interval: intervalSeconds * 1000,
+                    interval: interval * 1000,
                     action: competingService.subscriptions,
-                    params: [count, offset]
+                    params: [url]
                 });
                 subscriptionsPoll.start();
                 subscriptionsPoll.promise.then(null, null, function (data) {
+                    let links = data.links.reduce((prev, curr) => ({...prev, [curr.rel]:curr.href}), {});
                     $scope.paging.currentOffset = data.offset;
                     $scope.paging.count = data.count;
                     $scope.paging.total = data.total;
-                    if (data.count === 0) {
-                        $scope.paging.firstEntry = 0;
-                        $scope.paging.lastEntry = 0;
-                    } else {
+                    $scope.paging.firstEntry = 0;
+                    $scope.paging.lastEntry = 0;
+                    if (data.count > 0) {
                         $scope.paging.firstEntry = data.offset + 1;
                         $scope.paging.lastEntry = data.offset + data.count;
                     }
+                    $scope.paging.firstUrl = links.first;
+                    $scope.paging.selfUrl = links.self;
+                    $scope.paging.nextUrl = links.next;
+                    $scope.paging.previousUrl = links.previous;
                     $scope.subscriptions = subscriptionsMapper.map(data.subscriptions, $scope.subscriptions);
                 });
                 subscriptionsPoll.promise.catch(function (error) {
@@ -44,37 +49,41 @@ define(['./_module'], function (app) {
                 firstEntry: 0,
                 lastEntry: 0,
                 total: 0,
+                firstUrl: competingService.getSubscriptionsFirstUrl(initialPageSize),
+                selfUrl: null,
+                nextUrl: null,
+                previousUrl: null,
                 canPageNext : function() {
-                    return $scope.paging.total > $scope.paging.lastEntry;
+                    return $scope.paging.nextUrl;
                 },
                 canPagePrevious: function() {
-                    return $scope.paging.currentOffset > 0;
+                    return $scope.paging.previousUrl;
                 },
                 firstPage: function() {
-                    startPolling($scope.paging.pageSize, 0);
+                    startPolling($scope.paging.firstUrl, $scope.paging.pageRefreshInterval);
                 },
                 nextPage: function() {
                     if($scope.paging.canPageNext()) {
-                        startPolling($scope.paging.pageSize, $scope.paging.currentOffset + $scope.paging.pageSize, $scope.paging.pageRefreshInterval);
+                        startPolling($scope.paging.nextUrl, $scope.paging.pageRefreshInterval);
                     }
                 },
                 previousPage: function() {
                     if($scope.paging.canPagePrevious()) {
-                        startPolling($scope.paging.pageSize, Math.max(0, $scope.paging.currentOffset - $scope.paging.pageSize), $scope.paging.pageRefreshInterval);
+                        startPolling($scope.paging.previousUrl, $scope.paging.pageRefreshInterval);
                     }
                 },
                 onPageSizeChanged: function() {
                     if ($scope.paging.pageSizeInput >= 1 && $scope.paging.pageSizeInput !== $scope.paging.pageSize) {
                         $scope.paging.pageSize = $scope.paging.pageSizeInput;
                         competingService.savePageSizeToCookie($scope.paging.pageSize);
-                        startPolling($scope.paging.pageSize, $scope.paging.offset);
+                        startPolling(competingService.getSubscriptionsFirstUrl($scope.paging.pageSize), $scope.paging.pageRefreshInterval);
                     }
                 },
                 onPageRefreshIntervalChanged: function() {
                     if ($scope.paging.pageRefreshIntervalInput >= 1 && $scope.paging.pageRefreshIntervalInput !== $scope.paging.pageRefreshInterval) {
                         $scope.paging.pageRefreshInterval = $scope.paging.pageRefreshIntervalInput;
                         competingService.savePageRefreshIntervalSecondsToCookie($scope.paging.pageRefreshInterval);
-                        startPolling($scope.paging.pageSize, $scope.paging.offset, $scope.paging.pageRefreshInterval);
+                        startPolling($scope.paging.selfUrl, $scope.paging.pageRefreshInterval);
                     }
                 }
             };
@@ -88,7 +97,7 @@ define(['./_module'], function (app) {
             };
 
             $scope.subscriptions = {};
-            startPolling($scope.paging.pageSize, $scope.paging.currentOffset);
+            startPolling($scope.paging.firstUrl, $scope.paging.pageRefreshInterval);
 
             $scope.$on('$destroy', function () {
                 pollerProvider.clear();

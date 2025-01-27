@@ -75,7 +75,7 @@ define(['es-ui'], function (app) {
 			options: '/info/options',
 		},
 		competing:{
-			subscriptions: '/subscriptions?count=%s&offset=%s',
+			subscriptions: '/subscriptions?offset=%s&count=%s',
 			subscriptionDetails: '/subscriptions/%s/%s/info',
 			create: '/subscriptions/%s/%s',
 			update: '/subscriptions/%s/%s',
