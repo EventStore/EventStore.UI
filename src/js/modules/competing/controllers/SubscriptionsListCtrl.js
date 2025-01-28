@@ -15,7 +15,10 @@ define(['./_module'], function (app) {
                 });
                 subscriptionsPoll.start();
                 subscriptionsPoll.promise.then(null, null, function (data) {
-                    let links = data.links.reduce((prev, curr) => ({...prev, [curr.rel]:curr.href}), {});
+                    let links = {};
+                    for(var i = 0; i < data.links.length; i++) {
+                        links[data.links[i].rel] = data.links[i].href;
+                    }
                     $scope.paging.currentOffset = data.offset;
                     $scope.paging.count = data.count;
                     $scope.paging.total = data.total;
